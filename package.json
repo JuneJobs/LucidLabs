@@ -1,0 +1,22 @@
+{
+  "name": "lucidlabs",
+  "version": "0.0.0",
+  "description": "Server Module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuneJobs/LucidLabs.git"
+  },
+  "keywords": [
+    "server"
+  ],
+  "author": "Junhee Park",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JuneJobs/LucidLabs/issues"
+  },
+  "homepage": "https://github.com/JuneJobs/LucidLabs#readme"
+}
