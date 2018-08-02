@@ -1,0 +1,6 @@
+{
+  "loggerLevel": "debug",
+  "serverErrorCode": {
+    "acceessDenied": 0
+  }
+}
