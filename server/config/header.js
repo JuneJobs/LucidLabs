@@ -1,6 +1,25 @@
 
+const HEADER_SIZE = 6;
 
-/** SSP protocol message type 
+const INVALID_ID_TYPE = 07
+
+/** Protocol message endpoint id type define
+ * Define 01 ~ 06
+ * Reserved 07 ~ 0f
+ */
+const ENDPOIONT_ID_TYPE = {
+    EI_TYPE_SENSOR_TSI: 01,
+    EI_TYPE_APP_TCI: 02,
+    EI_TYPE_WEB_TCI: 03,
+    EI_TYPE_SENSOR_SSN: 04,
+    EI_TYPE_APP_USN: 05,
+    EI_TYPE_WEB_USN: 06,
+}
+
+
+const INVALID_MSG_TYPE = 0xff;
+
+/** SSP protocol message type define
  *  Define 0x01 (1) ~ 0x08 (8)
  *  Reserved 0x09 (9) ~ 0x1e (30)
  */
@@ -14,7 +33,7 @@ const SSP_MSG_TYPE = {
     SSP_RAD_TRN: 0x07,
     SSP_RAD_ACK: 0x08
 };
-/** SAP protocol message type 
+/** SAP protocol message type define
  *  Define 0x1f (31) ~ 0x44 (62)
  *  Reserved 0x3f (63) ~ 0x64 (100)
  */
@@ -52,7 +71,7 @@ const SAP_MSG_TYPE = {
     SAP_KAS_REQ: 0x43,
     SAP_KAS_RSP: 0x44
 };
-/** SWP protocol message type 
+/** SWP protocol message type define
  *  Define 0x65 (101) ~ 0x8e (142)
  *  Reserved 0x8f (143) ~ 0xaa (170)
  */
@@ -100,9 +119,9 @@ const SWP_MSG_TYPE = {
     SWP_KAS_REQ: 0x8d,
     SWP_KAS_RSP: 0x8e
 };
-/** SDP protocol message type
+/** SDP protocol message type define
  *  Define 0xab (171) ~ 0xd8 (216)
- *  Reserved 0xd9 (217) ~ 0xff (255)
+ *  Reserved 0xd9 (217) ~ 0xfe (254)
  */
 const SDP_MSG_TYPE = {
     SDP_SGU_REQ: 0xab,
@@ -152,3 +171,12 @@ const SDP_MSG_TYPE = {
     SDP_HHV_REQ: 0xd7,
     SDP_HHV_RSP: 0xd8
 }
+
+module.exports = { HEADER_SIZE, 
+                   INVALID_ID_TYPE, 
+                   ENDPOIONT_ID_TYPE, 
+                   INVALID_MSG_TYPE, 
+                   SSP_MSG_TYPE, 
+                   SAP_MSG_TYPE,
+                   SWP_MSG_TYPE, 
+                   SDP_MSG_TYPE }

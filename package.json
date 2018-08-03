@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/JuneJobs/LucidLabs/issues"
   },
-  "homepage": "https://github.com/JuneJobs/LucidLabs#readme"
+  "homepage": "https://github.com/JuneJobs/LucidLabs#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "log4js": "^3.0.4"
+  }
 }
