@@ -34,12 +34,15 @@ class llLogger {
   }
   trace(message) {
     this.logger.trace(message);
+    console.log("[trace] ", message);
   }
   debug(message) {
     this.logger.debug(message);
+    console.log("[debug] ", message);
   }
   info(message) {
     this.logger.info(message);
+    console.log("[info] ", message);
   }
 }
 module.exports = llLogger;

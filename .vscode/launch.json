@@ -21,6 +21,10 @@
       "protocol": "auto",
       "name": "Config",
       "port": 5858
+    },
+    {
+      "type": "suck",
+      "request": "poop"
     }
   ]
 }
