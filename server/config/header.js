@@ -16,7 +16,6 @@ const ENDPOIONT_ID_TYPE = {
     EI_TYPE_WEB_USN: 06,
 }
 
-
 const INVALID_MSG_TYPE = 0xff;
 
 /** SSP protocol message type define
@@ -172,6 +171,80 @@ const SDP_MSG_TYPE = {
     SDP_HHV_RSP: 0xd8
 }
 
+const SSR_TSI_STATE_ID = {
+    SSR_TSI_IDLE_STATE:                          0x1,
+    SSR_TSI_HALF_SSN_INFORMED_STATE:             0x2,
+    SSR_TSI_SSN_INFORMED_STATE:                  0x3
+}
+
+const SSR_SSN_STATE_ID = {
+    SSR_SSN_IDLE_STATE:                          0x1,
+    SSR_SSN_SSN_INFORMED_STATE:                  0x2,
+    SSR_SSN_HALF_CID_INFORMED_STATE:             0x3,
+    SSR_SSN_CID_INFORMED_STATE:                  0x4,
+    SSR_SSN_HALF_IDLE_STATE:                     0x5
+}
+
+const CLI_TCI_STATE_ID = {
+    CLI_TCI_IDLE_STATE:                          0x1,
+    CLI_TCI_USER_ID_DUPLICATE_REQUESTED_STATE:   0x2,
+    CLI_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE: 0x3,
+    CLI_TCI_USER_HALF_USN_ALLOCATED_STATE:       0x4,
+    CLI_TCI_USN_ALLOCATED_STATE:                 0x5,
+    CLI_TCI_HALF_IDLE_STATE:                     0x6
+}
+
+const CLI_USN_STATE_ID_TYPE = {
+    CLI_USN_IDLE_STATE:                          0x1,
+    CLI_USN_USN_INFORMED_STAET:                  0x2,
+    CLI_USN_HALF_CID_INFORMED_STATE:             0x3,
+    CLI_USN_CID_INFORMED_STATE:                  0x4,
+    CLI_USN_HALF_CID_RELEASED_STATE:             0x5,
+    CLI_USN_HALF_IDLE_STATE:                     0x6
+
+}
+/**
+ * Server timer define
+ */
+const SERVER_TIMER = {
+    T701: 5,
+    T702: 5,
+    T703: 5,
+    T704: 5,
+    T705: 5,
+    T706: 5,
+    T707: 5,
+    T708: 5,
+    T709: 5,
+    T710: 5,
+    T711: 5,
+    T712: 5,
+    T713: 5,
+    T714: 5,
+    T715: 5,
+    T716: 5,
+    T717: 5,
+    T718: 5,
+    T719: 5,
+    T720: 5,
+    T721: 5,
+    T722: 5,
+    T723: 5,
+    T801: 5,
+    T802: 5,
+    T803: 5,
+    T804: 5,
+    T831: 5,
+    T832: 10,
+    T833: 5,
+    T834: 5,
+    T835: 5,
+    T836: 5,
+    T861: 5,
+    T862: 5,
+    T863: 5
+}
+
 module.exports = { HEADER_SIZE, 
                    INVALID_ID_TYPE, 
                    ENDPOIONT_ID_TYPE, 
@@ -179,4 +252,6 @@ module.exports = { HEADER_SIZE,
                    SSP_MSG_TYPE, 
                    SAP_MSG_TYPE,
                    SWP_MSG_TYPE, 
-                   SDP_MSG_TYPE }
+                   SDP_MSG_TYPE,
+                   SERVER_TIMER
+                }

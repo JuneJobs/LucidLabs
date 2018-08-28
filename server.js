@@ -11,8 +11,9 @@ const llLogger = require("./server/lib/llLogger");
 global.logger = new llLogger(config.loggerLevel);
 const llCodeGenerator = require("./server/lib/llCodeGenerator")
 global.codeGen = new llCodeGenerator();
-
-
+//Import msg module
+const llMsg = require("./server/lib/llMsg");
+global.msg = new llMsg();
 
 const _apiPort = config.webServicePort;
 global.app = express();
@@ -28,7 +29,7 @@ require('./server/businessLogic/router');
 //Server runner
 app.listen(_apiPort, function(){
     setInterval( () => {
-        logger.debug("server is running");
+        logger.debug("server is running on port " + _apiPort);
         //logger.debug(codeGen.getVerificationCode());
         //logger.debug(codeGen.getAuthenticationCode());
     }, 2000);

@@ -10,7 +10,8 @@
       "name": "Launch Program",
       //"program": "${workspaceRoot}/index.js",
       "program":
-        "${workspaceRoot}/server.js",
+        //"${workspaceRoot}/server.js",
+        "${workspaceRoot}/server/lib/llBuffer.js",
       "runtimeExecutable":
         "/Users/junheepark/.nvm/versions/node/v10.6.0/bin/node",
       "cwd": "${workspaceRoot}"
