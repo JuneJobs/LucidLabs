@@ -1,6 +1,6 @@
 'use strict'
 
-class llMsg {
+class LlMsg {
     constructor() {
 
     }

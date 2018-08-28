@@ -7,7 +7,7 @@ var redisCli = redis.createClient();
 //데이터 업데이트
 //타이머 적용
 
-class llBuffer {
+class LlBuffer {
     constructor(){
     }
     /**
@@ -59,6 +59,6 @@ class llBuffer {
     }
 }
 
-var buf = new llBuffer()
+var buf = new LlBuffer()
 buf.setBuffer("STATE:TSI", 1);
 buf.setBuffer("STATE:TSI", 2);

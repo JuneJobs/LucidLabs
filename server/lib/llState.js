@@ -5,7 +5,7 @@
      global.buffer = new llBuffer();
  */
 
-class llState {
+class LlState {
     constructor(){
 
     }

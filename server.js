@@ -7,13 +7,13 @@ const g = require("./server/config/header");
 const bodyParser = require("body-parser");
 const express = require("express");
 //Import logger module
-const llLogger = require("./server/lib/llLogger");
-global.logger = new llLogger(config.loggerLevel);
-const llCodeGenerator = require("./server/lib/llCodeGenerator")
-global.codeGen = new llCodeGenerator();
+const LlLogger = require("./server/lib/LlLogger");
+global.logger = new LlLogger(config.loggerLevel);
+const LlCodeGenerator = require("./server/lib/LlCodeGenerator")
+global.codeGen = new LlCodeGenerator();
 //Import msg module
-const llMsg = require("./server/lib/llMsg");
-global.msg = new llMsg();
+const LlMsg = require("./server/lib/LlMsg");
+global.msg = new LlMsg();
 
 const _apiPort = config.webServicePort;
 global.app = express();

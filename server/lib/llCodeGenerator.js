@@ -1,7 +1,7 @@
 'use strict'
 const codeGenerator = require("node-code-generator");
 var generator = new codeGenerator();
-class llCodeGenerator {
+class LlCodeGenerator {
     constructor(){
     }
     getVerificationCode() {
@@ -11,4 +11,4 @@ class llCodeGenerator {
         return generator.generateCodes("*#*#*#*#*#*#*#*#*#*#", 1, {})[0];
     }
 }
-module.exports = llCodeGenerator;
+module.exports = LlCodeGenerator;

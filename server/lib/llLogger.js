@@ -26,7 +26,7 @@ log4js.configure({
   appenders: { cheese: { type: "file", filename: "cheese.log" } },
   categories: { default: { appenders: ["cheese"], level: "debug" } }
 });
-class llLogger {
+class LlLogger {
   constructor(logLevel) {
     this.logger = log4js.getLogger();
     if (logLevel === undefined) logLevel = "debug";
@@ -45,4 +45,4 @@ class llLogger {
     console.log("[info] ", message);
   }
 }
-module.exports = llLogger;
+module.exports = LlLogger;
