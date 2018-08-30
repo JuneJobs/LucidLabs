@@ -25,4 +25,4 @@ class LlMsg {
         return msgPayload;
     }
 }
-module.exports = llMsg;
+module.exports = LlMsg;
