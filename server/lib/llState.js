@@ -13,94 +13,107 @@ class LlState {
     constructor(){
 
     }
-    getState(endpointIdType, stateId){
+    getState(endpointIdType, stateId, cb) {
+        var key = '';
+        var searchType = '';
         if(this.checkValidType(endpointIdType)) {
-                //데이터가 있으면 스테이트 반환
-                switch (endpointIdType) {
-                    case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_TSI:
-                        redisCli.get('c:sta:s:s:'+stateId[0]+':'+stateId[1], (err, reply)=>{
-                            if (err){
-                                return false;
-                            } else {
-                                if(reply === null){
-                                    return false;
-                                } else {
-                                    return reply;
+            //데이터가 있으면 스테이트 반환
+            switch (endpointIdType) {
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_TSI:
+                    key = 'c:sta:s:s:tsi:' + stateId + ':*';
+                    searchType = 'keys';
+                    break;
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN:
+                    key = 'c:sta:s:s:ssn:' + stateId;
+                    searchType = 'get';
+                    break;
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI:
+                    key = 'c:sta:s:a:tci:' + stateId + '*';
+                    searchType = 'keys';
+                    break;
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN:
+                    key = 'c:sta:s:a:usn:' + stateId;
+                    searchType = 'get';
+                    break;
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI:
+                    key = 'c:sta:s:w:tci:' + stateId + '*';
+                    searchType = 'keys';
+                    break;
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN:
+                    key = 'c:sta:s:w:usn:' + stateId;
+                    searchType = 'get';
+                    break;
+            }
+            if(searchType === 'keys'){
+                redisCli.keys(key, (err, reply) => {
+                    if (err) {} else {
+                        if (reply === null) {
+                            cb(false);
+                        } else {
+                            redisCli.get(reply[0], (err, reply) => {
+                                if (err) {} else {
+                                    cb(reply);
                                 }
-                            }
-                        });
-                    case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN:
-                        redisCli.get('c:sta:s:s:'+stateId, (err, reply) => {
-                            if (err) {
-                                return false;
-                            } else {
-                                if (reply === null) {
-                                    return false;
-                                } else {
-                                    return reply;
-                                }
-                            }
-                        });
-                    case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI:
-                        redisCli.get('c:sta:s:a:' + stateId[0] + ':' + stateId[1], (err, reply) => {
-                            if (err) {
-                                return false;
-                            } else {
-                                if (reply === null) {
-                                    return false;
-                                } else {
-                                    return reply;
-                                }
-                            }
-                        });
-                    case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN:
-                        redisCli.get('c:sta:s:a:' + stateId, (err, reply) => {
-                            if (err) {
-                                return false;
-                            } else {
-                                if (reply === null) {
-                                    return false;
-                                } else {
-                                    return reply;
-                                }
-                            }
-                        });
-                    case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI:
-                        redisCli.get('c:sta:s:w:' + stateId[0] + ':' + stateId[1], (err, reply) => {
-                            if (err) {
-                                return false;
-                            } else {
-                                if (reply === null) {
-                                    return false;
-                                } else {
-                                    return reply;
-                                }
-                            }
-                        });
-                    case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN:
-                        redisCli.get('c:sta:s:a:' + stateId, (err, reply) => {
-                            if (err) {
-                                return false;
-                            } else {
-                                if (reply === null) {
-                                    return false;
-                                } else {
-                                    return reply;
-                                }
-                            }
-                        });
-                    default:
-                    
-                        break;
-                }
-                //데이터가 없으면 false
+                            });
+
+                        }
+                    }
+                });
+            } else if (searchType === 'get'){
+                 redisCli.get(key, (err, reply) => {
+                     if (err) {} else {
+                         cb(reply);
+                     }
+                 });
+            }
+            
         } else {
             // 
             return false;
         }
     }
-    setState(endpointIdType, stateId){
-
+    //sec
+    setState(endpointIdType, stateId, value, timeout) {
+        var key = "";
+        if (this.checkValidType(endpointIdType)) {
+            switch (endpointIdType) {
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_TSI:
+                    key = 'c:sta:s:s:tsi:' + stateId[0] + ':' + stateId[1];
+                    break;
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN:
+                    key = 'c:sta:s:s:ssn:' + stateId;
+                    break;
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI:
+                    key = 'c:sta:s:a:tci:' + stateId[0] + ':' + stateId[1];
+                    break;
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN:
+                    key = 'c:sta:s:a:usn:' + stateId;
+                    break;
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI:
+                    key = 'c:sta:s:w:tci:' + stateId[0] + ':' + stateId[1];
+                    break;
+                case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN:
+                    key = 'c:sta:s:w:usn:' + stateId;
+                    break;
+            }
+            redisCli.set(key, value, (err, reply) => {
+                if (err) {
+                    return false;
+                } else {
+                    if (reply === null) {
+                        return false;
+                    } else {
+                        if (timeout !== undefined) {
+                            redisCli.expire(key, timeout);
+                        }
+                        return true;
+                    }
+                }
+            });
+        } else {
+            // 
+            return false;
+        }
     }
     checkValidType(endpointIdType){
         if (endpointIdType === g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_TSI ||
@@ -116,5 +129,4 @@ class LlState {
 
     }
 }
-var state = new LlState();
-state.getState(g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_TSI, ["1", "3c:15:c2:e2:e9:cc"]);
+module.exports = LlState;

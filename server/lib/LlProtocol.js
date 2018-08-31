@@ -6,7 +6,7 @@
  * @last update 2018. 08. 28.
  * 
  */
-//const g = require("../config/header");
+const g = require("../config/header");
 class LlProtocol {
     constructor() {
         this.msg = null;

@@ -2,8 +2,6 @@
 
 //Import config options for develop
 const config = require('./server/config/default.json');
-//Import gloabal values
-const g = require("./server/config/header");
 const bodyParser = require("body-parser");
 const express = require("express");
 //Import logger module

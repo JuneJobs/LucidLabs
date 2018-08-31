@@ -194,7 +194,7 @@ const CLI_TCI_STATE_ID = {
     CLI_TCI_HALF_IDLE_STATE:                     0x6
 }
 
-const CLI_USN_STATE_ID_TYPE = {
+const CLI_USN_STATE_ID = {
     CLI_USN_IDLE_STATE:                          0x1,
     CLI_USN_USN_INFORMED_STAET:                  0x2,
     CLI_USN_HALF_CID_INFORMED_STATE:             0x3,
@@ -253,5 +253,10 @@ module.exports = { HEADER_SIZE,
                    SAP_MSG_TYPE,
                    SWP_MSG_TYPE, 
                    SDP_MSG_TYPE,
+                   SSR_TSI_STATE_ID,
+                   SSR_SSN_STATE_ID,
+                   CLI_TCI_STATE_ID,
+                   CLI_USN_STATE_ID,
+                   
                    SERVER_TIMER
                 }
