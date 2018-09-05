@@ -1,19 +1,19 @@
 "use strict";
 const HEADER_SIZE = 6;
 
-const INVALID_ID_TYPE = 07
+const INVALID_ID_TYPE = 7;
 
 /** Protocol message endpoint id type define
  * Define 01 ~ 06
  * Reserved 07 ~ 0f
  */
 const ENDPOIONT_ID_TYPE = {
-    EI_TYPE_SENSOR_TSI: 01,
-    EI_TYPE_APP_TCI: 02,
-    EI_TYPE_WEB_TCI: 03,
-    EI_TYPE_SENSOR_SSN: 04,
-    EI_TYPE_APP_USN: 05,
-    EI_TYPE_WEB_USN: 06,
+    EI_TYPE_SENSOR_TSI: 1,
+    EI_TYPE_APP_TCI:    2,
+    EI_TYPE_WEB_TCI:    3,
+    EI_TYPE_SENSOR_SSN: 4,
+    EI_TYPE_APP_USN:    5,
+    EI_TYPE_WEB_USN:    6
 }
 
 const INVALID_MSG_TYPE = 0xff;

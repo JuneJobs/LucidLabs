@@ -1,0 +1,21 @@
+[2018-09-05T01:42:15.859] [DEBUG] default - Received request on /serverapi: {}
+[2018-09-05T01:42:49.251] [DEBUG] default - Running on port 8080
+[2018-09-05T01:42:57.999] [DEBUG] default - Received request on /serverapi: {}
+[2018-09-05T01:43:49.253] [DEBUG] default - Running on port 8080
+[2018-09-05T01:44:49.253] [DEBUG] default - Running on port 8080
+[2018-09-05T01:45:16.164] [DEBUG] default - Received request on /serverapi: {}
+[2018-09-05T01:45:48.205] [DEBUG] default - Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":1028},"payload":{"birthDate":"3c:15:c2:e2:e9:cc","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-05T01:54:27.908] [DEBUG] default - receive response: {"header":{"msgType":1},"payload":{"resultCode":1}}
+[2018-09-05T01:54:27.916] [DEBUG] default - Running on port 8080
+[2018-09-05T01:54:40.273] [DEBUG] default - Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":1028},"payload":{"birthDate":"3c:15:c2:e2:e9:cc","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-05T01:55:10.433] [DEBUG] default - Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":1028},"payload":{"birthDate":"3c:15:c2:e2:e9:cc","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-05T01:56:03.141] [DEBUG] default - Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":1028},"payload":{"birthDate":"3c:15:c2:e2:e9:cc","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-05T01:56:34.203] [DEBUG] default - Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":1028},"payload":{"birthDate":"3c:15:c2:e2:e9:cc","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-05T01:57:17.987] [DEBUG] default - Running on port 8080
+[2018-09-05T01:57:24.257] [DEBUG] default - Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":1028},"payload":{"birthDate":"3c:15:c2:e2:e9:cc","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-05T02:05:19.515] [DEBUG] default - Running on port 8080
+[2018-09-05T02:05:19.523] [DEBUG] default - Received request on /databaseapi: {"header":{"msgType":101,"msgLen":0,"endpointId":1028},"payload":{"userId":"j.jobs1028@gmail.com"}}
+[2018-09-05T02:05:43.676] [DEBUG] default - Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":1028},"payload":{"birthDate":"3c:15:c2:e2:e9:cc","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-05T02:06:31.507] [DEBUG] default - Running on port 8080
+[2018-09-05T02:07:31.507] [DEBUG] default - Running on port 8080
+[2018-09-05T02:08:31.505] [DEBUG] default - Running on port 8080

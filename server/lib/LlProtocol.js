@@ -76,7 +76,10 @@ class LlProtocol {
             switch (this.msgType) {
                 case g.SSP_MSG_TYPE.SSP_SIR_REQ:
                     return this._unpackSspSirReqPayload();
-                
+                case g.SWP_MSG_TYPE.SWP_SGU_REQ:
+                    return this._unpackSwpSguReqPayload();
+                case g.SDP_MSG_TYPE.SDP_SGU_REQ:
+                    return this._unpackSdpSguReqPayload();
                 default:
                     return fasle;
             }
@@ -116,25 +119,31 @@ class LlProtocol {
             return false;
         }
     }
-    _unpackSspSirReqPayload() {
-        //validation
-        //parsing
-        this.unpackedPayload = {
-            "wifiMacAddress": this.msgPayload.wifiMacAddress
-        }
-        return this.unpackedPayload;
-    }
     packMsg(msgType, payload) {
-        if (this.msgType !== null) {
+        if (msgType !== null) {
             switch (msgType) {
+                case g.SDP_MSG_TYPE.SDP_SGU_REQ:
+                    return this._packSdpSguReq(payload);
                 case g.SSP_MSG_TYPE.SSP_SIR_RSP:
                     return this._packSspSirRsp(payload);
 
                 default:
-                    return fasle;
+                    return false;
             }
         } else {
             return false;
+        }
+    }
+    _packSdpSguReq(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": 102,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": {
+                "userId" : payload.userId
+            }
         }
     }
     _packSspSirRsp(payload) {
@@ -149,6 +158,40 @@ class LlProtocol {
         } else {
             return false;
         }
+    }
+    //ssp
+    _unpackSspSirReqPayload() {
+        //validation
+        //parsing
+        this.unpackedPayload = {
+            "wifiMacAddress": this.msgPayload.wifiMacAddress
+        }
+        return this.unpackedPayload;
+    }
+    //swp
+    _unpackSwpSguReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "birthDate": payload.birthDate,
+            "gender": payload.gender,
+            "userId": payload.userId,
+            "userPw": payload.userPw,
+            "userFn": payload.userFn,
+            "userLn": payload.userLn
+        }
+        return this.unpackedPayload;
+    }
+    //sdp
+    _unpackSdpSguReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "userId": payload.userId
+        }
+        return this.unpackedPayload;
     }
  }
  module.exports = LlProtocol;
