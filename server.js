@@ -33,6 +33,6 @@ app.listen(_apiPort, function(){
         logger.debug("Running on port " + _apiPort);
         //logger.debug(codeGen.getVerificationCode());
         //logger.debug(codeGen.getAuthenticationCode());
-    }, 10000);
+    }, 60000);
     
 });

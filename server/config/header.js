@@ -191,7 +191,8 @@ const CLI_TCI_STATE_ID = {
     CLI_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE: 0x3,
     CLI_TCI_USER_HALF_USN_ALLOCATED_STATE:       0x4,
     CLI_TCI_USN_ALLOCATED_STATE:                 0x5,
-    CLI_TCI_HALF_IDLE_STATE:                     0x6
+    CLI_TCI_HALF_USN_INFORMED_STATE:             0x6,
+    CLI_TCI_HALF_IDLE_STATE:                     0x7
 }
 
 const CLI_USN_STATE_ID = {
@@ -201,8 +202,63 @@ const CLI_USN_STATE_ID = {
     CLI_USN_CID_INFORMED_STATE:                  0x4,
     CLI_USN_HALF_CID_RELEASED_STATE:             0x5,
     CLI_USN_HALF_IDLE_STATE:                     0x6
-
 }
+/**
+ * 스테이트 별 수신가능한 메세지 테이블
+ * //서버
+ * 센서: 스테이트1:  수신가능 메세지
+ * 
+ */
+const SERVER_RECV_MSG_BY_STATE = {
+     TSI: {
+        IDLE_STATE: [
+            SSP_MSG_TYPE.SSP_SIR_REQ
+        ],
+        HALF_SSN_INFORMED_STATE: [
+            SSP_MSG_TYPE.SSP_SIR_REQ,
+            SDP_MSG_TYPE.SDP_SIR_RSP
+        ],
+        SSN_INFORMED_STATE: [
+            SSP_MSG_TYPE.SSP_SIR_REQ
+        ]
+    },
+    SSN: {
+        IDLE_STATE: [
+            SSP_MSG_TYPE.SSP_DCA_REQ
+        ],
+        SSN_INFORMED_STATE: [],
+        HALF_CID_INFORMED_STATE: [
+            SSP_MSG_TYPE.SSP_DCA_REQ,
+            SDP_MSG_TYPE.SDP_DCA_RSP
+        ],
+        CID_INFORMED_STATE: [
+            SSP_MSG_TYPE.SSP_DCD_NOT,
+            SSP_MSG_TYPE.SSP_RAD_TRN,
+            SDP_MSG_TYPE.SDP_RAD_ACK
+        ],
+        HALF_IDLE_STATE: [
+            SSP_MSG_TYPE.SSP_DCD
+        ]
+    },
+    TCI: {
+        IDLE_STATE: [],
+        USER_ID_DUPLICATE_REQUESTED_STATE: [],
+        USER_ID_AVAILABLITY_CONFIRMED_STATE: [],
+        USER_HALF_USN_ALLOCATED_STATE: [],
+        USN_ALLOCATED_STATE: [],
+        HALF_USN_INFORMED_STATE: [],
+        HALF_IDLE_STATE: []
+    },
+    USN: {
+        IDLE_STATE: [],
+        USN_INFORMED_STAET: [],
+        HALF_CID_INFORMED_STATE: [],
+        CID_INFORMED_STATE: [],
+        HALF_CID_RELEASED_STATE: [],
+        HALF_IDLE_STATE: []
+    }
+}
+
 /**
  * Server timer define
  */

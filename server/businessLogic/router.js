@@ -10,7 +10,7 @@ const LlState = require('../lib/LlState');
 //Import gloabal values
 const g = require("../config/header");
 router.post("/api", function(req, res) {
-    logger.debug("receive request: " + JSON.stringify(req.body));
+    logger.debug("Received request on /api: " + JSON.stringify(req.body));
     //var [rcvdMsgType, rcvdEI, rcvdPayload]  = msg.verifyHeader(req.body);
     //rcvdMsgType = 1, rcvdEI = 1, rcvdPayload = ???
     var protocol = new LlProtocol();
