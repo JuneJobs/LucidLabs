@@ -1,3 +1,4 @@
+"use strict";
 const redis = require("redis");
 const g = require("../config/header");
 var redisCli = redis.createClient();
