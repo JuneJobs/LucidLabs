@@ -8,12 +8,12 @@ const INVALID_ID_TYPE = 7;
  * Reserved 07 ~ 0f
  */
 const ENDPOIONT_ID_TYPE = {
-    EI_TYPE_SENSOR_TSI: 1,
-    EI_TYPE_APP_TCI:    2,
-    EI_TYPE_WEB_TCI:    3,
-    EI_TYPE_SENSOR_SSN: 4,
-    EI_TYPE_APP_USN:    5,
-    EI_TYPE_WEB_USN:    6
+    EI_TYPE_SENSOR_TSI: 0x01,
+    EI_TYPE_APP_TCI:    0x02,
+    EI_TYPE_WEB_TCI:    0x03,
+    EI_TYPE_SENSOR_SSN: 0x04,
+    EI_TYPE_APP_USN:    0x05,
+    EI_TYPE_WEB_USN:    0x06
 }
 
 const INVALID_MSG_TYPE = 0xff;
@@ -118,6 +118,24 @@ const SWP_MSG_TYPE = {
     SWP_KAS_REQ: 0x8d,
     SWP_KAS_RSP: 0x8e
 };
+const SSP_MSG_RESCODE = {
+
+};
+const SAP_MSG_RESCODE = {
+
+};
+const SWP_MSG_RESCODE = {
+    RESCODE_SWP_SGU : {
+        RESCODE_SWP_SGU_OK: 0,
+        RESCODE_SWP_SGU_OTHER: 1,
+        RESCODE_SWP_SGU_CONFLICT_OF_TEMPORARY_CLIENT_ID: 2,
+        RESCODE_SWP_SGU_DUPLICATE_OF_USER_ID: 3
+    }
+};
+const SDP_MSG_RESCODE = {
+
+};
+
 /** SDP protocol message type define
  *  Define 0xab (171) ~ 0xd8 (216)
  *  Reserved 0xd9 (217) ~ 0xfe (254)

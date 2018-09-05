@@ -75,3 +75,24 @@
 [2018-09-05T02:56:39.389] [DEBUG] default - Running on port 8080
 [2018-09-05T02:57:39.389] [DEBUG] default - Running on port 8080
 [2018-09-05T02:58:39.389] [DEBUG] default - Running on port 8080
+[2018-09-05T02:59:39.390] [DEBUG] default - Running on port 8080
+[2018-09-05T03:00:39.390] [DEBUG] default - Running on port 8080
+[2018-09-05T03:01:39.388] [DEBUG] default - Running on port 8080
+[2018-09-05T03:02:39.386] [DEBUG] default - Running on port 8080
+[2018-09-05T03:03:39.385] [DEBUG] default - Running on port 8080
+[2018-09-05T03:04:39.383] [DEBUG] default - Running on port 8080
+[2018-09-05T03:05:39.383] [DEBUG] default - Running on port 8080
+[2018-09-05T03:06:39.381] [DEBUG] default - Running on port 8080
+[2018-09-05T03:07:39.380] [DEBUG] default - Running on port 8080
+[2018-09-05T03:08:39.380] [DEBUG] default - Running on port 8080
+[2018-09-05T03:09:39.383] [DEBUG] default - Running on port 8080
+[2018-09-05T03:10:39.385] [DEBUG] default - Running on port 8080
+[2018-09-05T03:11:39.385] [DEBUG] default - Running on port 8080
+[2018-09-05T03:12:39.383] [DEBUG] default - Running on port 8080
+[2018-09-05T03:13:08.399] [DEBUG] default - Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":1028},"payload":{"birthDate":"3c:15:c2:e2:e9:cc","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-05T03:13:13.873] [DEBUG] default - Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":1028},"payload":{"userId":"j.jobs1028@gmail.com"}}
+[2018-09-05T10:11:56.386] [DEBUG] default - Running on port 8080
+[2018-09-05T10:12:56.384] [DEBUG] default - Running on port 8080
+[2018-09-05T10:13:56.383] [DEBUG] default - Running on port 8080
+[2018-09-05T10:14:03.939] [DEBUG] default - Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":1028},"payload":{"birthDate":"3c:15:c2:e2:e9:cc","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-05T10:14:03.949] [DEBUG] default - Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":1028},"payload":{"userId":"j.jobs1028@gmail.com"}}

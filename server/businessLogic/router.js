@@ -11,6 +11,11 @@ const LlState = require('../lib/LlState');
 const LlRequest = require("../lib/LlRequest");
 //Import gloabal values
 const g = require("../config/header");
+
+const redis = require("redis");
+//Connect with Redis client
+const redisCli = redis.createClient();
+
 router.post("/serverapi", function(req, res) {
     logger.debug("Received request on /serverapi: " + JSON.stringify(req.body));
     //var [rcvdMsgType, rcvdEI, rcvdPayload]  = msg.verifyHeader(req.body);
@@ -75,8 +80,18 @@ router.post("/databaseapi", function(req, res){
     switch (protocol.getMsgType()) {
         case g.SDP_MSG_TYPE.SDP_SGU_REQ:
             //state check
-            
-            res.send("hello");
+            redisCli.get("u:info:id:"+unpackedPayload.userId, (err,reply)=>{
+                if (err){
+                        resultCode = 1;
+                } else {
+                    if(reply === null){
+                        resultCode = 0;
+                    } else {
+                        resultCode = 2;
+                    }
+                }
+                res.send("No");
+            })
         default:
             break;
            
