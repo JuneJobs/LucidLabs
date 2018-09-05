@@ -113,7 +113,7 @@ class LlProtocol {
         this.msgPayload = this.msg.payload;
         //statecheck
         if(this.msgType !== null && this.msgLen !== null && 
-            this.endpointId !== null && this.payload !== null) {
+            this.endpointId !== null && this.msgPayload !== null) {
             return true;
         } else {
             return false;
@@ -137,7 +137,7 @@ class LlProtocol {
     _packSdpSguReq(payload) {
         return this.packedMsg = {
             "header": {
-                "msgType": 102,
+                "msgType": g.SDP_MSG_TYPE.SDP_SGU_REQ,
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },

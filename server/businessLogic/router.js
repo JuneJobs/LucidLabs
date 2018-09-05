@@ -7,7 +7,8 @@
 const LlProtocol = require('../lib/LlProtocol');
 //import state manager module
 const LlState = require('../lib/LlState');
-const request = require("request");
+//Import request manager module
+const LlRequest = require("../lib/LlRequest");
 //Import gloabal values
 const g = require("../config/header");
 router.post("/serverapi", function(req, res) {
@@ -16,6 +17,7 @@ router.post("/serverapi", function(req, res) {
     //rcvdMsgType = 1, rcvdEI = 1, rcvdPayload = ???
     var protocol = new LlProtocol();
     var state = new LlState();
+    var request = new LlRequest();
 
     protocol.setMsg(req.body);
     if(!protocol.verifyHeader()) return;
@@ -24,6 +26,7 @@ router.post("/serverapi", function(req, res) {
     switch (protocol.getMsgType()) {
         case g.SWP_MSG_TYPE.SWP_SGU_REQ:
             var packedSdpSguReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGU_REQ, unpackedPayload);
+            /*
             var options = {
                 method: 'POST',
                 url: 'http://localhost:8080/databaseapi',
@@ -40,7 +43,10 @@ router.post("/serverapi", function(req, res) {
 
                 console.log(body);
             });
-
+            */
+            request.send('http://localhost:8080/databaseapi', packedSdpSguReq, (response, body) => {
+                console.log(body);
+            })
             break;
         case g.SSP_MSG_TYPE.SSP_SIR_REQ:
             //payload = obejct
@@ -61,14 +67,16 @@ router.post("/databaseapi", function(req, res){
     logger.debug("Received request on /databaseapi: " +JSON.stringify(req.body));
     var protocol = new LlProtocol();
     var state = new LlState();
-
     protocol.setMsg(req.body);
     if (!protocol.verifyHeader()) return;
+    //여기가 문제다..
     var unpackedPayload = protocol.unpackPayload();
     if (!unpackedPayload) return;
     switch (protocol.getMsgType()) {
         case g.SDP_MSG_TYPE.SDP_SGU_REQ:
-            console.log("hello");
+            //state check
+            
+            res.send("hello");
         default:
             break;
            
