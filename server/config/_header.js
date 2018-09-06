@@ -173,3 +173,112 @@ const SERVER_RECV_MSG_BY_STATE = {
         ]
     }
 }
+const DATABASE_RECV_MSG_BY_STATE = {
+    TSI: {
+        IDLE_STATE: [
+            SDP_MSG_TYPE.SDP_SIR_REQ
+        ]
+    },
+    SSN: {
+        IDLE_STATE: [],
+        SSN_INFORMED_STATE: [
+            SDP_MSG_TYPE.SDP_DCA_REQ
+        ],
+        CID_ALLOCATED_STATE: [
+            SDP_MSG_TYPE.SDP_RAD_TRN,
+            SDP_MSG_TYPE.SDP_DCD_NOT,
+            SDP_MSG_TYPE.SDP_DCA_REQ
+        ],
+        HALF_IDLE_STATE: [
+            SDP_MSG_TYPE.SDP_DCA_REQ
+        ]
+    },
+    TCI: {
+        IDLE_STATE: [
+            SDP_MSG_TYPE.SDP_SGU_REQ
+        ],
+        UNIQUE_USER_ID_CONFIRMED_STATE: [
+            SDP_MSG_TYPE.SDP_SGU_REQ,
+            SDP_MSG_TYPE.SDP_UVC_REQ
+        ],
+        USN_ALLOCATED_STATE: [
+            SDP_MSG_TYPE.SDP_UVC_REQ
+        ]
+    },
+    USN: {
+        IDLE_STATE: [
+            SDP_MSG_TYPE.SDP_SGI_REQ,
+            SDP_MSG_TYPE.SDP_FPU_REQ,
+            SDP_MSG_TYPE.SDP_SHR_REQ
+        ],
+        USN_INFORMED_STATE: [
+            SDP_MSG_TYPE.SDP_UPC_REQ,
+            SDP_MSG_TYPE.SDP_SRG_REQ,
+            SDP_MSG_TYPE.SDP_SAS_REQ,
+            SDP_MSG_TYPE.SDP_SDD_REQ,
+            SDP_MSG_TYPE.SDP_SLV_REQ,
+            SDP_MSG_TYPE.SDP_DCA_REQ,
+            SDP_MSG_TYPE.SDP_HHV_REQ,
+            SDP_MSG_TYPE.SDP_SGI_REQ,
+            SDP_MSG_TYPE.SDP_FPU_REQ,
+            SDP_MSG_TYPE.SDP_SGI_REQ,
+            SDP_MSG_TYPE.SDP_UDR_REQ,
+            SDP_MSG_TYPE.SDP_AUV_REQ,
+            SDP_MSG_TYPE.SDP_ASR_REQ,
+            SDP_MSG_TYPE.SDP_ASD_REQ,
+            SDP_MSG_TYPE.SDP_ASV_REQ,
+            SDP_MSG_TYPE.SDP_SRG_REQ,
+            SDP_MSG_TYPE.SDP_SAS_REQ,
+            SDP_MSG_TYPE.SDP_SDD_REQ,
+            SDP_MSG_TYPE.SDP_SLV_REQ,
+            SDP_MSG_TYPE.SDP_HAV_REQ,
+            SDP_MSG_TYPE.SDP_SHR_REQ
+        ],
+        CID_INFORMED_STATE: [
+            SDP_MSG_TYPE.SDP_DCA_REQ,
+            SDP_MSG_TYPE.SDP_SGO_NOT,
+            SDP_MSG_TYPE.SDP_UPC_REQ,
+            SDP_MSG_TYPE.SDP_SRG_REQ,
+            SDP_MSG_TYPE.SDP_SAS_REQ,
+            SDP_MSG_TYPE.SDP_SDD_REQ,
+            SDP_MSG_TYPE.SDP_SLV_REQ,
+            SDP_MSG_TYPE.SDP_DCD_NOT,
+            SDP_MSG_TYPE.SDP_RHD_TRN,
+            SDP_MSG_TYPE.SDP_HHV_REQ,
+            SDP_MSG_TYPE.SDP_FPU_REQ,
+            SDP_MSG_TYPE.SDP_SGI_REQ
+        ],
+        CID_RELEASED_STATE: [
+            SDP_MSG_TYPE.SDP_DCD_NOT,
+            SDP_MSG_TYPE.SDP_SGO_NOT,
+            SDP_MSG_TYPE.SDP_FPU_REQ,
+            SDP_MSG_TYPE.SDP_SGI_REQ
+        ],
+        HALF_IDLE_STATE: [
+            SDP_MSG_TYPE.SDP_SGO_NOT,
+            SDP_MSG_TYPE.SDP_FPU_REQ,
+            SDP_MSG_TYPE.SDP_SGI_REQ
+        ],
+        NULL_STATE: [
+            SDP_MSG_TYPE.SDP_SGU_REQ,
+            SDP_MSG_TYPE.SDP_SGI_REQ,
+            SDP_MSG_TYPE.SDP_SGO_NOT,
+            SDP_MSG_TYPE.SDP_UPC_REQ,
+            SDP_MSG_TYPE.SDP_FPU_REQ,
+            SDP_MSG_TYPE.SDP_UDR_REQ,
+            SDP_MSG_TYPE.SDP_AUV_REQ,
+            SDP_MSG_TYPE.SDP_ASR_REQ,
+            SDP_MSG_TYPE.SDP_ASD_REQ,
+            SDP_MSG_TYPE.SDP_ASV_REQ,
+            SDP_MSG_TYPE.SDP_SRG_REQ,
+            SDP_MSG_TYPE.SDP_SAS_REQ,
+            SDP_MSG_TYPE.SDP_SDD_REQ,
+            SDP_MSG_TYPE.SDP_SLV_REQ,
+            SDP_MSG_TYPE.SDP_DCA_REQ,
+            SDP_MSG_TYPE.SDP_DCD_NOT,
+            SDP_MSG_TYPE.SDP_HAV_REQ,
+            SDP_MSG_TYPE.SDP_SHR_REQ,
+            SDP_MSG_TYPE.SDP_HHV_REQ
+        ]
+    }
+}
