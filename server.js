@@ -7,8 +7,6 @@ const express = require("express");
 //Import logger module
 const LlLogger = require("./server/lib/LlLogger");
 global.logger = new LlLogger(config.loggerLevel);
-const LlCodeGenerator = require("./server/lib/LlCodeGenerator")
-global.codeGen = new LlCodeGenerator();
 //Import msg module
 const LlMsg = require("./server/lib/LlMsg");
 global.msg = new LlMsg();

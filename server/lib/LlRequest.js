@@ -2,7 +2,7 @@
 const request = require("request");
 class LlRequest {
     constructor() {
-
+        
     }
     /**
      * Verify message header using msgType and state
@@ -20,7 +20,7 @@ class LlRequest {
         };
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
-            cb(response, body);
+            cb(body);
         });
     }
 }

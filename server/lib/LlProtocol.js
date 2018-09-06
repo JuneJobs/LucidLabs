@@ -80,6 +80,8 @@ class LlProtocol {
                     return this._unpackSwpSguReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SGU_REQ:
                     return this._unpackSdpSguReqPayload();
+                case g.SDP_MSG_TYPE.SDP_SGU_RSP:
+                    return this._unpackSdpSguRspPayload();
                 default:
                     return fasle;
             }
@@ -122,16 +124,30 @@ class LlProtocol {
     packMsg(msgType, payload) {
         if (msgType !== null) {
             switch (msgType) {
-                case g.SDP_MSG_TYPE.SDP_SGU_REQ:
-                    return this._packSdpSguReq(payload);
                 case g.SSP_MSG_TYPE.SSP_SIR_RSP:
                     return this._packSspSirRsp(payload);
-
+                case g.SDP_MSG_TYPE.SDP_SGU_REQ:
+                    return this._packSdpSguReq(payload);
+                case g.SDP_MSG_TYPE.SDP_SGU_RSP:
+                    return this._packSdpSguRsp(payload);
                 default:
                     return false;
             }
         } else {
             return false;
+        }
+    }
+    getPackedMsg() {
+        if (this.packedMsg !== null) {
+            return this.packedMsg
+        } else {
+            return false;
+        }
+    }
+    _packSspSirRsp(payload) {
+        this.packedMsg = {
+            "header": {"msgType": 1},
+            "payload": {"resultCode": payload.resultCode}
         }
     }
     _packSdpSguReq(payload) {
@@ -142,21 +158,20 @@ class LlProtocol {
                 "endpointId": this.endpointId
             },
             "payload": {
-                "userId" : payload.userId
+                "userId": payload.userId
             }
         }
     }
-    _packSspSirRsp(payload) {
-        this.packedMsg = {
-            "header": {"msgType": 1},
-            "payload": {"resultCode": payload.resultCode}
-        }
-    }
-    getPackedMsg() {
-        if (this.packedMsg !== null) {
-            return this.packedMsg
-        } else {
-            return false;
+    _packSdpSguRsp(payload){
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_SGU_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": {
+                "resultCode": payload.resultCode
+            }
         }
     }
     //ssp
@@ -190,6 +205,15 @@ class LlProtocol {
         var payload = this.msgPayload;
         this.unpackedPayload = {
             "userId": payload.userId
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSdpSguRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "resultCode": payload.resultCode
         }
         return this.unpackedPayload;
     }
