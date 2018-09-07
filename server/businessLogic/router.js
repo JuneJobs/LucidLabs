@@ -38,65 +38,164 @@ router.post("/serverapi", function(req, res) {
         //SGU
         case g.SWP_MSG_TYPE.SWP_SGU_REQ:
             var userInfo = unpackedPayload;
-            state.getState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (res) => {
-                //여기
-                console.log(res);
-                if(g.SERVER_RECV_STATE_BY_MSG.SWP_SGU_REQ.includes(res)){
+            state.getState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+                //처음받지 않을경우
+                if (resState !== g.SERVER_NULL_STATE) {
+                    //아이디가 같을경우 재전송, 다를경우 중복
+                    if ('c:sta:s:w:tci:' + protocol.getEndpointId() + ':' + userInfo.userId === searchedKey) {
+                        state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                        logger.debug("SERVER change TCI state to IDLE STATE");
+
+                        var packedSdpSguReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGU_REQ, unpackedPayload);
+                        logger.debug("SERVER send request: " + JSON.stringify(protocol.getPackedMsg()));
+                        //update state
+                        state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
+                        logger.debug("SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE");
+                        request.send('http://localhost:8080/databaseapi', packedSdpSguReq, (message) => {
+                            protocol.setMsg(message);
+                            if (!protocol.verifyHeader()) return;
+                            var unpackedPayload = protocol.unpackPayload();
+                            if (!unpackedPayload) return;
+                            switch (unpackedPayload.resultCode) {
+                                case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OK:
+                                    state.getState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState) => {
+                                        if (g.SERVER_RECV_STATE_BY_MSG.SDP_SGU_RSP.includes(resState)) {
+                                            swpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OK;
+                                            var ac = codeGen.getAuthenticationCode();
+                                            var vc = codeGen.getVerificationCode();
+                                            var keyhead = "u:temp:" + protocol.getEndpointId() + ":";
+                                            var time = g.SERVER_TIMER.T862;
+                                            redisCli.multi([
+                                                ["set", keyhead + "id", userInfo.userId, 'EX', time],
+                                                ["set", keyhead + "pw", userInfo.userPw, 'EX', time],
+                                                ["set", keyhead + "fn", userInfo.userFn, 'EX', time],
+                                                ["set", keyhead + "bdt", userInfo.birthDate, 'EX', time],
+                                                ["set", keyhead + "gen", userInfo.gender, 'EX', time],
+                                                ["set", keyhead + "ac", ac, 'EX', time],
+                                                ["set", keyhead + "vc", vc, 'EX', time],
+                                            ]).exec(function (err, replies) {
+                                                if (err) {} else {
+                                                    logger.debug("SERVER stored temporary user info: in " + time + "sec >" + JSON.stringify(userInfo));
+                                                }
+                                            });
+                                            payload = {
+                                                "resultCode": swpSguRspCode,
+                                                "vc": vc
+                                            }
+                                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload)
+                                            logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                            res.send(protocol.getPackedMsg());
+                                            state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
+                                        }
+                                    });
+                                    break;
+
+                                 case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OTHER:
+                                     sdpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OTHER;
+                                     payload = {
+                                         "resultCode": swpSguRspCode
+                                     }
+                                     state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload)
+                                     logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                     res.send(protocol.getPackedMsg());
+                                     break;
+
+                                 case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_DUPLICATE_OF_USER_ID:
+                                     sdpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_DUPLICATE_OF_USER_ID;
+                                     payload = {
+                                         "resultCode": swpSguRspCode
+                                     }
+                                     state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload)
+                                     logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                     res.send(protocol.getPackedMsg());
+                                     break;
+                             }
+                         })
+                    } else {
+                        payload = {
+                            "resultCode": g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_CONFLICT_OF_TEMPORARY_CLIENT_ID
+                        }
+                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload)
+                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                        res.send(protocol.getPackedMsg());
+                    }
+                    return;
+                } else {
+                    resState = g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE;
+                }
+                if (g.SERVER_RECV_STATE_BY_MSG.SWP_SGU_REQ.includes(resState)) {
+                    //set state
+                    state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                     var packedSdpSguReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGU_REQ, unpackedPayload);
                     logger.debug("SERVER send request: " + JSON.stringify(protocol.getPackedMsg()));
-                    state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.CLI_TCI_STATE_ID.CLI_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
+                    //update state
+                    state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
                     request.send('http://localhost:8080/databaseapi', packedSdpSguReq, (message) => {
-                        var sdpSguRspCode = 0;
                         protocol.setMsg(message);
                         if (!protocol.verifyHeader()) return;
                         var unpackedPayload = protocol.unpackPayload();
                         if (!unpackedPayload) return;
                         switch (unpackedPayload.resultCode) {
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OK:
-                                swpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OK;
-                                var ac = codeGen.getAuthenticationCode();
-                                var vc = codeGen.getVerificationCode();
-                                var keyhead = "u:temp:" + protocol.getEndpointId() + ":";
-                                var time = 30;
-                                redisCli.multi([
-                                    ["set", keyhead + "id", userInfo.userId, 'EX', time],
-                                    ["set", keyhead + "pw", userInfo.userPw, 'EX', time],
-                                    ["set", keyhead + "fn", userInfo.userFn, 'EX', time],
-                                    ["set", keyhead + "bdt", userInfo.birthDate, 'EX', time],
-                                    ["set", keyhead + "gen", userInfo.gender, 'EX', time],
-                                    ["set", keyhead + "ac", ac, 'EX', time],
-                                    ["set", keyhead + "vc", vc, 'EX', time],
-                                ]).exec(function (err, replies) {
-                                    if (err) {} else {
-                                        logger.debug("SERVER stored temporary user info: in " + time + "sec >" + JSON.stringify(userInfo));
+                                state.getState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState) => {
+                                if (g.SERVER_RECV_STATE_BY_MSG.SDP_SGU_RSP.includes(resState)) {
+                                        swpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OK;
+                                        var ac = codeGen.getAuthenticationCode();
+                                        var vc = codeGen.getVerificationCode();
+                                        var keyhead = "u:temp:" + protocol.getEndpointId() + ":";
+                                        var time = 30;
+                                        redisCli.multi([
+                                            ["set", keyhead + "id", userInfo.userId, 'EX', time],
+                                            ["set", keyhead + "pw", userInfo.userPw, 'EX', time],
+                                            ["set", keyhead + "fn", userInfo.userFn, 'EX', time],
+                                            ["set", keyhead + "bdt", userInfo.birthDate, 'EX', time],
+                                            ["set", keyhead + "gen", userInfo.gender, 'EX', time],
+                                            ["set", keyhead + "ac", ac, 'EX', time],
+                                            ["set", keyhead + "vc", vc, 'EX', time],
+                                        ]).exec(function (err, replies) {
+                                            if (err) {} else {
+                                                logger.debug("SERVER stored temporary user info: in " + time + "sec >" + JSON.stringify(userInfo));
+                                            }
+                                        });
+                                        payload = {
+                                            "resultCode": swpSguRspCode,
+                                            "vc": vc
+                                        }
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
+                                        state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        res.send(protocol.getPackedMsg());
                                     }
                                 });
-                                payload = {
-                                    "resultCode": swpSguRspCode,
-                                    "vc": vc
-                                }
                                 break;
+
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OTHER:
                                 sdpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OTHER;
                                 payload = {
                                     "resultCode": swpSguRspCode
                                 }
+                                state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload)
+                                logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                res.send(protocol.getPackedMsg());
                                 break;
+
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_DUPLICATE_OF_USER_ID:
                                 sdpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_DUPLICATE_OF_USER_ID;
                                 payload = {
                                     "resultCode": swpSguRspCode
                                 }
+                                state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload)
+                                logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                res.send(protocol.getPackedMsg());
                                 break;
                         }
-
-                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGU_RSP, payload)
-                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
-                        res.send(protocol.getPackedMsg());
-                    })
+                    });
                 }
             });
-            
             break;
         case g.SSP_MSG_TYPE.SSP_SIR_REQ:
             //payload = obejct

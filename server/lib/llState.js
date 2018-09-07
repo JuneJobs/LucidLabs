@@ -28,7 +28,7 @@ class LlState {
                     searchType = 'get';
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI:
-                    key = 'c:sta:s:a:tci:' + stateId + '*';
+                    key = 'c:sta:s:a:tci:' + stateId + ':*';
                     searchType = 'keys';
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN:
@@ -36,7 +36,7 @@ class LlState {
                     searchType = 'get';
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI:
-                    key = 'c:sta:s:w:tci:' + stateId + '*';
+                    key = 'c:sta:s:w:tci:' + stateId + ':*';
                     searchType = 'keys';
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN:
@@ -45,14 +45,14 @@ class LlState {
                     break;
             }
             if(searchType === 'keys'){
-                redisCli.keys(key, (err, reply) => {
+                redisCli.keys(key, (err, searchedKey) => {
                     if (err) {} else {
-                        if (reply === null) {
+                        if (searchedKey === null) {
                             cb(false);
                         } else {
-                            redisCli.get(reply[0], (err, reply) => {
+                            redisCli.get(searchedKey[0], (err, reply) => {
                                 if (err) {} else {
-                                    cb(reply);
+                                    cb(Number(reply), searchedKey[0]);
                                 }
                             });
 
@@ -62,7 +62,7 @@ class LlState {
             } else if (searchType === 'get'){
                  redisCli.get(key, (err, reply) => {
                      if (err) {} else {
-                         cb(reply);
+                         cb(Number(reply));
                      }
                  });
             }
@@ -96,20 +96,29 @@ class LlState {
                     key = 'c:sta:s:w:usn:' + stateId;
                     break;
             }
-            redisCli.set(key, value, (err, reply) => {
-                if (err) {
-                    return false;
-                } else {
-                    if (reply === null) {
+            if(value === 0x1) {
+                redisCli.del(key, (err, reply) => {
+                    if(err){
+                        return false;
+                    }
+                    return true;
+                });
+            } else {
+                redisCli.set(key, value, (err, reply) => {
+                    if (err) {
                         return false;
                     } else {
-                        if (timeout !== undefined) {
-                            redisCli.expire(key, timeout);
+                        if (reply === null) {
+                            return false;
+                        } else {
+                            if (timeout !== undefined) {
+                                redisCli.expire(key, timeout);
+                            }
+                            return true;
                         }
-                        return true;
                     }
-                }
-            });
+                });
+            }
         } else {
             // 
             return false;

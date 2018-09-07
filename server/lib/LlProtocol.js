@@ -126,6 +126,8 @@ class LlProtocol {
             switch (msgType) {
                 case g.SSP_MSG_TYPE.SSP_SIR_RSP:
                     return this._packSspSirRsp(payload);
+                case g.SWP_MSG_TYPE.SWP_SGU_RSP:
+                    return this._packSwpSguRsp(payload);
                 case g.SDP_MSG_TYPE.SDP_SGU_REQ:
                     return this._packSdpSguReq(payload);
                 case g.SDP_MSG_TYPE.SDP_SGU_RSP:
@@ -147,7 +149,17 @@ class LlProtocol {
     _packSspSirRsp(payload) {
         this.packedMsg = {
             "header": {"msgType": 1},
-            "payload": {"resultCode": payload.resultCode}
+            "payload": payload
+        }
+    }
+    _packSwpSguRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_SGU_RSP, 
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
         }
     }
     _packSdpSguReq(payload) {
@@ -157,9 +169,7 @@ class LlProtocol {
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },
-            "payload": {
-                "userId": payload.userId
-            }
+            "payload": payload
         }
     }
     _packSdpSguRsp(payload){
@@ -169,9 +179,7 @@ class LlProtocol {
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },
-            "payload": {
-                "resultCode": payload.resultCode
-            }
+            "payload": payload
         }
     }
     //ssp

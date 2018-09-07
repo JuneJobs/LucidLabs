@@ -556,7 +556,7 @@ const SDP_MSG_RESCODE = {
         RESCODE_SDP_HHV_UNAUTHORIZED_USER_SEQUENCE_NUMBER: 3
     }
 };
-
+const SERVER_NULL_STATE = 0;
 const SERVER_TSI_STATE_ID = {
     SERVER_TSI_IDLE_STATE:                          0x1,
     SERVER_TSI_HALF_SSN_INFORMED_STATE:             0x2,
@@ -1013,13 +1013,13 @@ const SERVER_TIMER = {
     T803: 5,
     T804: 5,
     T831: 5,
-    T832: 10,
+    T832: 60,
     T833: 5,
     T834: 5,
     T835: 5,
     T836: 5,
     T861: 5,
-    T862: 5,
+    T862: 60,
     T863: 5
 }
 
@@ -1035,6 +1035,7 @@ module.exports = { HEADER_SIZE,
                    SAP_MSG_RESCODE,
                    SWP_MSG_RESCODE,
                    SDP_MSG_RESCODE,
+                   SERVER_NULL_STATE,
                    SERVER_TSI_STATE_ID,
                    SERVER_SSN_STATE_ID,
                    SERVER_TCI_STATE_ID,
