@@ -47,7 +47,7 @@ class LlState {
             if(searchType === 'keys'){
                 redisCli.keys(key, (err, searchedKey) => {
                     if (err) {} else {
-                        if (searchedKey === null) {
+                        if (searchedKey.length === 0) {
                             cb(false);
                         } else {
                             redisCli.get(searchedKey[0], (err, reply) => {

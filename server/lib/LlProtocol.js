@@ -78,6 +78,8 @@ class LlProtocol {
                     return this._unpackSspSirReqPayload();
                 case g.SWP_MSG_TYPE.SWP_SGU_REQ:
                     return this._unpackSwpSguReqPayload();
+                case g.SWP_MSG_TYPE.SWP_UVC_REQ:
+                    return this._unpackSwpUvcReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SGU_REQ:
                     return this._unpackSdpSguReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SGU_RSP:
@@ -88,6 +90,63 @@ class LlProtocol {
         } else {
             return false;
         }
+    }
+    //ssp
+    _unpackSspSirReqPayload() {
+        //validation
+        //parsing
+        this.unpackedPayload = {
+            "wifiMacAddress": this.msgPayload.wifiMacAddress
+        }
+        return this.unpackedPayload;
+    }
+    //swp
+    _unpackSwpSguReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "birthDate": payload.birthDate,
+            "gender": payload.gender,
+            "userId": payload.userId,
+            "userPw": payload.userPw,
+            "userFn": payload.userFn,
+            "userLn": payload.userLn
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSwpUvcReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "userId": payload.userId,
+            "userPw": payload.userPw,
+            "userFn": payload.userFn,
+            "userLn": payload.userLn,
+            "birthDate": payload.birthDate,
+            "gender": payload.gender
+        }
+        return this.unpackedPayload;
+    }
+    //sdp
+    _unpackSdpSguReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "userId": payload.userId
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSdpSguRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "resultCode": payload.resultCode
+        }
+        return this.unpackedPayload;
     }
     /**
      * @title function getUnpackedMsgPayload
@@ -132,6 +191,8 @@ class LlProtocol {
                     return this._packSdpSguReq(payload);
                 case g.SDP_MSG_TYPE.SDP_SGU_RSP:
                     return this._packSdpSguRsp(payload);
+                case g.SDP_MSG_TYPE.SDP_UVC_REQ:
+                    return this._packSdpUvcReq(payload);
                 default:
                     return false;
             }
@@ -182,48 +243,15 @@ class LlProtocol {
             "payload": payload
         }
     }
-    //ssp
-    _unpackSspSirReqPayload() {
-        //validation
-        //parsing
-        this.unpackedPayload = {
-            "wifiMacAddress": this.msgPayload.wifiMacAddress
+    _packSdpUvcReq(payload){
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_UVC_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
         }
-        return this.unpackedPayload;
-    }
-    //swp
-    _unpackSwpSguReqPayload() {
-        //validation
-        //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "birthDate": payload.birthDate,
-            "gender": payload.gender,
-            "userId": payload.userId,
-            "userPw": payload.userPw,
-            "userFn": payload.userFn,
-            "userLn": payload.userLn
-        }
-        return this.unpackedPayload;
-    }
-    //sdp
-    _unpackSdpSguReqPayload() {
-        //validation
-        //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "userId": payload.userId
-        }
-        return this.unpackedPayload;
-    }
-    _unpackSdpSguRspPayload() {
-        //validation
-        //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "resultCode": payload.resultCode
-        }
-        return this.unpackedPayload;
     }
  }
  module.exports = LlProtocol;
