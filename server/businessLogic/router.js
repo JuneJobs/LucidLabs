@@ -16,6 +16,9 @@ const LlCodeGenerator = require("../lib/LlCodeGenerator")
 //Import gloabal values
 const g = require("../config/header");
 
+//Import hash manager module
+const LlHash = require('../lib/LlHash');
+
 const redis = require("redis");
 //Connect with Redis client
 const redisCli = redis.createClient();
@@ -29,6 +32,7 @@ router.post("/serverapi", function (req, res) {
     var state = new LlState();
     var request = new LlRequest();
     var codeGen = new LlCodeGenerator();
+    var hash = new LlHash();
     //protocol verify
     protocol.setMsg(req.body);
     if(!protocol.verifyHeader()) return;
@@ -244,6 +248,7 @@ router.post("/serverapi", function (req, res) {
                                                         if(err) {} else {
                                                             redisCli.mget(keys, (err, values) => {
                                                                 var payloadSdpUvcReq = new Object();
+                                                                
                                                                 for (var index = 0; index < keys.length; index++) {
                                                                     var key = keys[index].substr(keyhead.length);
                                                                     switch (key) {
@@ -251,7 +256,7 @@ router.post("/serverapi", function (req, res) {
                                                                             payloadSdpUvcReq.userId = values[index];
                                                                             break;
                                                                         case 'pw':
-                                                                            payloadSdpUvcReq.userPw = values[index];
+                                                                            payloadSdpUvcReq.userPw = hash.getHashedPassword(values[index]);
                                                                             break;
                                                                         case 'fn':
                                                                             payloadSdpUvcReq.userFn = values[index];
@@ -260,10 +265,10 @@ router.post("/serverapi", function (req, res) {
                                                                             payloadSdpUvcReq.userLn = values[index];
                                                                             break;
                                                                         case 'bdt':
-                                                                            payloadSdpUvcReq.userBdt = values[index];
+                                                                            payloadSdpUvcReq.birthDate = values[index];
                                                                             break;
                                                                         case 'gen':
-                                                                            payloadSdpUvcReq.userGen = values[index];
+                                                                            payloadSdpUvcReq.gender = values[index];
                                                                             break;
                                                                     }
                                                                 }
@@ -371,7 +376,62 @@ router.post("/databaseapi", function(req, res){
             })
             break;
         case g.SDP_MSG_TYPE.SDP_UVC_REQ:
-                res.send("OK");
+            redisCli.get("u:info:id:" + unpackedPayload.userId, (err, reply) => {
+                var payload = null;
+                var userInfo = unpackedPayload;
+                userInfo.regf = 0;
+                userInfo.signf = 0;
+                userInfo.ml = 0;
+                userInfo.mti = 0;
+                userInfo.tti = 0;
+                userInfo.ass = 0;
+                var newUsn = 1;
+                var keyhead = "u:info:" + newUsn + ":";
+                var sdpSguRspCode = 0;
+                if (err) {
+                    sdpSguRspCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OTHER;
+                } else {
+                    if (reply === null) {
+                        //can be made
+                        redisCli.multi([
+                            ["set", keyhead + "usn", userInfo.newUsn],
+                            ["set", keyhead + "id", userInfo.userId],
+                            ["set", keyhead + "pw", userInfo.userPw],
+                            ["set", keyhead + "regf", userInfo.regf],
+                            ["set", keyhead + "signf", userInfo.signf],
+                            ["set", keyhead + "fn", userInfo.userFn],
+                            ["set", keyhead + "ln", userInfo.userLn],
+                            ["set", keyhead + "bdt", userInfo.birthDate],
+                            ["set", keyhead + "gen", userInfo.gender],
+                            ["set", keyhead + "ml", userInfo.ml], //TBD
+                            ["set", keyhead + "expd", userInfo.expd], //TBD
+                            ["set", keyhead + "mti", userInfo.mti], //TBD
+                            ["set", keyhead + "tti", userInfo.tti], //TBD
+                            ["set", keyhead + "ass", userInfo.ass], //TBD
+                        ]).exec(function (err, replies) {
+                            if (err) {} else {
+                                logger.debug("| DATABASE stored user info: in " + JSON.stringify(userInfo));
+                            }
+                        });
+                        payload = {
+                            "resultCode": g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OK
+                        }
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_RSP, payload);
+                        //state.setState(g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
+                        //logger.debug("| SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE");
+                        res.send(protocol.getPackedMsg());
+                        return;
+                    } else {
+                        sdpSguRspCode = g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_DUPLICATE_OF_USER_ID;
+                    }
+                }
+                payload = {
+                    "resultCode": sdpSguRspCode
+                }
+                protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_RSP, payload)
+                logger.debug("| DB Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                res.send(protocol.getPackedMsg());
+            })
             break;
         default:
             break;

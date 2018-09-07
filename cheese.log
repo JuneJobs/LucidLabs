@@ -2449,3 +2449,56 @@
 [2018-09-07T00:07:59.686] [DEBUG] default - Running on port 8080
 [2018-09-07T00:08:59.688] [DEBUG] default - Running on port 8080
 [2018-09-07T00:09:59.687] [DEBUG] default - Running on port 8080
+[2018-09-07T00:28:26.716] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":173,"msgLen":0,"endpointId":1028},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park","birthDate":"657072000","gender":"M"}}
+[2018-09-07T00:28:40.279] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:28:40.280] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":1022},"payload":{"birthDate":"657072000","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-07T00:28:40.284] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2018-09-07T00:28:40.285] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1022},"payload":{"birthDate":"657072000","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-07T00:28:40.286] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2018-09-07T00:28:40.312] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":1022},"payload":{"birthDate":"657072000","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}}
+[2018-09-07T00:28:40.314] [DEBUG] default - | DB Send response: {"header":{"msgType":172,"msgLen":0,"endpointId":1022},"payload":{"resultCode":0}}
+[2018-09-07T00:28:40.323] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE
+[2018-09-07T00:28:40.324] [DEBUG] default - | Server Send response: {"header":{"msgType":102,"msgLen":0,"endpointId":1022},"payload":{"resultCode":0,"vc":"4580"}}
+[2018-09-07T00:28:40.325] [DEBUG] default - | SERVER stored temporary user info: in 1800sec >{"birthDate":"657072000","gender":"M","userId":"j.jobs1028@gmail.com","userPw":"wnsgmlWkd","userFn":"Junhee","userLn":"Park"}
+[2018-09-07T00:29:04.676] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:29:04.676] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":1022},"payload":{"vc":"4580","ac":"C77749V8M6J0K192B9M8"}}
+[2018-09-07T00:29:04.678] [DEBUG] default - | Server Send response: false
+[2018-09-07T00:29:07.611] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:29:07.612] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":1022},"payload":{"vc":"4580","ac":"C77749V8M6J0K192B9M8"}}
+[2018-09-07T00:29:07.613] [DEBUG] default - | Server Send response: false
+[2018-09-07T00:29:20.408] [DEBUG] default - Running on port 8080
+[2018-09-07T00:30:20.406] [DEBUG] default - Running on port 8080
+[2018-09-07T00:30:25.382] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:31:51.534] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:31:51.537] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":1022},"payload":{"vc":"4580","ac":"C77749V8M6J0K192B9M8"}}
+[2018-09-07T00:31:55.811] [DEBUG] default - | Server Send response: false
+[2018-09-07T00:33:22.097] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:33:22.100] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":1022},"payload":{"vc":"4580","ac":"C77749V8M6J0K192B9M8"}}
+[2018-09-07T00:33:27.009] [DEBUG] default - | Server Send response: false
+[2018-09-07T00:34:21.559] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:34:21.565] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":1022},"payload":{"vc":"4580","ac":"C77749V8M6J0K192B9M8"}}
+[2018-09-07T00:34:21.569] [DEBUG] default - | Server Send response: false
+[2018-09-07T00:35:08.723] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:35:08.726] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":1022},"payload":{"vc":"4580","ac":"C77749V8M6J0K192B9M8"}}
+[2018-09-07T00:35:08.729] [DEBUG] default - | Server Send response: false
+[2018-09-07T00:35:24.978] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:35:24.982] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":1022},"payload":{"vc":"4580","ac":"C77749V8M6J0K192B9M8"}}
+[2018-09-07T00:35:24.985] [DEBUG] default - | Server Send response: false
+[2018-09-07T00:35:49.286] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":173,"msgLen":0,"endpointId":1022},"payload":{"userLn":"Park","userBdt":"657072000","userFn":"Junhee","userGen":"M","userPw":"$2b$10$lHa9ZJHST.taJId6nAbvOuM/pe2oq5VWtnzy0LMLI7atBRATvyMTm","userId":"j.jobs1028@gmail.com"}}
+[2018-09-07T00:36:09.286] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:36:09.290] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":1022},"payload":{"vc":"4580","ac":"C77749V8M6J0K192B9M8"}}
+[2018-09-07T00:36:09.293] [DEBUG] default - | Server Send response: false
+[2018-09-07T00:36:14.532] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":173,"msgLen":0,"endpointId":1022},"payload":{"userLn":"Park","userBdt":"657072000","userFn":"Junhee","userGen":"M","userPw":"$2b$10$ATfm7q7gdg/KjjYkM/WNkOETlAcE/3LnrbtowpRivzgOR5f7EFX3C","userId":"j.jobs1028@gmail.com"}}
+[2018-09-07T00:36:31.980] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:36:31.984] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":1022},"payload":{"vc":"4580","ac":"C77749V8M6J0K192B9M8"}}
+[2018-09-07T00:36:31.990] [DEBUG] default - | Server Send response: false
+[2018-09-07T00:36:32.103] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":173,"msgLen":0,"endpointId":1022},"payload":{"userLn":"Park","userBdt":"657072000","userFn":"Junhee","userGen":"M","userPw":"$2b$10$7oDZWc8kE1bw.CG8.lA9oO7VAAC10RQWXY3i9yzzVOwHEZc7M4bxq","userId":"j.jobs1028@gmail.com"}}
+[2018-09-07T00:37:58.070] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:39:49.397] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:39:49.400] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":1022},"payload":{"vc":"4580","ac":"C77749V8M6J0K192B9M8"}}
+[2018-09-07T00:39:49.404] [DEBUG] default - | Server Send response: false
+[2018-09-07T00:39:49.517] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":173,"msgLen":0,"endpointId":1022},"payload":{"userLn":"Park","userBdt":"657072000","userFn":"Junhee","userGen":"M","userPw":"$2b$10$lQrtPkytIJ/KSQP/SJMKyOsSl9fHivUSuKk3YqTmcKI2xoGJ651tS","userId":"j.jobs1028@gmail.com"}}
+[2018-09-07T00:40:41.651] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-09-07T00:40:41.655] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":1022},"payload":{"vc":"4580","ac":"C77749V8M6J0K192B9M8"}}
+[2018-09-07T00:40:41.659] [DEBUG] default - | Server Send response: false
+[2018-09-07T00:40:41.772] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":173,"msgLen":0,"endpointId":1022},"payload":{"userLn":"Park","birthDate":"657072000","userFn":"Junhee","gender":"M","userPw":"$2b$10$DvJnemRMCwcnt7LeVEs1..pasq2QCL0yxl/h4d/pw/Li.2YDQJYsu","userId":"j.jobs1028@gmail.com"}}

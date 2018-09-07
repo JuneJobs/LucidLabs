@@ -10,5 +10,8 @@ class LlCodeGenerator {
     getAuthenticationCode() {
         return generator.generateCodes("*#*#*#*#*#*#*#*#*#*#", 1, {})[0];
     }
+    getSaltCode(){
+        return generator.generateCodes("##", 1, {})[0];
+    }
 }
 module.exports = LlCodeGenerator;
