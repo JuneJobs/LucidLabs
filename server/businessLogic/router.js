@@ -429,7 +429,7 @@ router.post("/databaseapi", function(req, res){
                     "resultCode": sdpSguRspCode
                 }
                 protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_RSP, payload)
-                logger.debug("| DB Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
                 res.send(protocol.getPackedMsg());
             })
             break;
