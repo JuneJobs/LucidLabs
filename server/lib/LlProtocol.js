@@ -162,7 +162,7 @@ class LlProtocol {
         }
         return this.unpackedPayload;
     }
-    _unpackSdpUVcRspPayload() {
+    _unpackSdpUvcRspPayload() {
         //validation
         //parsing
         var payload = this.msgPayload;
@@ -214,6 +214,8 @@ class LlProtocol {
                     return this._packSdpSguReq(payload);
                 case g.SDP_MSG_TYPE.SDP_SGU_RSP:
                     return this._packSdpSguRsp(payload);
+                case g.SWP_MSG_TYPE.SWP_UVC_RSP:
+                    return this._packSwpUvcRsp([payload]);
                 case g.SDP_MSG_TYPE.SDP_UVC_REQ:
                     return this._packSdpUvcReq(payload);
                 case g.SDP_MSG_TYPE.SDP_UVC_RSP:
@@ -268,6 +270,16 @@ class LlProtocol {
             "payload": payload
         }
     }
+    _packSwpUvcRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_UVC_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
     _packSdpUvcReq(payload){
         return this.packedMsg = {
             "header": {
@@ -278,7 +290,7 @@ class LlProtocol {
             "payload": payload
         }
     }
-    _packSdpSguRsp(payload) {
+    _packSdpUvcRsp(payload) {
         return this.packedMsg = {
             "header": {
                 "msgType": g.SDP_MSG_TYPE.SDP_UVC_RSP,

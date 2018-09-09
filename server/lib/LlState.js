@@ -13,34 +13,58 @@ class LlState {
     constructor(){
 
     }
-    getState(endpointIdType, stateId, cb) {
+    getState(entity,endpointIdType, stateId, cb) {
         var key = '';
         var searchType = '';
         if(this.checkValidType(endpointIdType)) {
             //데이터가 있으면 스테이트 반환
             switch (endpointIdType) {
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_TSI:
-                    key = 'c:sta:s:s:tsi:' + stateId + ':*';
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        key = 'c:sta:s:s:tsi:' + stateId + ':*';
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:s:tsi:' + stateId + ':*';
+                    }
                     searchType = 'keys';
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN:
-                    key = 'c:sta:s:s:ssn:' + stateId;
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        key = 'c:sta:s:s:ssn:' + stateId;
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:s:ssn:' + stateId;
+                    }
                     searchType = 'get';
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI:
-                    key = 'c:sta:s:a:tci:' + stateId + ':*';
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        key = 'c:sta:s:a:tci:' + stateId + ':*';
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:a:tci:' + stateId + ':*';
+                    }
                     searchType = 'keys';
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN:
-                    key = 'c:sta:s:a:usn:' + stateId;
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        key = 'c:sta:s:a:usn:' + stateId;
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:a:usn:' + stateId;
+                    }
                     searchType = 'get';
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI:
-                    key = 'c:sta:s:w:tci:' + stateId + ':*';
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        key = 'c:sta:s:w:tci:' + stateId + ':*';
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:w:tci:' + stateId + ':*';
+                    }
                     searchType = 'keys';
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN:
-                    key = 'c:sta:s:w:usn:' + stateId;
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        key = 'c:sta:s:w:usn:' + stateId;
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:w:usn:' + stateId;
+                    }
                     searchType = 'get';
                     break;
             }
@@ -73,27 +97,54 @@ class LlState {
         }
     }
     //sec
-    setState(endpointIdType, stateId, value, timeout) {
+    setState(entity, endpointIdType, stateId, value, timeout) {
         var key = "";
         if (this.checkValidType(endpointIdType)) {
             switch (endpointIdType) {
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_TSI:
-                    key = 'c:sta:s:s:tsi:' + stateId[0] + ':' + stateId[1];
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        key = 'c:sta:s:s:tsi:' + stateId[0] + ':' + stateId[1];
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:s:tsi:' + stateId[0] + ':' + stateId[1];
+                    }
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN:
-                    key = 'c:sta:s:s:ssn:' + stateId;
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        key = 'c:sta:s:s:ssn:' + stateId;
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:s:ssn:' + stateId;
+                    }
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI:
-                    key = 'c:sta:s:a:tci:' + stateId[0] + ':' + stateId[1];
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        key = 'c:sta:s:a:tci:' + stateId[0] + ':' + stateId[1];
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:a:tci:' + stateId[0] + ':' + stateId[1];
+                    }
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN:
-                    key = 'c:sta:s:a:usn:' + stateId;
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        key = 'c:sta:s:a:usn:' + stateId;
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:a:usn:' + stateId;
+                    }
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI:
-                    key = 'c:sta:s:w:tci:' + stateId[0] + ':' + stateId[1];
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        if(stateId[1] === undefined){
+                            console.log(stateId[0]);
+                        }
+                        key = 'c:sta:s:w:tci:' + stateId[0] + ':' + stateId[1];
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:w:tci:' + stateId[0] + ':' + stateId[1];
+                    }
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN:
-                    key = 'c:sta:s:w:usn:' + stateId;
+                    if (entity === g.ENTITY_TYPE.SERVER) {
+                        key = 'c:sta:s:w:usn:' + stateId;
+                    } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                        key = 'c:sta:d:w:usn:' + stateId;
+                    }
                     break;
             }
             if(value === 0x1) {

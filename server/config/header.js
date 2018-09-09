@@ -7,6 +7,11 @@ const INVALID_ID_TYPE = 7;
  * Define 01 ~ 06
  * Reserved 07 ~ 0f
  */
+const ENTITY_TYPE = {
+    SERVER: 0x1,
+    DATABASE: 0x2
+};
+
 const ENDPOIONT_ID_TYPE = {
     EI_TYPE_SENSOR_TSI: 0x01,
     EI_TYPE_APP_TCI:    0x02,
@@ -14,7 +19,7 @@ const ENDPOIONT_ID_TYPE = {
     EI_TYPE_SENSOR_SSN: 0x04,
     EI_TYPE_APP_USN:    0x05,
     EI_TYPE_WEB_USN:    0x06
-}
+};
 
 const INVALID_MSG_TYPE = 0xff;
 
@@ -170,7 +175,7 @@ const SDP_MSG_TYPE = {
     SDP_SHR_RSP: 0xd6,
     SDP_HHV_REQ: 0xd7,
     SDP_HHV_RSP: 0xd8
-}
+};
 const SSP_MSG_RESCODE = {
     RESCODE_SSP_SIR: {
         RESCODE_SSP_SIR_OK: 0,
@@ -887,7 +892,8 @@ const DATABASE_RECV_STATE_BY_MSG = {
         DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE
     ],
     SDP_UVC_REQ: [
-        DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE
+        DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE,
+        DATABASE_TCI_STATE_ID.DATABASE_USN_ALLOCATED_STATE
     ],
     SDP_SGI_REQ: [
         DATABASE_USN_STATE_ID.DATABASE_USN_IDLE_STATE,
@@ -978,7 +984,7 @@ const DATABASE_RECV_STATE_BY_MSG = {
         DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE,
         DATABASE_USN_STATE_ID.DATABASE_USN_CID_INFORMED_STATE
     ]
-}
+};
 
 /**
  * Receivable message by state in database
@@ -1030,8 +1036,39 @@ const SERVER_TIMER = {
     T862: 1800,
     T863: 5
 }
-
+const DATABASE_TIMER = {
+    T901: 5,
+    T902: 5,
+    T903: 5,
+    T904: 5,
+    T905: 5,
+    T906: 5,
+    T907: 5,
+    T908: 5,
+    T909: 5,
+    T910: 5,
+    T911: 5,
+    T912: 5,
+    T913: 5,
+    T914: 5,
+    T915: 5,
+    T916: 5,
+    T917: 5,
+    T918: 5,
+    T919: 5,
+    T920: 5,
+    T921: 5,
+    T922: 5,
+    T923: 5,
+    T951: 60, //TBD
+    T952: 60, //TBD
+    T953: 60, //TBD
+    T954: 1800,
+    T955: 60,
+    T956: 60
+}
 module.exports = { HEADER_SIZE, 
+                   ENTITY_TYPE,
                    INVALID_ID_TYPE, 
                    ENDPOIONT_ID_TYPE, 
                    INVALID_MSG_TYPE, 
@@ -1048,7 +1085,12 @@ module.exports = { HEADER_SIZE,
                    SERVER_SSN_STATE_ID,
                    SERVER_TCI_STATE_ID,
                    SERVER_USN_STATE_ID,
+                   DATABASE_USN_SSN_STATE_ID,
+                   DATABASE_SSN_STATE_ID,
+                   DATABASE_TCI_STATE_ID,
+                   DATABASE_USN_STATE_ID,
                    SERVER_RECV_STATE_BY_MSG,
                    DATABASE_RECV_STATE_BY_MSG,
-                   SERVER_TIMER
-                }
+                   SERVER_TIMER,
+                   DATABASE_TIMER
+};
