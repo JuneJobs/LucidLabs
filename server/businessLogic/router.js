@@ -32,7 +32,6 @@ router.post("/serverapi", function (req, res) {
     var state = new LlState();
     var request = new LlRequest();
     var codeGen = new LlCodeGenerator();
-    var hash = new LlHash();
     //protocol verify
     protocol.setMsg(req.body);
     if(!protocol.verifyHeader()) return;
@@ -262,7 +261,7 @@ router.post("/serverapi", function (req, res) {
                                                                             payloadSdpUvcReq.userId = values[index];
                                                                             break;
                                                                         case 'pw':
-                                                                            payloadSdpUvcReq.userPw = hash.getHashedPassword(values[index]);
+                                                                            payloadSdpUvcReq.userPw = values[index];
                                                                             break;
                                                                         case 'fn':
                                                                             payloadSdpUvcReq.userFn = values[index];
@@ -371,6 +370,8 @@ router.post("/serverapi", function (req, res) {
                 };
             });
             break;
+        case g.SWP_MSG_TYPE.SWP_SGI_REQ:
+            var codes = unpackedPayload;
         case g.SSP_MSG_TYPE.SSP_SIR_REQ:
             //payload = obejct
             var payload = { "resultCode": 1 }
@@ -390,6 +391,7 @@ router.post("/databaseapi", (req, res) => {
     logger.debug("| DB Received request on /databaseapi: " + JSON.stringify(req.body));
     var protocol = new LlProtocol();
     var state = new LlState();
+    var hash = new LlHash();
     protocol.setMsg(req.body);
     if (!protocol.verifyHeader()) return;
     //여기가 문제다..
@@ -450,7 +452,7 @@ router.post("/databaseapi", (req, res) => {
                                         ["mset", 
                                             keyhead + "usn", userInfo.newUsn,
                                             keyhead + "id", userInfo.userId,
-                                            keyhead + "pw", userInfo.userPw,
+                                            keyhead + "pw", hash.getHashedPassword(userInfo.userPw),
                                             keyhead + "regf", userInfo.regf,
                                             keyhead + "signf", userInfo.signf,
                                             keyhead + "fn", userInfo.userFn,

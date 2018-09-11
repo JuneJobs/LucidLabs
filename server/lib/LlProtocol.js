@@ -80,6 +80,8 @@ class LlProtocol {
                     return this._unpackSwpSguReqPayload();
                 case g.SWP_MSG_TYPE.SWP_UVC_REQ:
                     return this._unpackSwpUvcReqPayload();
+                case g.SWP_MSG_TYPE.SWP_SGI_REQ:
+                    return this._unpackSwpSgiReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SGU_REQ:
                     return this._unpackSdpSguReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SGU_RSP:
@@ -88,6 +90,10 @@ class LlProtocol {
                     return this._unpackSdpUvcReqPayload();
                 case g.SDP_MSG_TYPE.SDP_UVC_RSP:
                     return this._unpackSdpUvcRspPayload();
+                case g.SDP_MSG_TYPE.SDP_SGI_REQ:
+                    return this._unpackSdpSgiReqPayload();
+                case g.SDP_MSG_TYPE.SDP_SGI_RSP:
+                    return this._unpackSdpSgiRspPayload();
                 default:
                     return fasle;
             }
@@ -120,6 +126,16 @@ class LlProtocol {
         return this.unpackedPayload;
     }
     _unpackSwpUvcReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "vc": payload.vc,
+            "ac": payload.ac
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSwpSgiReqPayload() {
         //validation
         //parsing
         var payload = this.msgPayload;
