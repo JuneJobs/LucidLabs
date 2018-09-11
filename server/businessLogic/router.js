@@ -192,7 +192,7 @@ router.post("/serverapi", function (req, res) {
                                 break;
 
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OTHER:
-                                sdpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OTHER;
+                                swpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OTHER;
                                 payload = {
                                     "resultCode": swpSguRspCode
                                 }
@@ -204,7 +204,7 @@ router.post("/serverapi", function (req, res) {
                                 break;
 
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_DUPLICATE_OF_USER_ID:
-                                sdpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_DUPLICATE_OF_USER_ID;
+                                swpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_DUPLICATE_OF_USER_ID;
                                 payload = {
                                     "resultCode": swpSguRspCode
                                 }
@@ -289,8 +289,22 @@ router.post("/serverapi", function (req, res) {
                                                                             state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), packedSdpUvcReq.payload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
                                                                             logger.debug("| SERVER change TCI state to USN ALLOCATED STATE");
                                                                             swpUvcRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OK;
-                                                                            //Del buffer
-                                                                            //"u:temp:" + protocol.getEndpointId() + ":*"
+                                                                            //remove temp Data
+                                                                            var keyhead = "u:temp:" + protocol.getEndpointId() + ":";
+                                                                            redisCli.multi([
+                                                                                ["del", keyhead + "id"],
+                                                                                ["del", keyhead + "pw"],
+                                                                                ["del", keyhead + "fn"],
+                                                                                ["del", keyhead + "ln"],
+                                                                                ["del", keyhead + "bdt"],
+                                                                                ["del", keyhead + "gen"],
+                                                                                ["del", keyhead + "ac"],
+                                                                                ["del", keyhead + "vc"],
+                                                                            ]).exec(function (err, replies) {
+                                                                                if (err) {} else {
+                                                                                    logger.debug("| SERVER deleted temporary user info: " + JSON.stringify(userInfo));
+                                                                                }
+                                                                            });
                                                                             break;
                                                                         case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OTHER:
                                                                             swpUvcRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OTHER;
@@ -414,7 +428,7 @@ router.post("/databaseapi", (req, res) => {
                     //Initial state
                     if(resState === g.DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE){
                         //Insert user info
-                        redisCli.keys("u:info:*:" + unpackedPayload.userId, (err, reply) => {
+                        redisCli.keys("u:info:" + unpackedPayload.userId, (err, reply) => {
                             var sdpSguRspCode = 0;
                             if (err) {
                                 sdpSguRspCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OTHER;
@@ -434,37 +448,22 @@ router.post("/databaseapi", (req, res) => {
                                     //can be made
                                     redisCli.multi([
                                         ["mset", 
-                                                keyhead + "usn", userInfo.newUsn,
-                                                keyhead + "id", userInfo.userId,
-                                                keyhead + "pw", userInfo.userPw,
-                                                keyhead + "regf", userInfo.regf,
-                                                keyhead + "signf", userInfo.signf,
-                                                keyhead + "fn", userInfo.userFn,
-                                                keyhead + "ln", userInfo.userLn,
-                                                keyhead + "bdt", userInfo.birthDate,
-                                                keyhead + "gen", userInfo.gender,
-                                                keyhead + "ml", userInfo.ml, //TBD
-                                                keyhead + "expd", userInfo.expd, //TBD
-                                                keyhead + "mti", userInfo.mti, //TBD
-                                                keyhead + "tti", userInfo.tti, //TBD
-                                                keyhead + "ass", userInfo.ass //TBD
+                                            keyhead + "usn", userInfo.newUsn,
+                                            keyhead + "id", userInfo.userId,
+                                            keyhead + "pw", userInfo.userPw,
+                                            keyhead + "regf", userInfo.regf,
+                                            keyhead + "signf", userInfo.signf,
+                                            keyhead + "fn", userInfo.userFn,
+                                            keyhead + "ln", userInfo.userLn,
+                                            keyhead + "bdt", userInfo.birthDate,
+                                            keyhead + "gen", userInfo.gender,
+                                            keyhead + "ml", userInfo.ml, //TBD
+                                            keyhead + "expd", userInfo.expd, //TBD
+                                            keyhead + "mti", userInfo.mti, //TBD
+                                            keyhead + "tti", userInfo.tti, //TBD
+                                            keyhead + "ass", userInfo.ass, //TBD
+                                            "u:info:id:" + userInfo.userId, userInfo.newUsn
                                         ]
-                                        /*
-                                        ["set", keyhead + "usn", userInfo.newUsn],
-                                        ["set", keyhead + "id", userInfo.userId],
-                                        ["set", keyhead + "pw", userInfo.userPw],
-                                        ["set", keyhead + "regf", userInfo.regf],
-                                        ["set", keyhead + "signf", userInfo.signf],
-                                        ["set", keyhead + "fn", userInfo.userFn],
-                                        ["set", keyhead + "ln", userInfo.userLn],
-                                        ["set", keyhead + "bdt", userInfo.birthDate],
-                                        ["set", keyhead + "gen", userInfo.gender],
-                                        ["set", keyhead + "ml", userInfo.ml], //TBD
-                                        ["set", keyhead + "expd", userInfo.expd], //TBD
-                                        ["set", keyhead + "mti", userInfo.mti], //TBD
-                                        ["set", keyhead + "tti", userInfo.tti], //TBD
-                                        ["set", keyhead + "ass", userInfo.ass] //TBD
-                                        */
                                     ]).exec(function (err, replies) {
                                         if (err) {
                                             payload = {
