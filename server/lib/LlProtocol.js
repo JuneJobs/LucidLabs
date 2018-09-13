@@ -140,8 +140,8 @@ class LlProtocol {
         //parsing
         var payload = this.msgPayload;
         this.unpackedPayload = {
-            "vc": payload.vc,
-            "ac": payload.ac
+            "userId": payload.userId,
+            "userPw": payload.userPw
         }
         return this.unpackedPayload;
     }
@@ -184,6 +184,29 @@ class LlProtocol {
         var payload = this.msgPayload;
         this.unpackedPayload = {
             "resultCode": payload.resultCode
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSdpSgiReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "userId": payload.userId,
+            "userPw": payload.userPw
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSdpSgiRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "resultCode": payload.resultCode
+        }
+        if(payload.resultCode === g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_OK) {
+            this.unpackedPayload.usn = payload.usn;
+            this.unpackedPayload.ml = payload.ml;
         }
         return this.unpackedPayload;
     }
@@ -236,6 +259,12 @@ class LlProtocol {
                     return this._packSdpUvcReq(payload);
                 case g.SDP_MSG_TYPE.SDP_UVC_RSP:
                     return this._packSdpUvcRsp(payload);
+                case g.SWP_MSG_TYPE.SWP_SGI_RSP:
+                    return this._packSwpSgiRsp([payload]);
+                case g.SDP_MSG_TYPE.SDP_SGI_REQ:
+                    return this._packSdpSgiReq(payload);
+                case g.SDP_MSG_TYPE.SDP_SGI_RSP:
+                    return this._packSdpSgiRsp(payload);
                 default:
                     return false;
             }
@@ -256,6 +285,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+    //SGU
     _packSwpSguRsp(payload) {
         return this.packedMsg = {
             "header": {
@@ -286,6 +316,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+    //UVC
     _packSwpUvcRsp(payload) {
         return this.packedMsg = {
             "header": {
@@ -296,7 +327,7 @@ class LlProtocol {
             "payload": payload
         }
     }
-    _packSdpUvcReq(payload){
+    _packSdpUvcReq(payload) {
         return this.packedMsg = {
             "header": {
                 "msgType": g.SDP_MSG_TYPE.SDP_UVC_REQ,
@@ -310,6 +341,37 @@ class LlProtocol {
         return this.packedMsg = {
             "header": {
                 "msgType": g.SDP_MSG_TYPE.SDP_UVC_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    //SGI
+    _packSwpSgiRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_SGI_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpSgiReq(payload){
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_SGI_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpSgiRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_SGI_RSP,
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },

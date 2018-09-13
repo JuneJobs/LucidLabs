@@ -1,4 +1,4 @@
-
+'use strict';
 /**
  * Header: Type, Length, EndpointID
  * Body: Payload
@@ -19,6 +19,8 @@ const g = require("../config/header");
 //Import hash manager module
 const LlHash = require('../lib/LlHash');
 
+const userModule = require('../businessLogic/userModule');
+
 const redis = require("redis");
 //Connect with Redis client
 const redisCli = redis.createClient();
@@ -32,6 +34,7 @@ router.post("/serverapi", function (req, res) {
     var state = new LlState();
     var request = new LlRequest();
     var codeGen = new LlCodeGenerator();
+    var uModule = new userModule();
     //protocol verify
     protocol.setMsg(req.body);
     if(!protocol.verifyHeader()) return;
@@ -56,6 +59,7 @@ router.post("/serverapi", function (req, res) {
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
                         logger.debug("| SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE");
                         request.send('http://localhost:8080/databaseapi', packedSdpSguReq, (message) => {
+                            var swpSguRspCode = "0";
                             protocol.setMsg(message);
                             if (!protocol.verifyHeader()) return;
                             var unpackedPayload = protocol.unpackPayload();
@@ -65,7 +69,7 @@ router.post("/serverapi", function (req, res) {
                                     state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState) => {
                                         if (g.SERVER_RECV_STATE_BY_MSG.SDP_SGU_RSP.includes(resState)) {
                                             swpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OK;
-                                            /*
+                                            /* ###
                                             var ac = codeGen.getAuthenticationCode();
                                             var vc = codeGen.getVerificationCode();
                                             */
@@ -155,7 +159,7 @@ router.post("/serverapi", function (req, res) {
                                 state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState) => {
                                 if (g.SERVER_RECV_STATE_BY_MSG.SDP_SGU_RSP.includes(resState)) {
                                         swpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OK;
-                                         /*
+                                         /* ###
                                         var ac = codeGen.getAuthenticationCode();
                                         var vc = codeGen.getVerificationCode();
                                         */
@@ -371,7 +375,85 @@ router.post("/serverapi", function (req, res) {
             });
             break;
         case g.SWP_MSG_TYPE.SWP_SGI_REQ:
-            var codes = unpackedPayload;
+            //스테이트를 가져와 비교한다.
+            var signInInfo = unpackedPayload;
+            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+                //idle state이거나, 재전송인 경우 데이터베이스로 연결하는 로직
+                if (resState === false || (resState === g.SERVER_TCI_STATE_ID.SERVER_TCI_HALF_USN_INFORMED_STATE && searchedKey.includes(unpackedPayload.userId))) {
+                    //state변경
+                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_HALF_USN_INFORMED_STATE);
+                    logger.debug("| SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)");
+                    //Database verify request
+                    var packedSdpSgiReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGI_REQ, unpackedPayload);
+                    request.send('http://localhost:8080/databaseapi', packedSdpSgiReq, (message) => {
+                        //unpack
+                        protocol.setMsg(message);
+                        if (!protocol.verifyHeader()) return;
+                        var unpackedPayload = protocol.unpackPayload();
+                        if (!unpackedPayload) return;
+                        var payload = new Object();
+                        switch (unpackedPayload.resultCode) { 
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_OK:
+                                //make buffer data
+                                uModule.getNewNumOfSignedInCompls(g.ENTITY_TYPE.WEBCLIENT, unpackedPayload.usn, (nsc) => {
+                                    //---->>>here.
+                                    var keyHead = "c:act:s:" + g.ENTITY_TYPE.WEBCLIENT + ":" + unpackedPayload.usn;
+                                    var expTime = g.SERVER_TIMER.T863;
+                                    redisCli.multi([
+                                        ["set", keyHead + "signf", '1', 'EX', expTime],
+                                        ["set", keyHead + "nsc", nsc, 'EX', expTime],
+                                        ["set", keyHead + "ml", unpackedPayload.ml, 'EX', expTime]
+                                    ]).exec(function (err, replies) {
+                                        if (err) {
+                                            loger.debug(err);
+                                        } else {
+                                            logger.debug("| SERVER stored active user" + JSON.stringify(userInfo));
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, unpackedPayload.usn, g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
+                                            logger.debug("| SERVER change USN state (IDLE) -> (USN INFORMED)");
+                                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGI.RESCODE_SWP_SGI_OK;
+                                            payload.usn = unpackedPayload.usn;
+                                            payload.nsc = nsc;
+                                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGI_RSP, payload)
+                                            return res.send(protocol.getPackedMsg());
+                                        }
+                                    });
+                                })
+                                break;
+                            //reject cases
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_OTHER:
+                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGI.RESCODE_SWP_SGI_OTHER;
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), signInInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
+                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGI_RSP, payload)
+                                logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                return res.send(protocol.getPackedMsg());
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_NOT_EXIST_USER_ID:
+                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGI.RESCODE_SWP_SGI_NOT_EXIST_USER_ID;
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), signInInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
+                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGI_RSP, payload)
+                                logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                return res.send(protocol.getPackedMsg());
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_INCORRECT_CURRENT_USER_PASSWORD:
+                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGI.RESCODE_SWP_SGI_INCORRECT_CURRENT_USER_PASSWORD;
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), signInInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
+                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGI_RSP, payload)
+                                logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                return res.send(protocol.getPackedMsg());
+                        }
+                    });
+                //TCI 충돌 (테스트 필요)
+                } else {
+                    payload = {
+                        "resultCode": g.SWP_MSG_RESCODE.RESCODE_SWP_SGI.RESCODE_SWP_SGI_CONFLICT_OF_TEMPORARY_CLIENT_ID
+                    }
+                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGI_RSP, payload);
+                    logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    return res.send(protocol.getPackedMsg());
+                }
+            });
+            break;
         case g.SSP_MSG_TYPE.SSP_SIR_REQ:
             //payload = obejct
             var payload = { "resultCode": 1 }
@@ -444,7 +526,8 @@ router.post("/databaseapi", (req, res) => {
                                     userInfo.mti = 0;
                                     userInfo.tti = 0;
                                     userInfo.ass = 0;
-                                    var newUsn = 1;
+                                    userInfo.expd = 0;
+                                    var newUsn = 1; // ###
                                     userInfo.newUsn = 1;
                                     var keyhead = "u:info:" + newUsn + ":";
                                     //can be made
@@ -516,6 +599,61 @@ router.post("/databaseapi", (req, res) => {
                     return res.send(protocol.getPackedMsg());
                 }
             });
+            break;
+        case g.SDP_MSG_TYPE.SDP_SGI_REQ:
+            //모든 스테이트에서 받을 수 있음
+            var payload = new Object();
+            redisCli.get("u:info:id:"+unpackedPayload.userId, (err, usn) => {
+                if(err) {} else {
+                    if (usn === null) {
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_NOT_EXIST_USER_ID;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGI_RSP, payload);
+                        logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                        return res.send(protocol.getPackedMsg());
+                    } else {
+                        redisCli.get("u:info:" + usn + ":pw", (err, hashedPw) => {
+                            if(err) {} else {
+                                if (hashedPw === null) {
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_OTHER;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGI_RSP, payload);
+                                    logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                    return res.send(protocol.getPackedMsg());
+                                } else {
+                                    if (hash.checkPassword(unpackedPayload.userPw, hashedPw)) {
+                                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_OK;
+                                        //update user state
+                                        var keyHead = "u:info:" + usn + ":";
+                                        redisCli.multi([
+                                            ["set", keyHead + "signf", "1"],
+                                            ["mget", keyHead + "usn", keyHead + "ml"]
+                                        ]).exec((err, replies) => {
+                                            if(err){} else {
+                                                payload.usn = replies[1][0];
+                                                payload.ml = replies[1][1];
+                                            }
+                                            protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGI_RSP, payload);
+                                            logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                            return res.send(protocol.getPackedMsg());
+                                        });
+                                        //
+                                    } else {
+                                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_INCORRECT_CURRENT_USER_PASSWORD;
+                                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGI_RSP, payload);
+                                        logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+                                    }
+                                }
+                            }
+                        })
+                    }
+                }
+            });
+            //성공
+                //USN, UML
+            //에러
+            //유저없음
+            //패스워드 불일치
+
             break;
         default:
             break;

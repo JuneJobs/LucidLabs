@@ -7,5 +7,8 @@ class LlHash {
     getHashedPassword(passwrod) {
         return bcrypt.hashSync(passwrod, 10);
     }
+    checkPassword(plain, hash){
+        return bcrypt.compareSync(plain, hash);
+    }
 }
 module.exports = LlHash;

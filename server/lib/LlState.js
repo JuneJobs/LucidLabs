@@ -99,9 +99,17 @@ class LlState {
     //sec
     setState(entity, endpointIdType, stateId, value, timeout) {
         var key = "";
+        // var entityName ='';
+        // if(entity === g.ENTITY_TYPE.SERVER){
+        //     entityName = "SERVER";
+        // }else {
+        //     entityName = "DATABASE";
+        // }
+        // var endpointIdTypeName = '';
         if (this.checkValidType(endpointIdType)) {
             switch (endpointIdType) {
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_TSI:
+                    //endpointIdTypeName = "TSI";
                     if (entity === g.ENTITY_TYPE.SERVER) {
                         key = 'c:sta:s:s:tsi:' + stateId[0] + ':' + stateId[1];
                     } else if (entity === g.ENTITY_TYPE.DATABASE) {
@@ -109,6 +117,7 @@ class LlState {
                     }
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN:
+                    //endpointIdTypeName = "SSN";
                     if (entity === g.ENTITY_TYPE.SERVER) {
                         key = 'c:sta:s:s:ssn:' + stateId;
                     } else if (entity === g.ENTITY_TYPE.DATABASE) {
@@ -116,6 +125,7 @@ class LlState {
                     }
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI:
+                    //endpointIdTypeName = "APP TCI";
                     if (entity === g.ENTITY_TYPE.SERVER) {
                         key = 'c:sta:s:a:tci:' + stateId[0] + ':' + stateId[1];
                     } else if (entity === g.ENTITY_TYPE.DATABASE) {
@@ -123,6 +133,7 @@ class LlState {
                     }
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN:
+                    //endpointIdTypeName = "APP USN";
                     if (entity === g.ENTITY_TYPE.SERVER) {
                         key = 'c:sta:s:a:usn:' + stateId;
                     } else if (entity === g.ENTITY_TYPE.DATABASE) {
@@ -130,6 +141,7 @@ class LlState {
                     }
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI:
+                    //endpointIdTypeName = "WEB TCI";
                     if (entity === g.ENTITY_TYPE.SERVER) {
                         if(stateId[1] === undefined){
                             console.log(stateId[0]);
@@ -140,6 +152,7 @@ class LlState {
                     }
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN:
+                    //endpointIdTypeName = "WEB USN";
                     if (entity === g.ENTITY_TYPE.SERVER) {
                         key = 'c:sta:s:w:usn:' + stateId;
                     } else if (entity === g.ENTITY_TYPE.DATABASE) {
@@ -152,6 +165,7 @@ class LlState {
                     if(err){
                         return false;
                     }
+                    //logger.debug("| " + entityName + " change " + endpointIdTypeName + " state to (IDLE)");
                     return true;
                 });
             } else {
