@@ -8,11 +8,11 @@ const INVALID_ID_TYPE = 7;
  * Reserved 07 ~ 0f
  */
 const ENTITY_TYPE = {
-    SENSOR: 0x1,
-    APPCLIENT: 0x2,
-    WEBCLIENT: 0x3,
-    SERVER: 0x4,
-    DATABASE: 0x5
+    SENSOR: "n",
+    APPCLIENT: "a",
+    WEBCLIENT: "w",
+    SERVER: "s",
+    DATABASE: "d"
 };
 
 const ENDPOIONT_ID_TYPE = {
@@ -1038,7 +1038,8 @@ const SERVER_TIMER = {
     T861: 5,
     T862: 300,
     T863: 1800,
-}
+};
+
 const DATABASE_TIMER = {
     T901: 5,
     T902: 5,
@@ -1066,15 +1067,16 @@ const DATABASE_TIMER = {
     T951: 60, //TBD
     T952: 60, //TBD
     T953: 60, //TBD
-    T954: 1800,
-    T955: 60,
+    T954: 300,
+    T955: 1800,
     T956: 60
-}
+};
 
 const SIGNED_IN_STATE = {
-    SIGNED_IN: 0,
-    SIGNED_OUT: 1
-}
+    SIGNED_OUT: 0,
+    SIGNED_IN: 1
+};
+
 module.exports = { HEADER_SIZE, 
                    ENTITY_TYPE,
                    INVALID_ID_TYPE, 
