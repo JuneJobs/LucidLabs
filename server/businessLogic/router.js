@@ -532,6 +532,69 @@ router.post("/serverapi", function (req, res) {
             break;
         //ASR
         case g.SWP_MSG_TYPE.SWP_ASR_REQ:
+            //스테이트 체크
+            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                //권한체크 필요 없음
+                var payload = new Object();
+                // if(resState){
+                //     uModule.checkUserSignedInState(g.ENTITY_TYPE.SERVER, protocol.getEndpointId(), unpackedPayload.nsc, (result) =>{
+                //         if(result ===1){
+                //             payload.wifiMac = unpackedPayload.wifiMac;
+                //             payload.cellMac = unpackedPayload.cellMac;
+                //             var packedSdpAsr = protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASR_REQ, payload);
+                //             //여기
+                //             request.send('http://localhost:8080/databaseapi', packedSdpAsr, (message) => {
+                //                 protocol.setMsg(message);
+                //                 if (!protocol.verifyHeader()) return;
+                //                 var unpackedPayload = protocol.unpackPayload();
+                //                 if (!unpackedPayload) return;
+                //                 switch (unpackedPayload.resultCode) {
+                //                     case g.SDP_MSG_RESCODE.RESCODE_SDP_ASR.RESCODE_SDP_ASR_OK:
+                //                         //유저버퍼 지우기
+                //                         uModule.removeActiveUserInfo(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), (result) => {
+                //                             if (result) {
+                //                                 // here!!
+                //                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASR.RESCODE_SWP_ASR_OK;
+                //                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASR_ACK, payload);
+                //                                 state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE);
+                //                                 logger.debug("| SERVER change USN state (HALF IDLE STATE) ->  (IDLE)");
+                //                                 logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                //                                 return res.send(protocol.getPackedMsg());
+                //                             }
+                //                         });
+                //                         break;
+                //                     case g.SDP_MSG_RESCODE.RESCODE_SDP_ASR.RESCODE_SDP_ASR_OTHER:
+                //                         payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASR.RESCODE_SWP_ASR_OTHER;
+                //                         protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASR_ACK, payload)
+                //                         logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                //                         return res.send(protocol.getPackedMsg());
+                //                     case g.SDP_MSG_RESCODE.RESCODE_SDP_ASR.RESCODE_SDP_ASR_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                //                         payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASR.RESCODE_SWP_ASR_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                //                         protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASR_ACK, payload)
+                //                         logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                //                         return res.send(protocol.getPackedMsg());
+                //                     default:
+                //                         break;
+                //                 }
+                //             })
+                //         } else if (result === 3) {
+                //             //시퀀스
+                //             payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASR.RESCODE_SWP_ASR_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                //             protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASR_RSP, payload)
+                //             logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                //             return res.send(protocol.getPackedMsg());
+                //         }
+                //     });
+                // } else {
+                //     //할당되지 않은 유저
+                //     payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASR.RESCODE_SWP_ASR_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                //     protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASR_REQ, payload)
+                //     logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                //     return res.send(protocol.getPackedMsg());
+                //     //스테이트가 없으면
+                //     //리젝트 아더
+                // }
+            });
             break;
         //ASD
         case g.SWP_MSG_TYPE.SWP_ASD_REQ:
