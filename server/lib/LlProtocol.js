@@ -9,13 +9,13 @@
 const g = require("../config/header");
 class LlProtocol {
     constructor() {
-        this.msg = null;
-        this.msgType = null;
-        this.endpointId = null;
+        this.msg = new Object();
+        this.msgType = new Object();
+        this.endpointId = new Object();
         this.msgLen = 0;
-        this.msgPayload = null;
-        this.unpackedPayload = null;
-        this.packedMsg = null;
+        this.msgPayload = new Object();
+        this.unpackedPayload = new Object();
+        this.packedMsg = new Object();
     }
     /**
      * @title function setMsg
@@ -158,7 +158,7 @@ class LlProtocol {
         //validation
         //parsing
         this.unpackedPayload = {
-            "wifiMacAddress": this.msgPayload.wifiMacAddress
+            "wmac": this.msgPayload.wmac
         }
         return this.unpackedPayload;
     }
@@ -296,8 +296,8 @@ class LlProtocol {
         var payload = this.msgPayload;
 
         this.unpackedPayload.nsc = payload.nsc;
-        this.unpackedPayload.wifiMac = payload.wifiMac;
-        this.unpackedPayload.cellMac = payload.cellMac;
+        this.unpackedPayload.wmac = payload.wmac;
+        this.unpackedPayload.cmac = payload.cmac;
 
         return this.unpackedPayload;
     }
@@ -306,8 +306,8 @@ class LlProtocol {
         //parsing
         var payload = this.msgPayload;
 
-        this.unpackedPayload.wifiMac = payload.wifiMac;
-        this.unpackedPayload.cellMac = payload.cellMac;
+        this.unpackedPayload.wmac = payload.wmac;
+        this.unpackedPayload.cmac = payload.cmac;
 
         return this.unpackedPayload;
     }
@@ -315,8 +315,7 @@ class LlProtocol {
         //validation
         //parsing
         var payload = this.msgPayload;
-        this.unpackedPayload = {
-        }
+        this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
     }
     //ASD
@@ -326,7 +325,7 @@ class LlProtocol {
         var payload = this.msgPayload;
 
         this.unpackedPayload.nsc = payload.nsc;
-        this.unpackedPayload.wifiMac = payload.wifiMac;
+        this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.dirRsnCode = payload.dirRsnCode;
         this.unpackedPayload.userId = payload.userId;
 
@@ -337,7 +336,7 @@ class LlProtocol {
         //parsing
         var payload = this.msgPayload;
 
-        this.unpackedPayload.wifiMac = payload.wifiMac;
+        this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.dirRsnCode = payload.dirRsnCode;
         this.unpackedPayload.userId = payload.userId;
 
@@ -357,7 +356,7 @@ class LlProtocol {
         var payload = this.msgPayload;
 
         this.unpackedPayload.nsc = payload.nsc;
-        this.unpackedPayload.wifiMac = payload.wifiMac;
+        this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.sensorAcvieFlg = payload.sensorAcvieFlg;
         this.unpackedPayload.sensorMobFlg = payload.sensorMobFlg;
         this.unpackedPayload.natCd = payload.natCd;
@@ -397,8 +396,8 @@ class LlProtocol {
         var payload = this.msgPayload;
 
         this.unpackedPayload.nsc = payload.nsc;
-        this.unpackedPayload.wifiMac = payload.wifiMac;
-        this.unpackedPayload.cellMac = payload.cellMac;
+        this.unpackedPayload.wmac = payload.wmac;
+        this.unpackedPayload.cmac = payload.cmac;
 
         return this.unpackedPayload;
     }
@@ -407,8 +406,8 @@ class LlProtocol {
         //parsing
         var payload = this.msgPayload;
 
-        this.unpackedPayload.wifiMac = payload.wifiMac;
-        this.unpackedPayload.cellMac = payload.cellMac;
+        this.unpackedPayload.wmac = payload.wmac;
+        this.unpackedPayload.cmac = payload.cmac;
         
         return this.unpackedPayload;
     }
@@ -426,7 +425,7 @@ class LlProtocol {
         var payload = this.msgPayload;
 
         this.unpackedPayload.nsc = payload.nsc;
-        this.unpackedPayload.wifiMac = payload.wifiMac;
+        this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.sensorMob = payload.sensorMob;
 
         return this.unpackedPayload;
@@ -436,7 +435,7 @@ class LlProtocol {
         //parsing
         var payload = this.msgPayload;
 
-        this.unpackedPayload.wifiMac = payload.wifiMac;
+        this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.sensorMob = payload.sensorMob;
 
         return this.unpackedPayload;
@@ -455,7 +454,7 @@ class LlProtocol {
         var payload = this.msgPayload;
 
         this.unpackedPayload.nsc = payload.nsc;
-        this.unpackedPayload.wifiMac = payload.wifiMac;
+        this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.dirRsnCode = payload.dirRsnCode;
 
         return this.unpackedPayload;
@@ -465,7 +464,7 @@ class LlProtocol {
         //parsing
         var payload = this.msgPayload;
 
-        this.unpackedPayload.wifiMac = payload.wifiMac;
+        this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.dirRsnCode = payload.dirRsnCode;
 
         return this.unpackedPayload;

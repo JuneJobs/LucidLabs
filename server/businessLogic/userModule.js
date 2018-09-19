@@ -63,22 +63,21 @@ class userModule {
             //here!
             var keyHead = "c:act:s:" + g.ENTITY_TYPE.WEBCLIENT + ":" + usn;
             redisCli.get(keyHead + ":nsc", (err, reply) => {
-                var result = 0;
                 if (err) {} else {
                     if (reply === null) {
                         //not exist userId
-                        result = 2;
+                        cb(2);
                     } else {
-                        if (reply === nsc) {
+                        if (reply === nsc.toString()) {
                             //okay
-                            result = 1;
+                            cb(1);
                         } else {
                             //incorrect nsc
-                            result = 3;
+                            cb(3);
                         }
                     }
                 }
-                cb(result);
+                return;
             });
         }
     }
@@ -108,7 +107,6 @@ class userModule {
         }
        
     }
-    
     updateUserSignedInState(entityType, usn, cb){
         if (entityType === undefined || usn === undefined) {
             return cb(false);
@@ -124,7 +122,6 @@ class userModule {
             }
 
             //업데이트 치기
-            redisCli.expire(key, seconds)
             redisCli.multi([
                 ["expire", keyHead + "signf", expTime],
                 ["expire", keyHead + "nsc", expTime],
