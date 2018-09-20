@@ -315,6 +315,7 @@ class LlProtocol {
         //validation
         //parsing
         var payload = this.msgPayload;
+        this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
     }
@@ -323,10 +324,9 @@ class LlProtocol {
         //validation
         //parsing
         var payload = this.msgPayload;
-
         this.unpackedPayload.nsc = payload.nsc;
         this.unpackedPayload.wmac = payload.wmac;
-        this.unpackedPayload.dirRsnCode = payload.dirRsnCode;
+        this.unpackedPayload.drgcd = payload.drgcd;
         this.unpackedPayload.userId = payload.userId;
 
         return this.unpackedPayload;
@@ -337,7 +337,7 @@ class LlProtocol {
         var payload = this.msgPayload;
 
         this.unpackedPayload.wmac = payload.wmac;
-        this.unpackedPayload.dirRsnCode = payload.dirRsnCode;
+        this.unpackedPayload.drgcd = payload.drgcd;
         this.unpackedPayload.userId = payload.userId;
 
         return this.unpackedPayload;
@@ -346,7 +346,8 @@ class LlProtocol {
         //validation
         //parsing
         var payload = this.msgPayload;
-        this.unpackedPayload = {}
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
     }
     //ASV
@@ -508,7 +509,7 @@ class LlProtocol {
             return false;
         }
     }
-    packMsg(msgType, payload) {
+    packMsg (msgType, payload) {
         if (msgType !== null) {
             switch (msgType) {
                 case g.SSP_MSG_TYPE.SSP_SIR_RSP:
