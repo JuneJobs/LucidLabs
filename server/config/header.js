@@ -1076,6 +1076,16 @@ const SIGNED_IN_STATE = {
     SIGNED_OUT: 0,
     SIGNED_IN: 1
 };
+const SENSOR_ACT_FLAG = {
+    REGISTERED: 0,
+    ASSOCATIED: 1,
+    OPERATING: 2,
+    DEREGISTERED: 3
+}
+const SENSOR_MOB_FLAG = {
+    STATIONARY: 0,
+    PORTABLE: 1
+}
 
 module.exports = { HEADER_SIZE, 
                    ENTITY_TYPE,
@@ -1103,5 +1113,8 @@ module.exports = { HEADER_SIZE,
                    DATABASE_RECV_STATE_BY_MSG,
                    SERVER_TIMER,
                    DATABASE_TIMER,
-                   SIGNED_IN_STATE
+                   SIGNED_IN_STATE,
+                   SENSOR_ACT_FLAG,
+                   SENSOR_MOB_FLAG
+
 };

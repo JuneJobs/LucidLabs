@@ -7,6 +7,8 @@ var redisCli = redis.createClient();
 //초기데이터 저장
 //데이터 업데이트
 //타이머 적용
+//TODO
+
 
 class LlBuffer {
     constructor(){

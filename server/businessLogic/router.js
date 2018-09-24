@@ -544,7 +544,7 @@ router.post("/serverapi", function (req, res) {
                         if(result ===1){
                             payload.wmac = unpackedPayload.wmac;
                             payload.cmac = unpackedPayload.cmac;
-                    
+                      
                             var packedSdpAsr = protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASR_REQ, payload);
                             //여기
                             request.send('http://localhost:8080/databaseapi', packedSdpAsr, (message) => {
@@ -668,7 +668,7 @@ router.post("/serverapi", function (req, res) {
                                     default:
                                         break;
                                 }
-                            })
+                            });
                         } else if (result === 3){
                             //시퀀스
                             payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASD.RESCODE_SWP_ASD_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
@@ -688,7 +688,78 @@ router.post("/serverapi", function (req, res) {
             break;
         //ASV
         case g.SWP_MSG_TYPE.SWP_ASV_REQ:
-            
+            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                var payload = {};
+                //state exist
+                if(resState) {
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if(result === 1){
+                            //payload 생성
+                            if (typeof unpackedPayload.wmac !== 'undefined') payload.wmac = unpackedPayload.wmac;
+                            if (typeof unpackedPayload.actf !== 'undefined') payload.actf = unpackedPayload.actf;
+                            if (typeof unpackedPayload.mobf !== 'undefined') payload.mobf = unpackedPayload.mobf;
+                            if (typeof unpackedPayload.nat !== 'undefined') payload.nat = unpackedPayload.nat;
+                            if (typeof unpackedPayload.state !== 'undefined') payload.state = unpackedPayload.state;
+                            if (typeof unpackedPayload.city !== 'undefined') payload.city = unpackedPayload.city;
+                            if (typeof unpackedPayload.userId !== 'undefined') payload.userId = unpackedPayload.userId;
+
+                            var packedSdpAsv = protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_REQ, payload)
+                            request.send('http://localhost:8080/databaseapi', packedSdpAsv, (message) => {
+                                payload = {};
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                var unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+                                switch (unpackedPayload.resultCode) {
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OK:
+                                        //유저버퍼 업데이트
+                                        uModule.updateUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), (result) => {
+                                            if (result) {
+                                                // here!!
+                                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASV.RESCODE_SWP_ASV_OK;
+                                                payload.selectedSensorInformationList = unpackedPayload.selectedSensorInformationList;
+                                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASV_RSP, payload);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
+                                                logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                                return res.send(protocol.getPackedMsg());
+                                            }
+                                        });
+                                        break;
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OTHER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASV.RESCODE_SWP_ASV_OTHER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASV_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASV.RESCODE_SWP_ASV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASV_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_UNAUTHORIZED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASV.RESCODE_SWP_ASV_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASV_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+                                    default:
+                                        break;
+                                }
+                            })
+                        } else {
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASV.RESCODE_SWP_ASV_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASV_RSP, payload)
+                            logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                            return res.send(protocol.getPackedMsg());
+                        }
+                    });
+                //state not exist
+                } else {
+                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASV.RESCODE_SWP_ASV_OTHER;
+                    logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASV_RSP, payload);
+                    return res.send(protocol.getPackedMsg());
+                }
+            });
             break;
         //SRG
         case g.SWP_MSG_TYPE.SWP_SRG_REQ:
@@ -958,7 +1029,7 @@ router.post("/databaseapi", (req, res) => {
                                         sensorInfo.ssn = newSsn;
                                         sensorInfo.actf = 0;
                                         sensorInfo.mobf = 0;
-                                        sensorInfo.stat = 0;
+                                        sensorInfo.stat = 0b11111111;
                                         sensorInfo.rdt = cModule.getCurrentDate();
                                         sensorInfo.sdt = 0;
                                         sensorInfo.edt = 0;
@@ -975,40 +1046,22 @@ router.post("/databaseapi", (req, res) => {
                                                 keyHead + "edt", sensorInfo.edt, //TBD
                                                 keyHead + "drgcd", sensorInfo.drgcd, 
                                                 keyHead + "regusn", sensorInfo.regusn,
+                                                keyHead + "actf", sensorInfo.actf,
+                                                keyHead + "mobf", sensorInfo.mobf,
+                                                keyHead + "stat", sensorInfo.stat,
                                                 "s:info:" + sensorInfo.wmac, sensorInfo.ssn
                                             ],
-                                            [
-                                                "setbit", keyHead + "actf", 0, 0
+                                            [   
+                                                "sadd", "search:s:actf:0", sensorInfo.ssn,
                                             ],
                                             [
-                                                "setbit", keyHead + "actf", 1, 0
+                                                "sadd", "search:s:mobf:0", sensorInfo.ssn
                                             ],
                                             [
-                                                "setbit", keyHead + "mobf", 0, 0
+                                                "sadd", "search:s:nat:0", sensorInfo.ssn, 
                                             ],
                                             [
-                                                "setbit", keyHead + "stat", 0, 1
-                                            ],
-                                            [
-                                                "setbit", keyHead + "stat", 1, 1
-                                            ],
-                                            [
-                                                "setbit", keyHead + "stat", 2, 1
-                                            ],
-                                            [
-                                                "setbit", keyHead + "stat", 3, 1
-                                            ],
-                                            [
-                                                "setbit", keyHead + "stat", 4, 1
-                                            ],
-                                            [
-                                                "setbit", keyHead + "stat", 5, 1
-                                            ],
-                                            [
-                                                "setbit", keyHead + "stat", 6, 1
-                                            ],
-                                            [
-                                                "setbit", keyHead + "stat", 7, 1
+                                                "sadd", "search:s:user:" + protocol.getEndpointId(), sensorInfo.ssn
                                             ]
                                         ]).exec(function (err, replies) {
                                             if (err) {
@@ -1078,6 +1131,12 @@ router.post("/databaseapi", (req, res) => {
                                                 redisCli.multi([
                                                     //Delete sensor association with user
                                                     ["set", "s:info:" + ssn + ":drgcd", unpackedPayload.drgcd],
+                                                    [
+                                                        "srem", "search:s:actf:0", ssn,
+                                                    ],
+                                                    [
+                                                        "sadd", "search:s:actf:3", ssn,
+                                                    ]
                                                 ]).exec(function (err, replies) {
                                                     if (err) {
                                                         logger.error("| DATABASE ERROR set drgcd info");
@@ -1105,8 +1164,16 @@ router.post("/databaseapi", (req, res) => {
                                                                 ["del", keyHead + "tti"],
                                                                 ["del", keyHead + "mobf"],
                                                                 //Update sensor information
-                                                                ["setbit", "s:info:" + ssn + ":actf", 0, 0],
-                                                                ["setbit", "s:info:" + ssn + ":actf", 1, 0]
+                                                                ["set", keyHead + "actf", 0],
+                                                                [
+                                                                    "srem", "search:s:actf:1", sensorInfo.ssn,
+                                                                ],
+                                                                [
+                                                                    "sadd", "search:s:actf:0", sensorInfo.ssn,
+                                                                ],
+                                                                [
+                                                                    "sadd", "search:s:mobf:0", sensorInfo.ssn
+                                                                ]
                                                             ]).exec(function (err, replies) {
                                                                 if (err) {
                                                                     logger.error("| DATABASE ERROR delete usn,ssn");
@@ -1165,15 +1232,234 @@ router.post("/databaseapi", (req, res) => {
             break;
             //ASV
         case g.SDP_MSG_TYPE.SDP_ASV_REQ:
+            var payload = {};
+            var key = "u:info:" + protocol.getEndpointId() + ":signf";
+            redisCli.getbit(key, 1, (err, signf)=> {
+                if (signf === null) {
+                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_REQ, payload);
+                    logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    return res.send(protocol.getPackedMsg());
+                    //signed in
+                } else if (signf === g.SIGNED_IN_STATE.SIGNED_IN) {
+                    //Auth, It should be repfactoring
+                    if(protocol.getEndpointId() < 2){
+                        //main logic
+                        //If user searched using mac
+                        if (typeof unpackedPayload.wmac !== 'undefined') {
+                            //시리얼 넘버 * 해당 번치 -> 
+                            redisCli.get('s:info:' + unpackedPayload.wmac, (err, ssn) => {
+                                if(ssn !== null){
+                                    redisCli.keys('s:info:' + ssn + ':*', (err, values) => {
+                                        if(err){} else {
+                                            console.log(values);
+                                            redisCli.mget(values, (err, replies) => {
+                                                console.log(replies);
+                                                var obj = {};
+                                                for (var i = 0; i < replies.length; i++) {
+                                                    obj[values[i].split("s:info:"+ ssn +":")[1]] = replies[i];
+                                                }
+                                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OK;
+                                                payload.selectedSensorInformationList = [obj];
+                                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
+                                                logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                                return res.send(protocol.getPackedMsg());
+                                            })
+                                        }
+                                    });
+                                } else {
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OK;
+                                    payload.selectedSensorInformationList = [];
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
+                                    logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                    return res.send(protocol.getPackedMsg());
+                                }
+                            });
+                        } else {
+                            var searchSets = [];
+                            var keyHead = 'search:s:actf:';
+                            switch (unpackedPayload.actf) {
+                                case g.SENSOR_ACT_FLAG.REGISTERED:
+                                    searchSets.push(keyHead + g.SENSOR_ACT_FLAG.REGISTERED.toString());
+                                    break;
+                                case g.SENSOR_ACT_FLAG.ASSOCATIED:
+                                    searchSets.push(keyHead + g.SENSOR_ACT_FLAG.ASSOCATIED.toString());
+                                    break;
+                                case g.SENSOR_ACT_FLAG.OPERATING:
+                                    searchSets.push(keyHead + g.SENSOR_ACT_FLAG.OPERATING.toString());
+                                    break;
+                                case g.SENSOR_ACT_FLAG.DEREGISTERED:
+                                    searchSets.push(keyHead + g.SENSOR_ACT_FLAG.DEREGISTERED.toString());
+                                    break;
+                                default: break;
+                            }
+                            keyHead = 'search:s:mobf:';
+                            switch (unpackedPayload.mobf) {
+                                case g.SENSOR_MOB_FLAG.STATIONARY:
+                                    searchSets.push(keyHead + g.SENSOR_MOB_FLAG.STATIONARY.toString());
+                                    break;
+                                case g.SENSOR_MOB_FLAG.PORTABLE:
+                                    searchSets.push(keyHead + g.SENSOR_MOB_FLAG.PORTABLE.toString());
+                                    break;
+                                default: break;
+                            }
+                            keyHead = 'search:s:nat:';
+                            switch (unpackedPayload.nat) {
+                                case 0:
+                                    searchSets.push(keyHead + '0');
+                                    break;
+                                case 1:
+                                    searchSets.push(keyHead + '1');
+                                    break;
+                                default:
+                                    break;
+                            }
+                            keyHead = 'search:s:user:';
+                            //not if search by user id
+                            if (typeof unpackedPayload.userId === 'undefined') {
+                                sModule.searchSensor(searchSets, (result)=>{
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OK;
+                                    payload.selectedSensorInformationList = result;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
+                                    logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                    return res.send(protocol.getPackedMsg());
+                                })
+                            //if search by user id
+                            } else {
+                                redisCli.get('u:info:id:' + unpackedPayload.userId, (err, usn) => {
+                                    if (usn === null) {
+                                        payload.selectedSensorInformationList = [];
+                                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OK;
+                                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
+                                        logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+                                    } else {
+                                        sModule.searchSensor(['search:s:user:' + usn], (result) => {
+                                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OK;
+                                            payload.selectedSensorInformationList = result;
+                                            protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
+                                            logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                            return res.send(protocol.getPackedMsg());
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    } else if (signf === g.SIGNED_IN_STATE.SIGNED_OUT) {
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
+                        logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    }
+                } else if (signf === g.SIGNED_IN_STATE.SIGNED_OUT) {
+                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OTHER;
+                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
+                    logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    return res.send(protocol.getPackedMsg());
+                }
+            });
             break;
             //SRG
         case g.SDP_MSG_TYPE.SDP_SRG_REQ:
+            var payload = new Object();
+            var key = "u:info:" + protocol.getEndpointId() + ":signf";
+            //유저시퀀스 조회
+            redisCli.getbit(key, 1, (err, signf) => {
+                //not exist user id
+                if (signf === null) {
+                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_RSP, payload);
+                    logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    return res.send(protocol.getPackedMsg());
+                    //signed in
+                } else if (signf === g.SIGNED_IN_STATE.SIGNED_IN) {
+                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OK;
+                    //add usn
+                    redisCli.get("s:info:" + unpackedPayload.wmac, (err, reply) => {
+                        if (err) {
+                            logger.error("| DATABASE ERROR search wmac");
+                        } else {
+                            if (reply === null) {
+                                sModule.getNewSensorSerialNum((newSsn) => {
+                                    var payload = new Object();
+                                    var sensorInfo = unpackedPayload;
+                                    var keyHead = 's:info:' + newSsn + ':';
+                                    sensorInfo.ssn = newSsn;
+                                    sensorInfo.actf = 0;
+                                    sensorInfo.mobf = 0;
+                                    sensorInfo.stat = 0b11111111;
+                                    sensorInfo.rdt = cModule.getCurrentDate();
+                                    sensorInfo.sdt = 0;
+                                    sensorInfo.edt = 0;
+                                    sensorInfo.drgcd = 0;
+                                    sensorInfo.regusn = protocol.getEndpointId();
+                                    redisCli.multi([
+                                        [
+                                            "mset",
+                                            keyHead + "ssn", sensorInfo.ssn,
+                                            keyHead + "wmac", sensorInfo.wmac,
+                                            keyHead + "cmac", sensorInfo.cmac,
+                                            keyHead + "rdt", sensorInfo.rdt,
+                                            keyHead + "sdt", sensorInfo.sdt, //TBD
+                                            keyHead + "edt", sensorInfo.edt, //TBD
+                                            keyHead + "drgcd", sensorInfo.drgcd,
+                                            keyHead + "regusn", sensorInfo.regusn,
+                                            keyHead + "actf", sensorInfo.actf,
+                                            keyHead + "mobf", sensorInfo.mobf,
+                                            keyHead + "stat", sensorInfo.stat,
+                                            "s:info:" + sensorInfo.wmac, sensorInfo.ssn
+                                        ],
+                                        [
+                                            "sadd", "search:s:actf:0", sensorInfo.ssn,
+                                        ],
+                                        [
+                                            "sadd", "search:s:mobf:0", sensorInfo.ssn
+                                        ],
+                                        [
+                                            "sadd", "search:s:nat:0", sensorInfo.ssn,
+                                        ],
+                                        [
+                                            "sadd", "search:s:user:" + protocol.getEndpointId(), sensorInfo.ssn
+                                        ]
+                                    ]).exec(function (err, replies) {
+                                        if (err) {
+                                            logger.error("| DATABASE ERROR set sensor information");
+                                            return;
+                                        } else {
+                                            logger.debug("| DATABASE stored sensor info" + JSON.stringify(sensorInfo));
+                                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OK;
+                                            protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_RSP, payload);
+                                            state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                                            logger.debug("| DATABASE change USN state (USN INFORMED) -> (USN INFORMED)");
+                                            return res.send(protocol.getPackedMsg());
+                                        }
+                                    });
+                                });
+                            } else {
+                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OK;
+                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_RSP, payload);
+                                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                                logger.debug("| DATABASE change USN state (USN INFORMED) -> (USN INFORMED)");
+                                return res.send(protocol.getPackedMsg());
+                            }
+                        }
+                    });
+                    //signed out
+                } else if (signf === g.SIGNED_IN_STATE.SIGNED_OUT) {
+                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OTHER;
+                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_RSP, payload);
+                    logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    return res.send(protocol.getPackedMsg());
+                }
+            });
             break;
             //SAS
         case g.SDP_MSG_TYPE.SDP_SAS_REQ:
             break;
             //SDD
         case g.SDP_MSG_TYPE.SDP_SDD_REQ:
+            break;
+            //SLV
+        case g.SDP_MSG_TYPE.SDP_SLV_REQ:
             break;
         default:
             break;

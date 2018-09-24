@@ -355,16 +355,16 @@ class LlProtocol {
         //validation
         //parsing
         var payload = this.msgPayload;
-
-        this.unpackedPayload.nsc = payload.nsc;
-        this.unpackedPayload.wmac = payload.wmac;
-        this.unpackedPayload.sensorAcvieFlg = payload.sensorAcvieFlg;
-        this.unpackedPayload.sensorMobFlg = payload.sensorMobFlg;
-        this.unpackedPayload.natCd = payload.natCd;
-        this.unpackedPayload.state = payload.state;
-        this.unpackedPayload.city = payload.city;
-        this.unpackedPayload.userId = payload.userId;
-        this.unpackedPayload.oprSet = payload.oprSet;
+        this.unpackedPayload = {};
+        if (typeof payload.nsc !== 'undefined') this.unpackedPayload.nsc = payload.nsc;
+        if (typeof payload.wmac !== 'undefined') this.unpackedPayload.wmac = payload.wmac;
+        if (typeof payload.actf !== 'undefined') this.unpackedPayload.actf = payload.actf;
+        if (typeof payload.mobf !== 'undefined') this.unpackedPayload.mobf = payload.mobf;
+        if (typeof payload.nat !== 'undefined') this.unpackedPayload.natCd = payload.nat;
+        if (typeof payload.state !== 'undefined') this.unpackedPayload.state = payload.state;
+        if (typeof payload.city !== 'undefined') this.unpackedPayload.city = payload.city;
+        if (typeof payload.userId !== 'undefined') this.unpackedPayload.userId = payload.userId;
+        if (typeof payload.oprSet !== 'undefined') this.unpackedPayload.oprSet = payload.oprSet;
 
         return this.unpackedPayload;
     }
@@ -372,22 +372,24 @@ class LlProtocol {
         //validation
         //parsing
         var payload = this.msgPayload;
-
-        this.unpackedPayload.sensorAcvieFlg = payload.sensorAcvieFlg;
-        this.unpackedPayload.sensorMobFlg = payload.sensorMobFlg;
-        this.unpackedPayload.natCd = payload.natCd;
-        this.unpackedPayload.state = payload.state;
-        this.unpackedPayload.city = payload.city;
-        this.unpackedPayload.userId = payload.userId;
-        this.unpackedPayload.oprSet = payload.oprSet;
-        
+        this.unpackedPayload = {};
+        if (typeof payload.wmac !== 'undefined') this.unpackedPayload.wmac = payload.wmac;
+        if (typeof payload.actf !== 'undefined') this.unpackedPayload.actf = payload.actf;
+        if (typeof payload.mobf !== 'undefined') this.unpackedPayload.mobf = payload.mobf;
+        if (typeof payload.nat !== 'undefined') this.unpackedPayload.natCd = payload.nat;
+        if (typeof payload.state !== 'undefined') this.unpackedPayload.state = payload.state;
+        if (typeof payload.city !== 'undefined') this.unpackedPayload.city = payload.city;
+        if (typeof payload.userId !== 'undefined') this.unpackedPayload.userId = payload.userId;
+        if (typeof payload.oprset !== 'undefined') this.unpackedPayload.oprSet = payload.oprset;
         return this.unpackedPayload;
     }
     _unpackSdpAsvRspPayload() {
         //validation
         //parsing
         var payload = this.msgPayload;
-        this.unpackedPayload = {}
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
+        this.unpackedPayload.selectedSensorInformationList = payload.selectedSensorInformationList;
         return this.unpackedPayload;
     }
     //SRG
