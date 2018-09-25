@@ -162,6 +162,7 @@ class LlProtocol {
         }
         return this.unpackedPayload;
     }
+
     //SGU
     _unpackSwpSguReqPayload() {
         //validation
@@ -195,6 +196,7 @@ class LlProtocol {
         }
         return this.unpackedPayload;
     }
+
     //UVC
     _unpackSwpUvcReqPayload() {
         //validation
@@ -229,6 +231,7 @@ class LlProtocol {
         }
         return this.unpackedPayload;
     }
+
     //SGI
     _unpackSwpSgiReqPayload() {
         //validation
@@ -263,6 +266,7 @@ class LlProtocol {
         }
         return this.unpackedPayload;
     }
+
     //SGO
     _unpackSwpSgoNotPayload() {
         //validation
@@ -289,6 +293,7 @@ class LlProtocol {
         }
         return this.unpackedPayload;
     }
+
     //ASR
     _unpackSwpAsrReqPayload() {
         //validation
@@ -319,6 +324,7 @@ class LlProtocol {
         this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
     }
+
     //ASD
     _unpackSwpAsdReqPayload() {
         //validation
@@ -350,6 +356,7 @@ class LlProtocol {
         this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
     }
+
     //ASV
     _unpackSwpAsvReqPayload() {
         //validation
@@ -392,6 +399,7 @@ class LlProtocol {
         this.unpackedPayload.selectedSensorInformationList = payload.selectedSensorInformationList;
         return this.unpackedPayload;
     }
+
     //SRG
     _unpackSwpSrgReqPayload() {
         //validation
@@ -418,9 +426,11 @@ class LlProtocol {
         //validation
         //parsing
         var payload = this.msgPayload;
-        this.unpackedPayload = {}
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
     }
+
     //SAS
     _unpackSwpSasReqPayload() {
         //validation
@@ -450,6 +460,7 @@ class LlProtocol {
         this.unpackedPayload = {}
         return this.unpackedPayload;
     }
+
     //SDD
     _unpackSwpSddReqPayload() {
         //validation
@@ -458,7 +469,7 @@ class LlProtocol {
 
         this.unpackedPayload.nsc = payload.nsc;
         this.unpackedPayload.wmac = payload.wmac;
-        this.unpackedPayload.dirRsnCode = payload.dirRsnCode;
+        this.unpackedPayload.drgcd = payload.drgcd;
 
         return this.unpackedPayload;
     }
@@ -468,7 +479,7 @@ class LlProtocol {
         var payload = this.msgPayload;
 
         this.unpackedPayload.wmac = payload.wmac;
-        this.unpackedPayload.dirRsnCode = payload.dirRsnCode;
+        this.unpackedPayload.drgcd = payload.drgcd;
 
         return this.unpackedPayload;
     }
@@ -477,8 +488,39 @@ class LlProtocol {
         //parsing
         var payload = this.msgPayload;
         this.unpackedPayload = {}
+        this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
     }
+
+    //SLV
+    _unpackSwpSlvReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        if (typeof payload.nsc !== 'undefined') this.unpackedPayload.nsc = payload.nsc;
+
+        return this.unpackedPayload;
+    }
+    _unpackSdpSlvReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        return this.unpackedPayload;
+    }
+    _unpackSdpSlvRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
+        this.unpackedPayload.existCode = payload.existCode;
+        if (payload.resultCode === 0 && payload.existCode === 0) this.unpackedPayload.ownSensorInfoList = payload.ownSensorInfoList;
+        return this.unpackedPayload;
+    }
+
+    
     /**
      * @title function getUnpackedMsgPayload
      * @description Get unpacked payload if unpacking successed as well 
@@ -586,6 +628,13 @@ class LlProtocol {
                     return this._packSdpSddReq(payload);
                 case g.SDP_MSG_TYPE.SDP_SDD_RSP:
                     return this._packSdpSddRsp(payload);
+                //SLV
+                case g.SWP_MSG_TYPE.SWP_SLV_RSP:
+                    return this._packSwpSlvRsp(payload);
+                case g.SDP_MSG_TYPE.SDP_SLV_REQ:
+                    return this._packSdpSlvReq(payload);
+                case g.SDP_MSG_TYPE.SDP_SLV_RSP:
+                    return this._packSdpSlvRsp(payload);
                 default:
                     return false;
             }
@@ -910,6 +959,37 @@ class LlProtocol {
         return this.packedMsg = {
             "header": {
                 "msgType": g.SDP_MSG_TYPE.SDP_SDD_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    //Slv
+    _packSwpSlvRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_SLV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpSlvReq(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_SLV_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpSlvRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_SLV_RSP,
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },

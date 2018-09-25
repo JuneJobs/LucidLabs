@@ -1086,7 +1086,11 @@ const SENSOR_MOB_FLAG = {
     STATIONARY: 0,
     PORTABLE: 1
 }
-
+const USER_TYPE = {
+    SUPER: 0,
+    ADMIN: 1,
+    USER: 2,
+}
 module.exports = { HEADER_SIZE, 
                    ENTITY_TYPE,
                    INVALID_ID_TYPE, 
@@ -1115,6 +1119,7 @@ module.exports = { HEADER_SIZE,
                    DATABASE_TIMER,
                    SIGNED_IN_STATE,
                    SENSOR_ACT_FLAG,
-                   SENSOR_MOB_FLAG
+                   SENSOR_MOB_FLAG,
+                   USER_TYPE
 
 };
