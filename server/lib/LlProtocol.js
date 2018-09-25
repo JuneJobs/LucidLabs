@@ -439,7 +439,7 @@ class LlProtocol {
 
         this.unpackedPayload.nsc = payload.nsc;
         this.unpackedPayload.wmac = payload.wmac;
-        this.unpackedPayload.sensorMob = payload.sensorMob;
+        this.unpackedPayload.mob = payload.mob;
 
         return this.unpackedPayload;
     }
@@ -449,7 +449,7 @@ class LlProtocol {
         var payload = this.msgPayload;
 
         this.unpackedPayload.wmac = payload.wmac;
-        this.unpackedPayload.sensorMob = payload.sensorMob;
+        this.unpackedPayload.mob = payload.mob;
 
         return this.unpackedPayload;
     }
@@ -458,6 +458,7 @@ class LlProtocol {
         //parsing
         var payload = this.msgPayload;
         this.unpackedPayload = {}
+        this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
     }
 
@@ -520,7 +521,7 @@ class LlProtocol {
         return this.unpackedPayload;
     }
 
-    
+
     /**
      * @title function getUnpackedMsgPayload
      * @description Get unpacked payload if unpacking successed as well 
