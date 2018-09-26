@@ -9,13 +9,13 @@
 const g = require("../config/header");
 class LlProtocol {
     constructor() {
-        this.msg = new Object();
-        this.msgType = new Object();
-        this.endpointId = new Object();
+        this.msg = {};
+        this.msgType = {};
+        this.endpointId = {};
         this.msgLen = 0;
-        this.msgPayload = new Object();
-        this.unpackedPayload = new Object();
-        this.packedMsg = new Object();
+        this.msgPayload = {};
+        this.unpackedPayload = {};
+        this.packedMsg = {};
     }
     /**
      * @title function setMsg
@@ -756,6 +756,14 @@ class LlProtocol {
                     return this._packSdpSirRsp(payload);
 
                 //DCA
+                case g.SWP_MSG_TYPE.SSP_DCA_RSP:
+                    return this._packSspDcaRsp(payload);
+                case g.SWP_MSG_TYPE.SAP_DCA_RSP:
+                    return this._packSapDcaRsp(payload);
+                case g.SDP_MSG_TYPE.SDP_DCA_REQ:
+                    return this._packSdpDcaReq(payload);
+                case g.SDP_MSG_TYPE.SDP_DCA_RSP:
+                    return this._packSdpDcaRsp(payload);
 
                 default:
                     return false;
@@ -772,6 +780,7 @@ class LlProtocol {
             return false;
         }
     }
+    
     //SGU
     _packSwpSguRsp(payload) {
         return this.packedMsg = {
@@ -803,6 +812,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+    
     //UVC
     _packSwpUvcRsp(payload) {
         return this.packedMsg = {
@@ -834,6 +844,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+
     //SGI
     _packSwpSgiRsp(payload) {
         return this.packedMsg = {
@@ -865,6 +876,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+
     //SGO
     _packSwpSgoAck(payload) {
         return this.packedMsg = {
@@ -896,6 +908,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+
     //ASR
     _packSwpAsrRsp(payload) {
         return this.packedMsg = {
@@ -927,6 +940,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+
     //ASD
     _packSwpAsdRsp(payload) {
         return this.packedMsg = {
@@ -958,6 +972,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+
     //ASV
     _packSwpAsvRsp(payload) {
         return this.packedMsg = {
@@ -989,6 +1004,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+
     //SRG
     _packSwpSrgRsp(payload) {
         return this.packedMsg = {
@@ -1020,6 +1036,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+
     //SAS
     _packSwpSasRsp(payload) {
         return this.packedMsg = {
@@ -1051,6 +1068,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+    
     //SDD
     _packSwpSddRsp(payload) {
         return this.packedMsg = {
@@ -1082,7 +1100,8 @@ class LlProtocol {
             "payload": payload
         }
     }
-    //Slv
+
+    //SLV
     _packSwpSlvRsp(payload) {
         return this.packedMsg = {
             "header": {
@@ -1113,6 +1132,7 @@ class LlProtocol {
             "payload": payload
         }
     }
+
     //Sir
     _packSwpSirRsp(payload) {
         return this.packedMsg = {
@@ -1138,6 +1158,48 @@ class LlProtocol {
         return this.packedMsg = {
             "header": {
                 "msgType": g.SDP_MSG_TYPE.SDP_SIR_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+
+    //DCA
+    _packSspDcaRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SSP_MSG_TYPE.SSP_DCA_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSapDcaRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SAP_DCA_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpDcaReq(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_DCA_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpDcaRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_DCA_RSP,
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },

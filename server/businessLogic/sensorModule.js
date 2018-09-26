@@ -67,5 +67,19 @@ class sensorModule {
             });
         });
     }
+    getNewConnId(cidType, cb) {
+        if (cidType === g.CID_TYPE.SENSOR) {
+            redisCli.incr("c:key:cid:sensor");
+            redisCli.get("c:key:cid:sensor", (err, reply) => {
+                return cb(reply);
+            });
+        } else if (cidType === g.CID_TYPE.APP) {
+            redisCli.incr("c:key:cid:app");
+            redisCli.get("c:key:cid:app", (err, reply) => {
+                return cb(reply);
+            });
+
+        }
+    }
 }
 module.exports = sensorModule;

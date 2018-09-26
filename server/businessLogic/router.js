@@ -27,6 +27,7 @@ const redis = require("redis");
 //Connect with Redis client
 const redisCli = redis.createClient();
 
+//SERVER
 router.post("/serverapi", function (req, res) {
     logger.debug("+--------------------------------------------------------------------------------.................");
     logger.debug("| SERVER Received request on /serverapi: " + JSON.stringify(req.body));
@@ -37,6 +38,7 @@ router.post("/serverapi", function (req, res) {
     var request = new LlRequest();
     var codeGen = new LlCodeGenerator();
     var uModule = new userModule();
+    var sModule = new sensorModule();
     //protocol verify
     protocol.setMsg(req.body);
     if(!protocol.verifyHeader()) return;
@@ -90,7 +92,7 @@ router.post("/serverapi", function (req, res) {
                                                 ["set", keyHead + "gen", userInfo.gender, 'EX', time],
                                                 ["set", keyHead + "ac", ac, 'EX', time],
                                                 ["set", keyHead + "vc", vc, 'EX', time],
-                                            ]).exec(function (err, replies) {
+                                            ]).exec((err, replies) => {
                                                 if (err) {} else {
                                                     logger.debug("| SERVER stored temporary user info: in " + time + "sec >" + JSON.stringify(userInfo));
                                                 }
@@ -182,7 +184,7 @@ router.post("/serverapi", function (req, res) {
                                             ["set", keyHead + "gen", userInfo.gender, 'EX', time],
                                             ["set", keyHead + "ac", ac, 'EX', time],
                                             ["set", keyHead + "vc", vc, 'EX', time],
-                                        ]).exec(function (err, replies) {
+                                        ]).exec((err, replies) => {
                                             if (err) {} else {
                                                 logger.debug("| SERVER stored temporary user info: in " + time + "sec >" + JSON.stringify(userInfo));
                                             }
@@ -312,7 +314,7 @@ router.post("/serverapi", function (req, res) {
                                                                                 ["del", keyHead + "gen"],
                                                                                 ["del", keyHead + "ac"],
                                                                                 ["del", keyHead + "vc"],
-                                                                            ]).exec(function (err, replies) {
+                                                                            ]).exec((err, replies) => {
                                                                                 if (err) {} else {
                                                                                     logger.debug("| SERVER deleted temporary user info: " + JSON.stringify(userInfo));
                                                                                 }
@@ -415,7 +417,7 @@ router.post("/serverapi", function (req, res) {
                                         ["set", keyHead + "signf", '1', 'EX', expTime],
                                         ["set", keyHead + "nsc", nsc, 'EX', expTime],
                                         ["set", keyHead + "ml", unpackedPayload.ml, 'EX', expTime]
-                                    ]).exec(function (err, replies) {
+                                    ]).exec((err, replies) => {
                                         if (err) {
                                             loger.debug(err);
                                         } else {
@@ -1053,31 +1055,21 @@ router.post("/serverapi", function (req, res) {
             });
             break;
         
-        //SIR
+        /**
+         * SSP: SIR-REQ
+         * 1.~ Check complict tsi in server
+         * 1.1.~ If not complict
+         * 1.1.1.~ Request to database
+         * 1.1.1.1.~ If result ok
+         * 1.1.1.1.1.~ send ok code with ssn
+         * 1.1.1.1.2.~ update SSN state for server
+         * 1.1.1.2.~ Else result
+         * 1.1.1.2.1.~ send error for each
+         * 1.2.~ if Complict
+         * 1.2.1.~ Send 2. complict
+         */
         case g.SSP_MSG_TYPE.SSP_SIR_REQ:
-            //TSI가 중복인지 판단
-            //  중복일 경우
-            //  중복이 아닌경우
-            //      데이터베이스 요청
-            //          if ok
-            //              응답 결과 전달
-            //              SSN스테이트 생성
-            //          else
-            //              응답결과 전달
-            //          
-            //key c:sta:s:s:(tsi):(wmac)
-            /**
-             * 1.~ Check complict tsi in server
-             * 1.1.~ If not complict
-             * 1.1.1.~ Request to database
-             * 1.1.1.1.~ If result ok
-             * 1.1.1.1.1.~ send ok code with ssn
-             * 1.1.1.1.2.~ update SSN state for server
-             * 1.1.1.2.~ Else result
-             * 1.1.1.2.1.~ send error for each
-             * 1.2.~ if Complict
-             * 1.2.1.~ Send 2. complict
-             */
+            
             // 1.~
             var payload = {};
             redisCli.keys("c:sta:s:s:" + unpackedPayload.tsi + ":*", (err, keys) => {
@@ -1134,6 +1126,231 @@ router.post("/serverapi", function (req, res) {
             });
             break;
         
+        /**
+         * Receive SSP: DCA-REQ
+         * 1.~ Get SSN state
+         * 1.1.~ If state is SSN INFORMED
+         * 1.1.1.~ Update SSN state to HALF-CID INFORMED
+         * 1.1.2.~ Send SDP: DCA-REQ
+         * 1.1.2.1.~ If SDP: DCA-RSP code is 0
+         * 1.1.2.1.1.~ Get CID
+         * 1.1.2.1.2.~ Store CID state to buffer
+         * 1.1.2.1.3.~ Update SSN state to CID INFORMED
+         * 1.1.2.1.4.~ Send SSP: DCA-RSP with ok code
+         * 1.1.2.2.~ If SDP: DCA-RSP code is not 0
+         * 1.1.2.2.1.~ Update SSN state to IDLE
+         * 1.1.2.2.2.~ Send SSP: DCA-RSP with error codes except 1
+         * 1.2. If state is not SSN INFORMED 
+         * 1.2.1. Send SSP: DCA-RSP with error code 1
+         */
+        case g.SSP_MSG_TYPE.SSP_DCA_REQ:
+            // 1.~
+            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), (resState, searchedKey) =>{
+                var payload = {};
+                // 1.1.~
+                if(g.SERVER_RECV_STATE_BY_MSG.SSP_DCA_REQ.includes(resState)) {
+                    // 1.1.1.~
+                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_HALF_CID_INFORMED_STATE);
+                    logger.debug("| SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)");
+                    
+                    payload.lat = unpackedPayload.lat;
+                    payload.lng = unpackedPayload.lng;
+                    // 1.1.2.~
+                    var packedSdpDca = protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCA_REQ, payload);
+                    request.send('http://localhost:8080/databaseapi', packedSdpDca, (message) => {
+                        rotocol.setMsg(message);
+                        if (!protocol.verifyHeader()) return;
+                        var unpackedPayload = protocol.unpackPayload();
+                        if (!unpackedPayload) return;
+                        switch (unpackedPayload.resultCode) {
+                            // 1.1.2.1.~
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_OK:
+                                // 1.1.2.1.1.~
+                                sModule.getNewConnId(g.CID_TYPE.SENSOR, (cid) => {
+                                    // 1.1.2.1.2.~
+                                    redisCli.multi([
+                                        ["set", "c:con:s:ssn:" + cid, protocol.getEndpointId()],
+                                        ["setbit", "c:con:s:all", protocol.getEndpointId(), 1]
+                                    ]).exec((err, replies)=> {
+                                        if(err) {} else {
+                                            // 1.1.2.1.3.~
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_CID_INFORMED_STATE);
+                                            logger.debug("| SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)", g.SERVER_TIMER.T835);
+                                            // 1.1.2.1.4.~
+                                            payload = {};
+                                            payload.resultCode = g.SSP_MSG_RESCODE.RESCODE_SSP_DCA.RESCODE_SSP_DCA_OK;
+                                            payload.cid = cid;
+                                            payload.mti = unpackedPayload.mti;
+                                            payload.tti = unpackedPayload.tti;
+                                            payload.mob = unpackedPayload.mob;
+                                            protocol.packMsg(g.SSP_MSG_TYPE.SSP_DCA_RSP, payload);
+                                            logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                            return res.send(protocol.getPackedMsg());
+                                        }
+                                    })
+                                });
+                            // 1.1.2.2.~
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_INITIAL_GPS_MISMACH:
+                                //1.1.2.2.1.~
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                logger.debug("| SERVER change SSN state (HALF CID INFORMED) ->  (IDLE)");
+                                //1.1.2.2.2.~
+                                payload = {};
+                                payload.resultCode = g.SSP_MSG_RESCODE.RESCODE_SSP_DCA.RESCODE_SSP_DCA_MISMACH_INITIAL_GPS_INFORMATION;
+                                protocol.packMsg(g.SSP_MSG_TYPE.SSP_DCA_RSP, payload);
+                                logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                return res.send(protocol.getPackedMsg());
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_NOT_AN_ASSOCIATED_SENSOR_WITH_ANY_USER:
+                                //1.1.2.2.1.~
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                logger.debug("| SERVER change SSN state (HALF CID INFORMED) ->  (IDLE)");
+                                //1.1.2.2.2.~
+                                payload = {};
+                                payload.resultCode = g.SSP_MSG_RESCODE.RESCODE_SSP_DCA.RESCODE_SSP_DCA_NOT_AN_ASSOCIATED_SENSOR_WITH_ANY_USER;
+                                protocol.packMsg(g.SSP_MSG_TYPE.SSP_DCA_RSP, payload);
+                                logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                return res.send(protocol.getPackedMsg());
+                        }
+                    });
+                // 1.2.~
+                } else {
+                    //1.2.1.~
+                    payload = {};
+                    payload.resultCode = g.SSP_MSG_RESCODE.RESCODE_SSP_DCA.RESCODE_SSP_DCA_OTHER;
+                    protocol.packMsg(g.SSP_MSG_TYPE.SSP_DCA_RSP, payload);
+                    logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    return res.send(protocol.getPackedMsg());
+                }
+            });
+            break;
+
+        //DCA
+        /**
+         * Receive SAP: DCA-REQ
+         * 1.~ Get USN state
+         * 1.1.~ If state is USN INFORMED
+         * 1.1.1.~ Check the NSC
+         * 1.1.1.1.~ If NSC OK
+         * 1.1.1.1.1.~ Update USN state to HALF-CID INFORMED
+         * 1.1.1.1.2.~ Send SDP: DCA-REQ
+         * 1.1.1.1.2.1.~ If SDP: DCA-RSP code is 0
+         * 1.1.1.1.2.1.1.~ Get CID
+         * 1.1.1.1.2.1.2.~ Store CID state to buffer
+         * 1.1.1.1.2.1.3.~ Update USN state to CID INFORMED
+         * 1.1.1.1.2.1.4.~ Update user signed-in state in active buffer
+         * 1.1.1.1.2.1.5.~ Send SAP: DCA-RSP with ok code
+         * 1.1.1.1.2.2.~ If SDP: DCA-RSP code is not 0
+         * 1.1.1.1.2.2.1.~ Update USN state to USN INFORMED
+         * 1.1.1.1.2.2.2.~ Send SAP: DCA-RSP with error codes except 1
+         * 1.1.1.2.~ If NSC not Ok
+         * 1.1.1.2.1.~ Send SSP: DCA-RSP with error code 3
+         * 1.2. If state is not SSN INFORMED 
+         * 1.2.1. Send SSP: DCA-RSP with error code 1
+            // 1.1.1~
+            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_CID_INFORMED_STATE);
+            logger.debug("| SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)");
+         */
+        case g.SAP_MSG_TYPE.SAP_DCA_REQ:
+            // 1.~
+            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                var payolad = {};
+                // 1.1.~
+                if(g.SERVER_RECV_STATE_BY_MSG.SAP_DCA_REQ.includes(resState)) {
+                    // 1.1.1~
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.APPCLIENT, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        // 1.1.1.1.~
+                        if(result === 1){
+                            // 1.1.1.1.1.~
+                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_CID_INFORMED_STATE);
+                            logger.debug("| SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)");
+                            // 1.1.1.1.2.~
+                            request.send('http://localhost:8080/databaseapi', packedSdpSdd, (message) => {
+                                // 1.1.1.1.2.1.~
+                                payload = {};       
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                var unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+                                switch (unpackedPayload.resultCode) {
+                                    // 1.1.1.1.2.1.~
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_OK:
+                                        // 1.1.1.1.2.1.1.~
+                                        sModule.getNewConnId(g.CID_TYPE.SENSOR, (cid) => {
+                                            // 1.1.1.1.2.1.2.~
+                                            redisCli.multi([
+                                                ["set", "c:con:a:usn:" + cid, protocol.getEndpointId()],
+                                                ["setbit", "c:con:a:all", protocol.getEndpointId(), 1]
+                                            ]).exec((err, replies) => {
+                                                if (err) {} else {
+                                                    // 1.1.1.1.2.1.3.~
+                                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_CID_INFORMED_STATE);
+                                                    logger.debug("| SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)", g.SERVER_TIMER.T835);
+                                                    // 1.1.1.1.2.1.4.~
+                                                    uModule.updateUserSignedInState(g.ENTITY_TYPE.APPCLIENT, protocol.getEndpointId(), (result) => {
+                                                        if(result) {
+                                                            // 1.1.1.1.2.1.5.~
+                                                            payload = {};
+                                                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_DCA.RESCODE_SAP_DCA_OK;
+                                                            payload.cid = cid;
+                                                            payload.mti = unpackedPayload.mti;
+                                                            payload.tti = unpackedPayload.tti;
+                                                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_DCA_RSP, payload);
+                                                            logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                                            return res.send(protocol.getPackedMsg());
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        });
+                                        break;
+                                    // 1.1.1.1.2.2.~
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_NOT_EXIST_USER_SEQUENCE_NUMBER_OR_SENSOR_SERIAL_NUMBER:
+                                        //1.1.2.2.1.~
+                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
+                                        logger.debug("| SERVER change USNN state (HALF CID INFORMED) ->  (USN INFORMED)");
+                                        //1.1.2.2.2.~
+                                        payload = {};
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_DCA.RESCODE_SAP_DCA_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_DCA_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_OTHER:
+                                        //1.1.2.2.1.~
+                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
+                                        logger.debug("| SERVER change USN state (HALF CID INFORMED) ->  (USN INFORMED)");
+                                        //1.1.2.2.2.~
+                                        payload = {};
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_DCA.RESCODE_SAP_DCA_OTHER;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_DCA_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+                                    default:
+                                        break;
+                               } 
+                            });
+
+                        // 1.1.1.2.~
+                        } else {
+                            // 1.1.1.2.1.~
+                            payload = {};
+                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_DCA.RESCODE_SAP_DCA_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_DCA_RSP, payload);
+                            logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                            return res.send(protocol.getPackedMsg());
+                        }
+                    });
+
+                // 1.2.~
+                } else {
+                    // 1.2.1.~
+                    payload = {};
+                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_DCA.RESCODE_SAP_DCA_OTHER;
+                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_DCA_RSP, payload);
+                    logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    return res.send(protocol.getPackedMsg());
+                }
+            });
+            break;
         default:
             break;
     }
@@ -1141,6 +1358,8 @@ router.post("/serverapi", function (req, res) {
   
     //res.send("Ok");
 });
+
+//DATABASE
 router.post("/databaseapi", (req, res) => {
     logger.debug("| DB Received request on /databaseapi: " + JSON.stringify(req.body));
     var protocol = new LlProtocol();
@@ -1234,7 +1453,7 @@ router.post("/databaseapi", (req, res) => {
                                             [
                                                 "setbit", keyHead + "signf", 1, 0
                                             ]
-                                        ]).exec(function (err, replies) {
+                                        ]).exec((err, replies) => {
                                             if (err) {
                                                 payload = {
                                                     "resultCode": g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OTHER
@@ -1432,7 +1651,7 @@ router.post("/databaseapi", (req, res) => {
                                             [
                                                 "sadd", "search:s:user:" + protocol.getEndpointId(), sensorInfo.ssn
                                             ]
-                                        ]).exec(function (err, replies) {
+                                        ]).exec((err, replies) => {
                                             if (err) {
                                                 logger.error("| DATABASE ERROR set sensor information");
                                                 return;
@@ -1507,7 +1726,7 @@ router.post("/databaseapi", (req, res) => {
                                                     [
                                                         "sadd", "search:s:actf:3", ssn,
                                                     ]
-                                                ]).exec(function (err, replies) {
+                                                ]).exec((err, replies) => {
                                                     if (err) {
                                                         logger.error("| DATABASE ERROR set drgcd info");
                                                     } else {
@@ -1544,7 +1763,7 @@ router.post("/databaseapi", (req, res) => {
                                                                 [
                                                                     "sadd", "search:s:mobf:0", sensorInfo.ssn
                                                                 ]
-                                                            ]).exec(function (err, replies) {
+                                                            ]).exec((err, replies) => {
                                                                 if (err) {
                                                                     logger.error("| DATABASE ERROR delete usn,ssn");
                                                                 } else {
@@ -1791,7 +2010,7 @@ router.post("/databaseapi", (req, res) => {
                                             [
                                                 "sadd", "search:s:user:" + protocol.getEndpointId(), sensorInfo.ssn
                                             ]
-                                        ]).exec(function (err, replies) {
+                                        ]).exec((err, replies) => {
                                             if (err) {
                                                 logger.error("| DATABASE ERROR set sensor information");
                                                 return;
@@ -1882,7 +2101,7 @@ router.post("/databaseapi", (req, res) => {
                                                 [
                                                     "sadd", "search:s:mobf:" + unpackedPayload.mob, ssn,
                                                 ]
-                                            ]).exec(function (err, replies) {
+                                            ]).exec((err, replies) => {
                                                 if (err) {
                                                     logger.error("| DATABASE ERROR update usn,ssn associataion");
                                                 } else {
@@ -1955,7 +2174,7 @@ router.post("/databaseapi", (req, res) => {
                                             [
                                                 "sadd", "search:s:actf:3", ssn,
                                             ]
-                                        ]).exec(function (err, replies) {
+                                        ]).exec((err, replies) => {
                                             if (err) {
                                                 logger.error("| DATABASE ERROR set drgcd info");
                                             } else {
@@ -1992,7 +2211,7 @@ router.post("/databaseapi", (req, res) => {
                                                         [
                                                             "sadd", "search:s:mobf:0", sensorInfo.ssn
                                                         ]
-                                                    ]).exec(function (err, replies) {
+                                                    ]).exec((err, replies) => {
                                                         if (err) {
                                                             logger.error("| DATABASE ERROR delete usn,ssn");
                                                         } else {

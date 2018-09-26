@@ -1035,7 +1035,7 @@ const SERVER_TIMER = {
     T832: 300,
     T833: 1800,
     T834: 5,
-    T835: 5,
+    T835: 600,
     T836: 5,
     T861: 5,
     T862: 300,
@@ -1095,6 +1095,10 @@ const USER_TYPE = {
     ADMIN: 1,
     USER: 2,
 }
+const CID_TYPE = {
+    SENSOR: 0,
+    APP: 1
+}
 module.exports = { HEADER_SIZE, 
                    ENTITY_TYPE,
                    INVALID_ID_TYPE, 
@@ -1124,6 +1128,7 @@ module.exports = { HEADER_SIZE,
                    SIGNED_IN_STATE,
                    SENSOR_ACT_FLAG,
                    SENSOR_MOB_FLAG,
-                   USER_TYPE
+                   USER_TYPE,
+                   CID_TYPE
 
 };
