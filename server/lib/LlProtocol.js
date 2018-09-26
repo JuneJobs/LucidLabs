@@ -74,8 +74,7 @@ class LlProtocol {
     unpackPayload(){
         if(this.msgType !== null){
             switch (this.msgType) {
-                case g.SSP_MSG_TYPE.SSP_SIR_REQ:
-                    return this._unpackSspSirReqPayload();
+                
                 //SGU
                 case g.SWP_MSG_TYPE.SWP_SGU_REQ:
                     return this._unpackSwpSguReqPayload();
@@ -83,6 +82,7 @@ class LlProtocol {
                     return this._unpackSdpSguReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SGU_RSP:
                     return this._unpackSdpSguRspPayload();
+                
                 //UVC
                 case g.SWP_MSG_TYPE.SWP_UVC_REQ:
                     return this._unpackSwpUvcReqPayload();
@@ -90,6 +90,7 @@ class LlProtocol {
                     return this._unpackSdpUvcReqPayload();
                 case g.SDP_MSG_TYPE.SDP_UVC_RSP:
                     return this._unpackSdpUvcRspPayload();
+                
                 //SGI
                 case g.SWP_MSG_TYPE.SWP_SGI_REQ:
                     return this._unpackSwpSgiReqPayload();
@@ -97,6 +98,7 @@ class LlProtocol {
                     return this._unpackSdpSgiReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SGI_RSP:
                     return this._unpackSdpSgiRspPayload();
+                
                 //SGO
                 case g.SDP_MSG_TYPE.SDP_SGO_NOT:
                     return this._unpackSdpSgoNotPayload();
@@ -104,6 +106,7 @@ class LlProtocol {
                     return this._unpackSdpSgoAckPayload();
                 case g.SWP_MSG_TYPE.SWP_SGO_NOT:
                     return this._unpackSwpSgoNotPayload();
+                
                 //ASR
                 case g.SWP_MSG_TYPE.SWP_ASR_REQ:
                     return this._unpackSwpAsrReqPayload();
@@ -111,6 +114,7 @@ class LlProtocol {
                     return this._unpackSdpAsrReqPayload();
                 case g.SDP_MSG_TYPE.SDP_ASR_RSP:
                     return this._unpackSdpAsrRspPayload();
+                
                 //ASD
                 case g.SWP_MSG_TYPE.SWP_ASD_REQ:
                     return this._unpackSwpAsdReqPayload();
@@ -118,6 +122,7 @@ class LlProtocol {
                     return this._unpackSdpAsdReqPayload();
                 case g.SDP_MSG_TYPE.SDP_ASD_RSP:
                     return this._unpackSdpAsdRspPayload();
+                
                 //ASV
                 case g.SWP_MSG_TYPE.SWP_ASV_REQ:
                     return this._unpackSwpAsvReqPayload();
@@ -125,6 +130,7 @@ class LlProtocol {
                     return this._unpackSdpAsvReqPayload();
                 case g.SDP_MSG_TYPE.SDP_ASV_RSP:
                     return this._unpackSdpAsvRspPayload();
+                
                 //SRG
                 case g.SWP_MSG_TYPE.SWP_SRG_REQ:
                     return this._unpackSwpSrgReqPayload();
@@ -132,6 +138,7 @@ class LlProtocol {
                     return this._unpackSdpSrgReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SRG_RSP:
                     return this._unpackSdpSrgRspPayload();
+                
                 //SAS
                 case g.SWP_MSG_TYPE.SWP_SAS_REQ:
                     return this._unpackSwpSasReqPayload();
@@ -139,6 +146,7 @@ class LlProtocol {
                     return this._unpackSdpSasReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SAS_RSP:
                     return this._unpackSdpSasRspPayload();
+                
                 //SDD
                 case g.SWP_MSG_TYPE.SWP_SDD_REQ:
                     return this._unpackSwpSddReqPayload();
@@ -146,21 +154,31 @@ class LlProtocol {
                     return this._unpackSdpSddReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SDD_RSP:
                     return this._unpackSdpSddRspPayload();
+                
+                //SIR
+                case g.SWP_MSG_TYPE.SWP_SIR_REQ:
+                    return this._unpackSwpSirReqPayload();
+                case g.SDP_MSG_TYPE.SDP_SIR_REQ:
+                    return this._unpackSdpSirReqPayload();
+                case g.SDP_MSG_TYPE.SDP_SIR_RSP:
+                    return this._unpackSdpSirRspPayload();
+
+                //DCA
+                case g.SWP_MSG_TYPE.SSP_DCA_REQ:
+                    return this._unpackSspDcaReqPayload();
+                case g.SWP_MSG_TYPE.SAP_DCA_REQ:
+                    return this._unpackSapDcaReqPayload();
+                case g.SDP_MSG_TYPE.SDP_DCA_REQ:
+                    return this._unpackSdpDcaReqPayload();
+                case g.SDP_MSG_TYPE.SDP_DCA_RSP:
+                    return this._unpackSdpDcaRspPayload();
+
                 default:
                     return fasle;
             }
         } else {
             return false;
         }
-    }
-    //ssp
-    _unpackSspSirReqPayload() {
-        //validation
-        //parsing
-        this.unpackedPayload = {
-            "wmac": this.msgPayload.wmac
-        }
-        return this.unpackedPayload;
     }
 
     //SGU
@@ -521,6 +539,89 @@ class LlProtocol {
         return this.unpackedPayload;
     }
 
+    //SIR
+    _unpackSwpSirReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+
+        this.unpackedPayload.wmac = payload.wmac;
+
+        return this.unpackedPayload;
+    }
+    _unpackSdpSirReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+
+        this.unpackedPayload.wmac = payload.wmac;
+        
+        return this.unpackedPayload;
+    }
+    _unpackSdpSirRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
+        if (payload.resultCode === 0) this.unpackedPayload.ssn = payload.ssn;
+        return this.unpackedPayload;
+    }
+
+    //DCA
+    _unpackSspDcaReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.lat = payload.lat;
+        this.unpackedPayload.lng = payload.lng;
+        this.unpackedPayload.nat = payload.nat;
+        this.unpackedPayload.state = payload.state;
+        this.unpackedPayload.city = payload.city;
+
+        return this.unpackedPayload;
+    }
+    _unpackSapDcaReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.nsc = payload.nsc;
+
+        return this.unpackedPayload;
+    }
+    _unpackSdpDcaReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        //If the server received ssp:dca-req message, sdpDcaReq must have following lat, lng
+        if (typeof payload.lat !== 'undefined') this.unpackedPayload.lat = payload.lat;
+        if (typeof payload.lng !== 'undefined') this.unpackedPayload.lng = payload.lng;
+
+        return this.unpackedPayload;
+    }
+    _unpackSdpDcaRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
+        if (payload.resultCode === 0) {
+            this.unpackedPayload.cid = payload.cid;
+            this.unpackedPayload.cid = payload.mti;
+            this.unpackedPayload.cid = payload.tti;
+            this.unpackedPayload.mob = payload.mob;
+        }
+        return this.unpackedPayload;
+    }
+
+
 
     /**
      * @title function getUnpackedMsgPayload
@@ -557,8 +658,7 @@ class LlProtocol {
     packMsg (msgType, payload) {
         if (msgType !== null) {
             switch (msgType) {
-                case g.SSP_MSG_TYPE.SSP_SIR_RSP:
-                    return this._packSspSirRsp(payload);
+
                 //SGU
                 case g.SWP_MSG_TYPE.SWP_SGU_RSP:
                     return this._packSwpSguRsp(payload);
@@ -566,6 +666,7 @@ class LlProtocol {
                     return this._packSdpSguReq(payload);
                 case g.SDP_MSG_TYPE.SDP_SGU_RSP:
                     return this._packSdpSguRsp(payload);
+
                 //UVC
                 case g.SWP_MSG_TYPE.SWP_UVC_RSP:
                     return this._packSwpUvcRsp(payload);
@@ -573,6 +674,7 @@ class LlProtocol {
                     return this._packSdpUvcReq(payload);
                 case g.SDP_MSG_TYPE.SDP_UVC_RSP:
                     return this._packSdpUvcRsp(payload);
+
                 //SGI
                 case g.SWP_MSG_TYPE.SWP_SGI_RSP:
                     return this._packSwpSgiRsp(payload);
@@ -580,6 +682,7 @@ class LlProtocol {
                     return this._packSdpSgiReq(payload);
                 case g.SDP_MSG_TYPE.SDP_SGI_RSP:
                     return this._packSdpSgiRsp(payload);
+
                 //SGO    
                 case g.SWP_MSG_TYPE.SWP_SGO_ACK:
                     return this._packSwpSgoAck(payload);
@@ -587,6 +690,7 @@ class LlProtocol {
                     return this._packSdpSgoNot(payload);
                 case g.SDP_MSG_TYPE.SDP_SGO_ACK:
                     return this._packSdpSgoAck(payload);
+
                 //ASR
                 case g.SWP_MSG_TYPE.SWP_ASR_RSP:
                     return this._packSwpAsrRsp(payload);
@@ -594,6 +698,7 @@ class LlProtocol {
                     return this._packSdpAsrReq(payload);
                 case g.SDP_MSG_TYPE.SDP_ASR_RSP:
                     return this._packSdpAsrRsp(payload);
+
                 //ASD
                 case g.SWP_MSG_TYPE.SWP_ASD_RSP:
                     return this._packSwpAsdRsp(payload);
@@ -601,6 +706,7 @@ class LlProtocol {
                     return this._packSdpAsdReq(payload);
                 case g.SDP_MSG_TYPE.SDP_ASD_RSP:
                     return this._packSdpAsdRsp(payload);
+
                 //ASV
                 case g.SWP_MSG_TYPE.SWP_ASV_RSP:
                     return this._packSwpAsvRsp(payload);
@@ -608,6 +714,7 @@ class LlProtocol {
                     return this._packSdpAsvReq(payload);
                 case g.SDP_MSG_TYPE.SDP_ASV_RSP:
                     return this._packSdpAsvRsp(payload);
+
                 //SRG
                 case g.SWP_MSG_TYPE.SWP_SRG_RSP:
                     return this._packSwpSrgRsp(payload);
@@ -615,6 +722,7 @@ class LlProtocol {
                     return this._packSdpSrgReq(payload);
                 case g.SDP_MSG_TYPE.SDP_SRG_RSP:
                     return this._packSdpSrgRsp(payload);
+
                 //SAS
                 case g.SWP_MSG_TYPE.SWP_SAS_RSP:
                     return this._packSwpSasRsp(payload);
@@ -622,6 +730,7 @@ class LlProtocol {
                     return this._packSdpSasReq(payload);
                 case g.SDP_MSG_TYPE.SDP_SAS_RSP:
                     return this._packSdpSasRsp(payload);
+
                 //SDD
                 case g.SWP_MSG_TYPE.SWP_SDD_RSP:
                     return this._packSwpSddRsp(payload);
@@ -629,6 +738,7 @@ class LlProtocol {
                     return this._packSdpSddReq(payload);
                 case g.SDP_MSG_TYPE.SDP_SDD_RSP:
                     return this._packSdpSddRsp(payload);
+
                 //SLV
                 case g.SWP_MSG_TYPE.SWP_SLV_RSP:
                     return this._packSwpSlvRsp(payload);
@@ -636,8 +746,20 @@ class LlProtocol {
                     return this._packSdpSlvReq(payload);
                 case g.SDP_MSG_TYPE.SDP_SLV_RSP:
                     return this._packSdpSlvRsp(payload);
+                    
+                //SIR
+                case g.SWP_MSG_TYPE.SWP_SIR_RSP:
+                    return this._packSwpSirRsp(payload);
+                case g.SDP_MSG_TYPE.SDP_SIR_REQ:
+                    return this._packSdpSirReq(payload);
+                case g.SDP_MSG_TYPE.SDP_SIR_RSP:
+                    return this._packSdpSirRsp(payload);
+
+                //DCA
+
                 default:
                     return false;
+
             }
         } else {
             return false;
@@ -648,12 +770,6 @@ class LlProtocol {
             return this.packedMsg
         } else {
             return false;
-        }
-    }
-    _packSspSirRsp(payload) {
-        this.packedMsg = {
-            "header": {"msgType": 1},
-            "payload": payload
         }
     }
     //SGU
@@ -991,6 +1107,37 @@ class LlProtocol {
         return this.packedMsg = {
             "header": {
                 "msgType": g.SDP_MSG_TYPE.SDP_SLV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    //Sir
+    _packSwpSirRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_SIR_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpSirReq(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_SIR_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpSirRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_SIR_RSP,
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },
