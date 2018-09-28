@@ -65,6 +65,14 @@ class LlProtocol {
             return false;
         }
     }
+    setEndpointId(endpointId){
+        if(typeof endpointId !== 'undefined') {
+            this.endpointId = endpointId;
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * @title function unpackPayload
      * @description Unpack payload if verity header in message as well 
@@ -172,6 +180,24 @@ class LlProtocol {
                     return this._unpackSdpDcaReqPayload();
                 case g.SDP_MSG_TYPE.SDP_DCA_RSP:
                     return this._unpackSdpDcaRspPayload();
+
+                //DCD
+                case g.SWP_MSG_TYPE.SSP_DCD_NOT:
+                    return this._unpackSspDcdNotPayload();
+                case g.SWP_MSG_TYPE.SAP_DCD_NOT:
+                    return this._unpackSapDcdNotPayload();
+                case g.SDP_MSG_TYPE.SDP_DCD_NOT:
+                    return this._unpackSdpDcdNotPayload();
+                case g.SDP_MSG_TYPE.SDP_DCD_ACK:
+                    return this._unpackSdpDcdAckPayload();
+
+                //RAD
+                case g.SWP_MSG_TYPE.SSP_RAD_TRN:
+                    return this._unpackSspDcdNotPayload();
+                case g.SDP_MSG_TYPE.SDP_RAD_TRN:
+                    return this._unpackSdpRadTrnPayload();
+                case g.SDP_MSG_TYPE.SDP_RAD_ACK:
+                    return this._unpackSdpRadAckPayload();
 
                 default:
                     return fasle;
@@ -621,6 +647,47 @@ class LlProtocol {
         return this.unpackedPayload;
     }
 
+    //DCD
+    _unpackSspDcdNotPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+
+        return this.unpackedPayload;
+    }
+    _unpackSapDcdNotPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+
+        return this.unpackedPayload;
+    }
+    _unpackSdpDcdNotPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.entityType = payload.entityType;
+
+        return this.unpackedPayload;
+    }
+    _unpackSdpDcdAckPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+
+        this.unpackedPayload.resultCode = payload.resultCode;
+
+        return this.unpackedPayload;
+    }
+
+    //RAD
 
 
     /**
@@ -764,6 +831,16 @@ class LlProtocol {
                     return this._packSdpDcaReq(payload);
                 case g.SDP_MSG_TYPE.SDP_DCA_RSP:
                     return this._packSdpDcaRsp(payload);
+                
+                //DCD
+                case g.SWP_MSG_TYPE.SSP_DCD_ACK:
+                    return this._packSspDcdAck(payload);
+                case g.SWP_MSG_TYPE.SAP_DCD_ACK:
+                    return this._packSapDcdAck(payload);
+                case g.SDP_MSG_TYPE.SDP_DCD_ACK:
+                    return this._packSdpDcdNot(payload);
+                case g.SDP_MSG_TYPE.SDP_DCD_RSP:
+                    return this._packSdpDcdAck(payload);
 
                 default:
                     return false;
@@ -1200,6 +1277,48 @@ class LlProtocol {
         return this.packedMsg = {
             "header": {
                 "msgType": g.SDP_MSG_TYPE.SDP_DCA_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+
+    //DCD
+    _packSspDcdAck(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SSP_MSG_TYPE.SSP_DCD_ACK,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSapDcdAck(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SAP_DCD_ACK,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpDcdNot(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_DCD_NOT,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpDcdAck(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_DCD_ACK,
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },

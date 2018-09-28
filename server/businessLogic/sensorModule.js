@@ -81,5 +81,19 @@ class sensorModule {
 
         }
     }
+    confirmStationalGps(ssn, lat, lng, cb){
+        if (typeof ssn === 'undefined' || typeof lat === 'undefined' || typeof lng === 'undefined') {
+            cb(false);
+        } else {
+            var keyHead = 's:info:' + ssn + ':';
+            redisCli.mget([keyHead + 'lat', keyHead + 'lng'], (err, geo) => {
+                if(lat === geo[0] && lng === geo[0]) {
+                    cb(true);
+                } else {
+                    cb(false);
+                }
+            });
+        }
+    }
 }
 module.exports = sensorModule;
