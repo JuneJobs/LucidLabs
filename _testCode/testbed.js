@@ -40,6 +40,8 @@
  * 1.2.2.~ Else if expTs !== lastTs
  * 1.2.2.1.~ If ConRetransReq === 0
  * 1.2.2.1.1.~ arrUnsuccessTs.push(expTs)
+ * 1.2.2.1.2.~ If arrUnsuccessTs.length === 1
+ * 1.2.2.1.2.1.~ arrUnsuccessTs.push(lastTs + tts)
  * 1.2.2.2.~ If ConRetransReq === 1
  * 1.2.2.2.1.~ cntOfSkieepedTs = expTs - lastTs
  * 1.2.2.2.2.~ for (var i = 1 ; i <= cntOfSkippedTs; i ++)
@@ -63,7 +65,7 @@ function unpackRadTrn(payload, tts){
 
     var tuples = payload.tuples;
     // 1.1.~
-    var count = 10;
+    var count = payload.tuples.length;
     // 1.1.1. & 1.1.1.1.~
     lastTs = tuples[0].ts;
     // 1.1.1.2.~
@@ -71,7 +73,7 @@ function unpackRadTrn(payload, tts){
     // 1.1.1.3.~s
     arrSuccessfulRcvdData.push(tuples[0]);
     // 1.1.1.4
-    expTs = tuples[0].ts + (count-1) * tts;
+    expTs = tuples[0].ts + (payload.tupleSize -1) * tts;
 
     for (var index = 1; index < count; index++) {
         // 1.1.2.~ 1.1.2.1.~
@@ -112,14 +114,20 @@ function unpackRadTrn(payload, tts){
     // 1.2.2.~
     } else {
         // 1.2.2.1.~
-        if(continuityOfRetransReq === 0){
+        if(continuityOfRetransReq === 1){
             // 1.2.2.1.1.
-            arrUnsuccessfulTs.push(expTs)
+            arrUnsuccessfulTs.push(expTs);
+            if(arrUnsuccessfulTs.length === 1){
+                arrUnsuccessfulTs.unshift(lastTs + tts);
+            }
+            if(arrSuccessfulTs.length === 1) {
+                arrSuccessfulTs.push(lastTs);
+            }
         // 1.2.2.2.~
-        } else if (continuityOfRetransReq === 1) {
+        } else if (continuityOfRetransReq === 0) {
             var cntOfSkieepedTs = (expTs - lastTs) / tts;
             for (var sindex = 1; sindex <= cntOfSkieepedTs; sindex++) {
-                lastTs = lastTs + tts * sindex;
+                lastTs = lastTs + tts;
                 arrUnsuccessfulTs.push(lastTs);
             }
         }
@@ -129,19 +137,18 @@ function unpackRadTrn(payload, tts){
  }
  var tts = 1;
  var payload = {
+     tupleSize: 15,
      tuples: [{
          ts: 1
      }, {
-         ts: 2
-     }, {
-         ts: 3
-     }, {
-         ts: 5
+         ts: 8
      }, {
          ts: 9
      }, {
          ts: 10
-     }, ]
+     }, {
+         ts: 11
+     }]
  }
  var result = unpackRadTrn(payload, tts);
  console.log(result)
