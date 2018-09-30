@@ -27,6 +27,34 @@ const redis = require("redis");
 //Connect with Redis client
 const redisCli = redis.createClient();
 
+//Data tran
+router.post("/serverdatatran", function (req, res){
+    logger.debug("    +--------------------------------------------------------------------------------.................");
+    logger.debug("| SERVER Received request on /serverapi: " + JSON.stringify(req.body));
+
+    var protocol = new LlProtocol();
+    protocol.setMsg(req.body);
+    if(!protocol.verifyHeader()) return;
+    
+    switch (protocol.getMsgType()) {
+        case g.SSP_MSG_TYPE.SSP_RAD_TRN:
+            // CID 스테이트 확인
+            // 언팩
+            // 버퍼에 데이터 저장 (저장시 SSN 묶어서 저장)
+            // 리스폰스
+            break;
+
+        case g.SAP_MSG_TYPE.SAP_RHD_TRN:
+        
+            break;
+
+        default:
+            break;
+    }
+});
+//Process : 일정시간마다 에어데이터를 서버에서 데이터베이스로 전송
+//레디스에 데이터를 넣어두고, 이를 읽어서 데이터베이스로 전송
+
 //SERVER
 router.post("/serverapi", function (req, res) {
     logger.debug("+--------------------------------------------------------------------------------.................");
