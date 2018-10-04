@@ -95,5 +95,116 @@ class sensorModule {
             });
         }
     }
+    unpackSspRadTrnPayload(payload, tts) {
+        // 1.~
+        var arrSuccessfulTs = [];
+        var arrUnsuccessfulTs = [];
+        var successfulRcptFlg = 0;
+        var retransReqFlg = 0;
+        var continuityOfSuccessfulRcpt = 1;
+        var continuityOfRetransReq = 1;
+        var numOfSuccessfulRcpt = 1;
+        var numOfRetransReq = 0;
+        var arrSuccessfulRcvdData = [];
+        var expTs = 0;
+        var lastTs = 0;
+
+        var tuples = payload.airQualityDataListEncodings.airQualityDataTuples;
+        // 1.1.~
+        var count = payload.airQualityDataListEncodings.airQualityDataTuples.length;
+        if (count !== 0) successfulRcptFlg = 1;
+        // 1.1.1. & 1.1.1.1.~
+        lastTs = tuples[0][0];
+        // 1.1.1.2.~
+        arrSuccessfulTs.push(lastTs);
+        // 1.1.1.3.~s
+        arrSuccessfulRcvdData.push(tuples[0]);
+        // 1.1.1.4
+        expTs = tuples[0][0] + (payload.airQualityDataListEncodings.dataTupleLen - 1) * tts;
+
+        for (var index = 1; index < count; index++) {
+            // 1.1.2.~ 1.1.2.1.~
+            if (tuples[index][0] >= tuples[index - 1][0] + tts && tuples[index][0] < tuples[index - 1][0] + (2 * tts)) {
+                // 1.1.2.1.1.~
+                arrSuccessfulTs.push(tuples[index][0]);
+                numOfSuccessfulRcpt++;
+                // 1.1.2.1.2.~
+                lastTs = tuples[index][0];
+                // 1.1.2.1.3.~
+                arrSuccessfulRcvdData.push(tuples[index]);
+                // 1.1.2.2.~
+            } else {
+                // 1.1.2.2.1.~
+                arrSuccessfulTs.push(tuples[index][0]);
+                numOfSuccessfulRcpt++;
+                lastTs = tuples[index][0];
+                // 1.1.2.2.2.~
+                continuityOfSuccessfulRcpt = 0;
+                // 1.1.2.2.3.~
+                arrSuccessfulRcvdData.push(tuples[index]);
+                // 1.1.2.2.4.~
+                retransReqFlg = 1;
+                // 1.1.2.2.5.~
+                continuityOfRetransReq = 0;
+                // 1.1.2.2.6.~
+                var cntOfSkippedTs = ((tuples[index][0] - tuples[index - 1][0]) / tts) - 1;
+                // 1.1.2.2.7.~
+                for (var sindex = 1; sindex <= cntOfSkippedTs; sindex++) {
+                    // 1.1.2.2.7.1.~
+                    var rcvdlastTs = tuples[index - 1][0] + tts * sindex;
+                    // 1.1.2.2.7.2.~
+                    arrUnsuccessfulTs.push(rcvdlastTs);
+                }
+            }
+        }
+        // 1.2. & 1.2.1.~
+        if (lastTs === expTs) {
+            // 1.2.2.~
+        } else {
+            // 1.2.2.1.~
+            if (continuityOfRetransReq === 1) {
+                retransReqFlg = 1;
+                // 1.2.2.1.1.
+                arrUnsuccessfulTs.push(expTs);
+                if (arrUnsuccessfulTs.length === 1) {
+                    arrUnsuccessfulTs.unshift(lastTs + tts);
+                }
+                if (arrSuccessfulTs.length === 1) {
+                    arrSuccessfulTs.push(lastTs);
+                }
+                // 1.2.2.2.~
+            } else if (continuityOfRetransReq === 0) {
+                var cntOfSkippedTs = (expTs - lastTs) / tts;
+                for (var sindex = 1; sindex <= cntOfSkippedTs; sindex++) {
+                    lastTs = lastTs + tts;
+                    arrUnsuccessfulTs.push(lastTs);
+                }
+            }
+
+        }
+        if (continuityOfSuccessfulRcpt === 1) {
+            var arrFirstLastTs = [];
+            arrFirstLastTs.push(arrSuccessfulTs.shift());
+            arrFirstLastTs.push(arrSuccessfulTs.pop());
+            arrSuccessfulTs = arrFirstLastTs;
+        }
+        var objResult = {
+            success: {
+                successfulRcptFlg: successfulRcptFlg,
+                continuityOfSuccessfulRcpt: continuityOfSuccessfulRcpt,
+                arrSuccessfulTs: arrSuccessfulTs,
+                arrSuccessfulRcvdData: arrSuccessfulRcvdData,
+                numOfSuccessfulRcpt: numOfSuccessfulRcpt
+            },
+            fail: {
+                retranReqFlg: retransReqFlg,
+                continuityOfRetransReq: continuityOfRetransReq,
+                arrUnsuccessfulTs: arrUnsuccessfulTs,
+                numOfRetransReq: payload.airQualityDataListEncodings.dataTupleLen - numOfSuccessfulRcpt
+            }
+        }
+        return objResult;
+
+    }
 }
 module.exports = sensorModule;

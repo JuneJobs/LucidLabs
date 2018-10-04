@@ -199,6 +199,30 @@ class LlProtocol {
                 case g.SDP_MSG_TYPE.SDP_RAD_ACK:
                     return this._unpackSdpRadAckPayload();
 
+                //RAV
+                case g.SWP_MSG_TYPE.SWP_RAV_REQ:
+                    return this._unpackSwpRavReqPayload();
+
+                //RHV
+                case g.SWP_MSG_TYPE.SWP_RHV_REQ:
+                    return this._unpackSwpRhvReqPayload();
+
+                //HAV
+                case g.SWP_MSG_TYPE.SWP_HAV_REQ:
+                    return this._unpackSwphavReqPayload();
+                case g.SDP_MSG_TYPE.SDP_HAV_REQ:
+                    return this._unpackSdpHavReqPayload();
+                case g.SDP_MSG_TYPE.SDP_HAV_RSP:
+                    return this._unpackSdpHavRspPayload();
+
+                //HHV
+                case g.SWP_MSG_TYPE.SWP_HHB_REQ:
+                    return this._unpackSwphhvReqPayload();
+                case g.SDP_MSG_TYPE.SDP_HHV_REQ:
+                    return this._unpackSdpHhvReqPayload();
+                case g.SDP_MSG_TYPE.SDP_HHV_RSP:
+                    return this._unpackSdpHhvRspPayload();
+
                 default:
                     return fasle;
             }
@@ -687,8 +711,115 @@ class LlProtocol {
         return this.unpackedPayload;
     }
 
-    //RAD
+    //RAV
+    _unpackSwpRavReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
 
+        this.unpackedPayload.nsc = payload.nsc;
+
+        return this.unpackedPayload;
+    }
+
+    //RHV
+    _unpackSwpRavReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+
+        this.unpackedPayload.nsc = payload.nsc;
+
+        return this.unpackedPayload;
+    }
+
+    //HAV
+    _unpackSwpHavReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.nsc = payload.nsc;
+        this.unpackedPayload.ownershipCode = payload.ownershipCode;
+        this.unpackedPayload.sTs = payload.sTs;
+        this.unpackedPayload.eTs = payload.eTs;
+        this.unpackedPayload.numOfHavFlgRetran = payload.numOfHavFlgRetran;
+        this.unpackedPayload.nat = payload.nat;
+        this.unpackedPayload.state = payload.state;
+        this.unpackedPayload.city = payload.city;
+
+        return this.unpackedPayload;
+    }
+    _unpackSdpHavReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+
+        this.unpackedPayload.ownershipCode = payload.ownershipCode;
+        this.unpackedPayload.sTs = payload.sTs;
+        this.unpackedPayload.eTs = payload.eTs;
+        this.unpackedPayload.numOfHavFlgRetran = payload.numOfHavFlgRetran;
+        this.unpackedPayload.nat = payload.nat;
+        this.unpackedPayload.state = payload.state;
+        this.unpackedPayload.city = payload.city;
+        
+        return this.unpackedPayload;
+    }
+    _unpackSdpHavRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
+        if (payload.resultCode === 0) this.unpackedPayload.lastHavFlg = payload.lastHavFlg;
+        if (payload.resultCode === 0) this.unpackedPayload.havFlgSeqNum = payload.havFlgSeqNum;
+        if (payload.resultCode === 0) this.unpackedPayload.historicalAirQualityDataList = payload.historicalAirQualityDataList;
+        return this.unpackedPayload;
+    }
+    
+    //HHV
+    _unpackSwpHhvReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.nsc = payload.nsc;
+        this.unpackedPayload.sTs = payload.sTs;
+        this.unpackedPayload.eTs = payload.eTs;
+        this.unpackedPayload.nat = payload.nat;
+        this.unpackedPayload.state = payload.state;
+        this.unpackedPayload.city = payload.city;
+
+        return this.unpackedPayload;
+    }
+    _unpackSdpHhvReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+
+        this.unpackedPayload.sTs = payload.sTs;
+        this.unpackedPayload.eTs = payload.eTs;
+        this.unpackedPayload.nat = payload.nat;
+        this.unpackedPayload.state = payload.state;
+        this.unpackedPayload.city = payload.city;
+
+        return this.unpackedPayload;
+    }
+    _unpackSdpHhvRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
+        if (payload.resultCode === 0) this.unpackedPayload.lastHavFlg = payload.lastHavFlg;
+        if (payload.resultCode === 0) this.unpackedPayload.havFlgSeqNum = payload.havFlgSeqNum;
+        if (payload.resultCode === 0) this.unpackedPayload.historicalAirQualityDataList = payload.historicalAirQualityDataList;
+        return this.unpackedPayload;
+    }
 
     /**
      * @title function getUnpackedMsgPayload
@@ -841,6 +972,30 @@ class LlProtocol {
                     return this._packSdpDcdNot(payload);
                 case g.SDP_MSG_TYPE.SDP_DCD_RSP:
                     return this._packSdpDcdAck(payload);
+
+                //RAV
+                case g.SWP_MSG_TYPE.SWP_RAV_RSP:
+                    return this._packSwpRavRsp(payload);
+
+                //RHV
+                case g.SWP_MSG_TYPE.SWP_RHV_RSP:
+                    return this._packSwpRhvRsp(payload);
+
+                //HAV
+                case g.SWP_MSG_TYPE.SWP_HAV_RSP:
+                    return this._packSwpHavRsp(payload);
+                case g.SDP_MSG_TYPE.SDP_HAV_REQ:
+                    return this._packSdpHavReq(payload);
+                case g.SDP_MSG_TYPE.SDP_HAV_RSP:
+                    return this._packSdpHavRsp(payload);
+
+                //HHV
+                case g.SWP_MSG_TYPE.SWP_HHV_RSP:
+                    return this._packSwpHhvRsp(payload);
+                case g.SDP_MSG_TYPE.SDP_HHV_REQ:
+                    return this._packSdpHhvReq(payload);
+                case g.SDP_MSG_TYPE.SDP_HHV_RSP:
+                    return this._packSdpHhvRsp(payload);
 
                 default:
                     return false;
@@ -1325,5 +1480,30 @@ class LlProtocol {
             "payload": payload
         }
     }
+    
+    //RAV
+    _packSwpRavRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_RAV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+
+    //RHV
+    _packSwpRhvRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_RHV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+
  }
  module.exports = LlProtocol;
