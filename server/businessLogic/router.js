@@ -1850,7 +1850,64 @@ router.post("/serverapi", function (req, res) {
                     break;
                 }
             });
+        
+        case g.SWP_MSG_TYPE.SWP_HAV_REQ:
+            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(),(resState, searchedKey) => {
+                if(g.SERVER_RECV_STATE_BY_MSG.SWP_HAV_REQ.includes(resState)) {
+                    var payload = {};
+                    uModule.checkUserSignedInState(g.ENDPOIONT_ID_TYPE.WEBCLIENT, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if(result === 1){
+                            payload.ownershipCode = unpackedPayload.ownershipCode;
+                            payload.sTs = unpackedPayload.sTs;
+                            payload.eTs = unpackedPayload.eTs;
+                            payload.numOfHavFlgRetran = unpackedPayload.numOfHavFlgRetran;
+                            payload.nat = unpackedPayload.nat;
+                            payload.state = unpackedPayload.state;
+                            payload.city = unpackedPayload.city;
+                            var packedSdpHavReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_HAV_REQ, payload);
+                            request.send('http://localhost:8080/databaseapi', packedSdpHavReq, (message) => { 
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                var unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+                                //switch
+                                switch (unpackedPayload.resultCode) {
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_OK:
+                                        //need to be define
+                                        break;
 
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_OTHER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HAV.RESCODE_SWP_HAV_OTHER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_HAV_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HAV.RESCODE_SWP_HAV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_HAV_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+                                    
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER: 
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HAV.RESCODE_SWP_HAV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_HAV_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+                                }
+
+                            });
+                        } else {
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HAV.RESCODE_SWP_HAV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_HAV_RSP, payload);
+                            logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                            return res.send(protocol.getPackedMsg());
+                        }
+                    })
+                } else {
+                    break;
+                }
+            });
+            
         default:
             break;
     }
@@ -3126,9 +3183,24 @@ router.post("/databaseapi", (req, res) => {
                 });
             }
             break;
-        case g.SDP_MSG_TYPE.SDP_RAD_TRN:
+        /**
+         * Receive SDP: HAV-REQ
+         */
+        case g.SDP_MSG_TYPE.SDP_HAV_REQ:
+                state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                    var payload = {};
+                    if(g.DATABASE_RECV_STATE_BY_MSG.SDP_HAV_REQ.includes(resState)) {
+                        var keyHead = 'd:data:air:*:' + unpackedPayload.nat + ':' + unpackedPayload.state + ':' + unpackedPayload.city;
+                        redisCli.zrangebyscore()
+                        //일단 도시에 있는 센서리스트들부터 확보
+                        //센서리스트는 맥어드레스로 관리
+                        //set 지역별 센서리스트 sadd s:search:sensorbylocation:lat:lng: 
+                    } else {
+                        break;
+                    }
+                });
             
-            break;
+
         default:
             break;
         
