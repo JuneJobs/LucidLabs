@@ -3191,7 +3191,12 @@ router.post("/databaseapi", (req, res) => {
                     var payload = {};
                     if(g.DATABASE_RECV_STATE_BY_MSG.SDP_HAV_REQ.includes(resState)) {
                         var keyHead = 'd:data:air:*:' + unpackedPayload.nat + ':' + unpackedPayload.state + ':' + unpackedPayload.city;
-                        redisCli.zrangebyscore()
+                        redisCli.keys(keyHead, (err, keys) => {
+                            if (err) {} else {
+
+                                redisCli.zrangebyscore(keys[index], )
+                            }
+                        });
                         //일단 도시에 있는 센서리스트들부터 확보
                         //센서리스트는 맥어드레스로 관리
                         //set 지역별 센서리스트 sadd s:search:sensorbylocation:lat:lng: 
