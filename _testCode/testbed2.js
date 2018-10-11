@@ -123,7 +123,7 @@ redisCli.keys(keyHead, (err, keys) => {
             //검색할 때 필요한 정보
             //센서번호 
             //1. GPS값 보정
-            var differentialSensorIdxs = [];
+            var differentialSensorIdxs = []; //현재 가지고 있는센서의 인덱스, 센서시리얼넘버, 현재 가지고있는 센서의 첫번째 타임스탬프
             dataOfSensors.forEach((dataOfSensor, idx) => {
                 //TS 셋팅
                 //검색한 기간에 GPS정보가 존재하는 경우
@@ -135,7 +135,7 @@ redisCli.keys(keyHead, (err, keys) => {
                     //첫번째 GPS가 첫번째 TS와 맞아 떨어지지 않는 경우
                     if(firstTsOfRaw !== firstTsOfGeo) {
                         //리스트에 타임스탬프 받음
-                        differentialSensorIdxs.push(idx, [keys[idx].split(':')[4], Number(firstTsOfGeo)]);
+                        differentialSensorIdxs.push([idx, keys[idx].split(':')[4], Number(firstTsOfRaw)]);
                     }
                 }else {
                     console.log('');
@@ -145,14 +145,18 @@ redisCli.keys(keyHead, (err, keys) => {
             commandList = []; //
             for (let i = 0, x = differentialSensorIdxs.length; i < x; i++) {
                 commandList.push(
-                    ['zrevrangebyscore', 'd:data:air:geo:' + differentialSensorIdxs[i][0] + ':Q1:Q2:Q3', differentialSensorIdxs[i][1] - 1, 0, 'LIMIT', 0, 1]
+                    ['zrevrangebyscore', 'd:data:air:geo:' + differentialSensorIdxs[i][1] + ':Q1:Q2:Q3', differentialSensorIdxs[i][2] - 1, 0, 'LIMIT', 0, 1]
                 );
             }
             redisCli.multi(commandList).exec((err, differentialSensorGeos) => {
                 differentialSensorGeos.forEach((differentialSensorGeo, idx) => {
-                    dataOfSensors[differentialSensorIdxs[idx]].geoList.shift(differentialSensorGeo);
+                    let latestSensorGeo = differentialSensorGeo[0].split(',');
+                    latestSensorGeo.shift();
+                    latestSensorGeo.unshift(differentialSensorIdxs[idx][2].toString());
+                    latestSensorGeo = latestSensorGeo.toString();
+                    dataOfSensors[differentialSensorIdxs[idx][0]].geoList.unshift(latestSensorGeo);
                 });
-                console.log(differentialSensorGeos);
+                console.log(dataOfSensors);
             });
 /*
             redisCli.zrevrangebyscore('d:data:air:geo:1:Q1:Q2:Q3', firstTsOfGeo - 1, 0, 'LIMIT', 0, 1, (err, geoData) => {
