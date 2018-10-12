@@ -223,6 +223,15 @@ class LlProtocol {
                 case g.SDP_MSG_TYPE.SDP_HHV_RSP:
                     return this._unpackSdpHhvRspPayload();
 
+                //SHR
+                case g.SWP_MSG_TYPE.SWP_SHR_REQ:
+                    return this._unpackSwpShrReqPayload();
+                case g.SDP_MSG_TYPE.SDP_SHR_REQ:
+                    return this._unpackSdpShrReqPayload();
+                case g.SDP_MSG_TYPE.SDP_SHR_RSP:
+                    return this._unpackSdpShrRspPayload();
+
+
                 default:
                     return fasle;
             }
@@ -724,7 +733,7 @@ class LlProtocol {
     }
 
     //RHV
-    _unpackSwpRavReqPayload() {
+    _unpackSwpRhvReqPayload() {
         //validation
         //parsing
         var payload = this.msgPayload;
@@ -820,6 +829,41 @@ class LlProtocol {
         if (payload.resultCode === 0) this.unpackedPayload.historicalHeartRelatedDataListEncodings = payload.historicalHeartRelatedDataListEncodings;
         return this.unpackedPayload;
     }
+    //SHR
+    _unpackSwpShrReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.nsc = payload.nsc;
+        this.unpackedPayload.nat = payload.nat;
+        this.unpackedPayload.state = payload.state;
+        this.unpackedPayload.city = payload.city;
+
+        return this.unpackedPayload;
+    }
+    _unpackSdpShrReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+
+        this.unpackedPayload.nat = payload.nat;
+        this.unpackedPayload.state = payload.state;
+        this.unpackedPayload.city = payload.city;
+
+        return this.unpackedPayload;
+    }
+    _unpackSdpShrRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
+        if (payload.resultCode === 0) this.unpackedPayload.sensorHistoryRecordListEncodings = payload.sensorHistoryRecordListEncodings;
+        return this.unpackedPayload;
+    }
+    
 
     /**
      * @title function getUnpackedMsgPayload
@@ -996,6 +1040,14 @@ class LlProtocol {
                     return this._packSdpHhvReq(payload);
                 case g.SDP_MSG_TYPE.SDP_HHV_RSP:
                     return this._packSdpHhvRsp(payload);
+
+                //SHR
+                case g.SWP_MSG_TYPE.SWP_SHR_RSP:
+                    return this._packSwpShrRsp(payload);
+                case g.SDP_MSG_TYPE.SDP_SHR_REQ:
+                    return this._packSdpShrReq(payload);
+                case g.SDP_MSG_TYPE.SDP_SHR_RSP:
+                    return this._packSdpShrRsp(payload);
 
                 default:
                     return false;
@@ -1505,5 +1557,100 @@ class LlProtocol {
         }
     }
 
+    //HAV
+    _packSwpHavRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_HAV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpHavReq(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_HAV_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpHavRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_HAV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+
+    //HHV
+    _packSwpHhvRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_HHV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpHhvReq(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_HHV_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpHhvRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_HHV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+
+    //SHR
+    _packSwpShrRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_SHR_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpShrReq(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_SHR_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpShrRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_SHR_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
  }
  module.exports = LlProtocol;

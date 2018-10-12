@@ -1980,7 +1980,8 @@ router.post("/serverapi", function (req, res) {
                 }
             });
 
-        case g.SWP_MSG_TYPE.SWP_HHV_REQ:
+        case g.SWP_MSG_TYPE.SWP_SHR_REQ:
+            
             break;
         default:
             break;
