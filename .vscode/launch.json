@@ -11,7 +11,7 @@
       //"program": "${workspaceRoot}/index.js",
       "program":
         //"${workspaceRoot}/server.js",
-        "${workspaceRoot}/_testCode/testbed2.js",
+        "${workspaceRoot}/_testCode/searchHistoricalDataModule.js",
       "runtimeExecutable":
         "/Users/junheepark/.nvm/versions/node/v10.6.0/bin/node",
       "cwd": "${workspaceRoot}"

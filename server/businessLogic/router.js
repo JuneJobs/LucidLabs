@@ -22,6 +22,7 @@ const LlHash = require('../lib/LlHash');
 const userModule = require('./userModule');
 const sensorModule = require('./sensorModule');
 const commonModule = require('./commonModule');
+const dataModule = require('./searchHistoricalDataModule');
 
 const redis = require("redis");
 //Connect with Redis client
@@ -1873,8 +1874,15 @@ router.post("/serverapi", function (req, res) {
                                 //switch
                                 switch (unpackedPayload.resultCode) {
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_OK:
-                                        //need to be define
-                                        break;
+                                        payload = {}
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HAV.RESCODE_SWP_HAV_OK;
+                                        payload.lastFlg = unpackedPayload.lastFlg;
+                                        ///here. need to be define
+                                        payload.flgSeqNum = unpackedPayload.flgSeqNum;
+                                        payload.historicalAirQualityDataListEncodings = unpackedPayload.historicalAirQualityDataListEncodings;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_DCA_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
 
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_OTHER:
                                         payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HAV.RESCODE_SWP_HAV_OTHER;
@@ -3190,22 +3198,49 @@ router.post("/databaseapi", (req, res) => {
                 state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                     var payload = {};
                     if(g.DATABASE_RECV_STATE_BY_MSG.SDP_HAV_REQ.includes(resState)) {
-                        var keyHead = 'd:data:air:*:' + unpackedPayload.nat + ':' + unpackedPayload.state + ':' + unpackedPayload.city;
-                        redisCli.keys(keyHead, (err, keys) => {
-                            if (err) {} else {
-
-                                redisCli.zrangebyscore(keys[index], )
-                            }
-                        });
-                        //일단 도시에 있는 센서리스트들부터 확보
-                        //센서리스트는 맥어드레스로 관리
-                        //set 지역별 센서리스트 sadd s:search:sensorbylocation:lat:lng: 
+                        //Auth, It should be repfactoring
+                        if(protocol.getEndpointId() < 2){
+                            let searchHistoricalData = new dataModule();
+                            let nat = 'Q1', //unpackedPayload.nat
+                                state = 'Q2', //unpackedPayload.state
+                                city = 'Q3', //unpackedPayload.city
+                                sTs = '3', //unpackedPayload.sTs
+                                eTs = '5'; //unpackedPayload.eTs
+                            searchHistoricalData.searchHistoricalAirData(nat, state, city, sTs, eTs, (result) => {
+                                var historicalAirQualityDataListEncodings = [];
+                                if (result) {
+                                    for (let i = 0, x = result.length; i < x; i++) {
+                                        let dataTuple = result[i];
+                                        historicalAirQualityDataListEncodings.push({
+                                            wmac: dataTuple.wmac,
+                                            geo: dataTuple.geoList,
+                                            commonDataTierTuple: dataTuple.dataList
+                                        });
+                                    }
+                                }
+                                payload = {};
+                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_OK;
+                                payload.lastFlg = 1;
+                                payload.flgSeqNum = 0;
+                                payload.historicalAirQualityDataListEncodings = historicalAirQualityDataListEncodings;
+                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_HAV_RSP, payload);
+                                logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                return res.send(protocol.getPackedMsg());
+                            });
+                        } else {
+                            payload = {};
+                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
+                            protocol.packMsg(g.SDP_MSG_TYPE.SDP_HAV_RSP, payload);
+                            logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                        }
                     } else {
                         break;
                     }
                 });
-            
-
+        /**
+         * Receive SDP: HHV-REQ
+         */
+        
         default:
             break;
         

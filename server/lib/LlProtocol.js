@@ -774,9 +774,9 @@ class LlProtocol {
         var payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
-        if (payload.resultCode === 0) this.unpackedPayload.lastHavFlg = payload.lastHavFlg;
-        if (payload.resultCode === 0) this.unpackedPayload.havFlgSeqNum = payload.havFlgSeqNum;
-        if (payload.resultCode === 0) this.unpackedPayload.historicalAirQualityDataList = payload.historicalAirQualityDataList;
+        if (payload.resultCode === 0) this.unpackedPayload.lastFlg = payload.lastFlg;
+        if (payload.resultCode === 0) this.unpackedPayload.flgSeqNum = payload.flgSeqNum;
+        if (payload.resultCode === 0) this.unpackedPayload.historicalAirQualityDataListEncodings = payload.historicalAirQualityDataListEncodings;
         return this.unpackedPayload;
     }
     
@@ -815,9 +815,9 @@ class LlProtocol {
         var payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
-        if (payload.resultCode === 0) this.unpackedPayload.lastHavFlg = payload.lastHavFlg;
-        if (payload.resultCode === 0) this.unpackedPayload.havFlgSeqNum = payload.havFlgSeqNum;
-        if (payload.resultCode === 0) this.unpackedPayload.historicalAirQualityDataList = payload.historicalAirQualityDataList;
+        if (payload.resultCode === 0) this.unpackedPayload.lastFlg = payload.lastFlg;
+        if (payload.resultCode === 0) this.unpackedPayload.flgSeqNum = payload.flgSeqNum;
+        if (payload.resultCode === 0) this.unpackedPayload.historicalHeartRelatedDataListEncodings = payload.historicalHeartRelatedDataListEncodings;
         return this.unpackedPayload;
     }
 
