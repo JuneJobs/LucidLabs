@@ -1880,7 +1880,7 @@ router.post("/serverapi", function (req, res) {
                                         ///here. need to be define
                                         payload.flgSeqNum = unpackedPayload.flgSeqNum;
                                         payload.historicalAirQualityDataListEncodings = unpackedPayload.historicalAirQualityDataListEncodings;
-                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_DCA_RSP, payload);
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SAP_DCA_RSP, payload);
                                         logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
                                         return res.send(protocol.getPackedMsg());
 
@@ -1915,7 +1915,71 @@ router.post("/serverapi", function (req, res) {
                     break;
                 }
             });
-            
+
+        case g.SWP_MSG_TYPE.SWP_HHV_REQ:
+            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                if (g.SERVER_RECV_STATE_BY_MSG.SWP_HHV_REQ.includes(resState)) {
+                    var payload = {};
+                    uModule.checkUserSignedInState(g.ENDPOIONT_ID_TYPE.WEBCLIENT, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if (result === 1) {
+                            payload.ownershipCode = unpackedPayload.ownershipCode;
+                            payload.sTs = unpackedPayload.sTs;
+                            payload.eTs = unpackedPayload.eTs;
+                            payload.numOfHhvFlgRetran = unpackedPayload.numOfHhvFlgRetran;
+                            payload.nat = unpackedPayload.nat;
+                            payload.state = unpackedPayload.state;
+                            payload.city = unpackedPayload.city;
+                            var packedSdpHhvReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_HHV_REQ, payload);
+                            request.send('http://localhost:8080/databaseapi', packedSdpHhvReq, (message) => {
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                var unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+                                //switch
+                                switch (unpackedPayload.resultCode) {
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OK:
+                                        payload = {}
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HHV.RESCODE_SWP_HHV_OK;
+                                        payload.lastFlg = unpackedPayload.lastFlg;
+                                        ///here. need to be define
+                                        payload.flgSeqNum = unpackedPayload.flgSeqNum;
+                                        payload.historicalAirQualityDataListEncodings = unpackedPayload.historicalAirQualityDataListEncodings;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SAP_DCA_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OTHER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HHV.RESCODE_SWP_HHV_OTHER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_HHV_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HHV.RESCODE_SWP_HHV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_HHV_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HHV.RESCODE_SWP_HHV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_HHV_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+                                }
+
+                            });
+                        } else {
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HHV.RESCODE_SWP_HHV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_HHV_RSP, payload);
+                            logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                            return res.send(protocol.getPackedMsg());
+                        }
+                    })
+                } else {
+                    break;
+                }
+            });
+
         default:
             break;
     }
@@ -3195,52 +3259,95 @@ router.post("/databaseapi", (req, res) => {
          * Receive SDP: HAV-REQ
          */
         case g.SDP_MSG_TYPE.SDP_HAV_REQ:
-                state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
-                    var payload = {};
-                    if(g.DATABASE_RECV_STATE_BY_MSG.SDP_HAV_REQ.includes(resState)) {
-                        //Auth, It should be repfactoring
-                        if(protocol.getEndpointId() < 2){
-                            let searchHistoricalData = new dataModule();
-                            let nat = 'Q1', //unpackedPayload.nat
-                                state = 'Q2', //unpackedPayload.state
-                                city = 'Q3', //unpackedPayload.city
-                                sTs = '3', //unpackedPayload.sTs
-                                eTs = '5'; //unpackedPayload.eTs
-                            searchHistoricalData.searchHistoricalAirData(nat, state, city, sTs, eTs, (result) => {
-                                var historicalAirQualityDataListEncodings = [];
-                                if (result) {
-                                    for (let i = 0, x = result.length; i < x; i++) {
-                                        let dataTuple = result[i];
-                                        historicalAirQualityDataListEncodings.push({
-                                            wmac: dataTuple.wmac,
-                                            geo: dataTuple.geoList,
-                                            commonDataTierTuple: dataTuple.dataList
-                                        });
-                                    }
+            state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                var payload = {};
+                if(g.DATABASE_RECV_STATE_BY_MSG.SDP_HAV_REQ.includes(resState)) {
+                    //Auth, It should be repfactoring
+                    if(protocol.getEndpointId() < 2){
+                        let searchHistoricalData = new dataModule();
+                        let nat = 'Q1', //unpackedPayload.nat
+                            state = 'Q2', //unpackedPayload.state
+                            city = 'Q3', //unpackedPayload.city
+                            sTs = '3', //unpackedPayload.sTs
+                            eTs = '5'; //unpackedPayload.eTs
+                        searchHistoricalData.searchHistoricalAirData(nat, state, city, sTs, eTs, (result) => {
+                            var historicalAirQualityDataListEncodings = [];
+                            if (result) {
+                                for (let i = 0, x = result.length; i < x; i++) {
+                                    let dataTuple = result[i];
+                                    historicalAirQualityDataListEncodings.push({
+                                        wmac: dataTuple.wmac,
+                                        geo: dataTuple.geoList,
+                                        commonDataTierTuple: dataTuple.dataList
+                                    });
                                 }
-                                payload = {};
-                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_OK;
-                                payload.lastFlg = 1;
-                                payload.flgSeqNum = 0;
-                                payload.historicalAirQualityDataListEncodings = historicalAirQualityDataListEncodings;
-                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_HAV_RSP, payload);
-                                logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
-                                return res.send(protocol.getPackedMsg());
-                            });
-                        } else {
+                            }
                             payload = {};
-                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
+                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_OK;
+                            payload.lastFlg = 1;
+                            payload.flgSeqNum = 0;
+                            payload.historicalAirQualityDataListEncodings = historicalAirQualityDataListEncodings;
                             protocol.packMsg(g.SDP_MSG_TYPE.SDP_HAV_RSP, payload);
                             logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
-                        }
+                            return res.send(protocol.getPackedMsg());
+                        });
                     } else {
-                        break;
+                        payload = {};
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_HAV_RSP, payload);
+                        logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
                     }
-                });
+                } else {
+                    break;
+                }
+            });
         /**
          * Receive SDP: HHV-REQ
+         * 
          */
-        
+        case g.SDP_MSG_TYPE.SDP_HHV_REQ:
+            state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                var payload = {};
+                if(g.DATABASE_RECV_STATE_BY_MSG.SDP_HHV_REQ.includes(resState)) {
+                    //Auth, It should be repfactoring
+                    if(protocol.getEndpointId() < 2){
+                        let searchHistoricalData = new dataModule();
+                        let nat = 'Q1', //unpackedPayload.nat
+                            state = 'Q2', //unpackedPayload.state
+                            city = 'Q3', //unpackedPayload.city
+                            sTs = '3', //unpackedPayload.sTs
+                            eTs = '5'; //unpackedPayload.eTs
+                        searchHistoricalData.searchHistoricalHeartData(nat, state, city, sTs, eTs, (result) => {
+                            var historicalHeartQualityDataListEncodings = [];
+                            if (result) {
+                                for (let i = 0, x = result.length; i < x; i++) {
+                                    let dataTuple = result[i];
+                                    historicalHeartQualityDataListEncodings.push({
+                                        wmac: dataTuple.wmac,
+                                        geo: dataTuple.geoList,
+                                        commonDataTierTuple: dataTuple.dataList
+                                    });
+                                }
+                            }
+                            payload = {};
+                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OK;
+                            payload.lastFlg = 1;
+                            payload.flgSeqNum = 0;
+                            payload.historicalHeartQualityDataListEncodings = historicalHeartQualityDataListEncodings;
+                            protocol.packMsg(g.SDP_MSG_TYPE.SDP_HHV_RSP, payload);
+                            logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                            return res.send(protocol.getPackedMsg());
+                        });
+                    } else {
+                        payload = {};
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_HHV_RSP, payload);
+                        logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    }
+                } else {
+                    break;
+                }
+            });
         default:
             break;
         
