@@ -1880,7 +1880,7 @@ router.post("/serverapi", function (req, res) {
                                         ///here. need to be define
                                         payload.flgSeqNum = unpackedPayload.flgSeqNum;
                                         payload.historicalAirQualityDataListEncodings = unpackedPayload.historicalAirQualityDataListEncodings;
-                                        protocol.packMsg(g.SWP_MSG_TYPE.SAP_DCA_RSP, payload);
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_HAV_RSP, payload);
                                         logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
                                         return res.send(protocol.getPackedMsg());
 
@@ -1943,8 +1943,8 @@ router.post("/serverapi", function (req, res) {
                                         payload.lastFlg = unpackedPayload.lastFlg;
                                         ///here. need to be define
                                         payload.flgSeqNum = unpackedPayload.flgSeqNum;
-                                        payload.historicalAirQualityDataListEncodings = unpackedPayload.historicalAirQualityDataListEncodings;
-                                        protocol.packMsg(g.SWP_MSG_TYPE.SAP_DCA_RSP, payload);
+                                        payload.historicalHeartQualityDataListEncodings = unpackedPayload.historicalHeartQualityDataListEncodings;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_HHV_RSP, payload);
                                         logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
                                         return res.send(protocol.getPackedMsg());
 
@@ -1980,6 +1980,8 @@ router.post("/serverapi", function (req, res) {
                 }
             });
 
+        case g.SWP_MSG_TYPE.SWP_HHV_REQ:
+            break;
         default:
             break;
     }
