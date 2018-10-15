@@ -267,6 +267,12 @@ class LlProtocol {
                 case g.SDP_MSG_TYPE.SDP_AUV_RSP:
                     return this._unpackSdpAuvRspPayload();
 
+                //KAS
+                case g.SAP_MSG_TYPE.SAP_KAS_REQ:
+                    return this._unpackSapKasuReqPayload();
+                case g.SWP_MSG_TYPE.SWP_KAS_REQ:
+                    return this._unpackSwpKasReqPayload();
+
                 default:
                     return fasle;
             }
@@ -1059,6 +1065,22 @@ class LlProtocol {
         return this.unpackedPayload;
     }
 
+    //KAS
+    _unpackSapKasReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload.nsc = payload.nsc;
+        return this.unpackedPayload;
+    }
+    _unpackSwpKasReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload.nsc = payload.nsc;
+        return this.unpackedPayload;
+    }
+
     /**
      * @title function getUnpackedMsgPayload
      * @description Get unpacked payload if unpacking successed as well 
@@ -1279,6 +1301,12 @@ class LlProtocol {
                 case g.SDP_MSG_TYPE.SDP_SHR_RSP:
                     return this._packSdpShrRsp(payload);
 
+                //KAS
+                case g.SWP_MSG_TYPE.SWP_KAS_RSP:
+                    return this._packSwpKasRsp(payload);
+                case g.SWP_MSG_TYPE.SWP_KAS_RSP:
+                    return this._packSwpKasRsp(payload);
+                    
                 default:
                     return false;
 
@@ -2025,6 +2053,28 @@ class LlProtocol {
         return this.packedMsg = {
             "header": {
                 "msgType": g.SDP_MSG_TYPE.SDP_SHR_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+
+    //KAS
+    _packSapKasRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_KAS_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSwpKasRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_KAS_RSP,
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },

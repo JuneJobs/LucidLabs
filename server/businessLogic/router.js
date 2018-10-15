@@ -2419,6 +2419,51 @@ router.post("/serverapi", function (req, res) {
                 });
             }
             break;
+
+        /**
+         * Receive SAP: KAS-REQ
+         */
+
+        /**
+         * Receive SWP: KAS-REQ
+         */
+        case g.SWP_MSG_TYPE.SWP_KAS_REQ:
+            // 1.~
+            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                var payload = {};
+                // 1.1~
+                if (resState) {
+                    // 1.1.1.~
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        // 1.1.1.1.~
+                        if (result === 1) {
+                            uModule.updateUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), (result) => {
+                                if (result) {
+                                    uModule.getNewNumOfSignedInCompls(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), (nsc) => {
+                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                        logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_KAS.RESCODE_SWP_KAS_OK;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_KAS_RSP, payload);
+                                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        return res.send(protocol.getPackedMsg());
+                                    });
+                                }
+                            });
+                            // 1.1.1.2.~
+                        } else {
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_KAS.RESCODE_SWP_KAS_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_KAS_RSP, payload)
+                            logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                            return res.send(protocol.getPackedMsg());
+                        }
+                    });
+                    // 1.2.~    
+                } else {
+                    break;
+                }
+            });
+            break;
+        
         default:
             break;
     }
@@ -2789,10 +2834,46 @@ router.post("/databaseapi", (req, res) => {
                         //main logic
                         //the output should be
                         /**
-                         * 
+                         * userinfo = [
+                         *     [regf, signf, uml, mexpd, userId, fn, ln],
+                         *     [regf, signf, uml, mexpd, userId, fn, ln],
+                         *     [regf, signf, uml, mexpd, userId, fn, ln],
+                         *     [regf, signf, uml, mexpd, userId, fn, ln],
+                         *     [regf, signf, uml, mexpd, userId, fn, ln]
+                         * ]
                          */
-                        //If user searched using mac
-                        
+                        redisCli.scan(0, 'MATCH', 'u:info:*:usn', 'COUNT', 1000, (err, keys) => {
+                            let userInfoListEncodings = [],
+                                commandList = [];
+                            for (let i = 1, x = keys.length ; i < x; i++) {
+                                let usn = keys[i];
+                                commandList.push(
+                                    ['get', 'u:info:' + usn + ':regf'],
+                                    ['get', 'u:info:' + usn + ':signf'],
+                                    ['get', 'u:info:' + usn + ':uml'],
+                                    ['get', 'u:info:' + usn + ':userId'],
+                                    ['get', 'u:info:' + usn + ':fn'],
+                                    ['get', 'u:info:' + usn + ':ln'],
+                                );
+                            }
+                            redisCli.multi(commandList).exec((err, replies) => {
+                                for (let i = 0, x = replies.length / 6; i < x; i++) {
+                                    userInfoListEncodings.push({
+                                        refg: replies[i * 3],
+                                        signf: replies[i * 3 + 1],
+                                        uml: replies[i * 3 + 2],
+                                        userId: replies[i * 3 + 3],
+                                        fn: replies[i * 3 + 4],
+                                        ln: replies[i * 3 + 5]
+                                    });
+                                }
+                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_AUV.RESCODE_SDP_AUV_OK;
+                                payload.userInfoListEncodings = userInfoListEncodings;
+                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_AUV_REQ, payload);
+                                logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                return res.send(protocol.getPackedMsg());
+                            });
+                        });
                     } else if (signf === g.SIGNED_IN_STATE.SIGNED_OUT) {
                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_AUV.RESCODE_SDP_AUV_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
                         protocol.packMsg(g.SDP_MSG_TYPE.SDP_AUV_RSP, payload);
