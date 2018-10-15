@@ -231,6 +231,41 @@ class LlProtocol {
                 case g.SDP_MSG_TYPE.SDP_SHR_RSP:
                     return this._unpackSdpShrRspPayload();
 
+                //UPC
+                case g.SAP_MSG_TYPE.SAP_UPC_REQ:
+                    return this._unpackSapUpcReqPayload();
+                case g.SWP_MSG_TYPE.SWP_UPC_REQ:
+                    return this._unpackSwpUpcReqPayload();
+                case g.SDP_MSG_TYPE.SDP_UPC_REQ:
+                    return this._unpackSdpUpcReqPayload();
+                case g.SDP_MSG_TYPE.SDP_UPC_RSP:
+                    return this._unpackSdpUpcRspPayload();
+
+                //FPU
+                case g.SAP_MSG_TYPE.SAP_FPU_REQ:
+                    return this._unpackSapFpuReqPayload();
+                case g.SWP_MSG_TYPE.SWP_FPU_REQ:
+                    return this._unpackSwpFpuReqPayload();
+                case g.SDP_MSG_TYPE.SDP_FPU_REQ:
+                    return this._unpackSdpFpuReqPayload();
+                case g.SDP_MSG_TYPE.SDP_FPU_RSP:
+                    return this._unpackSdpFpuRspPayload();
+
+                //UDR
+                case g.SWP_MSG_TYPE.SWP_UDR_REQ:
+                    return this._unpackSwpUdrReqPayload();
+                case g.SDP_MSG_TYPE.SDP_UDR_REQ:
+                    return this._unpackSdpUdrReqPayload();
+                case g.SDP_MSG_TYPE.SDP_UDR_RSP:
+                    return this._unpackSdpUdrRspPayload();
+
+                //AUV
+                case g.SWP_MSG_TYPE.SWP_AUV_REQ:
+                    return this._unpackSwpAuvReqPayload();
+                case g.SDP_MSG_TYPE.SDP_AUV_REQ:
+                    return this._unpackSdpAuvReqPayload();
+                case g.SDP_MSG_TYPE.SDP_AUV_RSP:
+                    return this._unpackSdpAuvRspPayload();
 
                 default:
                     return fasle;
@@ -368,6 +403,166 @@ class LlProtocol {
         this.unpackedPayload = {
             "resultCode": payload.resultCode
         }
+        return this.unpackedPayload;
+    }
+
+    //UPC
+    _unpackSapUpcReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "nsc": payload.nsc,
+            "curPw": payload.curPw,
+            "newPw": payload.newPw
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSwpUpcReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "nsc": payload.nsc,
+            "curPw": payload.curPw,
+            "newPw": payload.newPw
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSdpUpcReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "curPw": payload.curPw,
+            "newPw": payload.newPw
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSdpUpcRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "resultCode": payload.resultCode
+        }
+        return this.unpackedPayload;
+    }
+
+    //FPU
+    _unpackSapFpuReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "birthDate": payload.birthDate,
+            "userId": payload.userId,
+            "userFn": payload.userFn,
+            "userLn": payload.userLn
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSwpFpuReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "birthDate": payload.birthDate,
+            "userId": payload.userId,
+            "userFn": payload.userFn,
+            "userLn": payload.userLn
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSdpFpuReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "birthDate": payload.birthDate,
+            "userId": payload.userId,
+            "userFn": payload.userFn,
+            "userLn": payload.userLn
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSdpFpuRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "resultCode": payload.resultCode
+        }
+        if (payload.resultCode === 0) this.unpackedPayload.userPw = payload.userPw;
+        return this.unpackedPayload;
+    }
+
+    //UDR
+    _unpackSwpUdrReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "nsc": payload.nsc,
+            "userPw": payload.userPw
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSdpUdrReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "userPw": payload.userPw
+        }
+        return this.unpackedPayload;
+    }
+    _unpackSdpUdrRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "resultCode": payload.resultCode
+        }
+        return this.unpackedPayload;
+    }
+
+    //AUV
+    _unpackSwpAuvReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.nsc = payload.nsc
+        if (typeof payload.regf !== 'undefined') this.unpackedPayload.regf = payload.regf;
+        if (typeof payload.signf !== 'undefined') this.unpackedPayload.signf = payload.signf;
+        if (typeof payload.mlv !== 'undefined') this.unpackedPayload.mlv = payload.mlv;
+        if (typeof payload.userId !== 'undefined') this.unpackedPayload.userId = payload.userId;
+        if (typeof payload.userFn !== 'undefined') this.unpackedPayload.userFn = payload.userFn;
+        if (typeof payload.userLn !== 'undefined') this.unpackedPayload.userLn = payload.userLn;
+        if (typeof payload.oprset !== 'undefined') this.unpackedPayload.oprset = payload.oprset;
+        return this.unpackedPayload;
+    }
+    _unpackSdpAuvReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {};
+        if (typeof payload.regf !== 'undefined') this.unpackedPayload.regf = payload.regf;
+        if (typeof payload.signf !== 'undefined') this.unpackedPayload.signf = payload.signf;
+        if (typeof payload.mlv !== 'undefined') this.unpackedPayload.mlv = payload.mlv;
+        if (typeof payload.userId !== 'undefined') this.unpackedPayload.userId = payload.userId;
+        if (typeof payload.userFn !== 'undefined') this.unpackedPayload.userFn = payload.userFn;
+        if (typeof payload.userLn !== 'undefined') this.unpackedPayload.userLn = payload.userLn;
+        if (typeof payload.oprset !== 'undefined') this.unpackedPayload.oprset = payload.oprset;
+        return this.unpackedPayload;
+    }
+    _unpackSdpAuvRspPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload.resultCode = payload.resultCode
+        if (payload.resultCode === 0) this.unpackedPayload.userInfoListEncodings = payload.userInfoListEncodings;
         return this.unpackedPayload;
     }
 
@@ -863,7 +1058,6 @@ class LlProtocol {
         if (payload.resultCode === 0) this.unpackedPayload.sensorHistoryRecordListEncodings = payload.sensorHistoryRecordListEncodings;
         return this.unpackedPayload;
     }
-    
 
     /**
      * @title function getUnpackedMsgPayload
@@ -932,6 +1126,42 @@ class LlProtocol {
                     return this._packSdpSgoNot(payload);
                 case g.SDP_MSG_TYPE.SDP_SGO_ACK:
                     return this._packSdpSgoAck(payload);
+
+                //UPC
+                case g.SAP_MSG_TYPE.SAP_UPC_RSP:
+                    return this._packSapUpcRsp(payload);
+                case g.SWP_MSG_TYPE.SWP_UPC_RSP:
+                    return this._packSwpUpcRsp(payload);
+                case g.SDP_MSG_TYPE.SDP_UPC_REQ:
+                    return this._packSdpUpcReq(payload);
+                case g.SDP_MSG_TYPE.SDP_UPC_RSP:
+                    return this._packSdpUpcRsp(payload);
+
+                //FPU
+                case g.SAP_MSG_TYPE.SAP_FPU_RSP:
+                    return this._packSapFpuRsp(payload);
+                case g.SWP_MSG_TYPE.SWP_FPU_RSP:
+                    return this._packSwpFpuRsp(payload);
+                case g.SDP_MSG_TYPE.SDP_FPU_REQ:
+                    return this._packSdpFpuReq(payload);
+                case g.SDP_MSG_TYPE.SDP_FPU_RSP:
+                    return this._packSdpFpuRsp(payload);
+
+                //UDR
+                case g.SWP_MSG_TYPE.SWP_UDR_RSP:
+                    return this._packSwpUdrRsp(payload);
+                case g.SDP_MSG_TYPE.SDP_UDR_REQ:
+                    return this._packSdpUdrReq(payload);
+                case g.SDP_MSG_TYPE.SDP_UDR_RSP:
+                    return this._packSdpUdrRsp(payload);
+
+                //AUV
+                case g.SWP_MSG_TYPE.SWP_AUV_RSP:
+                    return this._packSwpAuvRsp(payload);
+                case g.SDP_MSG_TYPE.SDP_AUV_REQ:
+                    return this._packSdpAuvReq(payload);
+                case g.SDP_MSG_TYPE.SDP_AUV_RSP:
+                    return this._packSdpAuvRsp(payload);
 
                 //ASR
                 case g.SWP_MSG_TYPE.SWP_ASR_RSP:
@@ -1186,6 +1416,155 @@ class LlProtocol {
         return this.packedMsg = {
             "header": {
                 "msgType": g.SDP_MSG_TYPE.SDP_SGO_ACK,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+
+    //UPC
+    _packSapUpcRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_UPC_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSwpUpcRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_UPC_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpUpcReq(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_UPC_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpUpcRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_UPC_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+
+    //FPU
+    _packSapFpuRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_FPU_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSwpFpuRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_FPU_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpFpuReq(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_FPU_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpFpuRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_FPU_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+
+
+    //UDR
+    _packSwpUdrRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_UDR_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpUdrReq(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_UDR_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpUdrRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_UDR_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+
+    //AUV
+    _packSwpAuvRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SWP_MSG_TYPE.SWP_AUV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpAuvReq(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_AUV_REQ,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
+    _packSdpAuvRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SDP_MSG_TYPE.SDP_AUV_RSP,
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },
