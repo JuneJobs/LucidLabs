@@ -95,7 +95,45 @@ class sensorModule {
             });
         }
     }
-    unpackSspRadTrnPayload(payload, tts) {
+    /*
+     * 1.~ init
+     * 1.1.~ parse tuple
+     * 1.1.1.~ if ts[1]
+     * 1.1.1.1.~ lastTs = ts[1]
+     * 1.1.1.2.~ arrSuccessTs.push(ts[1])
+     * 1.1.1.3.~ arrSuccessfulRcvdData.push(ts[1].data)
+     * 1.1.1.4.~ expTs = ts[1] + length * tts
+     * 1.1.2.~ else if ts[n]
+     * 1.1.2.1.~ if ts[n] >= ts[n-1] + tts && ts[n] < ts[n-1] + 2*tts
+     * 1.1.2.1.1.~ arrSuccessTs.push(ts[n])
+     * 1.1.2.1.2.~ lastTs = ts[n]
+     * 1.1.2.1.3.~ arrSuccessfulRcvdData.push(ts[n].data)
+     * 1.1.2.2.~ else
+     * 1.1.2.2.1.~ arrSuccessTs.push(ts[n])
+     * 1.1.2.2.2.~ conSuccesfulRcpt = 0
+     * 1.1.2.2.3.~ arrSuccessfulRcvdData.push(ts[n])
+     * 1.1.2.2.4.~ retranReqFlg = 1
+     * 1.1.2.2.5.~ conRetransReq = 0
+     * 1.1.2.2.6.~ cntOfSkippedTs = (ts[n] - ts[n - 1]) / tts 
+     * 1.1.2.2.7.~ for (var i = 1 ; i <= cntOfSkippedTs; i ++)
+     * 1.1.2.2.7.1.~ lastTs = lastTs + tts * i 
+     * 1.1.2.2.7.2.~ arrUnsucessTs.push(lastTs)
+     * 1.2.~ Check lastTs
+     * 1.2.1.~ If expTs === lastTs
+     * 1.2.1.1.~ done.
+     * 1.2.2.~ Else if expTs !== lastTs
+     * 1.2.2.1.~ If ConRetransReq === 0
+     * 1.2.2.1.1.~ arrUnsuccessTs.push(expTs)
+     * 1.2.2.1.2.~ If arrUnsuccessTs.length === 1
+     * 1.2.2.1.2.1.~ arrUnsuccessTs.push(lastTs + tts)
+     * 1.2.2.2.~ If ConRetransReq === 1
+     * 1.2.2.2.1.~ cntOfSkieepedTs = expTs - lastTs
+     * 1.2.2.2.2.~ for (var i = 1 ; i <= cntOfSkippedTs; i ++)
+     * 1.2.2.2.2.1.~ lastTs = lastTs + tts * i 
+     * 1.2.2.2.2.2.~ arrUnsucessTs.push(lastTs)
+     * 1.2.2.2.3.~ done.
+     */
+    unpackTrnPayload(payload, mti) {
         // 1.~
         var arrSuccessfulTs = [];
         var arrUnsuccessfulTs = [];
@@ -120,11 +158,11 @@ class sensorModule {
         // 1.1.1.3.~s
         arrSuccessfulRcvdData.push(tuples[0]);
         // 1.1.1.4
-        expTs = tuples[0][0] + (payload.airQualityDataListEncodings.dataTupleLen - 1) * tts;
+        expTs = tuples[0][0] + (payload.airQualityDataListEncodings.dataTupleLen - 1) * mti;
 
         for (var index = 1; index < count; index++) {
             // 1.1.2.~ 1.1.2.1.~
-            if (tuples[index][0] >= tuples[index - 1][0] + tts && tuples[index][0] < tuples[index - 1][0] + (2 * tts)) {
+            if (tuples[index][0] >= tuples[index - 1][0] + mti && tuples[index][0] < tuples[index - 1][0] + (2 * mti)) {
                 // 1.1.2.1.1.~
                 arrSuccessfulTs.push(tuples[index][0]);
                 numOfSuccessfulRcpt++;
@@ -147,11 +185,11 @@ class sensorModule {
                 // 1.1.2.2.5.~
                 continuityOfRetransReq = 0;
                 // 1.1.2.2.6.~
-                var cntOfSkippedTs = ((tuples[index][0] - tuples[index - 1][0]) / tts) - 1;
+                var cntOfSkippedTs = ((tuples[index][0] - tuples[index - 1][0]) / mti) - 1;
                 // 1.1.2.2.7.~
                 for (var sindex = 1; sindex <= cntOfSkippedTs; sindex++) {
                     // 1.1.2.2.7.1.~
-                    var rcvdlastTs = tuples[index - 1][0] + tts * sindex;
+                    var rcvdlastTs = tuples[index - 1][0] + mti * sindex;
                     // 1.1.2.2.7.2.~
                     arrUnsuccessfulTs.push(rcvdlastTs);
                 }
@@ -167,16 +205,16 @@ class sensorModule {
                 // 1.2.2.1.1.
                 arrUnsuccessfulTs.push(expTs);
                 if (arrUnsuccessfulTs.length === 1) {
-                    arrUnsuccessfulTs.unshift(lastTs + tts);
+                    arrUnsuccessfulTs.unshift(lastTs + mti);
                 }
                 if (arrSuccessfulTs.length === 1) {
                     arrSuccessfulTs.push(lastTs);
                 }
                 // 1.2.2.2.~
             } else if (continuityOfRetransReq === 0) {
-                var cntOfSkippedTs = (expTs - lastTs) / tts;
+                var cntOfSkippedTs = (expTs - lastTs) / mti;
                 for (var sindex = 1; sindex <= cntOfSkippedTs; sindex++) {
-                    lastTs = lastTs + tts;
+                    lastTs = lastTs + mti;
                     arrUnsuccessfulTs.push(lastTs);
                 }
             }

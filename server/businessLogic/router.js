@@ -39,7 +39,7 @@ router.post("/serverdatatran", function (req, res){
     
     switch (protocol.getMsgType()) {
         case g.SSP_MSG_TYPE.SSP_RAD_TRN:
-            // CID 스테이트 확인
+            // CID 스테이트 확인 [checked]
             redisCli.get('c:con:s:' + protocol.getEndpointId() + ':ssn', (err, ssn) => {
                 if(err) {
                     logger.error("| SERVER ERROR get" + "c:con:s:" + protocol.getEndpointId() + ":ssn");
@@ -47,48 +47,44 @@ router.post("/serverdatatran", function (req, res){
                     if(ssn !== null) {
                         //ssn state update
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, ssn, g.SERVER_SSN_STATE_ID.SERVER_SSN_CID_INFORMED_STATE, g.SERVER_TIMER.T803)
-                        redisCli.get('c:con:s:' + protocol.getEndpointId() + ':tti', (err, tti) => {
+                        var mti = g.SERVER_TIMER.T805;
+                        var unpackedPayload = unpackTrnPayload(protocol.payload, mti);
+                        var dataSet = unpackedPayload.airQualityDataListEncodings.airQualityDataTuples;
+                        //add data into buffer
+                        var args = [];
+                        // [checked]
+                        args.push('d:air:' + ssn + ':raw');
+                        for (let index = 0; index < dataSet.length; index++) {
+                            args.push(dataSet[index].shift());
+                            args.push(dataSet[index].toString());
+                        }
+                        redisCli.zadd(args, (err, result) => {
                             if (err) {
-                                logger.error("| SERVER ERROR get" + "c:con:s:" + protocol.getEndpointId() + ":tti");
+                                logger.error("| SERVER ERROR zadd d:air:" + ssn + ':raw with values');
                             } else {
-                                var unpackedPayload = unpackSspRadTrnPayload(protocol.payload, tti);
-                                var dataSet = unpackedPayload.airQualityDataListEncodings.airQualityDataTuples;
-                                //add data into buffer
-                                var args = [];
-                                args.push('d:air:'+ ssn + ':raw');
-                                for (let index = 0; index < dataSet.length; index++) {
-                                    args.push(dataSet[index].shift());
-                                    args.push(dataSet[index].toString());
+                                var payload = {}
+                                payload.successfulRcptFlg = unpackedPayload.successfulRcptFlg;
+                                payload.continuityOfSuccessfulRcpt = unpackedPayload.continuityOfSuccessfulRcpt;
+                                payload.numOfSuccessfulRcpt = unpackedPayload.numOfSuccessfulRcpt;
+                                if (payload.successfulRcptFlg === 1) {
+                                    payload.listOfSuccessfulTs = unpackedPayload.arrSuccessfulTs;
                                 }
-                                redisCli.zadd(args, (err, result) =>{
-                                    if (err) {
-                                        logger.error("| SERVER ERROR zadd d:air:" + ssn + ':raw with values');
-                                    } else {
-                                        var payload = {}
-                                        payload.successfulRcptFlg = unpackedPayload.successfulRcptFlg;
-                                        payload.continuityOfSuccessfulRcpt = unpackedPayload.continuityOfSuccessfulRcpt;
-                                        payload.numOfSuccessfulRcpt = unpackedPayload.numOfSuccessfulRcpt;
-                                        if(payload.successfulRcptFlg === 1) {
-                                            payload.listOfSuccessfulTs = unpackedPayload.arrSuccessfulTs;
-                                        }
-                                        payload.retransReqFlg = unpackedPayload.retransReqFlg;
-                                        payload.continuityOfRetransReq = unpackedPayload.continuityOfRetransReq;
-                                        payload.numOfRetransReq = unpackedPayload.numOfRetransReq;
-                                        if (payload.retransReqFlg === 1){
-                                            payload.listOfUnsuccessfulTs = unpackedPayload.arrUnsuccessfulTs;
-                                        }
-                                        var sspRadAck = {
-                                             "header": {
-                                                 "msgType": g.SSP_MSG_TYPE.SSP_RAD_ACK,
-                                                 "msgLen": 0,
-                                                 "endpointId": this.endpointId
-                                             },
-                                             "payload": payload
-                                         }
-                                         logger.debug("| SERVER Send response:" + JSON.stringify(sspRadAck));
-                                         return res.send(sspRadAck);
-                                    }
-                                });
+                                payload.retransReqFlg = unpackedPayload.retransReqFlg;
+                                payload.continuityOfRetransReq = unpackedPayload.continuityOfRetransReq;
+                                payload.numOfRetransReq = unpackedPayload.numOfRetransReq;
+                                if (payload.retransReqFlg === 1) {
+                                    payload.listOfUnsuccessfulTs = unpackedPayload.arrUnsuccessfulTs;
+                                }
+                                var sspRadAck = {
+                                    "header": {
+                                        "msgType": g.SSP_MSG_TYPE.SSP_RAD_ACK,
+                                        "msgLen": 0,
+                                        "endpointId": this.endpointId
+                                    },
+                                    "payload": payload
+                                }
+                                logger.debug("| SERVER Send response:" + JSON.stringify(sspRadAck));
+                                return res.send(sspRadAck);
                             }
                         });
                     } else {
@@ -100,6 +96,7 @@ router.post("/serverdatatran", function (req, res){
 
         case g.SAP_MSG_TYPE.SAP_RHD_TRN:
             // CID 스테이트 확인
+            // [checked]
             redisCli.get('c:con:a:' + protocol.getEndpointId() + ':usn', (err, usn) => {
                 if (err) {
                     logger.error("| SERVER ERROR get" + "c:con:a:" + protocol.getEndpointId() + ":usn");
@@ -108,48 +105,44 @@ router.post("/serverdatatran", function (req, res){
                         //ssn state update
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, usn, g.SERVER_USN_STATE_ID.SERVER_USN_CID_INFORMED_STATE, g.SERVER_TIMER.T803);
                         //here
-                        redisCli.get('c:con:a:' + protocol.getEndpointId() + ':tti', (err, tti) => {
+                        var mti = g.SERVER_TIMER.T837;
+                        var unpackedPayload = unpackTrnPayload(protocol.payload, mti);
+                        var dataSet = unpackedPayload.heartRelatedDataListEncodings.heartRelatedDataTuples;
+                        //add data into buffer
+                        var args = [];
+                        // [checked]
+                        args.push('d:heart:' + usn + ':raw');
+                        for (let index = 0; index < dataSet.length; index++) {
+                            args.push(dataSet[index].shift());
+                            args.push(dataSet[index].toString());
+                        }
+                        redisCli.zadd(args, (err, result) => {
                             if (err) {
-                                logger.error("| SERVER ERROR get" + "c:con:a:" + protocol.getEndpointId() + ":tti");
+                                logger.error("| SERVER ERROR zadd d:air:" + ssn + ':raw with values');
                             } else {
-                                var unpackedPayload = unpackSspRhdTrnPayload(protocol.payload, tti);
-                                var dataSet = unpackedPayload.heartRelatedDataListEncodings.heartRelatedDataTuples;
-                                //add data into buffer
-                                var args = [];
-                                args.push('d:heart:' + usn + ':raw');
-                                for (let index = 0; index < dataSet.length; index++) {
-                                    args.push(dataSet[index].shift());
-                                    args.push(dataSet[index].toString());
+                                var payload = {}
+                                payload.successfulRcptFlg = unpackedPayload.successfulRcptFlg;
+                                payload.continuityOfSuccessfulRcpt = unpackedPayload.continuityOfSuccessfulRcpt;
+                                payload.numOfSuccessfulRcpt = unpackedPayload.numOfSuccessfulRcpt;
+                                if (payload.successfulRcptFlg === 1) {
+                                    payload.listOfSuccessfulTs = unpackedPayload.arrSuccessfulTs;
                                 }
-                                redisCli.zadd(args, (err, result) => {
-                                    if (err) {
-                                        logger.error("| SERVER ERROR zadd d:air:" + ssn + ':raw with values');
-                                    } else {
-                                        var payload = {}
-                                        payload.successfulRcptFlg = unpackedPayload.successfulRcptFlg;
-                                        payload.continuityOfSuccessfulRcpt = unpackedPayload.continuityOfSuccessfulRcpt;
-                                        payload.numOfSuccessfulRcpt = unpackedPayload.numOfSuccessfulRcpt;
-                                        if (payload.successfulRcptFlg === 1) {
-                                            payload.listOfSuccessfulTs = unpackedPayload.arrSuccessfulTs;
-                                        }
-                                        payload.retransReqFlg = unpackedPayload.retransReqFlg;
-                                        payload.continuityOfRetransReq = unpackedPayload.continuityOfRetransReq;
-                                        payload.numOfRetransReq = unpackedPayload.numOfRetransReq;
-                                        if (payload.retransReqFlg === 1) {
-                                            payload.listOfUnsuccessfulTs = unpackedPayload.arrUnsuccessfulTs;
-                                        }
-                                        var sspRadAck = {
-                                            "header": {
-                                                "msgType": g.SAP_MSG_TYPE.SAP_RHD_ACK,
-                                                "msgLen": 0,
-                                                "endpointId": this.endpointId
-                                            },
-                                            "payload": payload
-                                        }
-                                        logger.debug("| SERVER Send response:" + JSON.stringify(sspRadAck));
-                                        return res.send(sspRadAck);
-                                    }
-                                });
+                                payload.retransReqFlg = unpackedPayload.retransReqFlg;
+                                payload.continuityOfRetransReq = unpackedPayload.continuityOfRetransReq;
+                                payload.numOfRetransReq = unpackedPayload.numOfRetransReq;
+                                if (payload.retransReqFlg === 1) {
+                                    payload.listOfUnsuccessfulTs = unpackedPayload.arrUnsuccessfulTs;
+                                }
+                                var sspRadAck = {
+                                    "header": {
+                                        "msgType": g.SAP_MSG_TYPE.SAP_RHD_ACK,
+                                        "msgLen": 0,
+                                        "endpointId": this.endpointId
+                                    },
+                                    "payload": payload
+                                }
+                                logger.debug("| SERVER Send response:" + JSON.stringify(sspRadAck));
+                                return res.send(sspRadAck);
                             }
                         });
                     } else {
@@ -1650,8 +1643,8 @@ router.post("/serverapi", function (req, res) {
                                             payload = {};
                                             payload.resultCode = g.SSP_MSG_RESCODE.RESCODE_SSP_DCA.RESCODE_SSP_DCA_OK;
                                             payload.cid = cid;
-                                            payload.mti = unpackedPayload.mti;
-                                            payload.tti = unpackedPayload.tti;
+                                            payload.mti = g.SERVER_TIMER.T805;
+                                            payload.tti = g.SERVER_TIMER.T806;
                                             payload.mob = unpackedPayload.mob;
                                             protocol.packMsg(g.SSP_MSG_TYPE.SSP_DCA_RSP, payload);
                                             logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
@@ -1762,8 +1755,8 @@ router.post("/serverapi", function (req, res) {
                                                             payload = {};
                                                             payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_DCA.RESCODE_SAP_DCA_OK;
                                                             payload.cid = cid;
-                                                            payload.mti = unpackedPayload.mti;
-                                                            payload.tti = unpackedPayload.tti;
+                                                            payload.mti = g.SERVER_TIMER.T837;
+                                                            payload.tti = g.SERVER_TIMER.T838;
                                                             protocol.packMsg(g.SAP_MSG_TYPE.SAP_DCA_RSP, payload);
                                                             logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
                                                             return res.send(protocol.getPackedMsg());
@@ -3747,7 +3740,7 @@ router.post("/databaseapi", (req, res) => {
                                             } else {
                                                 // it should be modifed
                                             }
-                                        })
+                                        });
                                         // 1.1.1.1.1.1.1.1.1.1.1.2.~
                                         state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_CID_ALLOACATED_STATE, g.DATABASE_TIMER.T955);
                                         logger.debug("| DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)");

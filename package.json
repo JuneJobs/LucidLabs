@@ -24,6 +24,7 @@
     "express": "^4.16.3",
     "log4js": "^3.0.4",
     "node-code-generator": "^1.0.3",
+    "nodemailer": "^4.6.8",
     "redis": "^2.8.0",
     "request": "^2.88.0"
   }
