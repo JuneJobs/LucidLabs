@@ -209,12 +209,12 @@ router.post("/serverapi", function (req, res) {
                                     state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState) => {
                                         if (g.SERVER_RECV_STATE_BY_MSG.SDP_SGU_RSP.includes(resState)) {
                                             swpSguRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OK;
-                                            /* ###
+                                            
                                             var ac = codeGen.getAuthenticationCode();
                                             var vc = codeGen.getVerificationCode();
-                                            */
-                                            var ac = "C77749V8M6J0K192B9M8";
-                                            var vc = "4580";
+                                            
+                                            //var ac = "C77749V8M6J0K192B9M8";
+                                            //var vc = "4580";
 
                                             var contect = '<H1> Verification code: ' + vc + '<H1></BR>' +
                                                         '<H1> Authentication code: ' + ac + '<H1>';
@@ -2540,7 +2540,7 @@ router.post("/databaseapi", (req, res) => {
         
         //UVC
         case g.SDP_MSG_TYPE.SDP_UVC_REQ:
-            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI;
+            var endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB){
                 endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI;
             } 
@@ -2649,7 +2649,7 @@ router.post("/databaseapi", (req, res) => {
         case g.SDP_MSG_TYPE.SDP_SGI_REQ:
             //모든 스테이트에서 받을 수 있음
             var payload = {};
-            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+            var endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
                 signfbit = 0;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
                 endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
@@ -2708,7 +2708,7 @@ router.post("/databaseapi", (req, res) => {
         //SGO
         case g.SDP_MSG_TYPE.SDP_SGO_NOT:
             var payload = new Object();
-            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+            var endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
                 signfbit = 0;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
                 endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
@@ -2744,7 +2744,7 @@ router.post("/databaseapi", (req, res) => {
         //UPC
         case g.SDP_MSG_TYPE.SDP_UPC_REQ:
             var payload = {};
-            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+            var endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
                 signfbit = 0;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
                 endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
@@ -3300,7 +3300,7 @@ router.post("/databaseapi", (req, res) => {
         case g.SDP_MSG_TYPE.SDP_SRG_REQ:
             var payload = new Object();
 
-            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+            var endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
                 signfbit = 0;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
                 endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
@@ -3401,7 +3401,7 @@ router.post("/databaseapi", (req, res) => {
         case g.SDP_MSG_TYPE.SDP_SAS_REQ:
             var payload = new Object();
             var key = "u:info:" + protocol.getEndpointId() + ":signf";
-            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+            var endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
                 signfbit = 0;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
                 endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
@@ -3508,7 +3508,7 @@ router.post("/databaseapi", (req, res) => {
             var key = "u:info:" + protocol.getEndpointId() + ":signf";
             //유저시퀀스 조회
 
-            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+            var endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
                 signfBit = 0;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
                 endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
@@ -3626,7 +3626,7 @@ router.post("/databaseapi", (req, res) => {
             var payload = {};
             var key = "u:info:" + protocol.getEndpointId() + ":signf";
 
-            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+            var endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
                 signfBit = 0;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
                 endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
@@ -4060,7 +4060,7 @@ router.post("/databaseapi", (req, res) => {
          * 
          */
         case g.SDP_MSG_TYPE.SDP_HHV_REQ:
-            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+            var endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
                 endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
             }
