@@ -18,6 +18,8 @@ const g = require("../config/header");
 
 //Import hash manager module
 const LlHash = require('../lib/LlHash');
+//Mail Sender module
+var LlMailer = require('../lib/LlMailer');
 
 const userModule = require('./userModule');
 const sensorModule = require('./sensorModule');
@@ -27,7 +29,6 @@ const dataModule = require('./searchHistoricalDataModule');
 const redis = require("redis");
 //Connect with Redis client
 const redisCli = redis.createClient();
-
 //Data tran
 router.post("/serverdatatran", function (req, res){
     logger.debug("    +--------------------------------------------------------------------------------.................");
@@ -170,6 +171,7 @@ router.post("/serverapi", function (req, res) {
     var codeGen = new LlCodeGenerator();
     var uModule = new userModule();
     var sModule = new sensorModule();
+    var mailer = new LlMailer();
     //protocol verify
     protocol.setMsg(req.body);
     if(!protocol.verifyHeader()) return;
@@ -190,7 +192,7 @@ router.post("/serverapi", function (req, res) {
                     if ('c:sta:s:w:tci:' + protocol.getEndpointId() + ':' + userInfo.userId === searchedKey) {
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                         logger.debug("| SERVER change TCI state to IDLE STATE");
-
+                        unpackedPayload.clientType = g.CLIENT_TYPE.WEB;
                         var packedSdpSguReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGU_REQ, unpackedPayload);
                         logger.debug("| SERVER send request: " + JSON.stringify(protocol.getPackedMsg()));
                         //update state
@@ -213,6 +215,10 @@ router.post("/serverapi", function (req, res) {
                                             */
                                             var ac = "C77749V8M6J0K192B9M8";
                                             var vc = "4580";
+
+                                            var contect = '<H1> Verification code: ' + vc + '<H1></BR>' +
+                                                        '<H1> Authentication code: ' + ac + '<H1>';
+                                            mailer.sendEmail('j.jobs1028@gmail.com', 'Verification from Airound', contect);
                                             var keyHead = "u:temp:" + protocol.getEndpointId() + ":";
                                             var time = g.SERVER_TIMER.T862;
                                             redisCli.multi([
@@ -282,6 +288,7 @@ router.post("/serverapi", function (req, res) {
                     //set state
                     state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                     logger.debug("| SERVER change TCI state to IDLE STATE");
+                    unpackedPayload.clientType = g.CLIENT_TYPE.WEB;
                     var packedSdpSguReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGU_REQ, unpackedPayload);
                     logger.debug("| SERVER send request: " + JSON.stringify(protocol.getPackedMsg()));
                     //update state
@@ -423,6 +430,7 @@ router.post("/serverapi", function (req, res) {
                                                                             break;
                                                                     }
                                                                 }
+                                                                payloadSdpUvcReq.clientType = g.CLIENT_TYPE.WEB;
                                                                 var packedSdpUvcReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_REQ, payloadSdpUvcReq);
                                                                 request.send('http://localhost:8080/databaseapi', packedSdpUvcReq, (message) => {
                                                                     protocol.setMsg(message);
@@ -529,6 +537,7 @@ router.post("/serverapi", function (req, res) {
                     state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_HALF_USN_INFORMED_STATE);
                     logger.debug("| SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)");
                     //Database verify request
+                    unpackedPayload.clientType = g.CLIENT_TYPE.WEB;
                     var packedSdpSgiReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGI_REQ, unpackedPayload);
                     request.send('http://localhost:8080/databaseapi', packedSdpSgiReq, (message) => {
                         //unpack
@@ -612,6 +621,7 @@ router.post("/serverapi", function (req, res) {
                         if(result === 1) {
                             //일치
                             payload.usn = unpackedPayload.usn;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpSgoNot = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGO_NOT, payload);
                             state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_IDLE_STATE);
                             logger.debug("| SERVER change USN state (USN INFORMED STATE) ->  (HALF IDLE IDLE)");
@@ -708,6 +718,7 @@ router.post("/serverapi", function (req, res) {
                         if(result === 1) {
                             payload.curPw = unpackedPayload.curPw;
                             payload.newPw = unpackedPayload.newPw;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpUpc = protocol.packMsg(g.SDP_MSG_TYPE.SDP_UPC_REQ, payload)
                             // 1.1.1.1.2.~
                             request.send('http://localhost:8080/databaseapi', packedSdpUpc, (message) => {
@@ -791,7 +802,8 @@ router.post("/serverapi", function (req, res) {
                     payload.userId = unpackedPayload.userId;
                     payload.userFn = unpackedPayload.userFn;
                     payload.userLn = unpackedPayload.userLn;
-                    let packedSdpFpuReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_FPU_REQ, unpackedPayload);
+                    payload.clientType = g.CLIENT_TYPE.WEB;
+                    let packedSdpFpuReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_FPU_REQ, payload);
                     request.send('http://localhost:8080/databaseapi', packedSdpFpuReq, (message) => {
                         //unpack
                         protocol.setMsg(message);
@@ -802,6 +814,8 @@ router.post("/serverapi", function (req, res) {
                         switch (unpackedPayload.resultCode) { 
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_FPU.RESCODE_SDP_FPU_OK:
                                 let newPw = unpackedPayload.userPw;
+                                var contect = '<H1> New temporary password is: ' + newPw + '<H1></BR>';
+                                mailer.sendEmail('j.jobs1028@gmail.com', 'Verification from Airound', contect);
                                 //send Email
                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_FPU.RESCODE_SWP_FPU_OK;
                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_FPU_RSP, payload)
@@ -869,6 +883,7 @@ router.post("/serverapi", function (req, res) {
                         // 1.1.1.1.~
                         if (result === 1) {
                             payload.userPw = unpackedPayload.userPw;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpUdr = protocol.packMsg(g.SDP_MSG_TYPE.SDP_UDR_REQ, payload)
                             // 1.1.1.1.2.~
                             request.send('http://localhost:8080/databaseapi', packedSdpUdr, (message) => {
@@ -939,7 +954,7 @@ router.post("/serverapi", function (req, res) {
                             if (typeof unpackedPayload.userFn !== 'undefined') payload.userFn = unpackedPayload.userFn;
                             if (typeof unpackedPayload.userLn !== 'undefined') payload.userLn = unpackedPayload.userLn;
                             if (typeof unpackedPayload.oprset !== 'undefined') payload.oprset = unpackedPayload.oprset;
-
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpAuv = protocol.packMsg(g.SDP_MSG_TYPE.SDP_AUV_REQ, payload)
                             request.send('http://localhost:8080/databaseapi', packedSdpAuv, (message) => {
                                 payload = {};
@@ -1009,7 +1024,7 @@ router.post("/serverapi", function (req, res) {
                         if(result ===1){
                             payload.wmac = unpackedPayload.wmac;
                             payload.cmac = unpackedPayload.cmac;
-                      
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpAsr = protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASR_REQ, payload);
                             //여기
                             request.send('http://localhost:8080/databaseapi', packedSdpAsr, (message) => {
@@ -1088,6 +1103,7 @@ router.post("/serverapi", function (req, res) {
                             payload.wmac = unpackedPayload.wmac;
                             payload.drgcd = unpackedPayload.drgcd;
                             payload.userId = unpackedPayload.userId;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpAsd = protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASD_REQ, payload)
                             request.send('http://localhost:8080/databaseapi', packedSdpAsd, (message) => {
                                 payload = {};
@@ -1168,7 +1184,7 @@ router.post("/serverapi", function (req, res) {
                             if (typeof unpackedPayload.state !== 'undefined') payload.state = unpackedPayload.state;
                             if (typeof unpackedPayload.city !== 'undefined') payload.city = unpackedPayload.city;
                             if (typeof unpackedPayload.userId !== 'undefined') payload.userId = unpackedPayload.userId;
-
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpAsv = protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_REQ, payload)
                             request.send('http://localhost:8080/databaseapi', packedSdpAsv, (message) => {
                                 payload = {};
@@ -1238,7 +1254,7 @@ router.post("/serverapi", function (req, res) {
                         if (result === 1) {
                             payload.wmac = unpackedPayload.wmac;
                             payload.cmac = unpackedPayload.cmac;
-
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpSrg = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_REQ, payload);
                             //여기
                             request.send('http://localhost:8080/databaseapi', packedSdpSrg, (message) => {
@@ -1308,6 +1324,7 @@ router.post("/serverapi", function (req, res) {
                         if (result === 1) {
                             payload.wmac = unpackedPayload.wmac;
                             payload.mob = unpackedPayload.mob;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpSas = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SAS_REQ, payload);
                             //여기
                             request.send('http://localhost:8080/databaseapi', packedSdpSas, (message) => {
@@ -1393,6 +1410,7 @@ router.post("/serverapi", function (req, res) {
                         if (result === 1) {
                             payload.wmac = unpackedPayload.wmac;
                             payload.drgcd = unpackedPayload.drgcd;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpSdd = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SDD_REQ, payload)
                             request.send('http://localhost:8080/databaseapi', packedSdpSdd, (message) => {
                                 payload = {};
@@ -1459,7 +1477,8 @@ router.post("/serverapi", function (req, res) {
                 //state exist
                 if(resState) {
                     uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
-                        if(result === 1){
+                        if (result === 1) {
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpSlv = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SLV_REQ, payload)
                             request.send('http://localhost:8080/databaseapi', packedSdpSlv, (message) => {
                                 payload = {};
@@ -1539,6 +1558,7 @@ router.post("/serverapi", function (req, res) {
                     if(keys.length === 0){
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_TSI, protocol.getEndpointId, g.SERVER_TSI_STATE_ID.SERVER_TSI_HALF_SSN_INFORMED_STATE);
                         payload.wmac = unpackedPayload.wmac;
+                        payload.clientType = g.CLIENT_TYPE.WEB;
                         var packedSdpSirReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SIR_REQ, payload);
                         //1.1.1.~
                         request.send('http://localhost:8080/databaseapi', packedSdpSirReq, (message) => {
@@ -1617,6 +1637,7 @@ router.post("/serverapi", function (req, res) {
                     payload.nat = unpackedPayload.nat;
                     payload.state = unpackedPayload.state;
                     payload.city = unpackedPayload.city;
+                    payload.clientType = g.CLIENT_TYPE.WEB;
                     // 1.1.2.~
                     var packedSdpDca = protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCA_REQ, payload);
                     request.send('http://localhost:8080/databaseapi', packedSdpDca, (message) => {
@@ -1726,7 +1747,8 @@ router.post("/serverapi", function (req, res) {
                             state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_CID_INFORMED_STATE);
                             logger.debug("| SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)");
                             // 1.1.1.1.2.~
-                            request.send('http://localhost:8080/databaseapi', packedSdpSdd, (message) => {
+                            payload.clientType = g.CLIENT_TYPE.WEB;
+                            request.send('http://localhost:8080/databaseapi', payload, (message) => {
                                 // 1.1.1.1.2.1.~
                                 payload = {};       
                                 protocol.setMsg(message);
@@ -1852,7 +1874,7 @@ router.post("/serverapi", function (req, res) {
                                 state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_HALF_IDLE_STATE);
                                 logger.debug("| SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)");
                                 // 1.1.1.1.2.~
-                                protocol.setEndpointId(ssn);
+                                payload.clientType = g.CLIENT_TYPE.WEB;
                                 var packedSdpDcd = protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCD_NOT, payload);
                                 request.send('http://localhost:8080/databaseapi', packedSdpDcd, (message) => {
                                      rotocol.setMsg(message);
@@ -1957,6 +1979,7 @@ router.post("/serverapi", function (req, res) {
                     // 1.1.~
                     if(usn !== null) {
                         // 1.1.1.~
+                        var payload = {};
                         state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, usn, (resState, searchedKey) => {
                             // 1.1.1.1.~
                             if (g.SERVER_RECV_STATE_BY_MSG.SAP_DCD_NOT.includes(resState)) {
@@ -1965,6 +1988,7 @@ router.post("/serverapi", function (req, res) {
                                 logger.debug("| SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)");
                                 // 1.1.1.1.2.~
                                 protocol.setEndpointId(usn);
+                                payload.clientType = g.CLIENT_TYPE.WEB;
                                 var packedSdpDcd = protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCD_NOT, payload);
                                 request.send('http://localhost:8080/databaseapi', packedSdpDcd, (message) => { 
                                     rotocol.setMsg(message);
@@ -2189,6 +2213,7 @@ router.post("/serverapi", function (req, res) {
                             payload.nat = unpackedPayload.nat;
                             payload.state = unpackedPayload.state;
                             payload.city = unpackedPayload.city;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpHavReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_HAV_REQ, payload);
                             request.send('http://localhost:8080/databaseapi', packedSdpHavReq, (message) => { 
                                 protocol.setMsg(message);
@@ -2253,6 +2278,7 @@ router.post("/serverapi", function (req, res) {
                             payload.nat = unpackedPayload.nat;
                             payload.state = unpackedPayload.state;
                             payload.city = unpackedPayload.city;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
                             var packedSdpHhvReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_HHV_REQ, payload);
                             request.send('http://localhost:8080/databaseapi', packedSdpHhvReq, (message) => {
                                 protocol.setMsg(message);
@@ -2325,6 +2351,7 @@ router.post("/serverapi", function (req, res) {
             payload.nat = unpackedPayload.nat;
             payload.state = unpackedPayload.state;
             payload.city = unpackedPayload.city;
+            payload.clientType = g.CLIENT_TYPE.WEB;
             //1.Check USN. & 1.1.If USN is 0.~
             if (protocol.getEndpointId() === 0) {
                 var packedSdpShr = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SHR_REQ, payload);
@@ -2482,8 +2509,12 @@ router.post("/databaseapi", (req, res) => {
         //SGU
         case g.SDP_MSG_TYPE.SDP_SGU_REQ:
             //state check
-            state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_IDLE_STATE);
-            logger.debug("| DATABASE change TCI state to IDLE STATE");
+            if (unpackedPayload.clientType === g.CLIENT_TYPE.APP){
+                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_IDLE_STATE);
+            } else {
+                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_IDLE_STATE);
+            }
+           logger.debug("| DATABASE change TCI state to IDLE STATE");
             redisCli.get("u:info:id:" + unpackedPayload.userId, (err, reply) => {
                 var payload = null;
                 var sdpSguRspCode = 0;
@@ -2509,7 +2540,12 @@ router.post("/databaseapi", (req, res) => {
         
         //UVC
         case g.SDP_MSG_TYPE.SDP_UVC_REQ:
-            state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI;
+            if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB){
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI;
+            } 
+
+            state.getState(g.ENTITY_TYPE.DATABASE, endpointIdType, protocol.getEndpointId(), (resState, searchedKey) => {
                 if (g.DATABASE_RECV_STATE_BY_MSG.SDP_SGU_REQ.includes(resState)) {
                     //Initial state
                     if(resState === g.DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE){
@@ -2564,7 +2600,7 @@ router.post("/databaseapi", (req, res) => {
                                                     "resultCode": g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OTHER
                                                 }
                                                 protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_RSP, payload);
-                                                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.DATABASE_TCI_STATE_ID.DATABASE_USN_ALLOCATED_STATE, g.DATABASE_TIMER.T902);
+                                                state.setState(g.ENTITY_TYPE.DATABASE, endpointIdType, [protocol.getEndpointId(), userInfo.userId], g.DATABASE_TCI_STATE_ID.DATABASE_USN_ALLOCATED_STATE, g.DATABASE_TIMER.T902);
                                                 logger.debug("| DATABASE change TCI state to USN ALLOCATED STATE");
                                                 return res.send(protocol.getPackedMsg());
                                             } else {
@@ -2573,7 +2609,7 @@ router.post("/databaseapi", (req, res) => {
                                                     "resultCode": g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OK
                                                 }
                                                 protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_RSP, payload);
-                                                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.DATABASE_TCI_STATE_ID.DATABASE_USN_ALLOCATED_STATE, g.DATABASE_TIMER.T902);
+                                                state.setState(g.ENTITY_TYPE.DATABASE, endpointIdType, [protocol.getEndpointId(), userInfo.userId], g.DATABASE_TCI_STATE_ID.DATABASE_USN_ALLOCATED_STATE, g.DATABASE_TIMER.T902);
                                                 logger.debug("| DATABASE change TCI state to USN ALLOCATED STATE");
                                                 return res.send(protocol.getPackedMsg());
                                             }
@@ -2612,7 +2648,13 @@ router.post("/databaseapi", (req, res) => {
         //SGI
         case g.SDP_MSG_TYPE.SDP_SGI_REQ:
             //모든 스테이트에서 받을 수 있음
-            var payload = new Object();
+            var payload = {};
+            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+                signfbit = 0;
+            if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                signfbit = 1;
+            } 
             redisCli.get("u:info:id:"+unpackedPayload.userId, (err, usn) => {
                 if(err) {} else {
                     if (usn === null) {
@@ -2635,14 +2677,14 @@ router.post("/databaseapi", (req, res) => {
                                         var keyHead = "u:info:" + usn + ":";
                                         redisCli.multi([
                                            //here -> 나누자!!
-                                            ["setbit", keyHead + "signf", 1, g.SIGNED_IN_STATE.SIGNED_IN],
+                                            ["setbit", keyHead + "signf", signfbit, g.SIGNED_IN_STATE.SIGNED_IN],
                                             ["mget", keyHead + "usn", keyHead + "ml"]
                                         ]).exec((err, replies) => {
                                             if(err){} else {
                                                 payload.usn = replies[1][0];
                                                 payload.ml = replies[1][1];
                                             }
-                                            state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, replies[1][0], g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                                            state.setState(g.ENTITY_TYPE.DATABASE, endpointIdType, replies[1][0], g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
                                             logger.debug("| DATABASE change USN state (IDLE) -> (USN INFORMED)");
                                             protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGI_RSP, payload);
                                             logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
@@ -2666,8 +2708,14 @@ router.post("/databaseapi", (req, res) => {
         //SGO
         case g.SDP_MSG_TYPE.SDP_SGO_NOT:
             var payload = new Object();
+            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+                signfbit = 0;
+            if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                signfbit = 1;
+            }
             var key = "u:info:" + protocol.getEndpointId() + ":signf";
-            redisCli.getbit(key, 1,(err, signf) => {
+            redisCli.getbit(key, signfbit, (err, signf) => {
                 //not exist user id
                 if (signf === null) {
                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SGO.RESCODE_SDP_SGO_UNALLOCATED_USER_SEQUENCE_NUMBER;
@@ -2676,11 +2724,11 @@ router.post("/databaseapi", (req, res) => {
                     return res.send(protocol.getPackedMsg());
                 //signed in
                 }else if(signf === g.SIGNED_IN_STATE.SIGNED_IN){
-                    redisCli.setbit(key, 1, g.SIGNED_IN_STATE.SIGNED_OUT);
+                    redisCli.setbit(key, signfbit, g.SIGNED_IN_STATE.SIGNED_OUT);
                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SGO.RESCODE_SDP_SGO_OK;
                     protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGO_ACK, payload);
                     logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
-                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_IDLE_STATE);
+                    state.setState(g.ENTITY_TYPE.DATABASE, endpointIdType, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_IDLE_STATE);
                     logger.debug("| SERVER change USN state (USN INFORMED) -> (IDLE)");
                     return res.send(protocol.getPackedMsg());
                 //signed out
@@ -2696,8 +2744,14 @@ router.post("/databaseapi", (req, res) => {
         //UPC
         case g.SDP_MSG_TYPE.SDP_UPC_REQ:
             var payload = {};
+            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+                signfbit = 0;
+            if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                signfbit = 1;
+            }
             var key = "u:info:" + protocol.getEndpointId() + ":signf";
-            redisCli.getbit(key, 1, (err, signf) => {
+            redisCli.getbit(key, signfbit, (err, signf) => {
                 if(signf === null) {
                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_UPC.RESCODE_SDP_UPC_UNALLOCATED_USER_SEQUENCE_NUMBER;
                     protocol.packMsg(g.SDP_MSG_TYPE.SDP_UPC_RSP, payload);
@@ -2712,7 +2766,7 @@ router.post("/databaseapi", (req, res) => {
                         }
                         if(hash.checkPassword(unpackedPayload.curPw, hashedPw)) {
                             redisCli.set('u:info:' + protocol.getEndpointId() + ':pw', hash.getHashedPassword(unpackedPayload.newPw), (err, result) => {
-                                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                                state.setState(g.ENTITY_TYPE.DATABASE, gendpointIdType, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
                                 logger.debug("| DATABASE change USN state (USN INFORMED) -> (USN INFORMED)");
                                 payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_UPC.RESCODE_SDP_UPC_OK;
                                 protocol.packMsg(g.SDP_MSG_TYPE.SDP_UPC_RSP, payload);
@@ -2720,7 +2774,7 @@ router.post("/databaseapi", (req, res) => {
                                 return res.send(protocol.getPackedMsg());
                             })
                         } else {
-                            state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                            state.setState(g.ENTITY_TYPE.DATABASE, endpointIdType, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
                             logger.debug("| DATABASE change USN state (USN INFORMED) -> (USN INFORMED)");
                             payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_UPC.RESCODE_SDP_UPC_INCORRECT_CURRENT_USER_PASSWORD;
                             protocol.packMsg(g.SDP_MSG_TYPE.SDP_UPC_RSP, payload);
@@ -2774,7 +2828,6 @@ router.post("/databaseapi", (req, res) => {
 
         //UDR
         case g.SDP_MSG_TYPE.SDP_UDR_REQ:
-            var payload = {};
             var key = "u:info:" + protocol.getEndpointId() + ":signf";
             redisCli.getbit(key, 1, (err, signf) => {
                 if (signf === null) {
@@ -2813,6 +2866,7 @@ router.post("/databaseapi", (req, res) => {
         //AUV
         case g.SDP_MSG_TYPE.SDP_AUV_REQ:
             var payload = {};
+            
             var key = "u:info:" + protocol.getEndpointId() + ":signf";
             redisCli.getbit(key, 1, (err, signf) => {
                 if (signf === null) {
@@ -2852,12 +2906,12 @@ router.post("/databaseapi", (req, res) => {
                             redisCli.multi(commandList).exec((err, replies) => {
                                 for (let i = 0, x = replies.length / 6; i < x; i++) {
                                     userInfoListEncodings.push({
-                                        refg: replies[i * 3],
-                                        signf: replies[i * 3 + 1],
-                                        uml: replies[i * 3 + 2],
-                                        userId: replies[i * 3 + 3],
-                                        fn: replies[i * 3 + 4],
-                                        ln: replies[i * 3 + 5]
+                                        refg: replies[i * 6],
+                                        signf: replies[i * 6 + 1],
+                                        uml: replies[i * 6 + 2],
+                                        userId: replies[i * 6 + 3],
+                                        fn: replies[i * 6 + 4],
+                                        ln: replies[i * 6 + 5]
                                     });
                                 }
                                 payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_AUV.RESCODE_SDP_AUV_OK;
@@ -3245,8 +3299,15 @@ router.post("/databaseapi", (req, res) => {
         //SRG
         case g.SDP_MSG_TYPE.SDP_SRG_REQ:
             var payload = new Object();
+
+            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+                signfbit = 0;
+            if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                signfbit = 1;
+            }
             var key = "u:info:" + protocol.getEndpointId() + ":signf";
-            redisCli.getbit(key, 1, (err, signf) => {
+            redisCli.getbit(key, signfBit, (err, signf) => {
                 //not exist user id
                 if (signf === null) {
                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_UNALLOCATED_USER_SEQUENCE_NUMBER;
@@ -3311,7 +3372,7 @@ router.post("/databaseapi", (req, res) => {
                                                 logger.debug("| DATABASE stored sensor info" + JSON.stringify(sensorInfo));
                                                 payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OK;
                                                 protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_RSP, payload);
-                                                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                                                state.setState(g.ENTITY_TYPE.DATABASE, endpointIdType, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
                                                 logger.debug("| DATABASE change USN state (USN INFORMED) -> (USN INFORMED)");
                                                 return res.send(protocol.getPackedMsg());
                                             }
@@ -3320,7 +3381,7 @@ router.post("/databaseapi", (req, res) => {
                                 } else {
                                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OK;
                                     protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_RSP, payload);
-                                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                                    state.setState(g.ENTITY_TYPE.DATABASE, endpointIdType, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
                                     logger.debug("| DATABASE change USN state (USN INFORMED) -> (USN INFORMED)");
                                     return res.send(protocol.getPackedMsg());
                                 }
@@ -3340,7 +3401,13 @@ router.post("/databaseapi", (req, res) => {
         case g.SDP_MSG_TYPE.SDP_SAS_REQ:
             var payload = new Object();
             var key = "u:info:" + protocol.getEndpointId() + ":signf";
-            redisCli.getbit(key, 1, (err, signf) => {
+            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+                signfbit = 0;
+            if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                signfbit = 1;
+            }
+            redisCli.getbit(key, signfbit, (err, signf) => {
                 if (signf === null) {
                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_UNALLOCATED_USER_SEQUENCE_NUMBER;
                     protocol.packMsg(g.SDP_MSG_TYPE.SDP_SAS_RSP, payload);
@@ -3440,7 +3507,14 @@ router.post("/databaseapi", (req, res) => {
             var payload = new Object();
             var key = "u:info:" + protocol.getEndpointId() + ":signf";
             //유저시퀀스 조회
-            redisCli.getbit(key, 1, (err, signf) => {
+
+            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+                signfBit = 0;
+            if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                signfBit = 1;
+            }
+            redisCli.getbit(key, signfBit, (err, signf) => {
                 if (signf === null) {
                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_UNALLOCATED_USER_SEQUENCE_NUMBER;
                     protocol.packMsg(g.SDP_MSG_TYPE.SDP_SDD_REQ, payload);
@@ -3551,7 +3625,14 @@ router.post("/databaseapi", (req, res) => {
         case g.SDP_MSG_TYPE.SDP_SLV_REQ:
             var payload = {};
             var key = "u:info:" + protocol.getEndpointId() + ":signf";
-            redisCli.getbit(key, 1, (err, signf) => {
+
+            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN,
+                signfBit = 0;
+            if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                signfBit = 1;
+            }
+            redisCli.getbit(key, signfBit, (err, signf) => {
                 //unallocated user sequence number
                 if (signf === null) {
                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SLV.RESCODE_SDP_SLV_UNALLOCATED_USER_SEQUENCE_NUMBER;
@@ -3617,20 +3698,19 @@ router.post("/databaseapi", (req, res) => {
                 }
             });
             break;
-        
+        /**
+         * 1.~ check existance wmac
+         * 1.1.~ if exist
+         * 1.1.1.~ check association
+         * 1.1.1.1.~ if associated
+         * 1.1.1.1.1.~ 0. ok with ssn message return
+         * 1.1.1.1.2~ ssn state update
+         * 1.1.1.2.~ if not associated
+         * 1.1.1.2.1~ 3. not an associated sensor with any user
+         * 1.2.~ if not exist
+         * 1.2.1.~ send 2. not exist wmac
+         */
         case g.SDP_MSG_TYPE.SDP_SIR_REQ:
-            /**
-             * 1.~ check existance wmac
-             * 1.1.~ if exist
-             * 1.1.1.~ check association
-             * 1.1.1.1.~ if associated
-             * 1.1.1.1.1.~ 0. ok with ssn message return
-             * 1.1.1.1.2~ ssn state update
-             * 1.1.1.2.~ if not associated
-             * 1.1.1.2.1~ 3. not an associated sensor with any user
-             * 1.2.~ if not exist
-             * 1.2.1.~ send 2. not exist wmac
-             */
             var payload = {};
             // 1~
             redisCli.get("s:info:" + unpackedPayload.wmac, (err, ssn) => {
@@ -3775,7 +3855,7 @@ router.post("/databaseapi", (req, res) => {
                         });
                     // 1.1.1.2.~
                     } else {
-                        break;
+                        return;
                     }
                 });
             // 1.2.~
@@ -3811,7 +3891,7 @@ router.post("/databaseapi", (req, res) => {
                         });
                     // 1.2.1.2.~
                     } else {
-                        break;
+                        return;
                     }
                 });
             }
@@ -3885,7 +3965,7 @@ router.post("/databaseapi", (req, res) => {
                     // 1.1.1.2.~
                     } else {
                         // 1.1.1.2.1.~
-                        break;
+                        return;
                     }
                 });
             // 1.2.~
@@ -3924,7 +4004,7 @@ router.post("/databaseapi", (req, res) => {
                     // 1.2.1.2.~
                     } else {
                         // 1.2.1.2.1.~
-                        break;
+                        return;
                     }
                 });
             }
@@ -3972,7 +4052,7 @@ router.post("/databaseapi", (req, res) => {
                         logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
                     }
                 } else {
-                    break;
+                    return;
                 }
             });
         /**
@@ -3980,7 +4060,11 @@ router.post("/databaseapi", (req, res) => {
          * 
          */
         case g.SDP_MSG_TYPE.SDP_HHV_REQ:
-            state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            let endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+            if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+            }
+            state.getState(g.ENTITY_TYPE.DATABASE, endpointIdType, protocol.getEndpointId(), (resState, searchedKey) => {
                 var payload = {};
                 if(g.DATABASE_RECV_STATE_BY_MSG.SDP_HHV_REQ.includes(resState)) {
                     //Auth, It should be repfactoring
@@ -4019,9 +4103,10 @@ router.post("/databaseapi", (req, res) => {
                         logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
                     }
                 } else {
-                    break;
+                    return;
                 }
             });
+            break;
         /**
          * Receive SDP: SHR-REQ
          * 지역별로 센서정보를 검색하기 위해선 미리 관련된 검색조건이 자료형으로 존재해야함
@@ -4087,7 +4172,7 @@ router.post("/databaseapi", (req, res) => {
                         //확보된 키를 이용한 센서정보 조회
                         //집계
                     } else {
-                        break;
+                        return;
                     }
                  });
             } else {

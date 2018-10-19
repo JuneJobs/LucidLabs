@@ -1080,7 +1080,10 @@ const DATABASE_TIMER = {
     T957: 5,
     T958: 60
 };
-
+const CLIENT_TYPE = {
+    APP: 1,
+    WEB: 2
+}
 const SIGNED_IN_STATE = {
     SIGNED_OUT: 0,
     SIGNED_IN: 1
@@ -1130,6 +1133,7 @@ module.exports = { HEADER_SIZE,
                    DATABASE_RECV_STATE_BY_MSG,
                    SERVER_TIMER,
                    DATABASE_TIMER,
+                   CLIENT_TYPE,
                    SIGNED_IN_STATE,
                    SENSOR_ACT_FLAG,
                    SENSOR_MOB_FLAG,
