@@ -40,7 +40,7 @@ router.post("/serverdatatran", function (req, res){
     
     switch (protocol.getMsgType()) {
         case g.SSP_MSG_TYPE.SSP_RAD_TRN:
-            // CID 스테이트 확인 [checked]
+            // CID 스테이트 확인 
             redisCli.get('c:con:s:' + protocol.getEndpointId() + ':ssn', (err, ssn) => {
                 if(err) {
                     logger.error("| SERVER ERROR get" + "c:con:s:" + protocol.getEndpointId() + ":ssn");
@@ -53,7 +53,6 @@ router.post("/serverdatatran", function (req, res){
                         var dataSet = unpackedPayload.airQualityDataListEncodings.airQualityDataTuples;
                         //add data into buffer
                         var args = [];
-                        // [checked]
                         args.push('d:air:' + ssn + ':raw');
                         for (let index = 0; index < dataSet.length; index++) {
                             args.push(dataSet[index].shift());
@@ -96,8 +95,7 @@ router.post("/serverdatatran", function (req, res){
             break;
 
         case g.SAP_MSG_TYPE.SAP_RHD_TRN:
-            // CID 스테이트 확인
-            // [checked]
+            // Check CID state
             redisCli.get('c:con:a:' + protocol.getEndpointId() + ':usn', (err, usn) => {
                 if (err) {
                     logger.error("| SERVER ERROR get" + "c:con:a:" + protocol.getEndpointId() + ":usn");
@@ -111,7 +109,6 @@ router.post("/serverdatatran", function (req, res){
                         var dataSet = unpackedPayload.heartRelatedDataListEncodings.heartRelatedDataTuples;
                         //add data into buffer
                         var args = [];
-                        // [checked]
                         args.push('d:heart:' + usn + ':raw');
                         for (let index = 0; index < dataSet.length; index++) {
                             args.push(dataSet[index].shift());
@@ -600,9 +597,7 @@ router.post("/serverapi", function (req, res) {
                     });
                 //TCI 충돌 (테스트 필요)
                 } else {
-                    payload = {
-                        "resultCode": g.SWP_MSG_RESCODE.RESCODE_SWP_SGI.RESCODE_SWP_SGI_CONFLICT_OF_TEMPORARY_CLIENT_ID
-                    }
+                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGI.RESCODE_SWP_SGI_CONFLICT_OF_TEMPORARY_CLIENT_ID;
                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGI_RSP, payload);
                     logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
                     return res.send(protocol.getPackedMsg());
