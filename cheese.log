@@ -497,3 +497,98 @@
 [2018-10-22T23:46:13.257] [DEBUG] default - | SERVER stored active user [["set","c:act:s:w:1:signf","1","EX",1800],["set","c:act:s:w:1:nsc","3","EX",1800],["set","c:act:s:w:1:ml","0","EX",1800]]
 [2018-10-22T23:46:13.258] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
 [2018-10-22T23:47:11.716] [DEBUG] default - Running on port 8080
+[2018-10-22T23:48:11.715] [DEBUG] default - Running on port 8080
+[2018-10-23T10:53:33.736] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-23T10:53:33.743] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-23T10:53:33.749] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-23T10:53:33.763] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2018-10-23T10:53:33.845] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-23T10:53:33.846] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-23T10:53:33.855] [DEBUG] default - | SERVER stored active user [["set","c:act:s:w:1:signf","1","EX",1800],["set","c:act:s:w:1:nsc","1","EX",1800],["set","c:act:s:w:1:ml","0","EX",1800]]
+[2018-10-23T10:53:33.856] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-23T10:54:31.703] [DEBUG] default - Running on port 8080
+[2018-10-23T10:55:31.707] [DEBUG] default - Running on port 8080
+[2018-10-23T10:56:31.712] [DEBUG] default - Running on port 8080
+[2018-10-23T10:57:31.715] [DEBUG] default - Running on port 8080
+[2018-10-23T10:58:31.717] [DEBUG] default - Running on port 8080
+[2018-10-23T10:59:31.716] [DEBUG] default - Running on port 8080
+[2018-10-23T11:00:31.718] [DEBUG] default - Running on port 8080
+[2018-10-23T11:01:31.720] [DEBUG] default - Running on port 8080
+[2018-10-23T11:02:31.724] [DEBUG] default - Running on port 8080
+[2018-10-23T11:03:35.876] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-23T11:03:35.880] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-23T11:03:35.886] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-23T11:03:35.901] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2018-10-23T11:03:35.903] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":2}}
+[2018-10-23T11:03:35.911] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-10-23T11:03:35.912] [DEBUG] default - | SERVER send response: {"header":{"msgType":106,"msgLen":0,"endpointId":4},"payload":{"resultCode":3}}
+[2018-10-23T11:04:06.205] [DEBUG] default - Running on port 8080
+[2018-10-23T11:04:09.001] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-23T11:04:09.002] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-23T11:04:22.334] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-23T11:04:22.335] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-23T11:05:06.205] [DEBUG] default - Running on port 8080
+[2018-10-23T11:06:06.899] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-23T11:06:06.902] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-23T11:06:12.452] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-23T11:06:12.467] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-23T11:06:12.468] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-10-23T11:06:12.475] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-10-23T11:06:12.476] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-10-23T11:06:21.715] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-23T11:06:21.716] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-23T11:06:23.449] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-23T11:10:47.886] [DEBUG] default - Running on port 8080
+[2018-10-23T11:10:47.891] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-23T11:10:47.892] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-10-23T11:10:47.895] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-10-23T11:10:47.895] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-10-23T11:10:57.016] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-23T11:10:57.020] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-23T11:10:57.027] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-23T11:10:57.041] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-23T11:10:57.043] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-10-23T11:10:57.050] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-10-23T11:10:57.051] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-10-23T11:11:28.334] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-23T11:11:28.335] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Junhee","userLn":"Park"}}
+[2018-10-23T11:11:28.339] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2018-10-23T11:11:28.340] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Junhee","userLn":"Park","clientType":2}}
+[2018-10-23T11:11:28.340] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2018-10-23T11:11:28.348] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Junhee","userLn":"Park","clientType":2}}
+[2018-10-23T11:11:28.349] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2018-10-23T11:11:28.351] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":172,"msgLen":0,"endpointId":3},"payload":{"resultCode":0}}
+[2018-10-23T11:11:28.352] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2018-10-23T11:11:28.365] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE
+[2018-10-23T11:11:28.366] [DEBUG] default - | Server Send response: {"header":{"msgType":102,"msgLen":0,"endpointId":3},"payload":{"resultCode":0,"vc":"3721"}}
+[2018-10-23T11:11:28.384] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Junhee","userLn":"Park","clientType":2,"resultCode":0}
+[2018-10-23T11:11:54.283] [DEBUG] default - Running on port 8080
+[2018-10-23T11:12:00.339] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-23T11:12:00.340] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":3},"payload":{"vc":"3721","ac":"J26941W5Y1J849C5M5H9"}}
+[2018-10-23T11:12:00.350] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":173,"msgLen":0,"endpointId":3},"payload":{"userPw":"test1234@","gender":"0","userLn":"Park","userId":"j.jobs1028@gmail.com","bdt":"657072000","userFn":"Junhee","clientType":2}}
+[2018-10-23T11:12:00.432] [DEBUG] default - | DATABASE stored user info{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Junhee","userLn":"Park","clientType":2,"regf":0,"ml":0,"mti":0,"tti":0,"ass":0,"expd":0,"newUsn":"2"}
+[2018-10-23T11:12:00.433] [DEBUG] default - | DATABASE change TCI state to USN ALLOCATED STATE
+[2018-10-23T11:12:00.437] [DEBUG] default - | SERVER change TCI state to USN ALLOCATED STATE
+[2018-10-23T11:12:00.439] [DEBUG] default - | SERVER Send response: {"header":{"msgType":104,"msgLen":0,"endpointId":3},"payload":{"resultCode":0}}
+[2018-10-23T11:12:08.135] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-23T11:12:08.136] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":31,"msgLen":0,"endpointId":1},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}}
+[2018-10-23T11:12:08.138] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2018-10-23T11:12:08.139] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2018-10-23T11:12:08.140] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2018-10-23T11:12:08.556] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2018-10-23T11:12:08.559] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2018-10-23T11:12:08.561] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":2}}
+[2018-10-23T11:12:08.562] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2018-10-23T11:12:08.564] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2018-10-23T11:12:08.565] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":3}}
+[2018-10-23T11:12:17.338] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-23T11:12:17.339] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-23T11:12:17.340] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-23T11:12:17.347] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-23T11:12:17.427] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-23T11:12:17.428] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"2","ml":"0"}}
+[2018-10-23T11:12:17.433] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:2:signf","0","EX",1800],["set","c:act:s:a:2:nsc","1","EX",1800],["set","c:act:s:a:2:ml","0","EX",1800]]
+[2018-10-23T11:12:17.434] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-23T11:12:54.285] [DEBUG] default - Running on port 8080
+[2018-10-23T11:13:54.290] [DEBUG] default - Running on port 8080
+[2018-10-23T11:14:54.291] [DEBUG] default - Running on port 8080

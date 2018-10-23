@@ -835,7 +835,97 @@ router.post("/serverapi", function (req, res) {
                     res.send(protocol.getPackedMsg());
                 };
             });
-        
+
+        /*
+         * Receive SAP: SGI-REQ
+         * Last update: 10.24.2018
+         * Author: Junhee Park
+         */
+        case g.SAP_MSG_TYPE.SAP_SGI_REQ:
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                //idle state이거나, 재전송인 경우 데이터베이스로 연결하는 로직
+                if (resState === false || (resState === g.SERVER_TCI_STATE_ID.SERVER_TCI_HALF_USN_INFORMED_STATE && searchedKey.includes(unpackedPayload.userId))) {
+                    let userId = unpackedPayload.userId;
+                    //state변경
+                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_HALF_USN_INFORMED_STATE);
+                    logger.debug("| SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)");
+                    //Database verify request
+                    payload.userId = unpackedPayload.userId;
+                    payload.userPw = unpackedPayload.userPw;
+                    payload.clientType = g.CLIENT_TYPE.APP;
+                    payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGI_REQ, payload);
+
+                    request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                        //unpack
+                        payload = {};
+                        protocol.setMsg(message);
+                        if (!protocol.verifyHeader()) return;
+                        unpackedPayload = protocol.unpackPayload();
+                        if (!unpackedPayload) return;
+                        switch (unpackedPayload.resultCode) {
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_OK:
+                                //make buffer data
+                                uModule.getNewNumOfSignedInCompls(g.ENTITY_TYPE.APPCLIENT, unpackedPayload.usn, (nsc) => {
+                                    let keyHead = `c:act:s:${g.ENTITY_TYPE.APPCLIENT}:${unpackedPayload.usn}:`,
+                                      expTime = g.SERVER_TIMER.T863,
+                                      command = [["set", `${keyHead}signf`, "0", "EX", expTime], ["set", `${keyHead}nsc`, nsc, "EX", expTime], ["set", `${keyHead}ml`, unpackedPayload.ml, "EX", expTime]];
+                                    redisCli.multi(command).exec((err, replies) => {
+                                        if (err) {
+                                            loger.debug(err);
+                                        } else {
+                                            logger.debug(`| SERVER stored active user ${JSON.stringify(command)}`);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, unpackedPayload.usn, g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                            logger.debug("| SERVER change USN state (IDLE) -> (USN INFORMED)");
+                                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGI.RESCODE_SAP_SGI_OK;
+                                            payload.usn = unpackedPayload.usn;
+                                            payload.nsc = nsc;
+                                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGI_RSP, payload)
+                                            res.send(protocol.getPackedMsg());
+                                        }
+                                    });
+                                })
+                                break;
+                            //reject cases
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_OTHER:
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
+
+                                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGI.RESCODE_SAP_SGI_OTHER;
+                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGI_RSP, payload)
+                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                                break;
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_NOT_EXIST_USER_ID:
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
+
+                                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGI.RESCODE_SAP_SGI_NOT_EXIST_USER_ID;
+                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGI_RSP, payload)
+                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                                break;
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_INCORRECT_CURRENT_USER_PASSWORD:
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
+
+                                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGI.RESCODE_SAP_SGI_INCORRECT_CURRENT_USER_PASSWORD;
+                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGI_RSP, payload)
+                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                                break;
+                        }
+                    });
+                    //TCI 충돌 (테스트 필요)
+                } else {
+                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGI.RESCODE_SAP_SGI_CONFLICT_OF_TEMPORARY_CLIENT_ID;
+                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGI_RSP, payload);
+                    logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    res.send(protocol.getPackedMsg());
+                }
+            });
+
         /*
          * Receive SWP: SGI-REQ
          * Last update: 10.23.2018

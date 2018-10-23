@@ -104,6 +104,8 @@ class LlProtocol {
                     return this._unpackSdpUvcRspPayload();
                 
                 //SGI
+                case g.SAP_MSG_TYPE.SAP_SGI_REQ:
+                    return this._unpackSapSgiReqPayload();
                 case g.SWP_MSG_TYPE.SWP_SGI_REQ:
                     return this._unpackSwpSgiReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SGI_REQ:
@@ -381,6 +383,16 @@ class LlProtocol {
     }
 
     //SGI
+    _unpackSapSgiReqPayload() {
+        //validation
+        //parsing
+        var payload = this.msgPayload;
+        this.unpackedPayload = {
+            "userId": payload.userId,
+            "userPw": payload.userPw
+        }
+        return this.unpackedPayload;
+    }
     _unpackSwpSgiReqPayload() {
         //validation
         //parsing
@@ -1168,6 +1180,8 @@ class LlProtocol {
                     return this._packSdpUvcRsp(payload);
 
                 //SGI
+                case g.SAP_MSG_TYPE.SAP_SGI_RSP:
+                    return this._packSapSgiRsp(payload);
                 case g.SWP_MSG_TYPE.SWP_SGI_RSP:
                     return this._packSwpSgiRsp(payload);
                 case g.SDP_MSG_TYPE.SDP_SGI_REQ:
@@ -1442,6 +1456,16 @@ class LlProtocol {
     }
 
     //SGI
+    _packSapSgiRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_SGI_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
     _packSwpSgiRsp(payload) {
         return this.packedMsg = {
             "header": {
