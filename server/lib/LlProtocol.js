@@ -84,6 +84,8 @@ class LlProtocol {
             switch (this.msgType) {
                 
                 //SGU
+                case g.SAP_MSG_TYPE.SAP_SGU_REQ:
+                    return this._unpackSapSguReqPayload();
                 case g.SWP_MSG_TYPE.SWP_SGU_REQ:
                     return this._unpackSwpSguReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SGU_REQ:
@@ -92,6 +94,8 @@ class LlProtocol {
                     return this._unpackSdpSguRspPayload();
                 
                 //UVC
+                case g.SAP_MSG_TYPE.SAP_UVC_REQ:
+                    return this._unpackSapUvcReqPayload();
                 case g.SWP_MSG_TYPE.SWP_UVC_REQ:
                     return this._unpackSwpUvcReqPayload();
                 case g.SDP_MSG_TYPE.SDP_UVC_REQ:
@@ -282,71 +286,97 @@ class LlProtocol {
     }
 
     //SGU
+    _unpackSapSguReqPayload() {
+        //validation
+        //parsing
+        const payload = this.msgPayload;
+
+        this.unpackedPayload.bdt = payload.bdt;
+        this.unpackedPayload.gender = payload.gender;
+        this.unpackedPayload.userId = payload.userId;
+        this.unpackedPayload.userPw = payload.userPw;
+        this.unpackedPayload.userFn = payload.userFn;
+        this.unpackedPayload.userLn = payload.userLn;
+
+        return this.unpackedPayload;
+    }
     _unpackSwpSguReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "birthDate": payload.birthDate,
-            "gender": payload.gender,
-            "userId": payload.userId,
-            "userPw": payload.userPw,
-            "userFn": payload.userFn,
-            "userLn": payload.userLn
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload.bdt = payload.bdt;
+        this.unpackedPayload.gender = payload.gender;
+        this.unpackedPayload.userId = payload.userId;
+        this.unpackedPayload.userPw = payload.userPw;
+        this.unpackedPayload.userFn = payload.userFn;
+        this.unpackedPayload.userLn = payload.userLn;
+
         return this.unpackedPayload;
     }
     _unpackSdpSguReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "userId": payload.userId
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload.userId = payload.userId;
+        this.unpackedPayload.clientType = payload.clientType;
+
         return this.unpackedPayload;
     }
     _unpackSdpSguRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "resultCode": payload.resultCode
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload.resultCode = payload.resultCode;
+
         return this.unpackedPayload;
     }
 
     //UVC
-    _unpackSwpUvcReqPayload() {
+    _unpackSapUvcReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "vc": payload.vc,
-            "ac": payload.ac
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload.vc = payload.vc;
+        this.unpackedPayload.ac = payload.ac;
+
+        return this.unpackedPayload;
+    }
+    _unpackSapUvcReqPayload() {
+        //validation
+        //parsing
+        const payload = this.msgPayload;
+
+        this.unpackedPayload.vc = payload.vc;
+        this.unpackedPayload.ac = payload.ac;
+
         return this.unpackedPayload;
     }
     _unpackSdpUvcReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "birthDate": payload.birthDate,
-            "gender": payload.gender,
-            "userId": payload.userId,
-            "userPw": payload.userPw,
-            "userFn": payload.userFn,
-            "userLn": payload.userLn
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload.bdt = payload.bdt;
+        this.unpackedPayload.gender = payload.gender;
+        this.unpackedPayload.userId = payload.userId;
+        this.unpackedPayload.userPw = payload.userPw;
+        this.unpackedPayload.userFn = payload.userFn;
+        this.unpackedPayload.userLn = payload.userLn;
+        this.unpackedPayload.clientType = payload.clientType;
+
         return this.unpackedPayload;
     }
     _unpackSdpUvcRspPayload() {
         //validation
         //parsing
         var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "resultCode": payload.resultCode
-        }
+
+        this.unpackedPayload.resultCode = payload.resultCode;
+
         return this.unpackedPayload;
     }
 
@@ -461,7 +491,7 @@ class LlProtocol {
         //parsing
         var payload = this.msgPayload;
         this.unpackedPayload = {
-            "birthDate": payload.birthDate,
+            "bdt": payload.bdt,
             "userId": payload.userId,
             "userFn": payload.userFn,
             "userLn": payload.userLn
@@ -473,7 +503,7 @@ class LlProtocol {
         //parsing
         var payload = this.msgPayload;
         this.unpackedPayload = {
-            "birthDate": payload.birthDate,
+            "bdt": payload.bdt,
             "userId": payload.userId,
             "userFn": payload.userFn,
             "userLn": payload.userLn
@@ -485,7 +515,7 @@ class LlProtocol {
         //parsing
         var payload = this.msgPayload;
         this.unpackedPayload = {
-            "birthDate": payload.birthDate,
+            "bdt": payload.bdt,
             "userId": payload.userId,
             "userFn": payload.userFn,
             "userLn": payload.userLn
@@ -1118,6 +1148,8 @@ class LlProtocol {
             switch (msgType) {
 
                 //SGU
+                case g.SAP_MSG_TYPE.SAP_SGU_RSP:
+                    return this._packSapSguRsp(payload);
                 case g.SWP_MSG_TYPE.SWP_SGU_RSP:
                     return this._packSwpSguRsp(payload);
                 case g.SDP_MSG_TYPE.SDP_SGU_REQ:
@@ -1324,6 +1356,16 @@ class LlProtocol {
     }
     
     //SGU
+    _packSapSguRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_SGU_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
     _packSwpSguRsp(payload) {
         return this.packedMsg = {
             "header": {
