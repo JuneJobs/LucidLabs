@@ -180,7 +180,8 @@ router.post("/serverapi", function (req, res) {
         
         /**
          * Receive SAP: SGU-REQ
-         * 
+         * Last update: 10.23.2018
+         * Author: Junhee Park
          */
         case g.SAP_MSG_TYPE.SAP_SGU_REQ:
             state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
@@ -370,7 +371,8 @@ router.post("/serverapi", function (req, res) {
             break;
         /**
          * Receive SWP: SGU-REQ
-         * 
+         * Last update: 10.23.2018
+         * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_SGU_REQ:
             state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
@@ -560,7 +562,18 @@ router.post("/serverapi", function (req, res) {
             });
             break;
 
-        //UVC    
+        /*
+         * Receive SWP: UVC-REQ
+         * 
+         */
+        case g.SAP_MSG_TYPE.SAP_UVC_REQ:
+            
+            break;
+
+        /*
+         * Receive SWP: UVC-REQ
+         * 
+         */    
         case g.SWP_MSG_TYPE.SWP_UVC_REQ:
             var codes = unpackedPayload;
             state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
