@@ -563,171 +563,276 @@ router.post("/serverapi", function (req, res) {
             break;
 
         /*
-         * Receive SWP: UVC-REQ
+         * Receive SAP: UVC-REQ
          * 
          */
         case g.SAP_MSG_TYPE.SAP_UVC_REQ:
-            
-            break;
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+                //state exist
+                let payload = {};
+                if (resState) {
+                    //Receivable state
+                    if (g.SERVER_RECV_STATE_BY_MSG.SAP_UVC_REQ.includes(resState)) {
+                        let keyHead = `u:temp:${protocol.getEndpointId()}:`;
+                        redisCli.get(`${keyHead}vc`, (err, vc) => {
+                            if (err) {} else {
+                                if (vc === null) {
+                                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_OTHER;
+                                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload);
+                                    logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
+                                } else {
+                                    //correct vc
+                                    if (unpackedPayload.vc === vc) {
+                                        redisCli.get(`${keyHead}ac`, (err, ac) => {
+                                            if (err) {} else {
+                                                //correct ac
+                                                if (unpackedPayload.ac === ac) {
+                                                    //database에 저장
+                                                    redisCli.keys(`${keyHead}*`, (err, keys) => {
+                                                        if (err) {} else {
+                                                            redisCli.mget(keys, (err, values) => {
+                                                                for (let index = 0; index < keys.length; index++) {
+                                                                    const key = keys[index].substr(keyHead.length);
+                                                                    switch (key) {
+                                                                        case 'id':
+                                                                            payload.userId = values[index];
+                                                                            break;
+                                                                        case 'pw':
+                                                                            payload.userPw = values[index];
+                                                                            break;
+                                                                        case 'fn':
+                                                                            payload.userFn = values[index];
+                                                                            break;
+                                                                        case 'ln':
+                                                                            payload.userLn = values[index];
+                                                                            break;
+                                                                        case 'bdt':
+                                                                            payload.bdt = values[index];
+                                                                            break;
+                                                                        case 'gen':
+                                                                            payload.gender = values[index];
+                                                                            break;
+                                                                    }
+                                                                }
+                                                                payload.clientType = g.CLIENT_TYPE.APP;
+                                                                payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_REQ, payload);
+                                                                request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                                                    protocol.setMsg(message);
+                                                                    if (!protocol.verifyHeader()) return;
+                                                                    let unpackedPayload = protocol.unpackPayload();
+                                                                    if (!unpackedPayload) return;
+                                                                    payload = {};
+                                                                    switch (unpackedPayload.resultCode) {
+                                                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OK:
+                                                                            let keyHead = "u:temp:" + protocol.getEndpointId() + ":";
+                                                                            redisCli.get(`${keyHead}id`, (err, id) => {
+                                                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), id], g.SERVER_TCI_STATE_ID.SERVER_TCI_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
+                                                                                logger.debug("| SERVER change TCI state to USN ALLOCATED STATE");
+                                                                                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_OK;
+                                                                                //remove temp Data
+                                                                                redisCli.multi([
+                                                                                    ["del", `${keyHead}id`],
+                                                                                    ["del", `${keyHead}pw`],
+                                                                                    ["del", `${keyHead}fn`],
+                                                                                    ["del", `${keyHead}ln`],
+                                                                                    ["del", `${keyHead}bdt`],
+                                                                                    ["del", `${keyHead}gen`],
+                                                                                    ["del", `${keyHead}ac`],
+                                                                                    ["del", `${keyHead}vc`],
+                                                                                ]).exec((err, replies) => {
+                                                                                    if (err) {} else {
+                                                                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_OK;
+                                                                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload);
+                                                                                        logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                                                        res.send(protocol.getPackedMsg());
+                                                                                    }
+                                                                                });
+                                                                            });
+                                                                            break;
+                                                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OTHER:
+                                                                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_OTHER;
+                                                                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload);
+                                                                            logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                                            res.send(protocol.getPackedMsg());
+                                                                            break;
+                                                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_DUPLICATE_OF_USER_ID:
+                                                                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_DUPLICATE_OF_USER_ID;
+                                                                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload);
+                                                                            logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                                            res.send(protocol.getPackedMsg());
+                                                                            break;
+                                                                    }
+                                                                });
+                                                            });
+                                                        }
+                                                    });
+                                                    //incorrect ac
+                                                } else {
+                                                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_INCORRECT_AC_UNDER_THE_VC;
+                                                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload)
+                                                    logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                                    res.send(protocol.getPackedMsg());
+                                                }
+                                            }
+                                        });
+                                        //incorrect vc
+                                    } else {
+                                        //인증코드 불일치 - error코드 4번 전송
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_INCORRECT_AC_UNDER_THE_VC;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload)
+                                        logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                    }
+                                }
+                            }
+                        });
+                    };
+                    //state not exist
+                } else {
+                    // not exist
+                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_NOT_EXIST_TEMPORARY_CLIENT_ID;
+                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload)
+                    logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    res.send(protocol.getPackedMsg());
+                };
+            });
 
         /*
          * Receive SWP: UVC-REQ
          * 
          */    
         case g.SWP_MSG_TYPE.SWP_UVC_REQ:
-            var codes = unpackedPayload;
-            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
                 //state exist
-                if(resState) {
+                let payload = {};
+                if (resState) {
                     //Receivable state
                     if (g.SERVER_RECV_STATE_BY_MSG.SWP_UVC_REQ.includes(resState)) {
-                        var keyHead = "u:temp:" + protocol.getEndpointId() + ":";
-                        var swpUvcRspCode = 0;
-                        var payload = new Object();
-                        redisCli.get(keyHead+"vc", (err, vc) => {
-                            if (err) {
-                                swpUvcRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OTHER;
-                            } else {
+                        let keyHead = `u:temp:${protocol.getEndpointId()}:`;
+                        redisCli.get(`${keyHead}vc`, (err, vc) => {
+                            if (err) {} else {
                                 if (vc === null) {
-                                    swpUvcRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OTHER;
-                                    payload = {
-                                        "resultCode": swpUvcRspCode
-                                    }
-                                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_UVC_RSP, payload)
-                                    logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
-                                    return res.send(protocol.getPackedMsg());
+                                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OTHER;
+                                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_UVC_RSP, payload);
+                                    logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
                                 } else {
                                     //correct vc
-                                    if(codes.vc === vc){
-                                        redisCli.get(keyHead+"ac", (err, ac)=> {
-                                            if (err) {
-                                                swpUvcRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OTHER;
-                                            } else {
+                                    if (unpackedPayload.vc === vc) {
+                                        redisCli.get(`${keyHead}ac`, (err, ac)=> {
+                                            if (err) {} else {
                                                 //correct ac
-                                                if(codes.ac === ac) {
+                                                if (unpackedPayload.ac === ac) {
                                                     //database에 저장
-                                                    redisCli.keys(keyHead+"*", (err, keys) => {
+                                                    redisCli.keys(`${keyHead}*`, (err, keys) => {
                                                         if(err) {} else {
                                                             redisCli.mget(keys, (err, values) => {
-                                                                var payloadSdpUvcReq = new Object();
-                                                                
-                                                                for (var index = 0; index < keys.length; index++) {
-                                                                    var key = keys[index].substr(keyHead.length);
+                                                                for (let index = 0; index < keys.length; index++) {
+                                                                    const key = keys[index].substr(keyHead.length);
                                                                     switch (key) {
                                                                         case 'id':
-                                                                            payloadSdpUvcReq.userId = values[index];
+                                                                            payload.userId = values[index];
                                                                             break;
                                                                         case 'pw':
-                                                                            payloadSdpUvcReq.userPw = values[index];
+                                                                            payload.userPw = values[index];
                                                                             break;
                                                                         case 'fn':
-                                                                            payloadSdpUvcReq.userFn = values[index];
+                                                                            payload.userFn = values[index];
                                                                             break;
                                                                         case 'ln':
-                                                                            payloadSdpUvcReq.userLn = values[index];
+                                                                            payload.userLn = values[index];
                                                                             break;
                                                                         case 'bdt':
-                                                                            payloadSdpUvcReq.bdt = values[index];
+                                                                            payload.bdt = values[index];
                                                                             break;
                                                                         case 'gen':
-                                                                            payloadSdpUvcReq.gender = values[index];
+                                                                            payload.gender = values[index];
                                                                             break;
                                                                     }
                                                                 }
-                                                                payloadSdpUvcReq.clientType = g.CLIENT_TYPE.WEB;
-                                                                var packedSdpUvcReq = protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_REQ, payloadSdpUvcReq);
-                                                                request.send('http://localhost:8080/databaseapi', packedSdpUvcReq, (message) => {
+                                                                payload.clientType = g.CLIENT_TYPE.WEB;
+                                                                payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_REQ, payload);
+                                                                request.send('http://localhost:8080/databaseapi', payload, (message) => {
                                                                     protocol.setMsg(message);
                                                                     if (!protocol.verifyHeader()) return;
-                                                                    var unpackedPayload = protocol.unpackPayload();
+                                                                    let unpackedPayload = protocol.unpackPayload();
                                                                     if (!unpackedPayload) return;
+                                                                    payload = {};
                                                                     switch (unpackedPayload.resultCode) {
                                                                         case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OK:
-                                                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), packedSdpUvcReq.payload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
-                                                                            logger.debug("| SERVER change TCI state to USN ALLOCATED STATE");
-                                                                            swpUvcRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OK;
-                                                                            //remove temp Data
-                                                                            var keyHead = "u:temp:" + protocol.getEndpointId() + ":";
-                                                                            redisCli.multi([
-                                                                                ["del", keyHead + "id"],
-                                                                                ["del", keyHead + "pw"],
-                                                                                ["del", keyHead + "fn"],
-                                                                                ["del", keyHead + "ln"],
-                                                                                ["del", keyHead + "bdt"],
-                                                                                ["del", keyHead + "gen"],
-                                                                                ["del", keyHead + "ac"],
-                                                                                ["del", keyHead + "vc"],
-                                                                            ]).exec((err, replies) => {
-                                                                                if (err) {} else {
-                                                                                    logger.debug("| SERVER deleted temporary user info: " + JSON.stringify('??'));
-                                                                                }
+                                                                            let keyHead = "u:temp:" + protocol.getEndpointId() + ":";
+                                                                            redisCli.get(`${keyHead}id`, (err, id) => {
+                                                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), id], g.SERVER_TCI_STATE_ID.SERVER_TCI_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
+                                                                                logger.debug("| SERVER change TCI state to USN ALLOCATED STATE");
+                                                                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OK;
+                                                                                //remove temp Data
+                                                                                redisCli.multi([
+                                                                                    ["del", `${keyHead}id`],
+                                                                                    ["del", `${keyHead}pw`],
+                                                                                    ["del", `${keyHead}fn`],
+                                                                                    ["del", `${keyHead}ln`],
+                                                                                    ["del", `${keyHead}bdt`],
+                                                                                    ["del", `${keyHead}gen`],
+                                                                                    ["del", `${keyHead}ac`],
+                                                                                    ["del", `${keyHead}vc`],
+                                                                                ]).exec((err, replies) => {
+                                                                                    if (err) {} else {
+                                                                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OK;
+                                                                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_UVC_RSP, payload);
+                                                                                        logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                                                        res.send(protocol.getPackedMsg());
+                                                                                    }
+                                                                                });
                                                                             });
                                                                             break;
                                                                         case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OTHER:
-                                                                            swpUvcRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OTHER;
+                                                                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OTHER;
+                                                                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_UVC_RSP, payload);
+                                                                            logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                                            res.send(protocol.getPackedMsg());
                                                                             break;
                                                                         case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_DUPLICATE_OF_USER_ID:
-                                                                            swpUvcRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_DUPLICATE_OF_USER_ID;
+                                                                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_DUPLICATE_OF_USER_ID;
+                                                                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_UVC_RSP, payload);
+                                                                            logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                                            res.send(protocol.getPackedMsg());
                                                                             break;
                                                                     }
-                                                                    payload = {
-                                                                        "resultCode": swpUvcRspCode
-                                                                    }
-                                                                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_UVC_RSP, payload)
-                                                                    logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
-                                                                    return res.send(protocol.getPackedMsg());
                                                                 });
-                                                            })
+                                                            });
                                                         }
                                                     });
-                                                    return;
-                                                    /*
-                                                    
-                                                    
-                                                    */
                                                 //incorrect ac
                                                 } else {
-                                                    swpUvcRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_INCORRECT_AC_UNDER_THE_VC;
+                                                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_INCORRECT_AC_UNDER_THE_VC;
+                                                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_UVC_RSP, payload)
+                                                    logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                                    res.send(protocol.getPackedMsg());
                                                 }
                                             }
-                                            payload = {
-                                                "resultCode": swpUvcRspCode
-                                            }
-                                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_UVC_RSP, payload)
-                                            logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
-                                            return res.send(protocol.getPackedMsg());
-                                        })
+                                        });
                                     //incorrect vc
                                     } else {
                                         //인증코드 불일치 - error코드 4번 전송
-                                        swpUvcRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_INCORRECT_AC_UNDER_THE_VC;
-                                        payload = {
-                                            "resultCode": swpUvcRspCode
-                                        }
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_INCORRECT_AC_UNDER_THE_VC;
                                         protocol.packMsg(g.SWP_MSG_TYPE.SWP_UVC_RSP, payload)
-                                        logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
-                                        return res.send(protocol.getPackedMsg());
+                                        logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
                                     }
                                 }
                             }
                         });
-                        };
-                        
+                    };
                 //state not exist
                 } else {
                     // not exist
-                    swpUvcRspCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_NOT_EXIST_TEMPORARY_CLIENT_ID;
-                    //인증코드 불일치
-                    payload = {
-                        "resultCode": swpUvcRspCode
-                    }
+                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_NOT_EXIST_TEMPORARY_CLIENT_ID;
                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_UVC_RSP, payload)
                     logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
-                    return res.send(protocol.getPackedMsg());
-                    // error코드 4번 전송
+                    res.send(protocol.getPackedMsg());
                 };
             });
-            break;
 
         default:
             break;

@@ -345,7 +345,7 @@ class LlProtocol {
 
         return this.unpackedPayload;
     }
-    _unpackSapUvcReqPayload() {
+    _unpackSwpUvcReqPayload() {
         //validation
         //parsing
         const payload = this.msgPayload;
@@ -1158,6 +1158,8 @@ class LlProtocol {
                     return this._packSdpSguRsp(payload);
 
                 //UVC
+                case g.SAP_MSG_TYPE.SAP_UVC_RSP:
+                    return this._packSapUvcRsp(payload);
                 case g.SWP_MSG_TYPE.SWP_UVC_RSP:
                     return this._packSwpUvcRsp(payload);
                 case g.SDP_MSG_TYPE.SDP_UVC_REQ:
@@ -1398,6 +1400,16 @@ class LlProtocol {
     }
     
     //UVC
+    _packSapUvcRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_UVC_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
     _packSwpUvcRsp(payload) {
         return this.packedMsg = {
             "header": {

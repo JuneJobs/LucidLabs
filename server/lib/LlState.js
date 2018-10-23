@@ -39,7 +39,7 @@ class LlState {
                     if (entity === g.ENTITY_TYPE.SERVER) {
                         key = 'c:sta:s:a:tci:' + stateId + ':*';
                     } else if (entity === g.ENTITY_TYPE.DATABASE) {
-                        key = 'c:sta:d:a:tci:' + stateId + ':*';
+                        key = 'c:sta:d:a:tci:' + stateId[0] + ':' + stateId[1];
                     }
                     searchType = 'keys';
                     break;
