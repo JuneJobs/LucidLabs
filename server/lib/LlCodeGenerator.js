@@ -8,7 +8,7 @@ class LlCodeGenerator {
         return generator.generateCodes("####", 1, {})[0];
     }
     getAuthenticationCode() {
-        return generator.generateCodes("*#*#*#*#*#*#*#*#*#*#", 1, {})[0];
+        return generator.generateCodes("*#*#*#*#*#*#*#*#", 1, {})[0];
     }
     getSaltCode(){
         return generator.generateCodes("##", 1, {})[0];
