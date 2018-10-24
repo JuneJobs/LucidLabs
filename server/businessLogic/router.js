@@ -149,6 +149,7 @@ router.post("/serverdatatran", function (req, res){
                 }
             });
             break;
+
         default:
             break;
     }
@@ -199,11 +200,13 @@ router.post("/serverapi", function (req, res) {
                         logger.debug(`| SERVER send request: ${JSON.stringify(protocol.getPackedMsg())}`);
                         //update state
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
+                        
+                        let userInfo = unpackedPayload;
                         logger.debug("| SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE");
                         request.send('http://localhost:8080/databaseapi', payload, (message) => {
                             protocol.setMsg(message);
                             if (!protocol.verifyHeader()) return;
-                            let unpackedPayload = protocol.unpackPayload();
+                            unpackedPayload = protocol.unpackPayload();
                             if (!unpackedPayload) return;
                             switch (unpackedPayload.resultCode) {
                                 case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OK:
@@ -214,22 +217,22 @@ router.post("/serverapi", function (req, res) {
                                                   vc = codeGen.getVerificationCode(),
                                                   contect = `<H1> Verification code: ${vc}<H1></BR><H1> Authentication code: ${ac}<H1>`;
 
-                                            mailer.sendEmail(unpackedPayload.userId, 'Verification from Airound', contect);
+                                            mailer.sendEmail(userInfo.userId, 'Verification from Airound', contect);
                                             
                                             const keyHead = `u:temp:${protocol.getEndpointId()}:`,
                                                   expTime = g.SERVER_TIMER.T862;
 
                                             redisCli.multi([
-                                                ["set", `${keyHead}id`, unpackedPayload.userId, 'EX', expTime],
-                                                ["set", `${keyHead}pw`, unpackedPayload.userPw, 'EX', expTime],
-                                                ["set", `${keyHead}fn`, unpackedPayload.userFn, 'EX', expTime],
-                                                ["set", `${keyHead}bdt`, unpackedPayload.bdt, 'EX', expTime],
-                                                ["set", `${keyHead}gen`, unpackedPayload.gender, 'EX', expTime],
+                                                ["set", `${keyHead}id`, userInfo.userId, 'EX', expTime],
+                                                ["set", `${keyHead}pw`, userInfo.userPw, 'EX', expTime],
+                                                ["set", `${keyHead}fn`, userInfo.userFn, 'EX', expTime],
+                                                ["set", `${keyHead}bdt`, userInfo.bdt, 'EX', expTime],
+                                                ["set", `${keyHead}gen`, userInfo.gender, 'EX', expTime],
                                                 ["set", `${keyHead}ac`, ac, 'EX', expTime],
                                                 ["set", `${keyHead}vc`, vc, 'EX', expTime],
                                             ]).exec((err, replies) => {
                                                 if (err) {} else {
-                                                    logger.debug(`| SERVER stored temporary user info: in ${expTime} sec > ${JSON.stringify(unpackedPayload)}`);
+                                                    logger.debug(`| SERVER stored temporary user info: in ${expTime} sec > ${JSON.stringify(userInfo)}`);
                                                 }
                                             });
 
@@ -238,7 +241,7 @@ router.post("/serverapi", function (req, res) {
                                             payload.vc = vc;
                                             protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
                                             
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
                                             logger.debug("| SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE");
 
                                             logger.debug(`| Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -251,7 +254,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGU.RESCODE_SAP_SGU_OTHER;
                                     protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
                                 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug('| SERVER change TCI state to IDLE STATE');
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -262,7 +265,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGU.RESCODE_SAP_SGU_DUPLICATE_OF_USER_ID;
                                     protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug('| SERVER change TCI state to IDLE STATE');
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -294,11 +297,13 @@ router.post("/serverapi", function (req, res) {
                         
                         //update state
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
+                        let userInfo = unpackedPayload;
+
                         logger.debug("| SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE");
                         request.send('http://localhost:8080/databaseapi', payload, (message) => {
                             protocol.setMsg(message);
                             if (!protocol.verifyHeader()) return;
-                            let unpackedPayload = protocol.unpackPayload();
+                            unpackedPayload = protocol.unpackPayload();
                             if (!unpackedPayload) return;
                             switch (unpackedPayload.resultCode) {
                                 case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OK:
@@ -309,23 +314,23 @@ router.post("/serverapi", function (req, res) {
                                                 vc = codeGen.getVerificationCode(),
                                                 contect = `<H1> Verification code: ${vc}<H1></BR><H1> Authentication code: ${ac}<H1>`;
 
-                                            mailer.sendEmail(unpackedPayload.userId, 'Verification from Airound', contect);
+                                            mailer.sendEmail(userInfo.userId, 'Verification from Airound', contect);
                                             
                                             const keyHead = `u:temp:${protocol.getEndpointId()}:`,
                                                   expTime = g.SERVER_TIMER.T862;
 
                                             redisCli.multi([
-                                                ["set", keyHead + "id", unpackedPayload.userId, 'EX', expTime],
-                                                ["set", keyHead + "pw", unpackedPayload.userPw, 'EX', expTime],
-                                                ["set", keyHead + "fn", unpackedPayload.userFn, 'EX', expTime],
-                                                ["set", keyHead + "ln", unpackedPayload.userLn, 'EX', expTime],
-                                                ["set", keyHead + "bdt", unpackedPayload.bdt, 'EX', expTime],
-                                                ["set", keyHead + "gen", unpackedPayload.gender, 'EX', expTime],
+                                                ["set", keyHead + "id", userInfo.userId, 'EX', expTime],
+                                                ["set", keyHead + "pw", userInfo.userPw, 'EX', expTime],
+                                                ["set", keyHead + "fn", userInfo.userFn, 'EX', expTime],
+                                                ["set", keyHead + "ln", userInfo.userLn, 'EX', expTime],
+                                                ["set", keyHead + "bdt", userInfo.bdt, 'EX', expTime],
+                                                ["set", keyHead + "gen", userInfo.gender, 'EX', expTime],
                                                 ["set", keyHead + "ac", ac, 'EX', expTime],
                                                 ["set", keyHead + "vc", vc, 'EX', expTime],
                                             ]).exec((err, replies) => {
                                                 if (err) {} else {
-                                                    logger.debug(`| SERVER stored temporary user info: in ${expTime} sec > ${JSON.stringify(unpackedPayload)}`);
+                                                    logger.debug(`| SERVER stored temporary user info: in ${expTime} sec > ${JSON.stringify(userInfo)}`);
                                                 }
                                             });
 
@@ -334,7 +339,7 @@ router.post("/serverapi", function (req, res) {
                                             payload.vc = vc;
                                             protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
 
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
                                             logger.debug("| SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE");
                                             
                                             logger.debug(`| Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -347,7 +352,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGU.RESCODE_SAP_SGU_OTHER;
                                     protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug("| SERVER change TCI state to IDLE STATE");
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -358,7 +363,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGU.RESCODE_SAP_SGU_DUPLICATE_OF_USER_ID;
                                     protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug("| SERVER change TCI state to IDLE STATE");
 
                                     logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
@@ -389,11 +394,13 @@ router.post("/serverapi", function (req, res) {
                         logger.debug(`| SERVER send request: ${JSON.stringify(protocol.getPackedMsg())}`);
                         //update state
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
+                        
+                        let userInfo = unpackedPayload;
                         logger.debug("| SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE");
                         request.send('http://localhost:8080/databaseapi', payload, (message) => {
                             protocol.setMsg(message);
                             if (!protocol.verifyHeader()) return;
-                            let unpackedPayload = protocol.unpackPayload();
+                            unpackedPayload = protocol.unpackPayload();
                             if (!unpackedPayload) return;
                             switch (unpackedPayload.resultCode) {
                                 case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OK:
@@ -404,22 +411,22 @@ router.post("/serverapi", function (req, res) {
                                                 vc = codeGen.getVerificationCode(),
                                                 contect = `<H1> Verification code: ${vc}<H1></BR><H1> Authentication code: ${ac}<H1>`;
 
-                                            mailer.sendEmail(unpackedPayload.userId, 'Verification from Airound', contect);
+                                            mailer.sendEmail(userInfo.userId, 'Verification from Airound', contect);
 
                                             const keyHead = `u:temp:${protocol.getEndpointId()}:`,
                                                 expTime = g.SERVER_TIMER.T862;
 
                                             redisCli.multi([
-                                                ["set", `${keyHead}id`, unpackedPayload.userId, 'EX', expTime],
-                                                ["set", `${keyHead}pw`, unpackedPayload.userPw, 'EX', expTime],
-                                                ["set", `${keyHead}fn`, unpackedPayload.userFn, 'EX', expTime],
-                                                ["set", `${keyHead}bdt`, unpackedPayload.bdt, 'EX', expTime],
-                                                ["set", `${keyHead}gen`, unpackedPayload.gender, 'EX', expTime],
+                                                ["set", `${keyHead}id`, userInfo.userId, 'EX', expTime],
+                                                ["set", `${keyHead}pw`, userInfo.userPw, 'EX', expTime],
+                                                ["set", `${keyHead}fn`, userInfo.userFn, 'EX', expTime],
+                                                ["set", `${keyHead}bdt`, userInfo.bdt, 'EX', expTime],
+                                                ["set", `${keyHead}gen`, userInfo.gender, 'EX', expTime],
                                                 ["set", `${keyHead}ac`, ac, 'EX', expTime],
                                                 ["set", `${keyHead}vc`, vc, 'EX', expTime],
                                             ]).exec((err, replies) => {
                                                 if (err) {} else {
-                                                    logger.debug(`| SERVER stored temporary user info: in ${expTime} sec > ${JSON.stringify(unpackedPayload)}`);
+                                                    logger.debug(`| SERVER stored temporary user info: in ${expTime} sec > ${JSON.stringify(userInfo)}`);
                                                 }
                                             });
 
@@ -428,7 +435,7 @@ router.post("/serverapi", function (req, res) {
                                             payload.vc = vc;
                                             protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
                                             logger.debug("| SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE");
 
                                             logger.debug(`| Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -442,7 +449,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OTHER;
                                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug('| SERVER change TCI state to IDLE STATE');
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -454,7 +461,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_DUPLICATE_OF_USER_ID;
                                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug('| SERVER change TCI state to IDLE STATE');
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -485,11 +492,13 @@ router.post("/serverapi", function (req, res) {
 
                         //update state
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
+                        
+                        let userInfo = unpackedPayload;
                         logger.debug("| SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE");
                         request.send('http://localhost:8080/databaseapi', payload, (message) => {
                             protocol.setMsg(message);
                             if (!protocol.verifyHeader()) return;
-                            let unpackedPayload = protocol.unpackPayload();
+                            unpackedPayload = protocol.unpackPayload();
                             if (!unpackedPayload) return;
                             switch (unpackedPayload.resultCode) {
                                 case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OK:
@@ -500,23 +509,23 @@ router.post("/serverapi", function (req, res) {
                                                 vc = codeGen.getVerificationCode(),
                                                 contect = `<H1> Verification code: ${vc}<H1></BR><H1> Authentication code: ${ac}<H1>`;
 
-                                            mailer.sendEmail(unpackedPayload.userId, 'Verification from Airound', contect);
+                                            mailer.sendEmail(userInfo.userId, 'Verification from Airound', contect);
 
                                             const keyHead = `u:temp:${protocol.getEndpointId()}:`,
                                                 expTime = g.SERVER_TIMER.T862;
 
                                             redisCli.multi([
-                                                ["set", keyHead + "id", unpackedPayload.userId, 'EX', expTime],
-                                                ["set", keyHead + "pw", unpackedPayload.userPw, 'EX', expTime],
-                                                ["set", keyHead + "fn", unpackedPayload.userFn, 'EX', expTime],
-                                                ["set", keyHead + "ln", unpackedPayload.userLn, 'EX', expTime],
-                                                ["set", keyHead + "bdt", unpackedPayload.bdt, 'EX', expTime],
-                                                ["set", keyHead + "gen", unpackedPayload.gender, 'EX', expTime],
+                                                ["set", keyHead + "id", userInfo.userId, 'EX', expTime],
+                                                ["set", keyHead + "pw", userInfo.userPw, 'EX', expTime],
+                                                ["set", keyHead + "fn", userInfo.userFn, 'EX', expTime],
+                                                ["set", keyHead + "ln", userInfo.userLn, 'EX', expTime],
+                                                ["set", keyHead + "bdt", userInfo.bdt, 'EX', expTime],
+                                                ["set", keyHead + "gen", userInfo.gender, 'EX', expTime],
                                                 ["set", keyHead + "ac", ac, 'EX', expTime],
                                                 ["set", keyHead + "vc", vc, 'EX', expTime],
                                             ]).exec((err, replies) => {
                                                 if (err) {} else {
-                                                    logger.debug(`| SERVER stored temporary user info: in ${expTime} sec > ${JSON.stringify(unpackedPayload)}`);
+                                                    logger.debug(`| SERVER stored temporary user info: in ${expTime} sec > ${JSON.stringify(userInfo)}`);
                                                 }
                                             });
 
@@ -525,7 +534,7 @@ router.post("/serverapi", function (req, res) {
                                             payload.vc = vc;
                                             protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
                                             logger.debug("| SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE");
 
                                             logger.debug(`| Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -539,7 +548,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OTHER;
                                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug("| SERVER change TCI state to IDLE STATE");
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -551,7 +560,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_DUPLICATE_OF_USER_ID;
                                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug("| SERVER change TCI state to IDLE STATE");
 
                                     logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
@@ -1349,6 +1358,142 @@ router.post("/serverapi", function (req, res) {
                 }
             });
 
+        /*
+         * Receive SAP: FPU-REQ
+         * Last update: 10.24.2018
+         * Author: Junhee Park
+         */
+        case g.SAP_MSG_TYPE.SAP_FPU_REQ:
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                if (!resState) {
+                    //Database verify request
+                    payload.bdt = unpackedPayload.bdt;
+                    payload.userId = unpackedPayload.userId;
+                    payload.userFn = unpackedPayload.userFn;
+                    payload.userLn = unpackedPayload.userLn;
+                    payload.clientType = g.CLIENT_TYPE.APP;
+                    payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_FPU_REQ, payload);
+                    
+                    let receiver = unpackedPayload.userId;
+
+                    request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                        //unpack
+                        protocol.setMsg(message);
+                        if (!protocol.verifyHeader()) return;
+                        let unpackedPayload = protocol.unpackPayload();
+                        if (!unpackedPayload) return;
+                        payload = {};
+                        switch (unpackedPayload.resultCode) {
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_FPU.RESCODE_SDP_FPU_OK:
+                                let newPw = unpackedPayload.userPw,
+                                    contect = `<H1> New temporary password is: ${newPw}<H1></BR>`;
+                                //send Email
+                                mailer.sendEmail(receiver, 'Verification from Airound', contect);
+
+                                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_FPU.RESCODE_SAP_FPU_OK;
+                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_FPU_RSP, payload);
+
+                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                                break;
+
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_FPU.RESCODE_SDP_FPU_NOT_EXIST_USER_ID:
+                                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_FPU.RESCODE_SAP_FPU_NOT_EXIST_USER_ID;
+                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_FPU_RSP, payload);
+
+                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                                break;
+
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_FPU.RESCODE_SDP_FPU_INCORRECT_USER_INFORMATION:
+                                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_FPU.RESCODE_SAP_FPU_INCORRECT_USER_INFORMATION;
+                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_FPU_RSP, payload);
+
+                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                                break;
+
+                        }
+                    });
+                } else {
+                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_FPU.RESCODE_SAP_FPU_CONFLICT_OF_TEMPORARY_CLIENT_ID;
+                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_FPU_RSP, payload);
+
+                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                    res.send(protocol.getPackedMsg());
+                }
+            });
+
+        /*
+         * Receive SWP: FPU-REQ
+         * Last update: 10.24.2018
+         * Author: Junhee Park
+         */
+        case g.SWP_MSG_TYPE.SWP_FPU_REQ:
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                if (!resState) {
+                    //Database verify request
+                    payload.bdt = unpackedPayload.bdt;
+                    payload.userId = unpackedPayload.userId;
+                    payload.userFn = unpackedPayload.userFn;
+                    payload.userLn = unpackedPayload.userLn;
+                    payload.clientType = g.CLIENT_TYPE.WEB;
+                    payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_FPU_REQ, payload);
+                    
+                    let receiver = unpackedPayload.userId;
+
+                    request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                        //unpack
+                        protocol.setMsg(message);
+                        if (!protocol.verifyHeader()) return;
+                        let unpackedPayload = protocol.unpackPayload();
+                        if (!unpackedPayload) return;
+                        payload = {};
+                        switch (unpackedPayload.resultCode) {
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_FPU.RESCODE_SDP_FPU_OK:
+                                let newPw = unpackedPayload.userPw,
+                                    contect = `<H1> New temporary password is: ${newPw}<H1></BR>`;
+                                //send Email
+                                mailer.sendEmail(receiver, 'Verification from Airound', contect);
+
+                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_FPU.RESCODE_SWP_FPU_OK;
+                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_FPU_RSP, payload);
+
+                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                                break;
+
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_FPU.RESCODE_SDP_FPU_NOT_EXIST_USER_ID:
+                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_FPU.RESCODE_SWP_FPU_NOT_EXIST_USER_ID;
+                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_FPU_RSP, payload);
+
+                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                                break;
+
+                            case g.SDP_MSG_RESCODE.RESCODE_SDP_FPU.RESCODE_SDP_FPU_INCORRECT_USER_INFORMATION:
+                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_FPU.RESCODE_SWP_FPU_INCORRECT_USER_INFORMATION;
+                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_FPU_RSP, payload);
+
+                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                                break;
+
+                        }
+                    });
+                } else {
+                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_FPU.RESCODE_SWP_FPU_CONFLICT_OF_TEMPORARY_CLIENT_ID;
+                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_FPU_RSP, payload);
+
+                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                    res.send(protocol.getPackedMsg());
+                }
+            });
+
+        
+            
         default:
             break;
     }
@@ -1635,7 +1780,13 @@ router.post("/databaseapi", (req, res) => {
                 }
             });
 
+        /**
+         * Receive SDP: UPC-REQ
+         * Last update: 10.24.2018
+         * Author: Junhee Park
+         */
          case g.SDP_MSG_TYPE.SDP_UPC_REQ:
+
             endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
                 endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
@@ -1679,8 +1830,55 @@ router.post("/databaseapi", (req, res) => {
                 }
             });
 
-        default:
-            break;
-        
+            /**
+             * Receive SDP: FPU-REQ
+             * Last update: 10.24.2018
+             * Author: Junhee Park
+             */
+            case g.SDP_MSG_TYPE.SDP_FPU_REQ:
+                return redisCli.get(`u:info:id:${unpackedPayload.userId}`, (err, usn) => {
+                    if (err) {} else {
+                        if (usn === null) {
+                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_FPU.RESCODE_SDP_FPU_NOT_EXIST_USER_ID;
+                            protocol.packMsg(g.SDP_MSG_TYPE.SDP_FPU_RSP, payload);
+
+                            logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                            res.send(protocol.getPackedMsg());
+                        } else {
+                            let keyHead = `u:info:${usn}:`;
+                            redisCli.mget(keyHead + 'bdt', keyHead + 'fn', keyHead + 'ln', (err, replies) => {
+                                if (err) {} else {
+                                    if (replies[0] === unpackedPayload.bdt &&
+                                        replies[1] === unpackedPayload.userFn &&
+                                        replies[2] === unpackedPayload.userLn) {
+                                        //gen pw 
+                                        let pw = codeGen.getAuthenticationCode();
+                                        //update pw
+                                        redisCli.set(keyHead + 'pw', hash.getHashedPassword(pw), (err, reply) => {
+                                            if (err) {} else {
+                                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_FPU.RESCODE_SDP_FPU_OK;
+                                                payload.userPw = pw;
+                                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_FPU_RSP, payload);
+
+                                                logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                                res.send(protocol.getPackedMsg());
+                                            }
+                                        })
+                                    } else {
+                                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_FPU.RESCODE_SDP_FPU_INCORRECT_USER_INFORMATION;
+                                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_FPU_RSP, payload);
+
+                                        logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        res.send(protocol.getPackedMsg());
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+            default:
+                break;
+            
     }
 });
