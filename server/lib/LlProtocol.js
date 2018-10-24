@@ -626,7 +626,7 @@ class LlProtocol {
         this.unpackedPayload.nsc = payload.nsc
         if (typeof payload.regf !== 'undefined') this.unpackedPayload.regf = payload.regf;
         if (typeof payload.signf !== 'undefined') this.unpackedPayload.signf = payload.signf;
-        if (typeof payload.mlv !== 'undefined') this.unpackedPayload.mlv = payload.mlv;
+        if (typeof payload.ml !== 'undefined') this.unpackedPayload.mlv = payload.ml;
         if (typeof payload.userId !== 'undefined') this.unpackedPayload.userId = payload.userId;
         if (typeof payload.userFn !== 'undefined') this.unpackedPayload.userFn = payload.userFn;
         if (typeof payload.userLn !== 'undefined') this.unpackedPayload.userLn = payload.userLn;

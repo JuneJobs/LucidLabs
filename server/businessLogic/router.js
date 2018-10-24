@@ -1492,6 +1492,11 @@ router.post("/serverapi", function (req, res) {
                 }
             });
 
+        /*
+         * Receive SWP: UDR-REQ
+         * Last update: 10.24.2018
+         * Author: Junhee Park
+         */
         case g.SWP_MSG_TYPE.SWP_UDR_REQ:
             return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 /**
@@ -1573,6 +1578,100 @@ router.post("/serverapi", function (req, res) {
                     // 1.2.~    
                 }
             });
+
+        /*
+         * Receive SWP: AUV-REQ
+         * Last update: 10.24.2018
+         * Author: Junhee Park
+         */
+        case g.SWP_MSG_TYPE.SWP_AUV_REQ:
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                //state exist
+                if (resState) {
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if (result === 1) {
+                            //payload 생성
+                            if (typeof unpackedPayload.regf !== 'undefined') payload.regf = unpackedPayload.regf;
+                            if (typeof unpackedPayload.signf !== 'undefined') payload.signf = unpackedPayload.signf;
+                            if (typeof unpackedPayload.ml !== 'undefined') payload.mlv = unpackedPayload.ml;
+                            if (typeof unpackedPayload.userId !== 'undefined') payload.userId = unpackedPayload.userId;
+                            if (typeof unpackedPayload.userFn !== 'undefined') payload.userFn = unpackedPayload.userFn;
+                            if (typeof unpackedPayload.userLn !== 'undefined') payload.userLn = unpackedPayload.userLn;
+                            if (typeof unpackedPayload.oprset !== 'undefined') payload.oprset = unpackedPayload.oprset;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
+                            payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_AUV_REQ, payload)
+                            request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                payload = {};
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+                                switch (unpackedPayload.resultCode) {
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_AUV.RESCODE_SDP_AUV_OK:
+                                        //유저버퍼 업데이트
+                                        uModule.updateUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), (result) => {
+                                            if (result) {
+                                                // here!!
+                                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_AUV.RESCODE_SWP_AUV_OK;
+                                                payload.userInfoListEncodings = unpackedPayload.userInfoListEncodings;
+                                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_AUV_RSP, payload);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
+
+                                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                res.send(protocol.getPackedMsg());
+                                            }
+                                        });
+                                        break;
+                                        
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_AUV.RESCODE_SDP_AUV_OTHER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_AUV.RESCODE_SWP_AUV_OTHER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_AUV_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_AUV.RESCODE_SDP_AUV_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_AUV.RESCODE_SWP_AUV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_AUV_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_AUV.RESCODE_SDP_AUV_UNAUTHORIZED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_AUV.RESCODE_SWP_AUV_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_AUV_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            })
+                        } else {
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_AUV.RESCODE_SWP_AUV_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_AUV_RSP, payload);
+
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            return res.send(protocol.getPackedMsg());
+                        }
+                    });
+                    //state not exist
+                } else {
+                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_AUV.RESCODE_SWP_AUV_OTHER;
+                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+
+                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_AUV_RSP, payload);
+                    return res.send(protocol.getPackedMsg());
+                }
+            });
+
+
 
         default:
             break;
@@ -1988,7 +2087,7 @@ router.post("/databaseapi", (req, res) => {
                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_UDR.RESCODE_SDP_UDR_UNALLOCATED_USER_SEQUENCE_NUMBER;
                         protocol.packMsg(g.SDP_MSG_TYPE.SDP_UDR_RSP, payload);
                         
-                        logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                         res.send(protocol.getPackedMsg());
                     } else if (signf === g.SIGNED_IN_STATE.SIGNED_IN) {
                         redisCli.get(`u:info:${protocol.getEndpointId()}:pw`, (err, hashedPw) => {
@@ -2001,7 +2100,7 @@ router.post("/databaseapi", (req, res) => {
                                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_UDR.RESCODE_SDP_UDR_OK;
                                         protocol.packMsg(g.SDP_MSG_TYPE.SDP_UDR_RSP, payload);
                                         
-                                        logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                                         res.send(protocol.getPackedMsg());
                                     });
                                 } else {
@@ -2011,7 +2110,7 @@ router.post("/databaseapi", (req, res) => {
                                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_UDR.RESCODE_SDP_UDR_INCORRECT_CURRENT_USER_PASSWORD;
                                     protocol.packMsg(g.SDP_MSG_TYPE.SDP_UDR_RSP, payload);
                                     
-                                    logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                                     res.send(protocol.getPackedMsg());
                                 }
                             }
@@ -2019,6 +2118,86 @@ router.post("/databaseapi", (req, res) => {
                     }
                 });
 
+            /**
+             * Receive SDP: AUV-REQ
+             * Last update: 10.24.2018
+             * Author: Junhee Park
+             */
+            case g.SDP_MSG_TYPE.SDP_AUV_REQ:
+                return redisCli.getbit(`u:info:${protocol.getEndpointId()}:signf`, 1, (err, signf) => {
+                    if (signf === null) {
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_AUV.RESCODE_SDP_AUV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_AUV_REQ, payload);
+                        logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                        res.send(protocol.getPackedMsg());
+                        //signed in
+                    } else if (signf === g.SIGNED_IN_STATE.SIGNED_IN) {
+                        //Auth, It should be repfactoring
+                        if (protocol.getEndpointId() < 2) {
+                            //main logic
+                            //the output should be
+                            /**
+                             * userinfo = [
+                             *     [regf, signf, uml, mexpd, userId, fn, ln],
+                             *     [regf, signf, uml, mexpd, userId, fn, ln],
+                             *     [regf, signf, uml, mexpd, userId, fn, ln],
+                             *     [regf, signf, uml, mexpd, userId, fn, ln],
+                             *     [regf, signf, uml, mexpd, userId, fn, ln]
+                             * ]
+                             */
+                            redisCli.scan(0, 'MATCH', 'u:info:*:usn', 'COUNT', 1000, (err, keys) => {
+                                let userInfoListEncodings = [],
+                                    commandList = [];
+                                for (let i = 0, x = keys[1].length; i < x; i++) {
+                                    let usn = keys[1][i].split(":")[2];
+                                    commandList.push(
+                                        ['get', 'u:info:' + usn + ':regf'],
+                                        ['getbit', 'u:info:' + usn + ':signf', 0],
+                                        ['getbit', 'u:info:' + usn + ':signf', 1],
+                                        ['get', 'u:info:' + usn + ':ml'],
+                                        ['get', 'u:info:' + usn + ':id'],
+                                        ['get', 'u:info:' + usn + ':fn'],
+                                        ['get', 'u:info:' + usn + ':ln'],
+                                    );
+                                }
+                                redisCli.multi(commandList).exec((err, replies) => {
+                                    for (let i = 0, x = replies.length / 7; i < x; i++) {
+                                        userInfoListEncodings.push({
+                                            regf: replies[i * 7],
+                                            wsignf: replies[i * 7 + 1],
+                                            asignf: replies[i * 7 + 2],
+                                            ml: replies[i * 7 + 3],
+                                            userId: replies[i * 7 + 4],
+                                            fn: replies[i * 7 + 5],
+                                            ln: replies[i * 7 + 6]
+                                        });
+                                    }
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_AUV.RESCODE_SDP_AUV_OK;
+                                    payload.userInfoListEncodings = userInfoListEncodings;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_AUV_RSP, payload);
+                                    
+                                    logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
+                                });
+                            });
+                        } else if (signf === g.SIGNED_IN_STATE.SIGNED_OUT) {
+                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_AUV.RESCODE_SDP_AUV_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
+                            protocol.packMsg(g.SDP_MSG_TYPE.SDP_AUV_RSP, payload);
+
+                            logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
+
+                        }
+                    } else if (signf === g.SIGNED_IN_STATE.SIGNED_OUT) {
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_AUV.RESCODE_SDP_AUV_OTHER;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_AUV_RSP, payload);
+
+                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                        res.send(protocol.getPackedMsg());
+                    }
+                });
+                break;
+                    
             default:
                 break;
             
