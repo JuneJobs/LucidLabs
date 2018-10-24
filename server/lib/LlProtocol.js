@@ -114,13 +114,51 @@ class LlProtocol {
                     return this._unpackSdpSgiRspPayload();
                 
                 //SGO
+                case g.SAP_MSG_TYPE.SAP_SGO_NOT:
+                    return this._unpackSapSgoNotPayload();
+                case g.SWP_MSG_TYPE.SWP_SGO_NOT:
+                    return this._unpackSwpSgoNotPayload();
                 case g.SDP_MSG_TYPE.SDP_SGO_NOT:
                     return this._unpackSdpSgoNotPayload();
                 case g.SDP_MSG_TYPE.SDP_SGO_ACK:
                     return this._unpackSdpSgoAckPayload();
-                case g.SWP_MSG_TYPE.SWP_SGO_NOT:
-                    return this._unpackSwpSgoNotPayload();
-                
+
+                //UPC
+                case g.SAP_MSG_TYPE.SAP_UPC_REQ:
+                    return this._unpackSapUpcReqPayload();
+                case g.SWP_MSG_TYPE.SWP_UPC_REQ:
+                    return this._unpackSwpUpcReqPayload();
+                case g.SDP_MSG_TYPE.SDP_UPC_REQ:
+                    return this._unpackSdpUpcReqPayload();
+                case g.SDP_MSG_TYPE.SDP_UPC_RSP:
+                    return this._unpackSdpUpcRspPayload();
+
+                //FPU
+                case g.SAP_MSG_TYPE.SAP_FPU_REQ:
+                    return this._unpackSapFpuReqPayload();
+                case g.SWP_MSG_TYPE.SWP_FPU_REQ:
+                    return this._unpackSwpFpuReqPayload();
+                case g.SDP_MSG_TYPE.SDP_FPU_REQ:
+                    return this._unpackSdpFpuReqPayload();
+                case g.SDP_MSG_TYPE.SDP_FPU_RSP:
+                    return this._unpackSdpFpuRspPayload();
+
+                //UDR
+                case g.SWP_MSG_TYPE.SWP_UDR_REQ:
+                    return this._unpackSwpUdrReqPayload();
+                case g.SDP_MSG_TYPE.SDP_UDR_REQ:
+                    return this._unpackSdpUdrReqPayload();
+                case g.SDP_MSG_TYPE.SDP_UDR_RSP:
+                    return this._unpackSdpUdrRspPayload();
+
+                //AUV
+                case g.SWP_MSG_TYPE.SWP_AUV_REQ:
+                    return this._unpackSwpAuvReqPayload();
+                case g.SDP_MSG_TYPE.SDP_AUV_REQ:
+                    return this._unpackSdpAuvReqPayload();
+                case g.SDP_MSG_TYPE.SDP_AUV_RSP:
+                    return this._unpackSdpAuvRspPayload();
+
                 //ASR
                 case g.SWP_MSG_TYPE.SWP_ASR_REQ:
                     return this._unpackSwpAsrReqPayload();
@@ -178,7 +216,7 @@ class LlProtocol {
                     return this._unpackSdpSirRspPayload();
 
                 //DCA
-                case g.SWP_MSG_TYPE.SSP_DCA_REQ:
+                case g.SSP_MSG_TYPE.SSP_DCA_REQ:
                     return this._unpackSspDcaReqPayload();
                 case g.SWP_MSG_TYPE.SAP_DCA_REQ:
                     return this._unpackSapDcaReqPayload();
@@ -188,7 +226,7 @@ class LlProtocol {
                     return this._unpackSdpDcaRspPayload();
 
                 //DCD
-                case g.SWP_MSG_TYPE.SSP_DCD_NOT:
+                case g.SSP_MSG_TYPE.SSP_DCD_NOT:
                     return this._unpackSspDcdNotPayload();
                 case g.SWP_MSG_TYPE.SAP_DCD_NOT:
                     return this._unpackSapDcdNotPayload();
@@ -237,42 +275,6 @@ class LlProtocol {
                 case g.SDP_MSG_TYPE.SDP_SHR_RSP:
                     return this._unpackSdpShrRspPayload();
 
-                //UPC
-                case g.SAP_MSG_TYPE.SAP_UPC_REQ:
-                    return this._unpackSapUpcReqPayload();
-                case g.SWP_MSG_TYPE.SWP_UPC_REQ:
-                    return this._unpackSwpUpcReqPayload();
-                case g.SDP_MSG_TYPE.SDP_UPC_REQ:
-                    return this._unpackSdpUpcReqPayload();
-                case g.SDP_MSG_TYPE.SDP_UPC_RSP:
-                    return this._unpackSdpUpcRspPayload();
-
-                //FPU
-                case g.SAP_MSG_TYPE.SAP_FPU_REQ:
-                    return this._unpackSapFpuReqPayload();
-                case g.SWP_MSG_TYPE.SWP_FPU_REQ:
-                    return this._unpackSwpFpuReqPayload();
-                case g.SDP_MSG_TYPE.SDP_FPU_REQ:
-                    return this._unpackSdpFpuReqPayload();
-                case g.SDP_MSG_TYPE.SDP_FPU_RSP:
-                    return this._unpackSdpFpuRspPayload();
-
-                //UDR
-                case g.SWP_MSG_TYPE.SWP_UDR_REQ:
-                    return this._unpackSwpUdrReqPayload();
-                case g.SDP_MSG_TYPE.SDP_UDR_REQ:
-                    return this._unpackSdpUdrReqPayload();
-                case g.SDP_MSG_TYPE.SDP_UDR_RSP:
-                    return this._unpackSdpUdrRspPayload();
-
-                //AUV
-                case g.SWP_MSG_TYPE.SWP_AUV_REQ:
-                    return this._unpackSwpAuvReqPayload();
-                case g.SDP_MSG_TYPE.SDP_AUV_REQ:
-                    return this._unpackSdpAuvReqPayload();
-                case g.SDP_MSG_TYPE.SDP_AUV_RSP:
-                    return this._unpackSdpAuvRspPayload();
-
                 //KAS
                 case g.SAP_MSG_TYPE.SAP_KAS_REQ:
                     return this._unpackSapKasuReqPayload();
@@ -293,6 +295,7 @@ class LlProtocol {
         //parsing
         const payload = this.msgPayload;
 
+        this.unpackedPayload = {};
         this.unpackedPayload.bdt = payload.bdt;
         this.unpackedPayload.gender = payload.gender;
         this.unpackedPayload.userId = payload.userId;
@@ -307,6 +310,7 @@ class LlProtocol {
         //parsing
         const payload = this.msgPayload;
 
+        this.unpackedPayload = {};
         this.unpackedPayload.bdt = payload.bdt;
         this.unpackedPayload.gender = payload.gender;
         this.unpackedPayload.userId = payload.userId;
@@ -321,6 +325,7 @@ class LlProtocol {
         //parsing
         const payload = this.msgPayload;
 
+        this.unpackedPayload = {};
         this.unpackedPayload.userId = payload.userId;
         this.unpackedPayload.clientType = payload.clientType;
 
@@ -331,6 +336,7 @@ class LlProtocol {
         //parsing
         const payload = this.msgPayload;
 
+        this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
 
         return this.unpackedPayload;
@@ -342,6 +348,7 @@ class LlProtocol {
         //parsing
         const payload = this.msgPayload;
 
+        this.unpackedPayload = {};
         this.unpackedPayload.vc = payload.vc;
         this.unpackedPayload.ac = payload.ac;
 
@@ -352,6 +359,7 @@ class LlProtocol {
         //parsing
         const payload = this.msgPayload;
 
+        this.unpackedPayload = {};
         this.unpackedPayload.vc = payload.vc;
         this.unpackedPayload.ac = payload.ac;
 
@@ -362,6 +370,7 @@ class LlProtocol {
         //parsing
         const payload = this.msgPayload;
 
+        this.unpackedPayload = {};
         this.unpackedPayload.bdt = payload.bdt;
         this.unpackedPayload.gender = payload.gender;
         this.unpackedPayload.userId = payload.userId;
@@ -375,8 +384,9 @@ class LlProtocol {
     _unpackSdpUvcRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
+        this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
 
         return this.unpackedPayload;
@@ -386,40 +396,44 @@ class LlProtocol {
     _unpackSapSgiReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "userId": payload.userId,
-            "userPw": payload.userPw
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.userId = payload.userId;
+        this.unpackedPayload.userPw = payload.userPw;
+
         return this.unpackedPayload;
     }
     _unpackSwpSgiReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "userId": payload.userId,
-            "userPw": payload.userPw
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.userId = payload.userId;
+        this.unpackedPayload.userPw = payload.userPw;
+
         return this.unpackedPayload;
     }
     _unpackSdpSgiReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "userId": payload.userId,
-            "userPw": payload.userPw
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.userId = payload.userId;
+        this.unpackedPayload.userPw = payload.userPw;
+        this.unpackedPayload.clientType = payload.clientType;
+        
         return this.unpackedPayload;
     }
     _unpackSdpSgiRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "resultCode": payload.resultCode
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
         if (payload.resultCode === g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_OK) {
             this.unpackedPayload.usn = payload.usn;
             this.unpackedPayload.ml = payload.ml;
@@ -428,29 +442,44 @@ class LlProtocol {
     }
 
     //SGO
+    _unpackSapSgoNotPayload() {
+        //validation
+        //parsing
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.nsc = payload.nsc;
+
+        return this.unpackedPayload;
+    }
     _unpackSwpSgoNotPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "nsc": payload.nsc
-        }
+        const payload = this.msgPayload;
+        
+        this.unpackedPayload = {};
+        this.unpackedPayload.nsc = payload.nsc;
+
         return this.unpackedPayload;
     }
     _unpackSdpSgoNotPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {}
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.clientType = payload.clientType;
+        
         return this.unpackedPayload;
     }
     _unpackSdpSgoAckPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "resultCode": payload.resultCode
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode ;
+
         return this.unpackedPayload;
     }
 
@@ -458,42 +487,47 @@ class LlProtocol {
     _unpackSapUpcReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "nsc": payload.nsc,
-            "curPw": payload.curPw,
-            "newPw": payload.newPw
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.nsc = payload.nsc;
+        this.unpackedPayload.curPw = payload.curPw;
+        this.unpackedPayload.newPw = payload.newPw;
+        
         return this.unpackedPayload;
     }
     _unpackSwpUpcReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "nsc": payload.nsc,
-            "curPw": payload.curPw,
-            "newPw": payload.newPw
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.nsc = payload.nsc;
+        this.unpackedPayload.curPw = payload.curPw;
+        this.unpackedPayload.newPw = payload.newPw;
+        
         return this.unpackedPayload;
     }
     _unpackSdpUpcReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "curPw": payload.curPw,
-            "newPw": payload.newPw
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.curPw = payload.curPw;
+        this.unpackedPayload.newPw = payload.newPw; 
+        this.unpackedPayload.clientType = payload.clientType;
+
         return this.unpackedPayload;
     }
     _unpackSdpUpcRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "resultCode": payload.resultCode
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
+
         return this.unpackedPayload;
     }
 
@@ -501,47 +535,53 @@ class LlProtocol {
     _unpackSapFpuReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "bdt": payload.bdt,
-            "userId": payload.userId,
-            "userFn": payload.userFn,
-            "userLn": payload.userLn
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.bdt = payload.bdt;
+        this.unpackedPayload.userId = payload.userId;
+        this.unpackedPayload.userFn = payload.userFn;
+        this.unpackedPayload.userLn = payload.userLn;
+
         return this.unpackedPayload;
     }
     _unpackSwpFpuReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "bdt": payload.bdt,
-            "userId": payload.userId,
-            "userFn": payload.userFn,
-            "userLn": payload.userLn
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.bdt = payload.bdt;
+        this.unpackedPayload.userId = payload.userId;
+        this.unpackedPayload.userFn = payload.userFn;
+        this.unpackedPayload.userLn = payload.userLn;
+
         return this.unpackedPayload;
     }
     _unpackSdpFpuReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "bdt": payload.bdt,
-            "userId": payload.userId,
-            "userFn": payload.userFn,
-            "userLn": payload.userLn
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.bdt = payload.bdt;
+        this.unpackedPayload.userId = payload.userId;
+        this.unpackedPayload.userFn = payload.userFn;
+        this.unpackedPayload.userLn = payload.userLn;
+
+        this.unpackedPayload.clientType = payload.clientType;
+
         return this.unpackedPayload;
     }
     _unpackSdpFpuRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "resultCode": payload.resultCode
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
         if (payload.resultCode === 0) this.unpackedPayload.userPw = payload.userPw;
+
         return this.unpackedPayload;
     }
 
@@ -549,29 +589,32 @@ class LlProtocol {
     _unpackSwpUdrReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "nsc": payload.nsc,
-            "userPw": payload.userPw
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.nsc = payload.nsc;
+        this.unpackedPayload.userPw = payload.userPw;
+
         return this.unpackedPayload;
     }
     _unpackSdpUdrReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "userPw": payload.userPw
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.userPw = payload.userPw;
+
         return this.unpackedPayload;
     }
     _unpackSdpUdrRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {
-            "resultCode": payload.resultCode
-        }
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
+        this.unpackedPayload.resultCode = payload.resultCode;
+
         return this.unpackedPayload;
     }
 
@@ -579,8 +622,7 @@ class LlProtocol {
     _unpackSwpAuvReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {};
+        const payload = this.msgPayload;
         this.unpackedPayload.nsc = payload.nsc
         if (typeof payload.regf !== 'undefined') this.unpackedPayload.regf = payload.regf;
         if (typeof payload.signf !== 'undefined') this.unpackedPayload.signf = payload.signf;
@@ -594,7 +636,7 @@ class LlProtocol {
     _unpackSdpAuvReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         if (typeof payload.regf !== 'undefined') this.unpackedPayload.regf = payload.regf;
         if (typeof payload.signf !== 'undefined') this.unpackedPayload.signf = payload.signf;
@@ -603,14 +645,18 @@ class LlProtocol {
         if (typeof payload.userFn !== 'undefined') this.unpackedPayload.userFn = payload.userFn;
         if (typeof payload.userLn !== 'undefined') this.unpackedPayload.userLn = payload.userLn;
         if (typeof payload.oprset !== 'undefined') this.unpackedPayload.oprset = payload.oprset;
+        
         return this.unpackedPayload;
     }
     _unpackSdpAuvRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
+
+        this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode
         if (payload.resultCode === 0) this.unpackedPayload.userInfoListEncodings = payload.userInfoListEncodings;
+        
         return this.unpackedPayload;
     }
 
@@ -618,8 +664,9 @@ class LlProtocol {
     _unpackSwpAsrReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
+        this.unpackedPayload = {};
         this.unpackedPayload.nsc = payload.nsc;
         this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.cmac = payload.cmac;
@@ -629,8 +676,9 @@ class LlProtocol {
     _unpackSdpAsrReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
+        this.unpackedPayload = {};
         this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.cmac = payload.cmac;
 
@@ -639,9 +687,11 @@ class LlProtocol {
     _unpackSdpAsrRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
+
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
+
         return this.unpackedPayload;
     }
 
@@ -649,7 +699,7 @@ class LlProtocol {
     _unpackSwpAsdReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload.nsc = payload.nsc;
         this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.drgcd = payload.drgcd;
@@ -660,7 +710,7 @@ class LlProtocol {
     _unpackSdpAsdReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.drgcd = payload.drgcd;
@@ -671,7 +721,7 @@ class LlProtocol {
     _unpackSdpAsdRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
@@ -681,7 +731,7 @@ class LlProtocol {
     _unpackSwpAsvReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         if (typeof payload.nsc !== 'undefined') this.unpackedPayload.nsc = payload.nsc;
         if (typeof payload.wmac !== 'undefined') this.unpackedPayload.wmac = payload.wmac;
@@ -698,7 +748,7 @@ class LlProtocol {
     _unpackSdpAsvReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         if (typeof payload.wmac !== 'undefined') this.unpackedPayload.wmac = payload.wmac;
         if (typeof payload.actf !== 'undefined') this.unpackedPayload.actf = payload.actf;
@@ -713,7 +763,7 @@ class LlProtocol {
     _unpackSdpAsvRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         this.unpackedPayload.selectedSensorInformationList = payload.selectedSensorInformationList;
@@ -724,7 +774,7 @@ class LlProtocol {
     _unpackSwpSrgReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload.nsc = payload.nsc;
         this.unpackedPayload.wmac = payload.wmac;
@@ -735,17 +785,18 @@ class LlProtocol {
     _unpackSdpSrgReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.cmac = payload.cmac;
+        this.unpackedPayload.clientType = payload.clientType;
         
         return this.unpackedPayload;
     }
     _unpackSdpSrgRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
@@ -755,7 +806,7 @@ class LlProtocol {
     _unpackSwpSasReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload.nsc = payload.nsc;
         this.unpackedPayload.wmac = payload.wmac;
@@ -766,17 +817,18 @@ class LlProtocol {
     _unpackSdpSasReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.mob = payload.mob;
+        this.unpackedPayload.clientType = payload.clientType;
 
         return this.unpackedPayload;
     }
     _unpackSdpSasRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {}
         this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
@@ -786,7 +838,7 @@ class LlProtocol {
     _unpackSwpSddReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload.nsc = payload.nsc;
         this.unpackedPayload.wmac = payload.wmac;
@@ -797,17 +849,18 @@ class LlProtocol {
     _unpackSdpSddReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload.wmac = payload.wmac;
         this.unpackedPayload.drgcd = payload.drgcd;
+        this.unpackedPayload.clientType = payload.clientType;
 
         return this.unpackedPayload;
     }
     _unpackSdpSddRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {}
         this.unpackedPayload.resultCode = payload.resultCode;
         return this.unpackedPayload;
@@ -817,7 +870,7 @@ class LlProtocol {
     _unpackSwpSlvReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         if (typeof payload.nsc !== 'undefined') this.unpackedPayload.nsc = payload.nsc;
 
@@ -826,14 +879,15 @@ class LlProtocol {
     _unpackSdpSlvReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
-        this.unpackedPayload = {};
+        const payload = this.msgPayload;
+        this.unpackedPayload.clientType = payload.clientType;
+
         return this.unpackedPayload;
     }
     _unpackSdpSlvRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         this.unpackedPayload.existCode = payload.existCode;
@@ -845,7 +899,7 @@ class LlProtocol {
     _unpackSwpSirReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
 
         this.unpackedPayload.wmac = payload.wmac;
@@ -855,7 +909,7 @@ class LlProtocol {
     _unpackSdpSirReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
 
         this.unpackedPayload.wmac = payload.wmac;
@@ -865,7 +919,7 @@ class LlProtocol {
     _unpackSdpSirRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         if (payload.resultCode === 0) this.unpackedPayload.ssn = payload.ssn;
@@ -876,7 +930,7 @@ class LlProtocol {
     _unpackSspDcaReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.lat = payload.lat;
         this.unpackedPayload.lng = payload.lng;
@@ -889,7 +943,7 @@ class LlProtocol {
     _unpackSapDcaReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload = {};
         this.unpackedPayload.nsc = payload.nsc;
@@ -899,7 +953,7 @@ class LlProtocol {
     _unpackSdpDcaReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload = {};
         //If the server received ssp:dca-req message, sdpDcaReq must have following lat, lng
@@ -911,7 +965,7 @@ class LlProtocol {
     _unpackSdpDcaRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         if (payload.resultCode === 0) {
@@ -927,7 +981,7 @@ class LlProtocol {
     _unpackSspDcdNotPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload = {};
 
@@ -936,7 +990,7 @@ class LlProtocol {
     _unpackSapDcdNotPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload = {};
 
@@ -945,7 +999,7 @@ class LlProtocol {
     _unpackSdpDcdNotPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
 
         this.unpackedPayload = {};
         this.unpackedPayload.entityType = payload.entityType;
@@ -955,7 +1009,7 @@ class LlProtocol {
     _unpackSdpDcdAckPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
 
         this.unpackedPayload.resultCode = payload.resultCode;
@@ -967,7 +1021,7 @@ class LlProtocol {
     _unpackSwpRavReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
 
         this.unpackedPayload.nsc = payload.nsc;
@@ -979,7 +1033,7 @@ class LlProtocol {
     _unpackSwpRhvReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
 
         this.unpackedPayload.nsc = payload.nsc;
@@ -991,7 +1045,7 @@ class LlProtocol {
     _unpackSwpHavReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.nsc = payload.nsc;
         this.unpackedPayload.ownershipCode = payload.ownershipCode;
@@ -1007,7 +1061,7 @@ class LlProtocol {
     _unpackSdpHavReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
 
         this.unpackedPayload.ownershipCode = payload.ownershipCode;
@@ -1023,7 +1077,7 @@ class LlProtocol {
     _unpackSdpHavRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         if (payload.resultCode === 0) this.unpackedPayload.lastFlg = payload.lastFlg;
@@ -1036,7 +1090,7 @@ class LlProtocol {
     _unpackSwpHhvReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.nsc = payload.nsc;
         this.unpackedPayload.sTs = payload.sTs;
@@ -1050,7 +1104,7 @@ class LlProtocol {
     _unpackSdpHhvReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
 
         this.unpackedPayload.sTs = payload.sTs;
@@ -1064,7 +1118,7 @@ class LlProtocol {
     _unpackSdpHhvRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         if (payload.resultCode === 0) this.unpackedPayload.lastFlg = payload.lastFlg;
@@ -1076,7 +1130,7 @@ class LlProtocol {
     _unpackSwpShrReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.nsc = payload.nsc;
         this.unpackedPayload.nat = payload.nat;
@@ -1088,7 +1142,7 @@ class LlProtocol {
     _unpackSdpShrReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
 
         this.unpackedPayload.nat = payload.nat;
@@ -1100,7 +1154,7 @@ class LlProtocol {
     _unpackSdpShrRspPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         if (payload.resultCode === 0) this.unpackedPayload.sensorHistoryRecordListEncodings = payload.sensorHistoryRecordListEncodings;
@@ -1111,14 +1165,14 @@ class LlProtocol {
     _unpackSapKasReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload.nsc = payload.nsc;
         return this.unpackedPayload;
     }
     _unpackSwpKasReqPayload() {
         //validation
         //parsing
-        var payload = this.msgPayload;
+        const payload = this.msgPayload;
         this.unpackedPayload.nsc = payload.nsc;
         return this.unpackedPayload;
     }
@@ -1190,6 +1244,8 @@ class LlProtocol {
                     return this._packSdpSgiRsp(payload);
 
                 //SGO    
+                case g.SAP_MSG_TYPE.SAP_SGO_ACK:
+                    return this._packSapSgoAck(payload);
                 case g.SWP_MSG_TYPE.SWP_SGO_ACK:
                     return this._packSwpSgoAck(payload);
                 case g.SDP_MSG_TYPE.SDP_SGO_NOT:
@@ -1258,6 +1314,8 @@ class LlProtocol {
                     return this._packSdpAsvRsp(payload);
 
                 //SRG
+                case g.SAP_MSG_TYPE.SAP_SRG_RSP:
+                    return this._packSapSrgRsp(payload);
                 case g.SWP_MSG_TYPE.SWP_SRG_RSP:
                     return this._packSwpSrgRsp(payload);
                 case g.SDP_MSG_TYPE.SDP_SRG_REQ:
@@ -1266,6 +1324,8 @@ class LlProtocol {
                     return this._packSdpSrgRsp(payload);
 
                 //SAS
+                case g.SAP_MSG_TYPE.SAP_SAS_RSP:
+                    return this._packSapSasRsp(payload);
                 case g.SWP_MSG_TYPE.SWP_SAS_RSP:
                     return this._packSwpSasRsp(payload);
                 case g.SDP_MSG_TYPE.SDP_SAS_REQ:
@@ -1274,6 +1334,8 @@ class LlProtocol {
                     return this._packSdpSasRsp(payload);
 
                 //SDD
+                case g.SAP_MSG_TYPE.SAP_SDD_RSP:
+                    return this._packSapSddRsp(payload);
                 case g.SWP_MSG_TYPE.SWP_SDD_RSP:
                     return this._packSwpSddRsp(payload);
                 case g.SDP_MSG_TYPE.SDP_SDD_REQ:
@@ -1282,6 +1344,8 @@ class LlProtocol {
                     return this._packSdpSddRsp(payload);
 
                 //SLV
+                case g.SAP_MSG_TYPE.SAP_SLV_RSP:
+                    return this._packSapSlvRsp(payload);
                 case g.SWP_MSG_TYPE.SWP_SLV_RSP:
                     return this._packSwpSlvRsp(payload);
                 case g.SDP_MSG_TYPE.SDP_SLV_REQ:
@@ -1290,15 +1354,15 @@ class LlProtocol {
                     return this._packSdpSlvRsp(payload);
                     
                 //SIR
-                case g.SWP_MSG_TYPE.SWP_SIR_RSP:
-                    return this._packSwpSirRsp(payload);
+                case g.SSP_MSG_TYPE.SSP_SIR_RSP:
+                    return this._packSspSirRsp(payload);
                 case g.SDP_MSG_TYPE.SDP_SIR_REQ:
                     return this._packSdpSirReq(payload);
                 case g.SDP_MSG_TYPE.SDP_SIR_RSP:
                     return this._packSdpSirRsp(payload);
 
                 //DCA
-                case g.SWP_MSG_TYPE.SSP_DCA_RSP:
+                case g.SSP_MSG_TYPE.SSP_DCA_RSP:
                     return this._packSspDcaRsp(payload);
                 case g.SWP_MSG_TYPE.SAP_DCA_RSP:
                     return this._packSapDcaRsp(payload);
@@ -1498,6 +1562,16 @@ class LlProtocol {
     }
 
     //SGO
+    _packSapSgoAck(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_SGO_ACK,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
     _packSwpSgoAck(payload) {
         return this.packedMsg = {
             "header": {
@@ -1807,6 +1881,16 @@ class LlProtocol {
     }
 
     //SAS
+    _packSapSasRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_SAS_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
     _packSwpSasRsp(payload) {
         return this.packedMsg = {
             "header": {
@@ -1839,6 +1923,16 @@ class LlProtocol {
     }
     
     //SDD
+    _packSapSddRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_SDD_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
     _packSwpSddRsp(payload) {
         return this.packedMsg = {
             "header": {
@@ -1871,6 +1965,16 @@ class LlProtocol {
     }
 
     //SLV
+    _packSapSlvRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_SLV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
     _packSwpSlvRsp(payload) {
         return this.packedMsg = {
             "header": {
@@ -1902,11 +2006,11 @@ class LlProtocol {
         }
     }
 
-    //Sir
-    _packSwpSirRsp(payload) {
+    //SIR
+    _packSspSirRsp(payload) {
         return this.packedMsg = {
             "header": {
-                "msgType": g.SWP_MSG_TYPE.SWP_SIR_RSP,
+                "msgType": g.SSP_MSG_TYPE.SSP_SIR_RSP,
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },

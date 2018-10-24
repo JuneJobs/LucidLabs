@@ -53,26 +53,30 @@ class userModule {
             }
         }) 
     }
-    checkUserSignedInState(entityType, usn, nsc, cb) {
-        //db
-        //아이디가 없움
-        //NSC가 일치하지 않음
-        if(entityType === undefined || usn === undefined || nsc === undefined) {
+    checkUserSignedInState(entityType, clientType, usn, nsc, cb) {
+        if(entityType === undefined || clientType === undefined || usn === undefined || nsc === undefined) {
             cb(0);
         } else {
             //here!
-            var keyHead = "c:act:s:" + g.ENTITY_TYPE.WEBCLIENT + ":" + usn;
-            redisCli.get(keyHead + ":nsc", (err, reply) => {
+            let keyHead = '',
+                clientKey = g.ENTITY_TYPE.APPCLIENT;
+            if(clientType === g.CLIENT_TYPE.WEB) {
+                clientKey = g.ENTITY_TYPE.WEBCLIENT;
+            } 
+            
+            keyHead = `c:act:s:${clientKey}:${usn}`;
+            
+            redisCli.get(`${keyHead}:nsc`, (err, reply) => {
                 if (err) {} else {
+                    //not exist userId
                     if (reply === null) {
-                        //not exist userId
                         cb(2);
                     } else {
+                        //okay
                         if (reply === nsc.toString()) {
-                            //okay
                             cb(1);
+                        //incorrect nsc
                         } else {
-                            //incorrect nsc
                             cb(3);
                         }
                     }
