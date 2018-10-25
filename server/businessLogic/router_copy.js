@@ -1524,6 +1524,8 @@ router.post("/serverapi", function (req, res) {
             });
             break;
 
+            
+        case g.SSP_MSG_TYPE.SSP_SIR_REQ:
             /**
              * SSP: SIR-REQ
              * 1.~ Check complict tsi in server
@@ -1537,8 +1539,6 @@ router.post("/serverapi", function (req, res) {
              * 1.2.~ if Complict
              * 1.2.1.~ Send 2. complict
              */
-        case g.SSP_MSG_TYPE.SSP_SIR_REQ:
-
             // 1.~
             redisCli.keys("c:sta:s:s:" + unpackedPayload.tsi + ":*", (err, keys) => {
                 var payload = {};
@@ -3694,6 +3694,8 @@ router.post("/databaseapi", (req, res) => {
                 }
             });
             break;
+            
+        case g.SDP_MSG_TYPE.SDP_SIR_REQ:
             /**
              * 1.~ check existance wmac
              * 1.1.~ if exist
@@ -3706,7 +3708,6 @@ router.post("/databaseapi", (req, res) => {
              * 1.2.~ if not exist
              * 1.2.1.~ send 2. not exist wmac
              */
-        case g.SDP_MSG_TYPE.SDP_SIR_REQ:
             var payload = {};
             // 1~
             redisCli.get("s:info:" + unpackedPayload.wmac, (err, ssn) => {

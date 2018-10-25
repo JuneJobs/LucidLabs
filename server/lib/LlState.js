@@ -28,9 +28,9 @@ class LlState {
                     break;
                 case g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN:
                     if (entity === g.ENTITY_TYPE.SERVER) {
-                        key = `c:sta:s:s:ssn:${stateId}:*`;
+                        key = `c:sta:s:s:ssn:${stateId}`;
                     } else if (entity === g.ENTITY_TYPE.DATABASE) {
-                        key = `c:sta:d:s:ssn:${stateId}:*`;
+                        key = `c:sta:d:s:ssn:${stateId}`;
                     }
                     searchType = 'get';
                     break;

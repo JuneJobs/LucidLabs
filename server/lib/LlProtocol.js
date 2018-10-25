@@ -224,8 +224,8 @@ class LlProtocol {
                     return this._unpackSdpSlvRspPayload();
 
                 //SIR
-                case g.SWP_MSG_TYPE.SWP_SIR_REQ:
-                    return this._unpackSwpSirReqPayload();
+                case g.SSP_MSG_TYPE.SSP_SIR_REQ:
+                    return this._unpackSspSirReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SIR_REQ:
                     return this._unpackSdpSirReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SIR_RSP:
@@ -234,7 +234,7 @@ class LlProtocol {
                 //DCA
                 case g.SSP_MSG_TYPE.SSP_DCA_REQ:
                     return this._unpackSspDcaReqPayload();
-                case g.SWP_MSG_TYPE.SAP_DCA_REQ:
+                case g.SAP_MSG_TYPE.SAP_DCA_REQ:
                     return this._unpackSapDcaReqPayload();
                 case g.SDP_MSG_TYPE.SDP_DCA_REQ:
                     return this._unpackSdpDcaReqPayload();
@@ -244,7 +244,7 @@ class LlProtocol {
                 //DCD
                 case g.SSP_MSG_TYPE.SSP_DCD_NOT:
                     return this._unpackSspDcdNotPayload();
-                case g.SWP_MSG_TYPE.SAP_DCD_NOT:
+                case g.SAP_MSG_TYPE.SAP_DCD_NOT:
                     return this._unpackSapDcdNotPayload();
                 case g.SDP_MSG_TYPE.SDP_DCD_NOT:
                     return this._unpackSdpDcdNotPayload();
@@ -953,7 +953,7 @@ class LlProtocol {
     }
 
     //SIR
-    _unpackSwpSirReqPayload() {
+    _unpackSspSirReqPayload() {
         //validation
         //parsing
         const payload = this.msgPayload;
@@ -1026,10 +1026,8 @@ class LlProtocol {
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         if (payload.resultCode === 0) {
-            this.unpackedPayload.cid = payload.cid;
-            this.unpackedPayload.cid = payload.mti;
-            this.unpackedPayload.cid = payload.tti;
-            this.unpackedPayload.mob = payload.mob;
+            if (typeof payload.mti !== 'undefined') this.unpackedPayload.mti = payload.mti;
+            if (typeof payload.mobf !== 'undefined') this.unpackedPayload.mobf = payload.mobf;
         }
         return this.unpackedPayload;
     }
@@ -1421,7 +1419,7 @@ class LlProtocol {
                 //DCA
                 case g.SSP_MSG_TYPE.SSP_DCA_RSP:
                     return this._packSspDcaRsp(payload);
-                case g.SWP_MSG_TYPE.SAP_DCA_RSP:
+                case g.SAP_MSG_TYPE.SAP_DCA_RSP:
                     return this._packSapDcaRsp(payload);
                 case g.SDP_MSG_TYPE.SDP_DCA_REQ:
                     return this._packSdpDcaReq(payload);
@@ -1429,9 +1427,9 @@ class LlProtocol {
                     return this._packSdpDcaRsp(payload);
                 
                 //DCD
-                case g.SWP_MSG_TYPE.SSP_DCD_ACK:
+                case g.SSP_MSG_TYPE.SSP_DCD_ACK:
                     return this._packSspDcdAck(payload);
-                case g.SWP_MSG_TYPE.SAP_DCD_ACK:
+                case g.SAP_MSG_TYPE.SAP_DCD_ACK:
                     return this._packSapDcdAck(payload);
                 case g.SDP_MSG_TYPE.SDP_DCD_ACK:
                     return this._packSdpDcdNot(payload);
