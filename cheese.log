@@ -1,0 +1,172 @@
+[2018-10-24T23:27:16.007] [DEBUG] default - Running on port 8080
+[2018-10-24T23:28:16.008] [DEBUG] default - Running on port 8080
+[2018-10-24T23:29:16.007] [DEBUG] default - Running on port 8080
+[2018-10-24T23:30:16.005] [DEBUG] default - Running on port 8080
+[2018-10-24T23:31:16.009] [DEBUG] default - Running on port 8080
+[2018-10-24T23:32:16.010] [DEBUG] default - Running on port 8080
+[2018-10-24T23:33:16.012] [DEBUG] default - Running on port 8080
+[2018-10-24T23:34:16.013] [DEBUG] default - Running on port 8080
+[2018-10-24T23:35:16.015] [DEBUG] default - Running on port 8080
+[2018-10-24T23:36:16.013] [DEBUG] default - Running on port 8080
+[2018-10-24T23:37:16.015] [DEBUG] default - Running on port 8080
+[2018-10-24T23:38:16.017] [DEBUG] default - Running on port 8080
+[2018-10-24T23:39:16.019] [DEBUG] default - Running on port 8080
+[2018-10-24T23:40:16.016] [DEBUG] default - Running on port 8080
+[2018-10-24T23:41:16.015] [DEBUG] default - Running on port 8080
+[2018-10-24T23:42:16.014] [DEBUG] default - Running on port 8080
+[2018-10-25T11:15:35.095] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:15:35.102] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T11:15:35.108] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T11:15:35.121] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2018-10-25T11:16:34.284] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:16:34.287] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T11:16:34.294] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T11:16:34.309] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2018-10-25T11:17:00.451] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:17:00.455] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T11:17:00.462] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T11:17:00.476] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2018-10-25T11:17:46.589] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:17:46.593] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T11:17:46.601] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T11:17:46.614] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2018-10-25T11:18:32.176] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:18:32.180] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T11:18:32.187] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T11:18:32.200] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-25T11:19:16.409] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:19:16.412] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T11:19:16.420] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T11:19:16.436] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-25T11:19:47.014] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:19:47.018] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":31,"msgLen":0,"endpointId":1},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}}
+[2018-10-25T11:19:47.025] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2018-10-25T11:19:47.026] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2018-10-25T11:19:47.026] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2018-10-25T11:19:47.041] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2018-10-25T11:19:47.043] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2018-10-25T11:20:02.536] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:20:02.540] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":31,"msgLen":0,"endpointId":1},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}}
+[2018-10-25T11:20:02.547] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2018-10-25T11:20:02.548] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2018-10-25T11:20:02.549] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2018-10-25T11:20:02.564] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2018-10-25T11:20:02.565] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2018-10-25T11:20:23.130] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:20:23.134] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T11:20:23.141] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T11:20:23.166] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-25T11:20:23.254] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T11:20:23.255] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-25T11:20:23.264] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","1","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2018-10-25T11:20:23.265] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T11:21:19.024] [DEBUG] default - Running on port 8080
+[2018-10-25T11:21:23.926] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:21:23.928] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T11:21:23.931] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T11:21:23.938] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2018-10-25T11:21:24.017] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T11:21:24.018] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-25T11:21:24.023] [DEBUG] default - | SERVER stored active user [["set","c:act:s:w:1:signf","1","EX",1800],["set","c:act:s:w:1:nsc","1","EX",1800],["set","c:act:s:w:1:ml","0","EX",1800]]
+[2018-10-25T11:21:24.024] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T11:21:28.136] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:21:28.137] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:22:04.622] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:22:04.627] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:22:39.644] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:22:39.645] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:23:03.781] [DEBUG] default - Running on port 8080
+[2018-10-25T11:24:03.782] [DEBUG] default - Running on port 8080
+[2018-10-25T11:24:42.902] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:24:42.906] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:24:45.097] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:24:58.016] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:24:58.020] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:25:00.706] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:27:38.184] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:27:38.188] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:27:43.594] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:29:44.078] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:29:44.082] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:29:46.670] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:29:47.848] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2018-10-25T11:30:05.451] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:30:05.455] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:30:08.461] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:31:38.362] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:31:38.367] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:31:38.389] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:32:10.496] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:32:10.500] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:32:10.523] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:32:47.561] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:32:47.565] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:32:47.584] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:34:09.921] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:34:09.925] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:34:09.947] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:36:36.601] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:36:36.605] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:36:36.624] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:52:37.947] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:52:37.951] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:52:37.956] [DEBUG] default - | SERVER send response: {}
+[2018-10-25T11:52:42.201] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:52:42.202] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T11:52:42.205] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T11:52:42.219] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2018-10-25T11:52:42.303] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T11:52:42.303] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-25T11:52:42.310] [DEBUG] default - | SERVER stored active user [["set","c:act:s:w:1:signf","1","EX",1800],["set","c:act:s:w:1:nsc","1","EX",1800],["set","c:act:s:w:1:ml","0","EX",1800]]
+[2018-10-25T11:52:42.311] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T11:52:57.039] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:52:57.040] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:52:57.048] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:53:36.109] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:53:36.114] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:53:36.133] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:56:19.149] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:56:19.153] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:56:19.172] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:56:27.226] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[["3d22c2e2e9ac","3c22c2e2e9ac","1540418553","0","255","0",null,null,null,""],["3E22c2e2e9ac","3c22c2e2e9ac","1540418558","0","255","0",null,null,null,""],["3F22c2e2e9ac","3c22c2e2e9ac","1540418561","0","255","0",null,null,null,""],["4D22AAe2e9ac","3c22c2e2e9ac","1540431423","0","255","0",null,null,null,""]]}}
+[2018-10-25T11:56:37.994] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:56:37.999] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:56:38.021] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:57:51.491] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[["3d22c2e2e9ac","3c22c2e2e9ac","1540418553","0","255","0",null,null,null,""],["3E22c2e2e9ac","3c22c2e2e9ac","1540418558","0","255","0",null,null,null,""],["3F22c2e2e9ac","3c22c2e2e9ac","1540418561","0","255","0",null,null,null,""],["4D22AAe2e9ac","3c22c2e2e9ac","1540431423","0","255","0",null,null,null,""]]}}
+[2018-10-25T11:57:51.497] [DEBUG] default - Running on port 8080
+[2018-10-25T11:58:45.868] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:58:45.872] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:58:45.890] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:58:45.894] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[["3d22c2e2e9ac","3c22c2e2e9ac","1540418553","0","255","0",null,null,null,""],["3E22c2e2e9ac","3c22c2e2e9ac","1540418558","0","255","0",null,null,null,""],["3F22c2e2e9ac","3c22c2e2e9ac","1540418561","0","255","0",null,null,null,""],["4D22AAe2e9ac","3c22c2e2e9ac","1540431423","0","255","0",null,null,null,""]]}}
+[2018-10-25T11:59:22.169] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:59:22.173] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:59:22.192] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:59:22.196] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[["3d22c2e2e9ac","3c22c2e2e9ac","1540418553","0","255","0",null,null,null,""],["3E22c2e2e9ac","3c22c2e2e9ac","1540418558","0","255","0",null,null,null,""],["3F22c2e2e9ac","3c22c2e2e9ac","1540418561","0","255","0",null,null,null,""],["4D22AAe2e9ac","3c22c2e2e9ac","1540431423","0","255","0",null,null,null,""]]}}
+[2018-10-25T11:59:25.218] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2018-10-25T11:59:25.219] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T11:59:38.402] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T11:59:38.406] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T11:59:38.425] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T11:59:38.429] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[["3d22c2e2e9ac","3c22c2e2e9ac","1540418553","0","255","0",null,null,null,""],["3E22c2e2e9ac","3c22c2e2e9ac","1540418558","0","255","0",null,null,null,""],["3F22c2e2e9ac","3c22c2e2e9ac","1540418561","0","255","0",null,null,null,""],["4D22AAe2e9ac","3c22c2e2e9ac","1540431423","0","255","0",null,null,null,""]]}}
+[2018-10-25T12:00:39.977] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T12:00:39.981] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T12:00:40.001] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2018-10-25T12:00:40.005] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[["3d22c2e2e9ac","3c22c2e2e9ac","1540418553","0","255","0",null,null,null,""],["3E22c2e2e9ac","3c22c2e2e9ac","1540418558","0","255","0",null,null,null,""],["3F22c2e2e9ac","3c22c2e2e9ac","1540418561","0","255","0",null,null,null,""],["4D22AAe2e9ac","3c22c2e2e9ac","1540431423","0","255","0",null,null,null,""]]}}
+[2018-10-25T12:00:48.552] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2018-10-25T12:00:48.553] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["3d22c2e2e9ac","3c22c2e2e9ac","1540418553","0","255","0",null,null,null,""],["3E22c2e2e9ac","3c22c2e2e9ac","1540418558","0","255","0",null,null,null,""],["3F22c2e2e9ac","3c22c2e2e9ac","1540418561","0","255","0",null,null,null,""],["4D22AAe2e9ac","3c22c2e2e9ac","1540431423","0","255","0",null,null,null,""]]}}
+[2018-10-25T12:01:28.712] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T12:01:28.713] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T12:01:28.715] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T12:01:28.722] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-25T12:01:28.805] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T12:01:28.805] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-25T12:01:28.810] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","1","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2018-10-25T12:01:28.811] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T12:01:38.230] [DEBUG] default - Running on port 8080
+[2018-10-25T12:02:19.480] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T12:02:19.481] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":49,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T12:02:19.491] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":1}}
+[2018-10-25T12:02:19.493] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[["3d22c2e2e9ac","3c22c2e2e9ac","1540418553","0","255","0",null,null,null,""],["3E22c2e2e9ac","3c22c2e2e9ac","1540418558","0","255","0",null,null,null,""],["3F22c2e2e9ac","3c22c2e2e9ac","1540418561","0","255","0",null,null,null,""],["4D22AAe2e9ac","3c22c2e2e9ac","1540431423","0","255","0",null,null,null,""]]}}
+[2018-10-25T12:02:19.496] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2018-10-25T12:02:19.496] [DEBUG] default - | SERVER send response: {"header":{"msgType":50,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["3d22c2e2e9ac","3c22c2e2e9ac","1540418553","0","255","0",null,null,null,""],["3E22c2e2e9ac","3c22c2e2e9ac","1540418558","0","255","0",null,null,null,""],["3F22c2e2e9ac","3c22c2e2e9ac","1540418561","0","255","0",null,null,null,""],["4D22AAe2e9ac","3c22c2e2e9ac","1540431423","0","255","0",null,null,null,""]]}}
+[2018-10-25T12:02:38.233] [DEBUG] default - Running on port 8080

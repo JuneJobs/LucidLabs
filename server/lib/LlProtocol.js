@@ -212,7 +212,17 @@ class LlProtocol {
                     return this._unpackSdpSddReqPayload();
                 case g.SDP_MSG_TYPE.SDP_SDD_RSP:
                     return this._unpackSdpSddRspPayload();
-                
+
+                //SLV
+                case g.SAP_MSG_TYPE.SAP_SLV_REQ:
+                    return this._unpackSapSlvReqPayload();
+                case g.SWP_MSG_TYPE.SWP_SLV_REQ:
+                    return this._unpackSwpSlvReqPayload();
+                case g.SDP_MSG_TYPE.SDP_SLV_REQ:
+                    return this._unpackSdpSlvReqPayload();
+                case g.SDP_MSG_TYPE.SDP_SLV_RSP:
+                    return this._unpackSdpSlvRspPayload();
+
                 //SIR
                 case g.SWP_MSG_TYPE.SWP_SIR_REQ:
                     return this._unpackSwpSirReqPayload();
@@ -938,7 +948,7 @@ class LlProtocol {
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
         this.unpackedPayload.existCode = payload.existCode;
-        if (payload.resultCode === 0 && payload.existCode === 0) this.unpackedPayload.ownSensorInfoList = payload.ownSensorInfoList;
+        if (payload.resultCode === 0 && payload.existCode === 0) this.unpackedPayload.selectedSensorInformationList = payload.selectedSensorInformationList;
         return this.unpackedPayload;
     }
 
