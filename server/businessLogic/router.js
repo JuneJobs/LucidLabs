@@ -1857,6 +1857,7 @@ router.post("/serverapi", function (req, res) {
                     res.send(protocol.getPackedMsg());
                 }
             });
+
         /*
          * Receive SWP: ASV-REQ
          * Last update: 10.25.2018
@@ -1928,8 +1929,8 @@ router.post("/serverapi", function (req, res) {
                             })
                         } else {
                             payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASV.RESCODE_SWP_ASV_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
-                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASV_RSP, payload)
-                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`)
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASV_RSP, payload);
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                             res.send(protocol.getPackedMsg());
                         }
                     });
@@ -1941,7 +1942,500 @@ router.post("/serverapi", function (req, res) {
                     res.send(protocol.getPackedMsg());
                 }
             });
-            break;
+        /*
+         * Receive SAP: SRG-REQ
+         * Last update: 10.25.2018
+         * Author: Junhee Park
+         */
+        case g.SAP_MSG_TYPE.SAP_SRG_REQ:
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                if (resState) {
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.APPCLIENT, g.CLIENT_TYPE.APP, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if (result === 1) {
+                            payload.wmac = unpackedPayload.wmac;
+                            payload.cmac = unpackedPayload.cmac;
+                            payload.clientType = g.CLIENT_TYPE.APP;
+                            payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_REQ, payload);
+                            request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                payload = {};
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+
+                                switch (unpackedPayload.resultCode) {
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OK:
+                                        uModule.updateUserSignedInState(g.ENTITY_TYPE.APPCLIENT, protocol.getEndpointId(), (result) => {
+                                            if (result) {
+                                                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SRG.RESCODE_SAP_SRG_OK;
+                                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_SRG_RSP, payload);
+
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
+
+                                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                res.send(protocol.getPackedMsg());
+                                            }
+                                        });
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OTHER:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SRG.RESCODE_SAP_SRG_OTHER;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_SRG_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SRG.RESCODE_SAP_SRG_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_SRG_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+                                }
+                            })
+                        } else if (result === 3) {
+                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SRG.RESCODE_SAP_SRG_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_SRG_RSP, payload);
+
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
+                        }
+                    });
+                } else {
+                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SRG.RESCODE_SAP_SRG_OTHER;
+                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_SRG_RSP, payload);
+
+                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                    res.send(protocol.getPackedMsg());
+                }
+            });
+
+        /*
+         * Receive SWP: SRG-REQ
+         * Last update: 10.25.2018
+         * Author: Junhee Park
+         */
+        case g.SWP_MSG_TYPE.SWP_SRG_REQ:
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                if (resState) {
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if (result === 1) {
+                            payload.wmac = unpackedPayload.wmac;
+                            payload.cmac = unpackedPayload.cmac;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
+                            payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_REQ, payload);
+                            request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                payload = {};
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+
+                                switch (unpackedPayload.resultCode) {
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OK:
+                                        uModule.updateUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), (result) => {
+                                            if (result) {
+                                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SRG.RESCODE_SWP_SRG_OK;
+                                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_SRG_RSP, payload);
+
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
+
+                                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                res.send(protocol.getPackedMsg());
+                                            }
+                                        });
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OTHER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SRG.RESCODE_SWP_SRG_OTHER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SRG_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SRG.RESCODE_SWP_SRG_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SRG_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+                                }
+                            })
+                        } else if (result === 3) {
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SRG.RESCODE_SWP_SRG_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_SRG_RSP, payload);
+
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
+                        }
+                    });
+                } else {
+                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SRG.RESCODE_SWP_SRG_OTHER;
+                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_SRG_RSP, payload);
+                    
+                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                    res.send(protocol.getPackedMsg());
+                }
+            });
+
+        /*
+         * Receive SAP: SAS-REQ
+         * Last update: 10.25.2018
+         * Author: Junhee Park
+         */
+        case g.SAP_MSG_TYPE.SAP_SAS_REQ:
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                if (resState) {
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.APPCLIENT, g.CLIENT_TYPE.APP, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if (result === 1) {
+                            payload.wmac = unpackedPayload.wmac;
+                            payload.mobf = unpackedPayload.mobf;
+                            payload.clientType = g.CLIENT_TYPE.APP;
+                            payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SAS_REQ, payload);
+                            request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                payload = {};
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+                                switch (unpackedPayload.resultCode) {
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_OK:
+                                        uModule.updateUserSignedInState(g.ENTITY_TYPE.APPCLIENT, protocol.getEndpointId(), (result) => {
+                                            if (result) {
+                                                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_OK;
+                                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
+
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
+
+                                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                res.send(protocol.getPackedMsg());
+                                            }
+                                        });
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_OTHER:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_OTHER;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_NOT_EXIST_WIFI_MAC_ADDRESS:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SDP_SAS_NOT_EXIST_WIFI_MAC_ADDRESS;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_THE_REQUESTED_WIFI_MAC_WAS_ALREADY_ASSOCIATED_WITH_OWN_USN:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_THE_REQUESTED_WIFI_MAC_WAS_ALREADY_ASSOCIATED_WITH_OWN_USN;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+                                }
+                            });
+                        } else if (result === 3) {
+                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
+
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
+                        }
+                    });
+                } else {
+                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_OTHER;
+                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
+
+                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                    res.send(protocol.getPackedMsg());
+                }
+            });
+        
+
+        /*
+         * Receive SWP: SAS-REQ
+         * Last update: 10.25.2018
+         * Author: Junhee Park
+         */
+        case g.SWP_MSG_TYPE.SWP_SAS_REQ:
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                if (resState) {
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if (result === 1) {
+                            payload.wmac = unpackedPayload.wmac;
+                            payload.mobf = unpackedPayload.mobf;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
+                            payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SAS_REQ, payload);
+                            request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                payload = {};
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+                                switch (unpackedPayload.resultCode) {
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_OK:
+                                        uModule.updateUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), (result) => {
+                                            if (result) {
+                                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SAS.RESCODE_SWP_SAS_OK;
+                                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_SAS_RSP, payload);
+                                                
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
+                                                
+                                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                res.send(protocol.getPackedMsg());
+                                            }
+                                        });
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_OTHER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SAS.RESCODE_SWP_SAS_OTHER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SAS_RSP, payload);
+                                        
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SAS.RESCODE_SWP_SAS_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SAS_RSP, payload);
+                                        
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_NOT_EXIST_WIFI_MAC_ADDRESS:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SAS.RESCODE_SDP_SAS_NOT_EXIST_WIFI_MAC_ADDRESS;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SAS_RSP, payload);
+                                        
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_THE_REQUESTED_WIFI_MAC_WAS_ALREADY_ASSOCIATED_WITH_OWN_USN:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SAS.RESCODE_SWP_SAS_THE_REQUESTED_WIFI_MAC_WAS_ALREADY_ASSOCIATED_WITH_OWN_USN;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SAS_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+                                }
+                            });
+                        } else if (result === 3) {
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SAS.RESCODE_SWP_SAS_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_SAS_RSP, payload);
+
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
+                        }
+                    });
+                } else {
+                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SAS.RESCODE_SWP_SAS_OTHER;
+                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_SAS_RSP, payload);
+
+                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                    res.send(protocol.getPackedMsg());
+                }
+            });
+
+        /**
+         * Receive SAP: SDD-REQ
+         * Last update: 10.25.2018
+         * Author: Junhee Park
+         */
+        case g.SAP_MSG_TYPE.SAP_SDD_REQ:
+            //check state
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                //State exist
+                if (resState) {
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.APPCLIENT, g.CLIENT_TYPE.APP, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if (result === 1) {
+                            payload.wmac = unpackedPayload.wmac;
+                            payload.drgcd = unpackedPayload.drgcd;
+                            payload.clientType = g.CLIENT_TYPE.APP;
+                            payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SDD_REQ, payload)
+                            request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                payload = {};
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+                                switch (unpackedPayload.resultCode) {
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_OK:
+                                        //유저버퍼 업데이트
+                                        uModule.updateUserSignedInState(g.ENTITY_TYPE.APPCLIENT, protocol.getEndpointId(), (result) => {
+                                            if (result) {
+                                                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SDD.RESCODE_SAP_SDD_OK;
+                                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_SDD_RSP, payload);
+
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
+
+                                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                res.send(protocol.getPackedMsg());
+                                            }
+                                        });
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_OTHER:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SDD.RESCODE_SAP_SDD_OTHER;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_SDD_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SDD.RESCODE_SAP_SDD_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_SDD_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_NOT_EXIST_USER_ID:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SDD.RESCODE_SAP_SDD_NOT_EXIST_USER_ID;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_SDD_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+                                }
+                            });
+                        } else if (result === 3) {
+                            //시퀀스
+                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SDD.RESCODE_SAP_SDD_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_SDD_RSP, payload)
+
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
+                        }
+                    });
+                    //State not exist
+                } else {
+                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SDD.RESCODE_SAP_SDD_OTHER;
+                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+
+                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_SDD_RSP, payload);
+                    res.send(protocol.getPackedMsg());
+                }
+            });
+            
+        /**
+         * Receive SWP: SDD-REQ
+         * Last update: 10.25.2018
+         * Author: Junhee Park
+         */
+        case g.SWP_MSG_TYPE.SWP_SDD_REQ:
+            //check state
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                //State exist
+                if (resState) {
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if (result === 1) {
+                            payload.wmac = unpackedPayload.wmac;
+                            payload.drgcd = unpackedPayload.drgcd;
+                            payload.clientType = g.CLIENT_TYPE.WEB;
+                            payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SDD_REQ, payload)
+                            request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                payload = {};
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+                                switch (unpackedPayload.resultCode) {
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_OK:
+                                        //유저버퍼 업데이트
+                                        uModule.updateUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), (result) => {
+                                            if (result) {
+                                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SDD.RESCODE_SWP_SDD_OK;
+                                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_SDD_RSP, payload);
+
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
+                                                
+                                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                res.send(protocol.getPackedMsg());
+                                            }
+                                        });
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_OTHER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SDD.RESCODE_SWP_SDD_OTHER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SDD_RSP, payload);
+                                        
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SDD.RESCODE_SWP_SDD_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SDD_RSP, payload);
+                                        
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_NOT_EXIST_USER_ID:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SDD.RESCODE_SWP_SDD_NOT_EXIST_USER_ID;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SDD_RSP, payload);
+                                        
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_THE_REQUESTED_USN_AND_WIFI_MAC_ADDRESS_ARE_NOT_ASSOCIATED:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SDD.RESCODE_SWP_SDD_THE_REQUESTED_USN_AND_WIFI_MAC_ADDRESS_ARE_NOT_ASSOCIATED;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_SDD_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+                                }
+                            });
+                        } else if (result === 3) {
+                            //시퀀스
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SDD.RESCODE_SWP_SDD_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_SDD_RSP, payload)
+                            
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
+                        }
+                    });
+                    //State not exist
+                } else {
+                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SDD.RESCODE_SWP_SDD_OTHER;
+                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                    
+                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_SDD_RSP, payload);
+                    res.send(protocol.getPackedMsg());
+                }
+            });
 
         default:
             break;
@@ -2524,7 +3018,7 @@ router.post("/databaseapi", (req, res) => {
                                                     "sadd", "search:s:mobf:0", sensorInfo.ssn
                                                 ],
                                                 [
-                                                    "sadd", "search:s:nat:0", sensorInfo.ssn,
+                                                    "sadd", "search:s:nat:G30", sensorInfo.ssn,
                                                 ],
                                                 [
                                                     "sadd", "search:s:user:" + protocol.getEndpointId(), sensorInfo.ssn
@@ -2604,6 +3098,8 @@ router.post("/databaseapi", (req, res) => {
                                                         ["set", `s:info:${ssn}:drgcd`, unpackedPayload.drgcd],
                                                         ["set", `s:info:${ssn}:actf`, 3],
                                                         ["srem", "search:s:actf:0", ssn],
+                                                        ["srem", "search:s:actf:1", ssn],
+                                                        ["srem", "search:s:actf:2", ssn],
                                                         ["sadd", "search:s:actf:3", ssn]
                                                     ]).exec((err, replies) => {
                                                         if (err) {} else {
@@ -2617,20 +3113,20 @@ router.post("/databaseapi", (req, res) => {
                                                 //deassociation
                                                 } else {
                                                     let keyHead = `u:ass:${usn}:${ssn}:`;
-                                                    redisCli.get(keyHead + ":ssn", (err, result) => {
+                                                    redisCli.get(`${keyHead}:ssn`, (err, result) => {
                                                         if (err) {
                                                             logger.error("| DATABASE ERROR search usn ssn");
                                                         } else {
                                                             if (result !== null) {
                                                                 redisCli.multi([
                                                                     //Delete sensor association with user
-                                                                    ["del", keyHead + "ssn"],
-                                                                    ["del", keyHead + "usn"],
-                                                                    ["del", keyHead + "mti"],
-                                                                    ["del", keyHead + "tti"],
-                                                                    ["del", keyHead + "mobf"],
+                                                                    ["del", `${keyHead}ssn`],
+                                                                    ["del", `${keyHead}usn`],
+                                                                    ["del", `${keyHead}mti`],
+                                                                    ["del", `${keyHead}tti`],
+                                                                    ["del", `${keyHead}mobf`],
                                                                     //Update sensor information
-                                                                    ["set", keyHead + "actf", 0],
+                                                                    ["set", `${keyHead}actf`, 0],
                                                                     ["srem", "search:s:actf:1", sensorInfo.ssn],
                                                                     ["sadd", "search:s:actf:0", sensorInfo.ssn],
                                                                     ["sadd", "search:s:mobf:0", sensorInfo.ssn]
@@ -2701,7 +3197,7 @@ router.post("/databaseapi", (req, res) => {
                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_UNALLOCATED_USER_SEQUENCE_NUMBER;
                         protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_REQ, payload);
 
-                        logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                         res.send(protocol.getPackedMsg());
                         //signed in
                     } else if (signf === g.SIGNED_IN_STATE.SIGNED_IN) {
@@ -2751,8 +3247,6 @@ router.post("/databaseapi", (req, res) => {
                                     case g.SENSOR_ACT_FLAG.DEREGISTERED:
                                         searchSets.push(`${keyHead}${g.SENSOR_ACT_FLAG.DEREGISTERED.toString()}`);
                                         break;
-                                    default:
-                                        break;
                                 }
                                 keyHead = 'search:s:mobf:';
                                 switch (unpackedPayload.mobf) {
@@ -2762,8 +3256,6 @@ router.post("/databaseapi", (req, res) => {
                                     case g.SENSOR_MOB_FLAG.PORTABLE:
                                         searchSets.push(`${keyHead}${g.SENSOR_MOB_FLAG.PORTABLE.toString()}`);
                                         break;
-                                    default:
-                                        break;
                                 }
                                 keyHead = 'search:s:nat:';
                                 switch (unpackedPayload.nat) {
@@ -2772,8 +3264,6 @@ router.post("/databaseapi", (req, res) => {
                                         break;
                                     case 1:
                                         searchSets.push(`${keyHead}1`);
-                                        break;
-                                    default:
                                         break;
                                 }
                                 keyHead = 'search:s:user:';
@@ -2820,7 +3310,310 @@ router.post("/databaseapi", (req, res) => {
                         res.send(protocol.getPackedMsg());
                     }
                 });
-            
+
+            /**
+             * Receive SDP: SRG-REQ
+             * Last update: 10.25.2018
+             * Author: Junhee Park
+             */
+            case g.SDP_MSG_TYPE.SDP_SRG_REQ:
+
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+                if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
+                    endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                    signfbit = 1;
+                }
+                return redisCli.getbit(`u:info:${protocol.getEndpointId()}:signf`, signfbit, (err, signf) => {
+                    //not exist user id
+                    if (signf === null) {
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_RSP, payload);
+                        
+                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                        res.send(protocol.getPackedMsg());
+                    //signed in
+                    } else if (signf === g.SIGNED_IN_STATE.SIGNED_IN) {
+                        //add usn
+                        redisCli.get(`s:info:${unpackedPayload.wmac}`, (err, reply) => {
+                            if (err) {
+                                logger.error("| DATABASE ERROR search wmac");
+                            } else {
+                                if (reply === null) {
+                                    sModule.getNewSensorSerialNum(g.USER_TYPE.USER, (newSsn) => {
+                                        let sensorInfo = unpackedPayload,
+                                            keyHead = `s:info:${newSsn}:`;
+                                        sensorInfo.ssn = newSsn;
+                                        sensorInfo.actf = 0;
+                                        sensorInfo.mobf = 0;
+                                        sensorInfo.stat = 0b11111111;
+                                        sensorInfo.rdt = cModule.getCurrentDate();
+                                        sensorInfo.sdt = 0;
+                                        sensorInfo.edt = 0;
+                                        sensorInfo.drgcd = 0;
+                                        sensorInfo.regusn = protocol.getEndpointId();
+                                        redisCli.multi([
+                                            [
+                                                "mset",
+                                                `${keyHead}ssn`, sensorInfo.ssn,
+                                                `${keyHead}wmac`, sensorInfo.wmac,
+                                                `${keyHead}cmac`, sensorInfo.cmac,
+                                                `${keyHead}rdt`, sensorInfo.rdt,
+                                                `${keyHead}sdt`, sensorInfo.sdt, //TBD
+                                                `${keyHead}edt`, sensorInfo.edt, //TBD
+                                                `${keyHead}drgcd`, sensorInfo.drgcd,
+                                                `${keyHead}regusn`, sensorInfo.regusn,
+                                                `${keyHead}actf`, sensorInfo.actf,
+                                                `${keyHead}mobf`, sensorInfo.mobf,
+                                                `${keyHead}stat`, sensorInfo.stat,
+                                                `s:info:${sensorInfo.wmac}`, sensorInfo.ssn
+                                            ],
+                                            [
+                                                "sadd", "search:s:actf:0", sensorInfo.ssn,
+                                            ],
+                                            [
+                                                "sadd", "search:s:mobf:0", sensorInfo.ssn
+                                            ],
+                                            [
+                                                "sadd", "search:s:nat:G30", sensorInfo.ssn,
+                                            ],
+                                            [
+                                                "sadd", `search:s:user:${protocol.getEndpointId()}`, sensorInfo.ssn
+                                            ]
+                                        ]).exec((err, replies) => {
+                                            if (err) {} else {
+                                                logger.debug(`| DATABASE stored sensor info${JSON.stringify(sensorInfo)}`);
+                                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OK;
+                                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_RSP, payload);
+                                                state.setState(g.ENTITY_TYPE.DATABASE, endpointIdType, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                                                logger.debug("| DATABASE change USN state (USN INFORMED) -> (USN INFORMED)");
+                                                return res.send(protocol.getPackedMsg());
+                                            }
+                                        });
+                                    });
+                                } else {
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OK;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_RSP, payload);
+                                    state.setState(g.ENTITY_TYPE.DATABASE, endpointIdType, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                                    logger.debug("| DATABASE change USN state (USN INFORMED) -> (USN INFORMED)");
+                                    return res.send(protocol.getPackedMsg());
+                                }
+                            }
+                        });
+                        //signed out
+                    } else if (signf === g.SIGNED_IN_STATE.SIGNED_OUT) {
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SRG.RESCODE_SDP_SRG_OTHER;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SRG_RSP, payload);
+                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                        return res.send(protocol.getPackedMsg());
+                    }
+                });
+
+            /**
+             * Receive SDP: SAS-REQ
+             * Last update: 10.25.2018
+             * Author: Junhee Park
+             */
+            case g.SDP_MSG_TYPE.SDP_SAS_REQ:
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+                if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
+                    endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                    signfbit = 1;
+                }
+                return redisCli.getbit(`u:info:${protocol.getEndpointId()}:signf`, signfbit, (err, signf) => {
+                    if (signf === null) {
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SAS_RSP, payload);
+
+                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                        res.send(protocol.getPackedMsg());
+                        // if the user signed in
+                        /**
+                         * REQ: wmac, mob
+                         * RSP: Result Code. 0) OK, 1) other, 2) unallocated, 3) not exist wmac, 4) already associated  
+                         */
+                    } else if (signf === g.SIGNED_IN_STATE.SIGNED_IN) {
+                        /**
+                         * 1) search wmac 
+                         * 1.1) if exist
+                         * 1.1.1) check association
+                         * 1.1.1.1) if not associated
+                         *      var keyHead = "u:ass:" + usn + ":" + ssn + ":usn";        
+                         * 1.1.1.2) if associated
+                         * 1.2)if not exist
+                         */
+                        //1)
+                        redisCli.get(`s:info:${unpackedPayload.wmac}`, (err, ssn) => {
+                            if (err) {} else {
+                                // 1.1)
+                                if (ssn !== null) {
+                                    // 1.1.1)
+                                    redisCli.keys(`u:ass:*:${ssn}:usn`, (err, usns) => {
+                                        if (err) {} else {
+                                            // 1.1.1.1)
+                                            if (usns.length === 0) {
+                                                let keyHead = `u:ass:${protocol.getEndpointId()}:${ssn}:`;
+                                                redisCli.multi([
+                                                    //Set association user and sensor
+                                                    ["set", `${keyHead}ssn`, ssn],
+                                                    ["set", `${keyHead}usn`, protocol.getEndpointId()],
+                                                    ["set", `${keyHead}mti`, g.DATABASE_TIMER.T957],
+                                                    ["set", `${keyHead}tti`, g.DATABASE_TIMER.T958],
+                                                    ["set", `${keyHead}mobf`, unpackedPayload.mobf],
+                                                    //Update sensor information
+                                                    ["set", `${keyHead}actf`, 0],
+                                                    [
+                                                        "srem", "search:s:actf:0", ssn,
+                                                    ],
+                                                    [
+                                                        "sadd", "search:s:actf:1", ssn,
+                                                    ],
+                                                    [
+                                                        "sadd", `search:s:mobf:${unpackedPayload.mobf}`, ssn,
+                                                    ]
+                                                ]).exec((err, replies) => {
+                                                    if (err) {} else {
+                                                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_OK;
+                                                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SAS_RSP, payload);
+
+                                                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                        return res.send(protocol.getPackedMsg());
+                                                    }
+                                                });
+                                                // 1.1.1.2)
+                                            } else {
+                                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_THE_REQUESTED_WIFI_MAC_WAS_ALREADY_ASSOCIATED_WITH_OWN_USN;
+                                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_SAS_RSP, payload);
+
+                                                logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                return res.send(protocol.getPackedMsg());
+                                            }
+                                        }
+                                    });
+                                    // 1.2)  
+                                } else {
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_NOT_EXIST_WIFI_MAC_ADDRESS;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_SAS_RSP, payload);
+                                    logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    return res.send(protocol.getPackedMsg());
+                                }
+                            }
+                        });
+                    } else if (signf === g.SIGNED_IN_STATE.SIGNED_OUT) {
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_OTHER;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SAS_RSP, payload);
+
+                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                        res.send(protocol.getPackedMsg());
+                    }
+                });
+
+            case g.SDP_MSG_TYPE.SDP_SDD_REQ:
+                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+                if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
+                    endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                    signfbit = 1;
+                }
+
+                return redisCli.getbit(`u:info:${protocol.getEndpointId()}:signf`, signfbit, (err, signf) => {
+                    if (signf === null) {
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SDD_REQ, payload);
+
+                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                        res.send(protocol.getPackedMsg());
+                        //signed in
+                    } else if (signf === g.SIGNED_IN_STATE.SIGNED_IN) {
+                        redisCli.get(`s:info:${unpackedPayload.wmac}`, (err, ssn) => {
+                            if (err) {
+                                logger.error("| DATABASE ERROR search wmac");
+                            } else {
+                                //wifi MAC address exist
+                                if (ssn !== null) {
+                                    let arrDrg = [0, 2, 3, 4, 5];
+                                    //deregistration
+                                    if (arrDrg.includes(Number(unpackedPayload.drgcd))) {
+                                        redisCli.multi([
+                                            //Delete sensor association with user
+                                            ["set", `s:info:${ssn}:drgcd`, unpackedPayload.drgcd],
+                                            [
+                                                "srem", "search:s:actf:0", ssn,
+                                                "srem", "search:s:actf:1", ssn,
+                                            ],
+                                            [
+                                                "sadd", "search:s:actf:3", ssn,
+                                            ]
+                                        ]).exec((err, replies) => {
+                                            if (err) {
+                                                logger.error("| DATABASE ERROR set drgcd info");
+                                            } else {
+                                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_OK;
+                                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_SDD_RSP, payload);
+
+                                                logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                res.send(protocol.getPackedMsg());
+                                            }
+                                        });
+                                        //deassociation
+                                    } else {
+                                        let keyHead = `u:ass:${protocol.getEndpointId()}:${ssn}:`;
+                                        redisCli.get(`${keyHead}ssn`, (err, result) => {
+                                            if (err) {
+                                                logger.error("| DATABASE ERROR search usn ssn");
+                                            } else {
+                                                if (result !== null) {
+                                                    redisCli.multi([
+                                                        //Delete sensor association with user
+                                                        ["del", keyHead + "ssn"],
+                                                        ["del", keyHead + "usn"],
+                                                        ["del", keyHead + "mti"],
+                                                        ["del", keyHead + "tti"],
+                                                        ["del", keyHead + "mobf"],
+                                                        //Update sensor information
+                                                        ["set", keyHead + "actf", 0],
+                                                        ["srem", "search:s:actf:1", ssn],
+                                                        ["sadd", "search:s:actf:0", ssn],
+                                                        ["sadd", "search:s:mobf:0", ssn]
+                                                    ]).exec((err, replies) => {
+                                                        if (err) {
+                                                            logger.error("| DATABASE ERROR delete usn,ssn");
+                                                        } else {
+                                                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_OK;
+                                                            protocol.packMsg(g.SDP_MSG_TYPE.SDP_SDD_RSP, payload);
+
+                                                            logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                            res.send(protocol.getPackedMsg());
+                                                        }
+                                                    });
+                                                } else {
+                                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_THE_REQUESTED_USN_AND_WIFI_MAC_ADDRESS_ARE_NOT_ASSOCIATED;
+                                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_SDD_RSP, payload);
+
+                                                    logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                    res.send(protocol.getPackedMsg());
+                                                }
+                                            }
+                                        });
+                                    }
+                                //wifi MAC address not exist
+                                } else {
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_UNALLOCATED_WIFI_MAC_ADDRESS;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_SDD_RSP, payload);
+
+                                    logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
+                                }
+                            }
+                        });
+                    //signed out
+                    } else if (signf === g.SIGNED_IN_STATE.SIGNED_OUT) {
+                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_OTHER;
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASD_RSP, payload);
+
+                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                        res.send(protocol.getPackedMsg());
+                    }
+                });
+
             default:
                 break;
             
