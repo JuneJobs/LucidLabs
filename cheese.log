@@ -1481,3 +1481,129 @@
 [2018-10-24T16:15:28.938] [DEBUG] default - Running on port 8080
 [2018-10-24T16:16:28.938] [DEBUG] default - Running on port 8080
 [2018-10-24T16:17:28.939] [DEBUG] default - Running on port 8080
+[2018-10-24T16:18:28.940] [DEBUG] default - Running on port 8080
+[2018-10-24T16:19:28.939] [DEBUG] default - Running on port 8080
+[2018-10-24T16:20:28.942] [DEBUG] default - Running on port 8080
+[2018-10-24T16:21:28.940] [DEBUG] default - Running on port 8080
+[2018-10-24T16:22:28.938] [DEBUG] default - Running on port 8080
+[2018-10-24T16:23:28.936] [DEBUG] default - Running on port 8080
+[2018-10-24T16:24:28.938] [DEBUG] default - Running on port 8080
+[2018-10-24T16:25:28.938] [DEBUG] default - Running on port 8080
+[2018-10-24T16:26:28.938] [DEBUG] default - Running on port 8080
+[2018-10-24T16:27:28.939] [DEBUG] default - Running on port 8080
+[2018-10-24T16:28:28.937] [DEBUG] default - Running on port 8080
+[2018-10-24T16:29:28.936] [DEBUG] default - Running on port 8080
+[2018-10-24T16:30:28.939] [DEBUG] default - Running on port 8080
+[2018-10-24T16:31:28.937] [DEBUG] default - Running on port 8080
+[2018-10-24T16:32:28.935] [DEBUG] default - Running on port 8080
+[2018-10-24T16:33:28.937] [DEBUG] default - Running on port 8080
+[2018-10-24T16:34:28.936] [DEBUG] default - Running on port 8080
+[2018-10-24T16:35:28.939] [DEBUG] default - Running on port 8080
+[2018-10-24T16:36:28.936] [DEBUG] default - Running on port 8080
+[2018-10-24T16:37:28.935] [DEBUG] default - Running on port 8080
+[2018-10-24T16:38:28.939] [DEBUG] default - Running on port 8080
+[2018-10-24T16:39:28.940] [DEBUG] default - Running on port 8080
+[2018-10-24T16:39:55.093] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T16:39:55.094] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c15c3e2e9ac","nsc":1,"actf":0,"mobf":0,"nat":0,"userId":"j.jobs1028@gmail.com"}}
+[2018-10-24T16:40:28.938] [DEBUG] default - Running on port 8080
+[2018-10-24T16:41:28.939] [DEBUG] default - Running on port 8080
+[2018-10-24T16:42:28.938] [DEBUG] default - Running on port 8080
+[2018-10-24T16:43:28.939] [DEBUG] default - Running on port 8080
+[2018-10-24T16:44:28.942] [DEBUG] default - Running on port 8080
+[2018-10-24T16:45:28.941] [DEBUG] default - Running on port 8080
+[2018-10-24T16:46:28.941] [DEBUG] default - Running on port 8080
+[2018-10-24T16:47:28.942] [DEBUG] default - Running on port 8080
+[2018-10-24T16:48:28.944] [DEBUG] default - Running on port 8080
+[2018-10-24T16:49:28.942] [DEBUG] default - Running on port 8080
+[2018-10-24T16:50:28.941] [DEBUG] default - Running on port 8080
+[2018-10-24T16:51:27.698] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T16:51:27.699] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c15c3e2e9ac","nsc":1,"actf":0,"mobf":0,"nat":0,"userId":"j.jobs1028@gmail.com"}}
+[2018-10-24T16:51:28.943] [DEBUG] default - Running on port 8080
+[2018-10-24T16:51:44.097] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T16:51:44.101] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c15c3e2e9ac","nsc":1,"actf":0,"mobf":0,"nat":0,"userId":"j.jobs1028@gmail.com"}}
+[2018-10-24T16:51:44.107] [DEBUG] default - | SERVER send response: {}
+[2018-10-24T16:51:50.515] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T16:51:50.516] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-24T16:51:50.519] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-24T16:51:50.534] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2018-10-24T16:51:50.618] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-24T16:51:50.619] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-24T16:51:50.626] [DEBUG] default - | SERVER stored active user [["set","c:act:s:w:1:signf","1","EX",1800],["set","c:act:s:w:1:nsc","1","EX",1800],["set","c:act:s:w:1:ml","0","EX",1800]]
+[2018-10-24T16:51:50.627] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-24T16:51:56.016] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T16:51:56.017] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c15c3e2e9ac","nsc":1,"actf":0,"mobf":0,"nat":0,"userId":"j.jobs1028@gmail.com"}}
+[2018-10-24T16:52:11.477] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T16:52:11.481] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c15c3e2e9ac","nsc":1,"actf":0,"mobf":0,"nat":0,"userId":"j.jobs1028@gmail.com"}}
+[2018-10-24T16:52:11.502] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c15c3e2e9ac","actf":0,"mobf":0,"userId":"j.jobs1028@gmail.com","clientType":2}}
+[2018-10-24T16:52:11.504] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2018-10-24T16:52:11.512] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2018-10-24T16:52:11.513] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2018-10-24T16:53:10.714] [DEBUG] default - Running on port 8080
+[2018-10-24T16:53:54.745] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T16:53:54.746] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-24T16:53:54.754] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2018-10-24T16:53:54.756] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2018-10-24T16:53:54.759] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2018-10-24T16:53:54.760] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2018-10-24T16:54:04.082] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T16:54:04.083] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-24T16:54:04.091] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2018-10-24T16:54:04.092] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2018-10-24T16:54:04.095] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2018-10-24T16:54:04.096] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2018-10-24T16:54:10.714] [DEBUG] default - Running on port 8080
+[2018-10-24T16:54:20.460] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T16:54:20.462] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-24T16:54:20.471] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2018-10-24T16:55:04.598] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T16:55:04.602] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-24T16:55:04.625] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2018-10-24T16:55:26.046] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T16:55:26.051] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-24T16:55:26.072] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2018-10-24T16:55:32.148] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[{"ssn":"2","edt":"0","actf":"0","stat":"255","rdt":"1540418553","wmac":"3d22c2e2e9ac","cmac":"3c22c2e2e9ac","mobf":"0","regusn":"1","drgcd":"0","sdt":"0"},{"edt":"0","ssn":"3","wmac":"3E22c2e2e9ac","actf":"0","mobf":"0","stat":"255","drgcd":"0","rdt":"1540418558","cmac":"3c22c2e2e9ac","regusn":"1","sdt":"0"},{"rdt":"1540418561","ssn":"4","regusn":"1","actf":"0","drgcd":"0","sdt":"0","cmac":"3c22c2e2e9ac","wmac":"3F22c2e2e9ac","edt":"0","stat":"255","mobf":"0"}]}}
+[2018-10-24T16:55:32.156] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2018-10-24T16:55:32.157] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[{"ssn":"2","edt":"0","actf":"0","stat":"255","rdt":"1540418553","wmac":"3d22c2e2e9ac","cmac":"3c22c2e2e9ac","mobf":"0","regusn":"1","drgcd":"0","sdt":"0"},{"edt":"0","ssn":"3","wmac":"3E22c2e2e9ac","actf":"0","mobf":"0","stat":"255","drgcd":"0","rdt":"1540418558","cmac":"3c22c2e2e9ac","regusn":"1","sdt":"0"},{"rdt":"1540418561","ssn":"4","regusn":"1","actf":"0","drgcd":"0","sdt":"0","cmac":"3c22c2e2e9ac","wmac":"3F22c2e2e9ac","edt":"0","stat":"255","mobf":"0"}]}}
+[2018-10-24T16:56:24.574] [DEBUG] default - Running on port 8080
+[2018-10-24T16:57:24.573] [DEBUG] default - Running on port 8080
+[2018-10-24T16:58:24.575] [DEBUG] default - Running on port 8080
+[2018-10-24T16:59:24.577] [DEBUG] default - Running on port 8080
+[2018-10-24T17:00:24.576] [DEBUG] default - Running on port 8080
+[2018-10-24T17:01:24.577] [DEBUG] default - Running on port 8080
+[2018-10-24T17:02:24.580] [DEBUG] default - Running on port 8080
+[2018-10-24T17:03:24.580] [DEBUG] default - Running on port 8080
+[2018-10-24T17:04:24.577] [DEBUG] default - Running on port 8080
+[2018-10-24T17:05:24.580] [DEBUG] default - Running on port 8080
+[2018-10-24T17:06:24.578] [DEBUG] default - Running on port 8080
+[2018-10-24T17:07:24.580] [DEBUG] default - Running on port 8080
+[2018-10-24T17:08:24.588] [DEBUG] default - Running on port 8080
+[2018-10-24T17:09:24.596] [DEBUG] default - Running on port 8080
+[2018-10-24T17:10:24.604] [DEBUG] default - Running on port 8080
+[2018-10-24T17:11:24.613] [DEBUG] default - Running on port 8080
+[2018-10-24T17:12:24.621] [DEBUG] default - Running on port 8080
+[2018-10-24T17:13:24.619] [DEBUG] default - Running on port 8080
+[2018-10-24T17:14:24.616] [DEBUG] default - Running on port 8080
+[2018-10-24T17:15:24.616] [DEBUG] default - Running on port 8080
+[2018-10-24T17:16:24.614] [DEBUG] default - Running on port 8080
+[2018-10-24T17:17:24.616] [DEBUG] default - Running on port 8080
+[2018-10-24T17:18:29.458] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T17:18:29.462] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-24T17:18:29.482] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2018-10-24T17:18:29.491] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[{"ssn":"2","edt":"0","actf":"0","stat":"255","rdt":"1540418553","wmac":"3d22c2e2e9ac","cmac":"3c22c2e2e9ac","mobf":"0","regusn":"1","drgcd":"0","sdt":"0"},{"edt":"0","ssn":"3","wmac":"3E22c2e2e9ac","actf":"0","mobf":"0","stat":"255","drgcd":"0","rdt":"1540418558","cmac":"3c22c2e2e9ac","regusn":"1","sdt":"0"},{"rdt":"1540418561","ssn":"4","regusn":"1","actf":"0","drgcd":"0","sdt":"0","cmac":"3c22c2e2e9ac","wmac":"3F22c2e2e9ac","edt":"0","stat":"255","mobf":"0"}]}}
+[2018-10-24T17:18:29.500] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2018-10-24T17:18:29.501] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[{"ssn":"2","edt":"0","actf":"0","stat":"255","rdt":"1540418553","wmac":"3d22c2e2e9ac","cmac":"3c22c2e2e9ac","mobf":"0","regusn":"1","drgcd":"0","sdt":"0"},{"edt":"0","ssn":"3","wmac":"3E22c2e2e9ac","actf":"0","mobf":"0","stat":"255","drgcd":"0","rdt":"1540418558","cmac":"3c22c2e2e9ac","regusn":"1","sdt":"0"},{"rdt":"1540418561","ssn":"4","regusn":"1","actf":"0","drgcd":"0","sdt":"0","cmac":"3c22c2e2e9ac","wmac":"3F22c2e2e9ac","edt":"0","stat":"255","mobf":"0"}]}}
+[2018-10-24T17:19:07.472] [DEBUG] default - Running on port 8080
+[2018-10-24T17:20:07.472] [DEBUG] default - Running on port 8080
+[2018-10-24T17:21:07.470] [DEBUG] default - Running on port 8080
+[2018-10-24T17:22:07.469] [DEBUG] default - Running on port 8080
+[2018-10-24T17:23:07.469] [DEBUG] default - Running on port 8080
+[2018-10-24T17:24:07.472] [DEBUG] default - Running on port 8080
+[2018-10-24T17:25:07.473] [DEBUG] default - Running on port 8080
+[2018-10-24T17:25:15.723] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-24T17:25:15.727] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-24T17:25:15.747] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2018-10-24T17:25:15.755] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[{"ssn":"2","edt":"0","actf":"0","stat":"255","rdt":"1540418553","wmac":"3d22c2e2e9ac","cmac":"3c22c2e2e9ac","mobf":"0","regusn":"1","drgcd":"0","sdt":"0"},{"edt":"0","ssn":"3","wmac":"3E22c2e2e9ac","actf":"0","mobf":"0","stat":"255","drgcd":"0","rdt":"1540418558","cmac":"3c22c2e2e9ac","regusn":"1","sdt":"0"},{"rdt":"1540418561","ssn":"4","regusn":"1","actf":"0","drgcd":"0","sdt":"0","cmac":"3c22c2e2e9ac","wmac":"3F22c2e2e9ac","edt":"0","stat":"255","mobf":"0"}]}}
+[2018-10-24T17:25:15.764] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2018-10-24T17:25:15.764] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[{"ssn":"2","edt":"0","actf":"0","stat":"255","rdt":"1540418553","wmac":"3d22c2e2e9ac","cmac":"3c22c2e2e9ac","mobf":"0","regusn":"1","drgcd":"0","sdt":"0"},{"edt":"0","ssn":"3","wmac":"3E22c2e2e9ac","actf":"0","mobf":"0","stat":"255","drgcd":"0","rdt":"1540418558","cmac":"3c22c2e2e9ac","regusn":"1","sdt":"0"},{"rdt":"1540418561","ssn":"4","regusn":"1","actf":"0","drgcd":"0","sdt":"0","cmac":"3c22c2e2e9ac","wmac":"3F22c2e2e9ac","edt":"0","stat":"255","mobf":"0"}]}}
+[2018-10-24T17:26:14.447] [DEBUG] default - Running on port 8080
+[2018-10-24T17:27:14.446] [DEBUG] default - Running on port 8080
