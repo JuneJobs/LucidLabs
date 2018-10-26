@@ -863,3 +863,891 @@
 [2018-10-25T16:39:52.441] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
 [2018-10-25T16:39:52.443] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
 [2018-10-25T16:39:52.444] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"16","mti":1,"tti":30}}
+[2018-10-25T16:40:50.270] [DEBUG] default - Running on port 8080
+[2018-10-25T16:41:50.273] [DEBUG] default - Running on port 8080
+[2018-10-25T16:42:50.276] [DEBUG] default - Running on port 8080
+[2018-10-25T16:43:50.275] [DEBUG] default - Running on port 8080
+[2018-10-25T16:44:50.274] [DEBUG] default - Running on port 8080
+[2018-10-25T16:45:50.276] [DEBUG] default - Running on port 8080
+[2018-10-25T16:46:50.279] [DEBUG] default - Running on port 8080
+[2018-10-25T16:47:50.281] [DEBUG] default - Running on port 8080
+[2018-10-25T16:48:50.284] [DEBUG] default - Running on port 8080
+[2018-10-25T16:49:50.287] [DEBUG] default - Running on port 8080
+[2018-10-25T16:50:50.285] [DEBUG] default - Running on port 8080
+[2018-10-25T16:51:50.284] [DEBUG] default - Running on port 8080
+[2018-10-25T16:52:50.283] [DEBUG] default - Running on port 8080
+[2018-10-25T16:53:50.281] [DEBUG] default - Running on port 8080
+[2018-10-25T16:54:50.284] [DEBUG] default - Running on port 8080
+[2018-10-25T16:55:50.284] [DEBUG] default - Running on port 8080
+[2018-10-25T16:56:50.283] [DEBUG] default - Running on port 8080
+[2018-10-25T16:57:50.286] [DEBUG] default - Running on port 8080
+[2018-10-25T16:58:50.287] [DEBUG] default - Running on port 8080
+[2018-10-25T16:59:50.287] [DEBUG] default - Running on port 8080
+[2018-10-25T17:00:50.286] [DEBUG] default - Running on port 8080
+[2018-10-25T17:01:50.291] [DEBUG] default - Running on port 8080
+[2018-10-25T17:02:50.296] [DEBUG] default - Running on port 8080
+[2018-10-25T17:03:50.299] [DEBUG] default - Running on port 8080
+[2018-10-25T17:04:50.305] [DEBUG] default - Running on port 8080
+[2018-10-25T17:05:50.306] [DEBUG] default - Running on port 8080
+[2018-10-25T17:06:50.312] [DEBUG] default - Running on port 8080
+[2018-10-25T17:07:50.311] [DEBUG] default - Running on port 8080
+[2018-10-25T17:08:50.318] [DEBUG] default - Running on port 8080
+[2018-10-25T17:09:50.322] [DEBUG] default - Running on port 8080
+[2018-10-25T17:10:50.324] [DEBUG] default - Running on port 8080
+[2018-10-25T17:11:50.323] [DEBUG] default - Running on port 8080
+[2018-10-25T17:12:50.331] [DEBUG] default - Running on port 8080
+[2018-10-25T17:13:50.338] [DEBUG] default - Running on port 8080
+[2018-10-25T17:14:50.336] [DEBUG] default - Running on port 8080
+[2018-10-25T17:15:50.335] [DEBUG] default - Running on port 8080
+[2018-10-25T17:16:50.342] [DEBUG] default - Running on port 8080
+[2018-10-25T17:17:50.341] [DEBUG] default - Running on port 8080
+[2018-10-25T17:18:50.339] [DEBUG] default - Running on port 8080
+[2018-10-25T17:19:50.341] [DEBUG] default - Running on port 8080
+[2018-10-25T17:20:50.343] [DEBUG] default - Running on port 8080
+[2018-10-25T17:21:50.345] [DEBUG] default - Running on port 8080
+[2018-10-25T17:22:50.345] [DEBUG] default - Running on port 8080
+[2018-10-25T17:23:50.347] [DEBUG] default - Running on port 8080
+[2018-10-25T17:24:50.346] [DEBUG] default - Running on port 8080
+[2018-10-25T17:25:50.345] [DEBUG] default - Running on port 8080
+[2018-10-25T17:26:50.346] [DEBUG] default - Running on port 8080
+[2018-10-25T17:27:50.348] [DEBUG] default - Running on port 8080
+[2018-10-25T17:28:50.346] [DEBUG] default - Running on port 8080
+[2018-10-25T17:29:50.345] [DEBUG] default - Running on port 8080
+[2018-10-25T17:30:50.348] [DEBUG] default - Running on port 8080
+[2018-10-25T17:31:50.349] [DEBUG] default - Running on port 8080
+[2018-10-25T17:32:50.349] [DEBUG] default - Running on port 8080
+[2018-10-25T17:33:50.348] [DEBUG] default - Running on port 8080
+[2018-10-25T17:34:50.347] [DEBUG] default - Running on port 8080
+[2018-10-25T17:35:50.349] [DEBUG] default - Running on port 8080
+[2018-10-25T17:36:50.346] [DEBUG] default - Running on port 8080
+[2018-10-25T17:37:50.349] [DEBUG] default - Running on port 8080
+[2018-10-25T17:38:50.349] [DEBUG] default - Running on port 8080
+[2018-10-25T17:39:50.349] [DEBUG] default - Running on port 8080
+[2018-10-25T17:40:50.346] [DEBUG] default - Running on port 8080
+[2018-10-25T17:41:50.349] [DEBUG] default - Running on port 8080
+[2018-10-25T17:42:50.351] [DEBUG] default - Running on port 8080
+[2018-10-25T17:43:50.352] [DEBUG] default - Running on port 8080
+[2018-10-25T17:44:50.352] [DEBUG] default - Running on port 8080
+[2018-10-25T17:45:50.352] [DEBUG] default - Running on port 8080
+[2018-10-25T17:46:50.350] [DEBUG] default - Running on port 8080
+[2018-10-25T17:47:50.348] [DEBUG] default - Running on port 8080
+[2018-10-25T17:48:50.348] [DEBUG] default - Running on port 8080
+[2018-10-25T17:49:50.349] [DEBUG] default - Running on port 8080
+[2018-10-25T17:50:50.350] [DEBUG] default - Running on port 8080
+[2018-10-25T17:51:15.792] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:51:15.793] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T17:51:15.795] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":3}}
+[2018-10-25T17:51:20.282] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:51:20.283] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T17:51:20.285] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T17:51:20.291] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-25T17:51:20.373] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T17:51:20.374] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-25T17:51:20.378] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","1","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2018-10-25T17:51:20.379] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T17:51:25.918] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:51:25.919] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T17:51:25.920] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T17:51:25.926] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-10-25T17:51:25.928] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T17:51:25.929] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T17:51:25.931] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T17:51:25.932] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"17","mti":1,"tti":30}}
+[2018-10-25T17:51:39.277] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:51:39.278] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T17:51:50.347] [DEBUG] default - Running on port 8080
+[2018-10-25T17:53:06.512] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:53:06.516] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T17:53:06.522] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T17:53:26.808] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:53:26.812] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T17:53:26.819] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T17:54:20.721] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:54:20.725] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T17:54:20.732] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T17:54:40.273] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:54:40.277] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T17:54:40.284] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T17:54:50.664] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:54:50.668] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T17:55:01.407] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T17:55:29.855] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:55:29.860] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T17:55:34.014] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T17:56:36.902] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:56:36.906] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T17:56:36.915] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T17:58:32.224] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:58:32.229] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T17:58:32.236] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T17:58:53.346] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:58:53.350] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T17:58:53.357] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T17:59:58.558] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T17:59:58.562] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T17:59:58.568] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:00:32.284] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:00:32.288] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:00:32.294] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:01:00.367] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:01:00.371] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:01:00.377] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:03:17.043] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:03:17.047] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:03:17.054] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:03:32.877] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"clientType":2}}
+[2018-10-25T18:03:41.780] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:03:41.784] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:03:41.790] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:04:01.336] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"clientType":2}}
+[2018-10-25T18:04:09.866] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:04:09.870] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:04:09.877] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:04:14.769] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"clientType":2}}
+[2018-10-25T18:04:32.046] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:04:32.050] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:04:32.057] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:04:33.895] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"clientType":2}}
+[2018-10-25T18:05:31.512] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:05:31.517] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:05:31.524] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:05:34.580] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"clientType":2}}
+[2018-10-25T18:06:06.364] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:06:06.367] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:06:06.374] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:06:08.546] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"clientType":2}}
+[2018-10-25T18:06:21.748] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:06:21.753] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:06:21.762] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:06:23.436] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"clientType":2}}
+[2018-10-25T18:08:51.388] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:08:51.392] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:08:51.399] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:08:52.776] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"clientType":"a"}}
+[2018-10-25T18:09:08.188] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:09:08.192] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:09:08.199] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:09:10.064] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"clientType":"a"}}
+[2018-10-25T18:10:32.112] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:10:32.117] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:10:32.126] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:10:33.731] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"a"}}
+[2018-10-25T18:11:30.564] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (IDLE)
+[2018-10-25T18:11:30.565] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":2}}
+[2018-10-25T18:11:30.569] [DEBUG] default - Running on port 8080
+[2018-10-25T18:11:37.989] [DEBUG] default - | SERVER change SAP state (HALF IDLE) ->  (IDLE)
+[2018-10-25T18:11:37.990] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":"1"},"payload":{"resultCode":1}}
+[2018-10-25T18:11:48.741] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:11:48.742] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":17},"payload":{}}
+[2018-10-25T18:11:57.732] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:11:57.736] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T18:11:57.742] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T18:11:57.756] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-25T18:11:57.840] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T18:11:57.841] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-25T18:11:57.852] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","2","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2018-10-25T18:11:57.853] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T18:12:02.522] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:12:02.523] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T18:12:02.526] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":3}}
+[2018-10-25T18:12:22.627] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:12:22.628] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":37,"msgLen":0,"endpointId":1},"payload":{"nsc":"2"}}
+[2018-10-25T18:12:22.631] [DEBUG] default - | SERVER change USN state (USN INFORMED STATE) ->  (HALF IDLE IDLE)
+[2018-10-25T18:12:22.638] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":177,"msgLen":0,"endpointId":1},"payload":{"usn":1,"clientType":1}}
+[2018-10-25T18:12:26.591] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":178,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T18:12:26.592] [DEBUG] default - | SERVER change USN state (USN INFORMED) -> (IDLE)
+[2018-10-25T18:12:26.597] [DEBUG] default - | SERVER change USN state (HALF IDLE STATE) ->  (IDLE)
+[2018-10-25T18:12:26.598] [DEBUG] default - | SERVER send response: {"header":{"msgType":38,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T18:12:33.051] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:12:33.052] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":37,"msgLen":0,"endpointId":1},"payload":{"nsc":"1"}}
+[2018-10-25T18:12:33.053] [DEBUG] default - | SERVER send response: {"header":{"msgType":38,"msgLen":0,"endpointId":1},"payload":{"resultCode":2}}
+[2018-10-25T18:12:37.208] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:12:37.209] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T18:12:37.211] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T18:12:37.217] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-25T18:12:37.299] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T18:12:37.300] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-25T18:12:37.303] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","1","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2018-10-25T18:12:37.304] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T18:12:41.422] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:12:41.423] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T18:12:41.425] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T18:12:41.430] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-10-25T18:12:41.431] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T18:12:41.432] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T18:12:41.436] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T18:12:41.437] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"18","mti":1,"tti":30}}
+[2018-10-25T18:12:48.490] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:12:48.491] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":18},"payload":{}}
+[2018-10-25T18:12:48.492] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:12:51.167] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"a"}}
+[2018-10-25T18:12:59.722] [DEBUG] default - Running on port 8080
+[2018-10-25T18:13:05.700] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (IDLE)
+[2018-10-25T18:13:05.701] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":2}}
+[2018-10-25T18:13:56.402] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:13:56.405] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":18},"payload":{}}
+[2018-10-25T18:14:02.684] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:14:02.688] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":18},"payload":{}}
+[2018-10-25T18:14:08.715] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:14:08.716] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T18:14:08.719] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":1}}
+[2018-10-25T18:14:23.802] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:14:23.803] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T18:14:23.806] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T18:14:23.820] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-25T18:14:23.904] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T18:14:23.905] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-25T18:14:23.912] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","2","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2018-10-25T18:14:23.913] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T18:14:28.061] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:14:28.062] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":37,"msgLen":0,"endpointId":1},"payload":{"nsc":"2"}}
+[2018-10-25T18:14:28.065] [DEBUG] default - | SERVER change USN state (USN INFORMED STATE) ->  (HALF IDLE IDLE)
+[2018-10-25T18:14:28.073] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":177,"msgLen":0,"endpointId":1},"payload":{"usn":1,"clientType":1}}
+[2018-10-25T18:14:28.074] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":178,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T18:14:28.075] [DEBUG] default - | SERVER change USN state (USN INFORMED) -> (IDLE)
+[2018-10-25T18:14:28.079] [DEBUG] default - | SERVER change USN state (HALF IDLE STATE) ->  (IDLE)
+[2018-10-25T18:14:28.080] [DEBUG] default - | SERVER send response: {"header":{"msgType":38,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T18:14:31.857] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:14:31.860] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T18:14:31.861] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T18:14:31.868] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-25T18:14:31.950] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T18:14:31.951] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-25T18:14:31.954] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","1","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2018-10-25T18:14:31.955] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T18:14:35.038] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:14:35.039] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T18:14:35.041] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T18:14:35.047] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-10-25T18:14:35.049] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T18:14:35.050] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T18:14:35.053] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T18:14:35.054] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"19","mti":1,"tti":30}}
+[2018-10-25T18:14:44.388] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:14:44.389] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":19},"payload":{}}
+[2018-10-25T18:14:44.391] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:14:46.457] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"a"}}
+[2018-10-25T18:15:06.959] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (USN INFORMED)
+[2018-10-25T18:15:06.960] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2018-10-25T18:15:06.963] [DEBUG] default - Running on port 8080
+[2018-10-25T18:15:30.139] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:15:30.141] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":19},"payload":{}}
+[2018-10-25T18:15:40.826] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:15:40.827] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":19},"payload":{}}
+[2018-10-25T18:16:04.175] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:16:04.179] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T18:16:04.187] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T18:16:04.202] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-10-25T18:16:04.204] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T18:16:04.204] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T18:16:04.213] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T18:16:04.214] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"20","mti":1,"tti":30}}
+[2018-10-25T18:16:09.632] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:16:09.633] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":20},"payload":{}}
+[2018-10-25T18:16:13.093] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:16:14.217] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"a"}}
+[2018-10-25T18:16:14.219] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (USN INFORMED)
+[2018-10-25T18:16:14.220] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2018-10-25T18:17:10.726] [DEBUG] default - Running on port 8080
+[2018-10-25T18:17:19.261] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:17:19.262] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T18:17:19.264] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T18:17:19.270] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-10-25T18:17:19.272] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T18:17:19.273] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T18:17:19.276] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T18:17:19.277] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"21","mti":1,"tti":30}}
+[2018-10-25T18:17:26.130] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:17:26.131] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":21},"payload":{}}
+[2018-10-25T18:17:26.134] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:17:27.788] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"a"}}
+[2018-10-25T18:17:27.790] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (USN INFORMED)
+[2018-10-25T18:17:27.791] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2018-10-25T18:18:13.208] [DEBUG] default - Running on port 8080
+[2018-10-25T18:18:16.695] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:18:16.696] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T18:18:16.698] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T18:18:16.705] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-10-25T18:18:16.707] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T18:18:16.708] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T18:18:16.711] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T18:18:16.712] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"22","mti":1,"tti":30}}
+[2018-10-25T18:18:22.978] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:18:22.979] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":22},"payload":{}}
+[2018-10-25T18:18:22.981] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:18:22.987] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"a"}}
+[2018-10-25T18:18:22.988] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (USN INFORMED)
+[2018-10-25T18:18:22.989] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2018-10-25T18:18:44.945] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:18:44.946] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T18:18:44.947] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T18:18:44.953] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-10-25T18:18:44.954] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T18:18:44.955] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T18:18:44.958] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T18:18:44.959] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"23","mti":1,"tti":30}}
+[2018-10-25T18:18:54.245] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:18:54.246] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":23},"payload":{}}
+[2018-10-25T18:18:54.249] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:18:54.256] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"a"}}
+[2018-10-25T18:18:54.258] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (USN INFORMED)
+[2018-10-25T18:18:54.259] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2018-10-25T18:20:04.787] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:20:04.791] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T18:20:04.797] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T18:20:04.811] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-10-25T18:20:04.813] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T18:20:04.814] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T18:20:04.823] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T18:20:04.824] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"24","mti":1,"tti":30}}
+[2018-10-25T18:20:09.626] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T18:20:09.627] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":24},"payload":{}}
+[2018-10-25T18:20:09.630] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T18:20:09.637] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"a"}}
+[2018-10-25T18:20:09.638] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (USN INFORMED)
+[2018-10-25T18:20:09.639] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2018-10-25T18:20:19.708] [DEBUG] default - | SERVER change USN state (HALF CID RELEASED) ->  (USN INFORMED)
+[2018-10-25T18:20:20.524] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0,"entityType":"a"}}
+[2018-10-25T18:21:00.743] [DEBUG] default - Running on port 8080
+[2018-10-25T18:22:00.746] [DEBUG] default - Running on port 8080
+[2018-10-25T18:23:00.744] [DEBUG] default - Running on port 8080
+[2018-10-25T18:24:00.742] [DEBUG] default - Running on port 8080
+[2018-10-25T18:25:00.740] [DEBUG] default - Running on port 8080
+[2018-10-25T18:26:00.743] [DEBUG] default - Running on port 8080
+[2018-10-25T18:27:00.748] [DEBUG] default - Running on port 8080
+[2018-10-25T18:28:00.746] [DEBUG] default - Running on port 8080
+[2018-10-25T18:29:00.754] [DEBUG] default - Running on port 8080
+[2018-10-25T18:30:00.754] [DEBUG] default - Running on port 8080
+[2018-10-25T18:31:00.762] [DEBUG] default - Running on port 8080
+[2018-10-25T18:32:00.761] [DEBUG] default - Running on port 8080
+[2018-10-25T18:33:00.759] [DEBUG] default - Running on port 8080
+[2018-10-25T18:34:00.766] [DEBUG] default - Running on port 8080
+[2018-10-25T18:35:00.767] [DEBUG] default - Running on port 8080
+[2018-10-25T18:36:00.773] [DEBUG] default - Running on port 8080
+[2018-10-25T18:37:00.774] [DEBUG] default - Running on port 8080
+[2018-10-25T18:38:00.773] [DEBUG] default - Running on port 8080
+[2018-10-25T18:39:00.771] [DEBUG] default - Running on port 8080
+[2018-10-25T18:40:00.769] [DEBUG] default - Running on port 8080
+[2018-10-25T18:41:00.767] [DEBUG] default - Running on port 8080
+[2018-10-25T18:42:00.775] [DEBUG] default - Running on port 8080
+[2018-10-25T18:43:00.774] [DEBUG] default - Running on port 8080
+[2018-10-25T18:44:00.772] [DEBUG] default - Running on port 8080
+[2018-10-25T18:45:00.771] [DEBUG] default - Running on port 8080
+[2018-10-25T18:46:00.769] [DEBUG] default - Running on port 8080
+[2018-10-25T18:47:00.767] [DEBUG] default - Running on port 8080
+[2018-10-25T18:48:00.775] [DEBUG] default - Running on port 8080
+[2018-10-25T18:49:00.774] [DEBUG] default - Running on port 8080
+[2018-10-25T18:50:00.782] [DEBUG] default - Running on port 8080
+[2018-10-25T18:51:00.784] [DEBUG] default - Running on port 8080
+[2018-10-25T18:52:00.791] [DEBUG] default - Running on port 8080
+[2018-10-25T18:53:00.793] [DEBUG] default - Running on port 8080
+[2018-10-25T18:54:00.798] [DEBUG] default - Running on port 8080
+[2018-10-25T18:55:00.806] [DEBUG] default - Running on port 8080
+[2018-10-25T18:56:00.807] [DEBUG] default - Running on port 8080
+[2018-10-25T18:57:00.805] [DEBUG] default - Running on port 8080
+[2018-10-25T18:58:00.803] [DEBUG] default - Running on port 8080
+[2018-10-25T18:59:00.807] [DEBUG] default - Running on port 8080
+[2018-10-25T19:00:00.810] [DEBUG] default - Running on port 8080
+[2018-10-25T19:01:00.808] [DEBUG] default - Running on port 8080
+[2018-10-25T19:02:00.812] [DEBUG] default - Running on port 8080
+[2018-10-25T19:03:00.816] [DEBUG] default - Running on port 8080
+[2018-10-25T19:04:00.814] [DEBUG] default - Running on port 8080
+[2018-10-25T19:05:00.812] [DEBUG] default - Running on port 8080
+[2018-10-25T19:06:00.810] [DEBUG] default - Running on port 8080
+[2018-10-25T19:07:00.808] [DEBUG] default - Running on port 8080
+[2018-10-25T19:08:00.806] [DEBUG] default - Running on port 8080
+[2018-10-25T19:09:00.804] [DEBUG] default - Running on port 8080
+[2018-10-25T19:10:00.809] [DEBUG] default - Running on port 8080
+[2018-10-25T19:11:00.812] [DEBUG] default - Running on port 8080
+[2018-10-25T19:12:00.810] [DEBUG] default - Running on port 8080
+[2018-10-25T19:13:00.808] [DEBUG] default - Running on port 8080
+[2018-10-25T19:14:00.810] [DEBUG] default - Running on port 8080
+[2018-10-25T19:15:00.816] [DEBUG] default - Running on port 8080
+[2018-10-25T19:16:00.819] [DEBUG] default - Running on port 8080
+[2018-10-25T19:17:00.823] [DEBUG] default - Running on port 8080
+[2018-10-25T19:18:00.831] [DEBUG] default - Running on port 8080
+[2018-10-25T19:19:00.831] [DEBUG] default - Running on port 8080
+[2018-10-25T19:20:00.839] [DEBUG] default - Running on port 8080
+[2018-10-25T19:21:00.848] [DEBUG] default - Running on port 8080
+[2018-10-25T19:22:00.855] [DEBUG] default - Running on port 8080
+[2018-10-25T19:23:00.854] [DEBUG] default - Running on port 8080
+[2018-10-25T19:24:00.862] [DEBUG] default - Running on port 8080
+[2018-10-25T19:25:00.861] [DEBUG] default - Running on port 8080
+[2018-10-25T19:26:00.862] [DEBUG] default - Running on port 8080
+[2018-10-25T19:27:00.868] [DEBUG] default - Running on port 8080
+[2018-10-25T19:28:00.866] [DEBUG] default - Running on port 8080
+[2018-10-25T19:29:00.874] [DEBUG] default - Running on port 8080
+[2018-10-25T19:30:00.881] [DEBUG] default - Running on port 8080
+[2018-10-25T19:31:00.883] [DEBUG] default - Running on port 8080
+[2018-10-25T19:32:00.885] [DEBUG] default - Running on port 8080
+[2018-10-25T19:33:00.891] [DEBUG] default - Running on port 8080
+[2018-10-25T19:34:00.892] [DEBUG] default - Running on port 8080
+[2018-10-25T19:35:00.896] [DEBUG] default - Running on port 8080
+[2018-10-25T19:36:00.903] [DEBUG] default - Running on port 8080
+[2018-10-25T19:37:00.911] [DEBUG] default - Running on port 8080
+[2018-10-25T19:38:00.915] [DEBUG] default - Running on port 8080
+[2018-10-25T19:39:00.920] [DEBUG] default - Running on port 8080
+[2018-10-25T19:40:00.917] [DEBUG] default - Running on port 8080
+[2018-10-25T19:41:00.921] [DEBUG] default - Running on port 8080
+[2018-10-25T19:42:00.929] [DEBUG] default - Running on port 8080
+[2018-10-25T19:43:00.928] [DEBUG] default - Running on port 8080
+[2018-10-25T19:44:00.926] [DEBUG] default - Running on port 8080
+[2018-10-25T19:45:00.924] [DEBUG] default - Running on port 8080
+[2018-10-25T19:46:00.928] [DEBUG] default - Running on port 8080
+[2018-10-25T19:47:00.931] [DEBUG] default - Running on port 8080
+[2018-10-25T19:48:00.939] [DEBUG] default - Running on port 8080
+[2018-10-25T19:49:00.943] [DEBUG] default - Running on port 8080
+[2018-10-25T19:50:00.948] [DEBUG] default - Running on port 8080
+[2018-10-25T19:51:00.952] [DEBUG] default - Running on port 8080
+[2018-10-25T19:52:00.956] [DEBUG] default - Running on port 8080
+[2018-10-25T19:53:00.954] [DEBUG] default - Running on port 8080
+[2018-10-25T19:54:00.959] [DEBUG] default - Running on port 8080
+[2018-10-25T19:55:00.961] [DEBUG] default - Running on port 8080
+[2018-10-25T19:56:00.969] [DEBUG] default - Running on port 8080
+[2018-10-25T19:57:00.967] [DEBUG] default - Running on port 8080
+[2018-10-25T19:58:00.967] [DEBUG] default - Running on port 8080
+[2018-10-25T19:59:00.975] [DEBUG] default - Running on port 8080
+[2018-10-25T20:00:00.974] [DEBUG] default - Running on port 8080
+[2018-10-25T20:01:00.972] [DEBUG] default - Running on port 8080
+[2018-10-25T20:02:00.980] [DEBUG] default - Running on port 8080
+[2018-10-25T20:03:00.979] [DEBUG] default - Running on port 8080
+[2018-10-25T20:04:00.978] [DEBUG] default - Running on port 8080
+[2018-10-25T20:05:00.986] [DEBUG] default - Running on port 8080
+[2018-10-25T20:06:00.989] [DEBUG] default - Running on port 8080
+[2018-10-25T20:07:00.995] [DEBUG] default - Running on port 8080
+[2018-10-25T20:08:00.993] [DEBUG] default - Running on port 8080
+[2018-10-25T20:09:01.000] [DEBUG] default - Running on port 8080
+[2018-10-25T20:10:01.005] [DEBUG] default - Running on port 8080
+[2018-10-25T20:11:01.010] [DEBUG] default - Running on port 8080
+[2018-10-25T20:12:01.015] [DEBUG] default - Running on port 8080
+[2018-10-25T20:13:01.017] [DEBUG] default - Running on port 8080
+[2018-10-25T20:14:01.015] [DEBUG] default - Running on port 8080
+[2018-10-25T20:15:01.013] [DEBUG] default - Running on port 8080
+[2018-10-25T20:16:01.011] [DEBUG] default - Running on port 8080
+[2018-10-25T20:17:01.009] [DEBUG] default - Running on port 8080
+[2018-10-25T20:18:01.007] [DEBUG] default - Running on port 8080
+[2018-10-25T20:19:01.013] [DEBUG] default - Running on port 8080
+[2018-10-25T20:20:01.014] [DEBUG] default - Running on port 8080
+[2018-10-25T20:21:01.012] [DEBUG] default - Running on port 8080
+[2018-10-25T20:22:01.020] [DEBUG] default - Running on port 8080
+[2018-10-25T20:23:01.020] [DEBUG] default - Running on port 8080
+[2018-10-25T20:24:01.018] [DEBUG] default - Running on port 8080
+[2018-10-25T20:25:01.016] [DEBUG] default - Running on port 8080
+[2018-10-25T20:26:01.014] [DEBUG] default - Running on port 8080
+[2018-10-25T20:27:01.011] [DEBUG] default - Running on port 8080
+[2018-10-25T20:28:01.009] [DEBUG] default - Running on port 8080
+[2018-10-25T20:29:01.016] [DEBUG] default - Running on port 8080
+[2018-10-25T20:30:01.017] [DEBUG] default - Running on port 8080
+[2018-10-25T20:31:01.015] [DEBUG] default - Running on port 8080
+[2018-10-25T20:32:01.022] [DEBUG] default - Running on port 8080
+[2018-10-25T20:33:01.026] [DEBUG] default - Running on port 8080
+[2018-10-25T20:34:01.032] [DEBUG] default - Running on port 8080
+[2018-10-25T20:35:01.038] [DEBUG] default - Running on port 8080
+[2018-10-25T20:36:01.038] [DEBUG] default - Running on port 8080
+[2018-10-25T20:37:01.036] [DEBUG] default - Running on port 8080
+[2018-10-25T20:38:01.043] [DEBUG] default - Running on port 8080
+[2018-10-25T20:39:01.045] [DEBUG] default - Running on port 8080
+[2018-10-25T20:40:01.041] [DEBUG] default - Running on port 8080
+[2018-10-25T20:41:01.039] [DEBUG] default - Running on port 8080
+[2018-10-25T20:42:01.047] [DEBUG] default - Running on port 8080
+[2018-10-25T20:43:01.046] [DEBUG] default - Running on port 8080
+[2018-10-25T20:44:01.054] [DEBUG] default - Running on port 8080
+[2018-10-25T20:45:01.059] [DEBUG] default - Running on port 8080
+[2018-10-25T20:46:01.063] [DEBUG] default - Running on port 8080
+[2018-10-25T20:47:01.064] [DEBUG] default - Running on port 8080
+[2018-10-25T20:48:01.070] [DEBUG] default - Running on port 8080
+[2018-10-25T20:49:01.069] [DEBUG] default - Running on port 8080
+[2018-10-25T20:50:01.075] [DEBUG] default - Running on port 8080
+[2018-10-25T20:51:01.076] [DEBUG] default - Running on port 8080
+[2018-10-25T20:52:01.074] [DEBUG] default - Running on port 8080
+[2018-10-25T20:53:01.074] [DEBUG] default - Running on port 8080
+[2018-10-25T20:53:09.589] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:53:09.593] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-25T20:53:09.599] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-25T20:53:09.614] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-25T20:53:09.698] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T20:53:09.699] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-25T20:53:09.708] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","1","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2018-10-25T20:53:09.709] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-25T20:53:18.731] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:53:18.732] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-25T20:53:18.735] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T20:53:18.742] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-10-25T20:53:18.744] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T20:53:18.745] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-25T20:53:18.749] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T20:53:18.750] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"25","mti":1,"tti":30}}
+[2018-10-25T20:53:25.805] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:53:25.806] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":25},"payload":{}}
+[2018-10-25T20:53:25.809] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-25T20:53:25.816] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"a"}}
+[2018-10-25T20:53:25.818] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (USN INFORMED)
+[2018-10-25T20:53:25.818] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2018-10-25T20:53:29.008] [DEBUG] default - | SERVER change USN state (HALF CID RELEASED) ->  (USN INFORMED)
+[2018-10-25T20:53:29.009] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2018-10-25T20:53:34.059] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:53:34.060] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":25},"payload":{}}
+[2018-10-25T20:54:00.227] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:54:00.231] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":25},"payload":{}}
+[2018-10-25T20:54:15.643] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:54:15.645] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-25T20:54:15.660] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-25T20:54:15.662] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T20:54:15.663] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-25T20:54:15.670] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T20:54:15.671] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T20:54:18.960] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:54:18.961] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T20:54:18.962] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T20:54:18.969] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T20:54:18.972] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T20:54:18.973] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-25T20:54:18.977] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T20:54:18.978] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"26","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-25T20:54:59.181] [DEBUG] default - Running on port 8080
+[2018-10-25T20:55:01.203] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:55:01.203] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":24},"payload":{}}
+[2018-10-25T20:55:15.223] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:55:15.224] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":24},"payload":{}}
+[2018-10-25T20:55:49.681] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:55:49.682] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T20:55:49.684] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":1}}
+[2018-10-25T20:55:53.654] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:55:53.655] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-25T20:55:53.663] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-25T20:55:53.664] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T20:55:53.665] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-25T20:55:53.667] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T20:55:53.668] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T20:55:56.149] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:55:56.150] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T20:55:56.152] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T20:55:56.159] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T20:55:56.160] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T20:55:56.161] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-25T20:55:56.164] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T20:55:56.164] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"27","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-25T20:55:59.180] [DEBUG] default - Running on port 8080
+[2018-10-25T20:56:59.180] [DEBUG] default - Running on port 8080
+[2018-10-25T20:57:20.634] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:57:20.635] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-25T20:57:20.644] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-25T20:57:20.646] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T20:57:20.647] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-25T20:57:20.650] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T20:57:20.651] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T20:57:24.679] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:57:24.680] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T20:57:24.682] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T20:57:24.689] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T20:57:24.690] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T20:57:24.691] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-25T20:57:59.879] [DEBUG] default - Running on port 8080
+[2018-10-25T20:58:55.545] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T20:58:55.546] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"28","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-25T20:58:59.880] [DEBUG] default - Running on port 8080
+[2018-10-25T20:59:09.410] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T20:59:09.411] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T20:59:09.413] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T20:59:09.420] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T20:59:09.422] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T20:59:09.423] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-25T21:03:06.272] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:03:06.276] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:03:06.282] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T21:03:06.296] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:03:06.299] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T21:03:06.300] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-25T21:03:09.550] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T21:03:09.551] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"30","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-25T21:03:19.218] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:03:19.222] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:03:19.228] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T21:03:19.240] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:03:19.243] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T21:03:19.244] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-25T21:03:23.316] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T21:03:23.317] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"31","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-25T21:03:44.261] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:03:44.262] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":31},"payload":{}}
+[2018-10-25T21:03:59.540] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:05:02.905] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:05:02.910] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":31},"payload":{}}
+[2018-10-25T21:05:27.752] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:05:27.753] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-25T21:05:27.767] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-25T21:05:27.769] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T21:05:27.769] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-25T21:05:27.776] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T21:05:27.777] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T21:05:32.382] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:05:32.383] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:05:32.385] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T21:05:32.392] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:05:32.395] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T21:05:32.396] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-25T21:05:34.927] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T21:05:34.928] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"32","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-25T21:05:46.922] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:05:46.923] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":32},"payload":{}}
+[2018-10-25T21:06:13.179] [DEBUG] default - Running on port 8080
+[2018-10-25T21:06:25.544] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)
+[2018-10-25T21:06:30.511] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":32},"payload":{"entityType":"n"}}
+[2018-10-25T21:07:13.180] [DEBUG] default - Running on port 8080
+[2018-10-25T21:07:41.883] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:07:41.884] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:07:41.885] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":1}}
+[2018-10-25T21:07:45.070] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:07:45.071] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-25T21:07:45.078] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-25T21:07:45.080] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T21:07:45.081] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-25T21:07:45.084] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T21:07:45.085] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T21:07:47.175] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:07:47.175] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:07:47.177] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T21:07:47.183] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:07:47.185] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T21:07:47.186] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-25T21:07:47.188] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T21:07:47.189] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"33","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-25T21:07:52.468] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:07:52.469] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":33},"payload":{}}
+[2018-10-25T21:07:56.472] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)
+[2018-10-25T21:07:57.016] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":33},"payload":{"entityType":"n"}}
+[2018-10-25T21:12:47.947] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:12:47.951] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":33},"payload":{}}
+[2018-10-25T21:12:58.229] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:12:58.230] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:12:58.234] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":1}}
+[2018-10-25T21:13:00.654] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:13:00.655] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-25T21:13:00.671] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-25T21:13:00.673] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T21:13:00.674] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-25T21:13:00.679] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T21:13:00.680] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-25T21:13:02.867] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:13:02.868] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:13:02.869] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-25T21:13:02.878] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-25T21:13:02.881] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-25T21:13:02.882] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-25T21:13:02.886] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-25T21:13:02.887] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"34","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-25T21:13:11.828] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-25T21:13:11.829] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":34},"payload":{}}
+[2018-10-25T21:13:45.542] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)
+[2018-10-25T21:13:57.558] [DEBUG] default - Running on port 8080
+[2018-10-25T21:13:57.562] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"n"}}
+[2018-10-25T21:14:05.994] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (IDLE)
+[2018-10-25T21:14:05.995] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":2}}
+[2018-10-25T21:14:15.319] [DEBUG] default - | SERVER change SSN state (HALF IDLE) ->  (IDLE)
+[2018-10-25T21:14:15.320] [DEBUG] default - | SERVER send response: {"header":{"msgType":6,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":1}}
+[2018-10-25T21:14:57.557] [DEBUG] default - Running on port 8080
+[2018-10-25T21:15:57.558] [DEBUG] default - Running on port 8080
+[2018-10-25T21:16:57.556] [DEBUG] default - Running on port 8080
+[2018-10-25T21:17:57.559] [DEBUG] default - Running on port 8080
+[2018-10-25T21:18:57.565] [DEBUG] default - Running on port 8080
+[2018-10-25T21:19:57.564] [DEBUG] default - Running on port 8080
+[2018-10-25T21:20:57.564] [DEBUG] default - Running on port 8080
+[2018-10-25T21:21:57.563] [DEBUG] default - Running on port 8080
+[2018-10-25T21:22:57.562] [DEBUG] default - Running on port 8080
+[2018-10-25T21:23:57.568] [DEBUG] default - Running on port 8080
+[2018-10-25T21:24:57.565] [DEBUG] default - Running on port 8080
+[2018-10-25T21:25:57.570] [DEBUG] default - Running on port 8080
+[2018-10-25T21:26:57.576] [DEBUG] default - Running on port 8080
+[2018-10-25T21:27:57.578] [DEBUG] default - Running on port 8080
+[2018-10-25T21:28:57.579] [DEBUG] default - Running on port 8080
+[2018-10-25T21:29:57.586] [DEBUG] default - Running on port 8080
+[2018-10-25T21:30:57.594] [DEBUG] default - Running on port 8080
+[2018-10-25T21:31:57.595] [DEBUG] default - Running on port 8080
+[2018-10-25T21:32:57.592] [DEBUG] default - Running on port 8080
+[2018-10-25T21:33:57.597] [DEBUG] default - Running on port 8080
+[2018-10-25T21:34:57.605] [DEBUG] default - Running on port 8080
+[2018-10-25T21:35:57.606] [DEBUG] default - Running on port 8080
+[2018-10-25T21:36:57.610] [DEBUG] default - Running on port 8080
+[2018-10-25T21:37:57.609] [DEBUG] default - Running on port 8080
+[2018-10-25T21:38:57.617] [DEBUG] default - Running on port 8080
+[2018-10-25T21:39:57.613] [DEBUG] default - Running on port 8080
+[2018-10-25T21:40:57.616] [DEBUG] default - Running on port 8080
+[2018-10-25T22:11:29.699] [DEBUG] default - Running on port 8080
+[2018-10-25T22:12:29.706] [DEBUG] default - Running on port 8080
+[2018-10-25T22:54:41.829] [DEBUG] default - Running on port 8080
+[2018-10-25T22:55:41.835] [DEBUG] default - Running on port 8080
+[2018-10-25T22:56:41.843] [DEBUG] default - Running on port 8080
+[2018-10-26T10:06:15.061] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:06:15.069] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-26T10:06:17.414] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-26T10:06:17.416] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:06:17.417] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-26T10:06:17.423] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:06:17.425] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:06:22.045] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:06:22.046] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:06:22.049] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:06:22.055] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:06:22.058] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-26T10:06:22.058] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-26T10:06:22.063] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-26T10:06:22.064] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"35","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-26T10:06:27.873] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:06:27.874] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":35},"payload":{}}
+[2018-10-26T10:06:27.877] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)
+[2018-10-26T10:06:27.885] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"n"}}
+[2018-10-26T10:06:27.886] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (IDLE)
+[2018-10-26T10:06:27.887] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":2}}
+[2018-10-26T10:06:27.889] [DEBUG] default - | SERVER change SSN state (HALF IDLE) ->  (IDLE)
+[2018-10-26T10:06:27.890] [DEBUG] default - | SERVER send response: {"header":{"msgType":6,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":1}}
+[2018-10-26T10:07:05.242] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:07:05.243] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":35},"payload":{}}
+[2018-10-26T10:07:12.734] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:07:12.738] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":35},"payload":{}}
+[2018-10-26T10:08:02.044] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:08:02.047] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:08:02.053] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":1}}
+[2018-10-26T10:08:05.656] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:08:05.657] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-26T10:08:05.675] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-26T10:08:05.676] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:08:05.677] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-26T10:08:05.682] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:08:05.683] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:08:07.193] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:08:07.194] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:08:07.196] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:08:07.203] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:08:07.206] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-26T10:08:07.207] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-26T10:08:07.211] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-26T10:08:07.211] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"36","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-26T10:08:12.314] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:08:12.315] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":36},"payload":{}}
+[2018-10-26T10:08:12.317] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)
+[2018-10-26T10:08:12.323] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"n"}}
+[2018-10-26T10:08:12.325] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (IDLE)
+[2018-10-26T10:08:12.326] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":2}}
+[2018-10-26T10:08:12.328] [DEBUG] default - | SERVER change SSN state (HALF IDLE) ->  (IDLE)
+[2018-10-26T10:08:12.329] [DEBUG] default - | SERVER send response: {"header":{"msgType":6,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":1}}
+[2018-10-26T10:08:38.647] [DEBUG] default - Running on port 8080
+[2018-10-26T10:08:42.498] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:08:42.499] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-26T10:08:42.507] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-26T10:08:42.508] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:08:42.509] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-26T10:08:42.512] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:08:42.513] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:08:45.979] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:08:45.981] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:08:45.982] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:08:45.988] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:08:45.990] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-26T10:08:45.990] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-26T10:08:45.993] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-26T10:08:45.994] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"37","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-26T10:08:57.734] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:08:57.735] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":37},"payload":{}}
+[2018-10-26T10:08:57.736] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)
+[2018-10-26T10:08:57.742] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"n"}}
+[2018-10-26T10:09:29.876] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (IDLE)
+[2018-10-26T10:09:29.878] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":2}}
+[2018-10-26T10:09:29.880] [DEBUG] default - | SERVER change SSN state (HALF IDLE) ->  (IDLE)
+[2018-10-26T10:09:29.881] [DEBUG] default - | SERVER send response: {"header":{"msgType":6,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":1}}
+[2018-10-26T10:09:38.648] [DEBUG] default - Running on port 8080
+[2018-10-26T10:10:38.650] [DEBUG] default - Running on port 8080
+[2018-10-26T10:11:06.918] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:11:06.919] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-26T10:11:06.928] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-26T10:11:06.929] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:11:06.930] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-26T10:11:06.933] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:11:06.934] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:11:10.036] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:11:10.037] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:11:10.038] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:11:10.045] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:11:10.047] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-26T10:11:10.047] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-26T10:11:10.050] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-26T10:11:10.050] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"38","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-26T10:11:16.199] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:11:16.200] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":38},"payload":{}}
+[2018-10-26T10:11:16.202] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)
+[2018-10-26T10:11:16.207] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"n"}}
+[2018-10-26T10:11:19.974] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (IDLE)
+[2018-10-26T10:11:19.975] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":2}}
+[2018-10-26T10:11:19.977] [DEBUG] default - | SERVER change SSN state (HALF IDLE) ->  (IDLE)
+[2018-10-26T10:11:19.978] [DEBUG] default - | SERVER send response: {"header":{"msgType":6,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":1}}
+[2018-10-26T10:11:24.289] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:11:24.290] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-26T10:11:24.296] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-26T10:11:24.298] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:11:24.298] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-26T10:11:24.300] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:11:24.301] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:11:26.404] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:11:26.405] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:11:26.406] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:11:27.066] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:11:27.068] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-26T10:11:27.069] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-26T10:11:27.071] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-26T10:11:27.072] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"39","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-26T10:11:34.315] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:11:34.316] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":39},"payload":{}}
+[2018-10-26T10:11:34.317] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)
+[2018-10-26T10:11:34.323] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"n"}}
+[2018-10-26T10:12:37.616] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:12:37.620] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":39},"payload":{}}
+[2018-10-26T10:12:43.455] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:12:43.456] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":39},"payload":{}}
+[2018-10-26T10:12:48.496] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:12:48.497] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac"}}
+[2018-10-26T10:12:48.512] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","clientType":2}}
+[2018-10-26T10:12:48.514] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:12:48.515] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2018-10-26T10:12:48.522] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:12:48.523] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2018-10-26T10:12:50.160] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:12:50.161] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:12:50.163] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:12:50.170] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-10-26T10:12:50.174] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2018-10-26T10:12:50.175] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2018-10-26T10:12:50.180] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-26T10:12:50.181] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"40","mti":1,"tti":30,"mobf":"0"}}
+[2018-10-26T10:12:54.779] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:12:54.780] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":40},"payload":{}}
+[2018-10-26T10:12:54.783] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)
+[2018-10-26T10:12:54.790] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"n"}}
+[2018-10-26T10:13:03.894] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (IDLE)
+[2018-10-26T10:13:05.273] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2018-10-26T10:13:08.337] [DEBUG] default - | SERVER change SSN state (HALF IDLE) ->  (IDLE)
+[2018-10-26T10:13:08.338] [DEBUG] default - | SERVER send response: {"header":{"msgType":6,"msgLen":0,"endpointId":40},"payload":{"resultCode":0}}
+[2018-10-26T10:13:35.515] [DEBUG] default - Running on port 8080
+[2018-10-26T10:13:38.294] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:13:38.295] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-10-26T10:13:38.298] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-10-26T10:13:38.305] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-10-26T10:13:38.387] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-10-26T10:13:38.388] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-10-26T10:13:38.392] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","1","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2018-10-26T10:13:38.393] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-10-26T10:13:42.797] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:13:42.798] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-10-26T10:13:42.801] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-10-26T10:13:42.806] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-10-26T10:13:42.808] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-10-26T10:13:42.809] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-10-26T10:13:42.812] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-10-26T10:13:42.813] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"41","mti":1,"tti":30}}
+[2018-10-26T10:13:47.717] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-10-26T10:13:47.718] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":53,"msgLen":0,"endpointId":41},"payload":{}}
+[2018-10-26T10:13:47.721] [DEBUG] default - | SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)
+[2018-10-26T10:13:47.728] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"a"}}
+[2018-10-26T10:13:47.730] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (USN INFORMED)
+[2018-10-26T10:13:47.731] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2018-10-26T10:13:47.734] [DEBUG] default - | SERVER change USN state (HALF CID RELEASED) ->  (USN INFORMED)
+[2018-10-26T10:13:47.734] [DEBUG] default - | SERVER send response: {"header":{"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2018-10-26T10:14:35.515] [DEBUG] default - Running on port 8080

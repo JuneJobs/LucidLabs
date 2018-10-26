@@ -1039,6 +1039,7 @@ class LlProtocol {
         const payload = this.msgPayload;
 
         this.unpackedPayload = {};
+        this.unpackedPayload.entityType = payload.entityType;
 
         return this.unpackedPayload;
     }
@@ -1048,6 +1049,7 @@ class LlProtocol {
         const payload = this.msgPayload;
 
         this.unpackedPayload = {};
+        this.unpackedPayload.entityType = payload.entityType;
 
         return this.unpackedPayload;
     }
@@ -1431,9 +1433,9 @@ class LlProtocol {
                     return this._packSspDcdAck(payload);
                 case g.SAP_MSG_TYPE.SAP_DCD_ACK:
                     return this._packSapDcdAck(payload);
-                case g.SDP_MSG_TYPE.SDP_DCD_ACK:
+                case g.SDP_MSG_TYPE.SDP_DCD_NOT:
                     return this._packSdpDcdNot(payload);
-                case g.SDP_MSG_TYPE.SDP_DCD_RSP:
+                case g.SDP_MSG_TYPE.SDP_DCD_ACK:
                     return this._packSdpDcdAck(payload);
 
                 //RAV

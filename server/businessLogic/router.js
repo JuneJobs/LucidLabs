@@ -2581,7 +2581,6 @@ router.post("/serverapi", function (req, res) {
                 }
             });
 
-
         /**
          * Receive SSP: SIR-REQ
          * Last update: 10.25.2018
@@ -2716,8 +2715,10 @@ router.post("/serverapi", function (req, res) {
                                 sModule.getNewConnId(g.CID_TYPE.SENSOR, (cid) => {
                                     // 1.1.2.1.2.~
                                     redisCli.multi([
-                                        ["set", `c:con:s:${cid}:ssn`, protocol.getEndpointId(), g.SERVER_TIMER.T803],
-                                        ["set", `c:con:s:${cid}:tti`, g.SERVER_TIMER.T838, g.SERVER_TIMER.T803],
+                                        ["set", `c:con:s:${cid}:ssn`, protocol.getEndpointId(), 'EX', g.SERVER_TIMER.T835],
+                                        ["set", `c:con:s:${cid}:tti`, g.SERVER_TIMER.T838, 'EX'
+                                            , g.SERVER_TIMER.T835
+                                        ],
                                         ["setbit", "c:con:s:all", protocol.getEndpointId(), 1]
                                     ]).exec((err, replies) => {
                                         if (err) {} else {
@@ -2838,8 +2839,8 @@ router.post("/serverapi", function (req, res) {
                                         sModule.getNewConnId(g.CID_TYPE.SENSOR, (cid) => {
                                             // 1.1.1.1.2.1.2.~
                                             redisCli.multi([
-                                                ["set", `c:con:a:${cid}:usn`, protocol.getEndpointId()],
-                                                ["set", `c:con:a:${cid}:tti`, g.SERVER_TIMER.T838],
+                                                ["set", `c:con:a:${cid}:usn`, protocol.getEndpointId(), 'EX', g.SERVER_TIMER.T835],
+                                                ["set", `c:con:a:${cid}:tti`, g.SERVER_TIMER.T838, 'EX', g.SERVER_TIMER.T835],
                                                 ["setbit", "c:con:a:all", protocol.getEndpointId(), 1]
                                             ]).exec((err, replies) => {
                                                 if (err) {} else {
@@ -2916,6 +2917,211 @@ router.post("/serverapi", function (req, res) {
                     
                     logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                     res.send(protocol.getPackedMsg());
+                }
+            });
+
+        /**
+         * Receive SSP: DCD-REQ
+         * Last update: 10.25.2018
+         * Author: Junhee Park
+         */
+        case g.SSP_MSG_TYPE.SSP_DCD_NOT:
+            // 1.~
+            return redisCli.get(`c:con:s:${protocol.getEndpointId()}:ssn`, (err, ssn) => {
+                /*
+                 * Receive SSP: DCD-NOT
+                 * 
+                 * 1.~ Check CID in connection buffer
+                 * 1.1.~ If CID exist
+                 * 1.1.1.~ Get SSN state
+                 * 1.1.1.1.~ If state is CID INFORMED or Reasonable
+                 * 1.1.1.1.1.~ Update CID INFORMED state to HALF-IDLE
+                 * 1.1.1.1.2.~ Send SDP: DCD-NOT
+                 * 1.1.1.1.2.1.~ If SDP: DCD-ACK 0
+                 * 1.1.1.1.2.1.1.~ Delete connection buffer
+                 * 1.1.1.1.2.1.2.~ Update HALF-IDLE to IDLE
+                 * 1.1.1.1.2.1.3.~ Send SSP: DCD-ACK with 0
+                 * 1.1.1.1.2.2.~ If SDP: DCD-ACK not 0
+                 * 1.1.1.1.2.2.1.~ Update HALF-IDLE to IDLE
+                 * 1.1.1.1.2.2.2.~ Send SSP: DCD-ACK with with rej code
+                 * 1.1.1.2.~ If state is not reasonable or not exist
+                 * 1.1.1.2.1.~ Remove CID
+                 * 1.1.1.2.2.~ Break
+                 * 1.2.~ If CID not exist
+                 * 1.2.1.~ Break
+                 */
+                if (err) {} else {
+                    // 1.1.~
+                    if (ssn !== null) {
+                        // 1.1.1.~
+                        state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, ssn, (resState, searchedKey) => {
+                            let payload = {};
+                            // 1.1.1.1.~
+                            if (g.SERVER_RECV_STATE_BY_MSG.SSP_DCD_NOT.includes(resState)) {
+                                // 1.1.1.1.1.~
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_HALF_IDLE_STATE);
+                                logger.debug("| SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)");
+                                // 1.1.1.1.2.~
+                                let cid = protocol.getEndpointId();
+                                payload.entityType = g.ENTITY_TYPE.SENSOR;
+                                protocol.setEndpointId(ssn);
+                                payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCD_NOT, payload);
+
+                                request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                    payload = {};
+                                    protocol.setMsg(message);
+                                    if (!protocol.verifyHeader()) return;
+                                    var unpackedPayload = protocol.unpackPayload();
+                                    if (!unpackedPayload) return;
+                                    switch (unpackedPayload.resultCode) {
+                                        // 1.1.1.1.2.1.~
+                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_OK:
+                                            // 1.1.1.1.2.1.1. & 1.1.1.1.2.1.2. ~
+                                            redisCli.multi([
+                                                ["del", `c:con:s:${cid}:ssn`],
+                                                ["del", `c:con:s:${cid}:tti`],
+                                                ["setbit", "c:con:s:all", ssn, 0],
+                                                //["set", "s:info:" + ssn + ":actf", 1]
+                                            ]).exec((err, replies) => {
+                                                if (err) {} else {
+                                                    // 1.1.1.1.2.1.2.~
+                                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                                    logger.debug("| SERVER change SSN state (HALF IDLE) ->  (IDLE)");
+                                                    // 1.1.1.1.2.1.3.~
+                                                    payload.resultCode = g.SSP_MSG_RESCODE.RESCODE_SSP_DCD.RESCODE_SSP_DCD_OK;
+                                                    protocol.setEndpointId(cid);
+                                                    protocol.packMsg(g.SSP_MSG_TYPE.SSP_DCD_ACK, payload);
+
+                                                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                    res.send(protocol.getPackedMsg());
+                                                }
+                                            })
+                                            break;
+
+                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_OTHER:
+                                            // 1.1.1.1.2.2.1.~
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                            logger.debug("| SERVER change SSN state (HALF IDLE) ->  (IDLE)");
+                                            // 1.1.1.1.2.2.2.~
+                                            payload.resultCode = g.SSP_MSG_RESCODE.RESCODE_SSP_DCD.RESCODE_SSP_DCD_OTHER;
+                                            protocol.packMsg(g.SSP_MSG_TYPE.SSP_DCD_ACK, payload);
+
+                                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                            res.send(protocol.getPackedMsg());
+                                            break;
+
+                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_NOT_EXIST_USER_SEQUENCE_NUMBER_OR_SENSOR_SERIAL_NUMBER:
+                                            // 1.1.1.1.2.2.1.~
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                            logger.debug("| SERVER change SSN state (HALF IDLE) ->  (IDLE)");
+                                            // 1.1.1.1.2.2.2.~
+                                            payload.resultCode = g.SSP_MSG_RESCODE.RESCODE_SSP_DCD.RESCODE_SSP_DCD_OTHER;
+                                            protocol.packMsg(g.SSP_MSG_TYPE.SSP_DCD_ACK, payload);
+
+                                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                            res.send(protocol.getPackedMsg());
+                                            break;
+
+                                    }
+                                });
+                                // 1.1.1.2.~
+                            } else {
+                                // 1.1.1.2.1.~
+                                redisCli.del(`c:con:s:${protocol.getEndpointId()}:ssn`);
+                            }
+                        });
+                        // 1.2.~
+                    }
+                }
+            });
+
+        /**
+         * Receive SAP: DCD-REQ
+         * Last update: 10.25.2018
+         * Author: Junhee Park
+         */
+        case g.SAP_MSG_TYPE.SAP_DCD_NOT:
+            // 1.~
+            return redisCli.get(`c:con:a:${protocol.getEndpointId()}:usn`, (err, usn) => {
+                if (err) {} else {
+                    // 1.1.~
+                    if (usn !== null) {
+                        // 1.1.1.~
+                        let payload = {};
+                        state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, usn, (resState, searchedKey) => {
+                            // 1.1.1.1.~
+                            if (g.SERVER_RECV_STATE_BY_MSG.SAP_DCD_NOT.includes(resState)) {
+                                // 1.1.1.1.1.~
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_CID_RELEASED_STATE);
+                                logger.debug("| SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)");
+
+                                // 1.1.1.1.2.~
+                                protocol.setEndpointId(usn);
+                                payload.entityType = g.ENTITY_TYPE.APPCLIENT;
+                                payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCD_NOT, payload);
+                                request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                    payload = {};
+                                    protocol.setMsg(message);
+                                    if (!protocol.verifyHeader()) return;
+                                    unpackedPayload = protocol.unpackPayload();
+                                    if (!unpackedPayload) return;
+                                    switch (unpackedPayload.resultCode) {
+                                        // 1.1.1.1.2.1.~
+                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_OK:
+                                            // 1.1.1.1.2.1.1. & 1.1.1.1.2.1.2. ~
+                                            redisCli.multi([
+                                                ["del", `c:con:a:${protocol.getEndpointId()}:usn`],
+                                                ["del", `c:con:a:${protocol.getEndpointId()}:tti`],
+                                                ["setbit", 'c:con:a:all', usn,  0],
+                                                //["set", "s:info:" + ssn + ":actf", 1]
+                                            ]).exec((err, replies) => {
+                                                if (err) {} else {
+                                                    // 1.1.1.1.2.1.2.~
+                                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
+                                                    logger.debug("| SERVER change USN state (HALF CID RELEASED) ->  (USN INFORMED)");
+
+                                                    // 1.1.1.1.2.1.3.~
+                                                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_DCD.RESCODE_SAP_DCD_OK;
+                                                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_DCD_ACK, payload);
+                                                    
+                                                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                    res.send(protocol.getPackedMsg());
+                                                }
+                                            })
+                                            break;
+                                            // 1.1.1.1.2.2.~
+                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_OTHER:
+                                            // 1.1.1.1.2.2.1.~
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
+                                            logger.debug("| SERVER change USN state (HALF CID INFORMED) ->  (USN INFORMED)");
+                                            // 1.1.1.1.2.2.2.~
+                                            payload = {};
+                                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_DCD.RESCODE_SAP_DCD_OTHER;
+                                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_DCD_ACK, payload);
+                                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                            res.send(protocol.getPackedMsg());
+                                            break;
+
+                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_NOT_EXIST_USER_SEQUENCE_NUMBER_OR_SENSOR_SERIAL_NUMBER:
+                                            // 1.1.1.1.2.2.1.~
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE);
+                                            logger.debug("| SERVER change SAP state (HALF IDLE) ->  (IDLE)");
+                                            // 1.1.1.1.2.2.2.~
+                                            payload = {};
+                                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_DCD.RESCODE_SAP_DCD_OTHER;
+                                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_DCD_ACK, payload);
+                                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                            res.send(protocol.getPackedMsg());
+                                            break;
+                                    }
+                                });
+                                // 1.1.1.2.~
+                            } else {
+                                // 1.1.1.2.1.~
+                                redisCli.del('c:con:a:' + protocol.getEndpointId() + ':usn');
+                            }
+                        });
+                    }
                 }
             });
 
@@ -4183,6 +4389,7 @@ router.post("/databaseapi", (req, res) => {
                         res.send(protocol.getPackedMsg());
                     }
                 });
+
             /**
              * Receive SDP: SIR-REQ
              * Last update: 10.26.2018
@@ -4241,6 +4448,12 @@ router.post("/databaseapi", (req, res) => {
                         }
                     }
                 });
+
+            /**
+             * Receive SDP: DCA-REQ
+             * Last update: 10.26.2018
+             * Author: Junhee Park
+             */
             case g.SDP_MSG_TYPE.SDP_DCA_REQ:
                 if (typeof unpackedPayload.lat !== 'undefined' && unpackedPayload.lng !== 'undefined') {
                     /**
@@ -4419,8 +4632,120 @@ router.post("/databaseapi", (req, res) => {
                         } 
                     });
                 }
-                break;
 
+            /**
+             * Receive SDP: DCD-NOT
+             * Last update: 10.26.2018
+             * Author: Junhee Park
+             */
+            case g.SDP_MSG_TYPE.SDP_DCD_NOT:
+                /*
+                * Receive SDP: DCD-NOT
+                * 1.~ 엔티티 타입 확인
+                * 1.1.~ If SSP
+                * 1.1.1.~ Check SSN state
+                * 1.1.1.1.~ If receivable state
+                * 1.1.1.1.1.~ Check the existance of SSN
+                * 1.1.1.1.1.1.~ If SSN exist
+                * 1.1.1.1.1.1.1.~ Update sensor activation flag to 3
+                * 1.1.1.1.1.1.2.~ Update sensor state to IDLE
+                * 1.1.1.1.1.1.3.~ Send SDP: DCD-ACK with code 0
+                * 1.1.1.1.1.2.~ If SSN not exist
+                * 1.1.1.1.1.2.1.~ Update sensor state to IDLE
+                * 1.1.1.1.1.2.2.~ Send SDP: DCD-ACK with code 2
+                * 1.1.1.2.~ If not recevable state
+                * 1.1.1.2.1.~ break;
+                * 1.2.~ If SAP
+                * 1.2.1.~ Check USN state
+                * 1.2.1.1.~ If receivable state
+                * 1.2.1.1.1.~ Check the existance of USN
+                * 1.2.1.1.1.1.~ If USN exist
+                * 1.2.1.1.1.1.1.~ Update USN state to USN INFORMED
+                * 1.2.1.1.1.1.2.~ Send SDP: DCD-ACK with code 0
+                * 1.2.1.1.1.2.~ If USN not exist
+                * 1.2.1.1.1.2.1.~ Update USN state to IDLE
+                * 1.2.1.1.1.2.2.~ Send SDP: DCD-ACK with code 2
+                * 1.2.1.2.~ If not receivable state
+                * 1.2.1.2.1.~ Break
+                */
+                // 1. & 1.1.~
+                if (unpackedPayload.entityType === g.ENTITY_TYPE.SENSOR) {
+                    // 1.1.1.~
+                    return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), (resState, searchKey) => {
+                        // 1.1.1.1.~ 
+                        payload = {};
+                        if (g.DATABASE_RECV_STATE_BY_MSG.SDP_DCD_NOT.includes(resState)) {
+                            // 1.1.1.1.1.~
+                            redisCli.get(`s:info:${protocol.getEndpointId()}:actf`, (err, actf) => {
+                                // 1.1.1.1.1.1.~
+                                if (actf !== null) {
+                                    // 1.1.1.1.1.1.1.
+                                    redisCli.set(`s:info:${protocol.getEndpointId()}:actf`, 1);
+                                    // 1.1.1.1.1.1.2.
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                    logger.debug("| SERVER change SSN state (CID INFORMED) ->  (IDLE)");
+
+                                    // 1.1.1.1.1.1.3.
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_OK;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCD_ACK, payload);
+
+                                    logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
+                                    // 1.1.1.1.1.2.~
+                                } else {
+                                    // 1.1.1.1.1.2.1.~
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                    logger.debug("| SERVER change SSN state (CID INFORMED) ->  (IDLE)");
+
+                                    // 1.1.1.1.1.2.2.~
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_NOT_EXIST_USER_SEQUENCE_NUMBER_OR_SENSOR_SERIAL_NUMBER;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCD_ACK, payload);
+
+                                   logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                   res.send(protocol.getPackedMsg());
+                                }
+                            });
+                        }
+                    });
+                    // 1.2.~
+                } else if (unpackedPayload.entityType === g.ENTITY_TYPE.APPCLIENT) {
+                    // 1.2.1.~
+                    return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchKey) => {
+                        // 1.2.1.1.~
+                        payload = {};
+                        if (g.DATABASE_RECV_STATE_BY_MSG.SDP_DCD_NOT.includes(resState)) {
+                            // 1.2.1.1.1.~
+                            redisCli.get('u:info:' + protocol.getEndpointId() + ':usn', (err, usn) => {
+                                // 1.2.1.1.1.1.~
+                                if (usn !== null) {
+                                    // 1.2.1.1.1.1.1.~
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
+                                    logger.debug("| SERVER change SSN state (CID INFORMED) ->  (USN INFORMED)");
+
+                                    // 1.2.1.1.1.1.2.~
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_OK;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCD_ACK, payload);
+
+                                    logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
+                                // 1.2.1.1.1.2.~
+                                } else {
+                                    // 1.2.1.1.1.2.1.~
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE);
+                                    logger.debug("| SERVER change SSN state (CID INFORMED) ->  (IDLE)");
+
+                                    // 1.2.1.1.1.2.2.~
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_NOT_EXIST_USER_SEQUENCE_NUMBER_OR_SENSOR_SERIAL_NUMBER;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCD_ACK, payload);
+
+                                    logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
+                                }
+                            });
+                        }
+                    });
+                }
+            
             default:
                 break;
             
