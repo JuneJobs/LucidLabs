@@ -34,7 +34,9 @@ router.post("/serverdatatran", function (req, res){
     logger.debug("    +--------------------------------------------------------------------------------.................");
     logger.debug("| SERVER Received request on /serverapi: " + JSON.stringify(req.body));
 
-    var protocol = new LlProtocol();
+    let protocol = new LlProtocol();
+    let state = new LlState();
+    let sModule = new sensorModule();
     protocol.setMsg(req.body);
     if(!protocol.verifyHeader()) return;
     
@@ -49,8 +51,8 @@ router.post("/serverdatatran", function (req, res){
                         //ssn state update
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, ssn, g.SERVER_SSN_STATE_ID.SERVER_SSN_CID_INFORMED_STATE, g.SERVER_TIMER.T803)
                         var mti = g.SERVER_TIMER.T805;
-                        var unpackedPayload = unpackTrnPayload(protocol.payload, mti);
-                        var dataSet = unpackedPayload.airQualityDataListEncodings.airQualityDataTuples;
+                        var unpackedPayload = sModule.unpackTrnPayload(protocol.msgPayload, mti);
+                        var dataSet = unpackedPayload.success.arrSuccessfulRcvdData;
                         //add data into buffer
                         var args = [];
                         args.push('d:air:' + ssn + ':raw');
@@ -63,23 +65,23 @@ router.post("/serverdatatran", function (req, res){
                                 logger.debug("| SERVER ERROR zadd d:air:" + ssn + ':raw with values');
                             } else {
                                 var payload = {}
-                                payload.successfulRcptFlg = unpackedPayload.successfulRcptFlg;
-                                payload.continuityOfSuccessfulRcpt = unpackedPayload.continuityOfSuccessfulRcpt;
-                                payload.numOfSuccessfulRcpt = unpackedPayload.numOfSuccessfulRcpt;
+                                payload.successfulRcptFlg = unpackedPayload.success.successfulRcptFlg;
+                                payload.continuityOfSuccessfulRcpt = unpackedPayload.success.continuityOfSuccessfulRcpt;
+                                payload.numOfSuccessfulRcpt = unpackedPayload.success.numOfSuccessfulRcpt;
                                 if (payload.successfulRcptFlg === 1) {
-                                    payload.listOfSuccessfulTs = unpackedPayload.arrSuccessfulTs;
+                                    payload.listOfSuccessfulTs = unpackedPayload.success.arrSuccessfulTs;
                                 }
-                                payload.retransReqFlg = unpackedPayload.retransReqFlg;
-                                payload.continuityOfRetransReq = unpackedPayload.continuityOfRetransReq;
-                                payload.numOfRetransReq = unpackedPayload.numOfRetransReq;
+                                payload.retransReqFlg = unpackedPayload.fail.retranReqFlg;
+                                payload.continuityOfRetransReq = unpackedPayload.fail.continuityOfRetransReq;
+                                payload.numOfRetransReq = unpackedPayload.fail.numOfRetransReq;
                                 if (payload.retransReqFlg === 1) {
-                                    payload.listOfUnsuccessfulTs = unpackedPayload.arrUnsuccessfulTs;
+                                    payload.listOfUnsuccessfulTs = unpackedPayload.fail.arrUnsuccessfulTs;
                                 }
                                 var sspRadAck = {
                                     "header": {
                                         "msgType": g.SSP_MSG_TYPE.SSP_RAD_ACK,
                                         "msgLen": 0,
-                                        "endpointId": this.endpointId
+                                        "endpointId": protocol.getEndpointId()
                                     },
                                     "payload": payload
                                 }
@@ -105,7 +107,7 @@ router.post("/serverdatatran", function (req, res){
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, usn, g.SERVER_USN_STATE_ID.SERVER_USN_CID_INFORMED_STATE, g.SERVER_TIMER.T803);
                         //here
                         var mti = g.SERVER_TIMER.T837;
-                        var unpackedPayload = unpackTrnPayload(protocol.payload, mti);
+                        var unpackedPayload = sModule.unpackTrnPayload(protocol.payload, mti);
                         var dataSet = unpackedPayload.heartRelatedDataListEncodings.heartRelatedDataTuples;
                         //add data into buffer
                         var args = [];
@@ -119,23 +121,23 @@ router.post("/serverdatatran", function (req, res){
                                 logger.debug("| SERVER ERROR zadd d:air:" + ssn + ':raw with values');
                             } else {
                                 var payload = {}
-                                payload.successfulRcptFlg = unpackedPayload.successfulRcptFlg;
-                                payload.continuityOfSuccessfulRcpt = unpackedPayload.continuityOfSuccessfulRcpt;
-                                payload.numOfSuccessfulRcpt = unpackedPayload.numOfSuccessfulRcpt;
+                                payload.successfulRcptFlg = unpackedPayload.success.successfulRcptFlg;
+                                payload.continuityOfSuccessfulRcpt = unpackedPayload.success.continuityOfSuccessfulRcpt;
+                                payload.numOfSuccessfulRcpt = unpackedPayload.success.numOfSuccessfulRcpt;
                                 if (payload.successfulRcptFlg === 1) {
-                                    payload.listOfSuccessfulTs = unpackedPayload.arrSuccessfulTs;
+                                    payload.listOfSuccessfulTs = unpackedPayload.success.arrSuccessfulTs;
                                 }
-                                payload.retransReqFlg = unpackedPayload.retransReqFlg;
-                                payload.continuityOfRetransReq = unpackedPayload.continuityOfRetransReq;
-                                payload.numOfRetransReq = unpackedPayload.numOfRetransReq;
+                                payload.retransReqFlg = unpackedPayload.fail.retranReqFlg;
+                                payload.continuityOfRetransReq = unpackedPayload.fail.continuityOfRetransReq;
+                                payload.numOfRetransReq = unpackedPayload.fail.numOfRetransReq;
                                 if (payload.retransReqFlg === 1) {
-                                    payload.listOfUnsuccessfulTs = unpackedPayload.arrUnsuccessfulTs;
+                                    payload.listOfUnsuccessfulTs = unpackedPayload.fail.arrUnsuccessfulTs;
                                 }
                                 var sspRadAck = {
                                     "header": {
                                         "msgType": g.SAP_MSG_TYPE.SAP_RHD_ACK,
                                         "msgLen": 0,
-                                        "endpointId": this.endpointId
+                                        "endpointId": protocol.getEndpointId()
                                     },
                                     "payload": payload
                                 }
@@ -3125,6 +3127,14 @@ router.post("/serverapi", function (req, res) {
                 }
             });
 
+        /**
+         * Receive SAP: DCD-REQ
+         * Last update: 10.25.2018
+         * Author: Junhee Park
+         */
+        
+        
+
         default:
             break;
     }
@@ -4149,6 +4159,7 @@ router.post("/databaseapi", (req, res) => {
                                                     ["set", `${keyHead}mobf`, unpackedPayload.mobf],
                                                     //Update sensor information
                                                     ["set", `${keyHead}actf`, 1],
+                                                    ["set", `s:info:${ssn}:actf`, 1],
                                                     [
                                                         "srem", "search:s:actf:0", ssn,
                                                     ],
