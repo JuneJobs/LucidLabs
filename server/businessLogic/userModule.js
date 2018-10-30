@@ -73,11 +73,16 @@ class userModule {
                         cb(2);
                     } else {
                         //okay
-                        if (reply === nsc.toString()) {
-                            cb(1);
-                        //incorrect nsc
-                        } else {
-                            cb(3);
+                        //it should be fixed
+                        try {
+                            if (reply === nsc.toString()) {
+                                cb(1);
+                                //incorrect nsc
+                            } else {
+                                cb(3);
+                            }
+                        } catch (error) {
+                            
                         }
                     }
                 }

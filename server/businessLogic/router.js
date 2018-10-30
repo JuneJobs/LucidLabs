@@ -56,9 +56,40 @@ router.post("/serverdatatran", function (req, res){
                         //add data into buffer
                         var args = [];
                         args.push('d:air:' + ssn + ':raw');
-                        for (let index = 0; index < dataSet.length; index++) {
-                            args.push(dataSet[index].shift());
-                            args.push(dataSet[index].toString());
+                        for (let i = 0, x = dataSet.length; i < x; i++) {
+                            args.push(dataSet[i][0]);
+                            args.push(dataSet[i].toString());
+                            if (i === x-1) {
+                                const nation = dataSet[i][2],
+                                        state = dataSet[i][3],
+                                        city = dataSet[i][4];
+                                let rawData = dataSet[i];
+                                rawData.splice(2,4);
+                                rawData = rawData.toString();
+
+                                redisCli.zadd(`search:s:realtime:air:${nation}:${state}:${city}`, ssn, rawData, (err, replies) =>{
+                                    if(err){
+                                        console.log(err);
+                                    } else {
+                                        console.log(replies);
+                                    }
+                                });
+                                let key = Number(ssn),
+                                    lessKey = key - 1,
+                                    greaterKey = key + 1;
+                                lessKey = `(${lessKey.toString()}`;
+                                greaterKey = `(${greaterKey.toString()}`;
+                                redisCli.zremrangebyscore(`search:s:realtime:air:${nation}:${state}:${city}`, lessKey, greaterKey);
+                                redisCli.set('c:con:s:' + protocol.getEndpointId() + ':ssn', ssn, 'EX', g.SERVER_TIMER.T835);
+
+                                setTimeout(() => {
+                                    redisCli.zremrangebyscore(`search:s:realtime:air:${nation}:${state}:${city}`, lessKey, greaterKey, (err, reply )=> {
+                                        if(err){} else {
+                                            logger.debug("| SERVER removed realtime data.");
+                                        }
+                                    });
+                                }, g.SERVER_TIMER.T803 * 1000);
+                            }
                         }
                         redisCli.zadd(args, (err, result) => {
                             if (err) {
@@ -4523,7 +4554,7 @@ router.post("/databaseapi", (req, res) => {
                                             redisCli.get(`s:info:${protocol.getEndpointId()}:cgeo`, (err, cgeo) => {
                                                 if (cgeo === null) {
                                                     redisCli.set(`s:info:${protocol.getEndpointId()}:cgeo`, `${unpackedPayload.lat},${unpackedPayload.lng}`);
-                                                    redisCli.sadd(`search:s:crgeo:${unpackedPayload.nat}:${unpackedPayload.state}:${unpackedPayload.city}`, protocol.getEndpointId());
+                                                    //redisCli.sadd(`search:s:crgeo:${unpackedPayload.nat}:${unpackedPayload.state}:${unpackedPayload.city}`, protocol.getEndpointId());
                                                     
                                                     state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_CID_ALLOACATED_STATE, g.DATABASE_TIMER.T955);
                                                     logger.debug("| DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)");
