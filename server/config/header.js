@@ -15,7 +15,7 @@ const ENTITY_TYPE = {
     DATABASE: "d"
 };
 
-const ENDPOIONT_ID_TYPE = {
+const ENDPOINT_ID_TYPE = {
     EI_TYPE_SENSOR_TSI: 0x01,
     EI_TYPE_APP_TCI:    0x02,
     EI_TYPE_WEB_TCI:    0x03,
@@ -1117,7 +1117,7 @@ const CID_TYPE = {
 module.exports = { HEADER_SIZE, 
                    ENTITY_TYPE,
                    INVALID_ID_TYPE, 
-                   ENDPOIONT_ID_TYPE, 
+                   ENDPOINT_ID_TYPE, 
                    INVALID_MSG_TYPE, 
                    SSP_MSG_TYPE, 
                    SAP_MSG_TYPE,

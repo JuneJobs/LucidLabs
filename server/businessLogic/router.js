@@ -18,7 +18,7 @@ const g = require("../config/header");
 
 //Import hash manager module
 const LlHash = require('../lib/LlHash');
-//Mail Sender module
+//Mail Sender modul
 var LlMailer = require('../lib/LlMailer');
 
 const userModule = require('./userModule');
@@ -49,7 +49,7 @@ router.post("/serverdatatran", function (req, res){
                 } else {
                     if(ssn !== null) {
                         //ssn state update
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, ssn, g.SERVER_SSN_STATE_ID.SERVER_SSN_CID_INFORMED_STATE, g.SERVER_TIMER.T803)
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, ssn, g.SERVER_SSN_STATE_ID.SERVER_SSN_CID_INFORMED_STATE, g.SERVER_TIMER.T803)
                         var mti = g.SERVER_TIMER.T805;
                         var unpackedPayload = sModule.unpackTrnPayload(protocol.msgPayload, mti);
                         var dataSet = unpackedPayload.success.arrSuccessfulRcvdData;
@@ -135,7 +135,7 @@ router.post("/serverdatatran", function (req, res){
                 } else {
                     if (ssn !== null) {
                         //ssn state update
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, usn, g.SERVER_USN_STATE_ID.SERVER_USN_CID_INFORMED_STATE, g.SERVER_TIMER.T803);
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, usn, g.SERVER_USN_STATE_ID.SERVER_USN_CID_INFORMED_STATE, g.SERVER_TIMER.T803);
                         //here
                         var mti = g.SERVER_TIMER.T837;
                         var unpackedPayload = sModule.unpackTrnPayload(protocol.payload, mti);
@@ -187,8 +187,7 @@ router.post("/serverdatatran", function (req, res){
             break;
     }
 });
-//Process : 일정시간마다 에어데이터를 서버에서 데이터베이스로 전송
-//레디스에 데이터를 넣어두고, 이를 읽어서 데이터베이스로 전송
+//Process : Send Air data each time to Database. It should be modified
 
 //SERVER
 router.post("/serverapi", function (req, res) {
@@ -218,13 +217,13 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SAP_MSG_TYPE.SAP_SGU_REQ:
-            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 //처음받지 않을경우
                 if (resState) {
                     //아이디가 같을경우 재전송, 다를경우 중복
                     if (`c:sta:s:a:tci:${protocol.getEndpointId()}:${unpackedPayload.userId}` === searchedKey) {
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                         logger.debug("| SERVER change TCI state to IDLE STATE");
 
                         payload.userId = unpackedPayload.userId;
@@ -232,7 +231,7 @@ router.post("/serverapi", function (req, res) {
                         payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGU_REQ, payload);
                         logger.debug(`| SERVER send request: ${JSON.stringify(protocol.getPackedMsg())}`);
                         //update state
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
                         
                         let userInfo = unpackedPayload;
                         logger.debug("| SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE");
@@ -243,7 +242,7 @@ router.post("/serverapi", function (req, res) {
                             if (!unpackedPayload) return;
                             switch (unpackedPayload.resultCode) {
                                 case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OK:
-                                    return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState) => {
+                                    return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState) => {
                                         if (g.SERVER_RECV_STATE_BY_MSG.SDP_SGU_RSP.includes(resState)) {
 
                                             const ac = codeGen.getAuthenticationCode(),
@@ -274,7 +273,7 @@ router.post("/serverapi", function (req, res) {
                                             payload.vc = vc;
                                             protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
                                             
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
                                             logger.debug("| SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE");
 
                                             logger.debug(`| Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -287,7 +286,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGU.RESCODE_SAP_SGU_OTHER;
                                     protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
                                 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug('| SERVER change TCI state to IDLE STATE');
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -298,7 +297,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGU.RESCODE_SAP_SGU_DUPLICATE_OF_USER_ID;
                                     protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug('| SERVER change TCI state to IDLE STATE');
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -319,7 +318,7 @@ router.post("/serverapi", function (req, res) {
 
                     if (g.SERVER_RECV_STATE_BY_MSG.SAP_SGU_REQ.includes(resState)) {
                         //set state
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                         logger.debug("| SERVER change TCI state to IDLE STATE");
 
                         payload.userId = unpackedPayload.userId;
@@ -329,7 +328,7 @@ router.post("/serverapi", function (req, res) {
                         logger.debug("| SERVER send request: " + JSON.stringify(protocol.getPackedMsg()));
                         
                         //update state
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
                         let userInfo = unpackedPayload;
 
                         logger.debug("| SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE");
@@ -340,7 +339,7 @@ router.post("/serverapi", function (req, res) {
                             if (!unpackedPayload) return;
                             switch (unpackedPayload.resultCode) {
                                 case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OK:
-                                    return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState) => {
+                                    return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState) => {
                                         if (g.SERVER_RECV_STATE_BY_MSG.SDP_SGU_RSP.includes(resState)) {
                                         
                                             const ac = codeGen.getAuthenticationCode(),
@@ -372,7 +371,7 @@ router.post("/serverapi", function (req, res) {
                                             payload.vc = vc;
                                             protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
 
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
                                             logger.debug("| SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE");
                                             
                                             logger.debug(`| Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -385,7 +384,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGU.RESCODE_SAP_SGU_OTHER;
                                     protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug("| SERVER change TCI state to IDLE STATE");
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -396,7 +395,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGU.RESCODE_SAP_SGU_DUPLICATE_OF_USER_ID;
                                     protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug("| SERVER change TCI state to IDLE STATE");
 
                                     logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
@@ -414,19 +413,19 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_SGU_REQ:
-            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 //처음받지 않을경우
                 if (resState) {
                     //아이디가 같을경우 재전송, 다를경우 중복
                     if (`c:sta:s:w:tci:${protocol.getEndpointId()}:${unpackedPayload.userId}` === searchedKey) {
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                         logger.debug("| SERVER change TCI state to IDLE STATE");
                         unpackedPayload.clientType = g.CLIENT_TYPE.WEB;
                         payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGU_REQ, unpackedPayload);
                         logger.debug(`| SERVER send request: ${JSON.stringify(protocol.getPackedMsg())}`);
                         //update state
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
                         
                         let userInfo = unpackedPayload;
                         logger.debug("| SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE");
@@ -437,7 +436,7 @@ router.post("/serverapi", function (req, res) {
                             if (!unpackedPayload) return;
                             switch (unpackedPayload.resultCode) {
                                 case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OK:
-                                    return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState) => {
+                                    return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState) => {
                                         if (g.SERVER_RECV_STATE_BY_MSG.SDP_SGU_RSP.includes(resState)) {
 
                                             const ac = codeGen.getAuthenticationCode(),
@@ -468,7 +467,7 @@ router.post("/serverapi", function (req, res) {
                                             payload.vc = vc;
                                             protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
                                             logger.debug("| SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE");
 
                                             logger.debug(`| Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -482,7 +481,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OTHER;
                                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug('| SERVER change TCI state to IDLE STATE');
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -494,7 +493,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_DUPLICATE_OF_USER_ID;
                                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug('| SERVER change TCI state to IDLE STATE');
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -516,7 +515,7 @@ router.post("/serverapi", function (req, res) {
 
                     if (g.SERVER_RECV_STATE_BY_MSG.SWP_SGU_REQ.includes(resState)) {
                         //set state
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                         logger.debug("| SERVER change TCI state to IDLE STATE");
 
                         unpackedPayload.clientType = g.CLIENT_TYPE.WEB;
@@ -524,7 +523,7 @@ router.post("/serverapi", function (req, res) {
                         logger.debug("| SERVER send request: " + JSON.stringify(protocol.getPackedMsg()));
 
                         //update state
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_DUPLICATE_REQUESTED_STATE);
                         
                         let userInfo = unpackedPayload;
                         logger.debug("| SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE");
@@ -535,7 +534,7 @@ router.post("/serverapi", function (req, res) {
                             if (!unpackedPayload) return;
                             switch (unpackedPayload.resultCode) {
                                 case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OK:
-                                    return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState) => {
+                                    return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState) => {
                                         if (g.SERVER_RECV_STATE_BY_MSG.SDP_SGU_RSP.includes(resState)) {
 
                                             const ac = codeGen.getAuthenticationCode(),
@@ -567,7 +566,7 @@ router.post("/serverapi", function (req, res) {
                                             payload.vc = vc;
                                             protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_USER_ID_AVAILABLITY_CONFIRMED_STATE, g.SERVER_TIMER.T862);
                                             logger.debug("| SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE");
 
                                             logger.debug(`| Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -581,7 +580,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_OTHER;
                                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug("| SERVER change TCI state to IDLE STATE");
 
                                     logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -593,7 +592,7 @@ router.post("/serverapi", function (req, res) {
                                     payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGU.RESCODE_SWP_SGU_DUPLICATE_OF_USER_ID;
                                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGU_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                     logger.debug("| SERVER change TCI state to IDLE STATE");
 
                                     logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
@@ -611,7 +610,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SAP_MSG_TYPE.SAP_UVC_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
                 //state exist
                 let payload = {};
                 if (resState) {
@@ -671,7 +670,7 @@ router.post("/serverapi", function (req, res) {
                                                                         case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OK:
                                                                             let keyHead = "u:temp:" + protocol.getEndpointId() + ":";
                                                                             redisCli.get(`${keyHead}id`, (err, id) => {
-                                                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), id], g.SERVER_TCI_STATE_ID.SERVER_TCI_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
+                                                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), id], g.SERVER_TCI_STATE_ID.SERVER_TCI_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
                                                                                 logger.debug("| SERVER change TCI state to USN ALLOCATED STATE");
                                                                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_OK;
                                                                                 //remove temp Data
@@ -748,7 +747,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */    
         case g.SWP_MSG_TYPE.SWP_UVC_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
                 //state exist
                 let payload = {};
                 if (resState) {
@@ -808,7 +807,7 @@ router.post("/serverapi", function (req, res) {
                                                                         case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OK:
                                                                             let keyHead = "u:temp:" + protocol.getEndpointId() + ":";
                                                                             redisCli.get(`${keyHead}id`, (err, id) => {
-                                                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), id], g.SERVER_TCI_STATE_ID.SERVER_TCI_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
+                                                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), id], g.SERVER_TCI_STATE_ID.SERVER_TCI_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
                                                                                 logger.debug("| SERVER change TCI state to USN ALLOCATED STATE");
                                                                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UVC.RESCODE_SWP_UVC_OK;
                                                                                 //remove temp Data
@@ -885,13 +884,13 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SAP_MSG_TYPE.SAP_SGI_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 //idle state이거나, 재전송인 경우 데이터베이스로 연결하는 로직
                 if (resState === false || (resState === g.SERVER_TCI_STATE_ID.SERVER_TCI_HALF_USN_INFORMED_STATE && searchedKey.includes(unpackedPayload.userId))) {
                     let userId = unpackedPayload.userId;
                     //state변경
-                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_HALF_USN_INFORMED_STATE);
+                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_HALF_USN_INFORMED_STATE);
                     logger.debug("| SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)");
                     //Database verify request
                     payload.userId = unpackedPayload.userId;
@@ -918,8 +917,8 @@ router.post("/serverapi", function (req, res) {
                                             loger.debug(err);
                                         } else {
                                             logger.debug(`| SERVER stored active user ${JSON.stringify(command)}`);
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, unpackedPayload.usn, g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, unpackedPayload.usn, g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                             logger.debug("| SERVER change USN state (IDLE) -> (USN INFORMED)");
                                             payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGI.RESCODE_SAP_SGI_OK;
                                             payload.usn = unpackedPayload.usn;
@@ -932,7 +931,7 @@ router.post("/serverapi", function (req, res) {
                                 break;
                             //reject cases
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_OTHER:
-                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                 logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
 
                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGI.RESCODE_SAP_SGI_OTHER;
@@ -941,7 +940,7 @@ router.post("/serverapi", function (req, res) {
                                 res.send(protocol.getPackedMsg());
                                 break;
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_NOT_EXIST_USER_ID:
-                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                 logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
 
                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGI.RESCODE_SAP_SGI_NOT_EXIST_USER_ID;
@@ -950,7 +949,7 @@ router.post("/serverapi", function (req, res) {
                                 res.send(protocol.getPackedMsg());
                                 break;
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_INCORRECT_CURRENT_USER_PASSWORD:
-                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                 logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
 
                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGI.RESCODE_SAP_SGI_INCORRECT_CURRENT_USER_PASSWORD;
@@ -975,13 +974,13 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_SGI_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 //idle state이거나, 재전송인 경우 데이터베이스로 연결하는 로직
                 if (resState === false || (resState === g.SERVER_TCI_STATE_ID.SERVER_TCI_HALF_USN_INFORMED_STATE && searchedKey.includes(unpackedPayload.userId))) {
                     let userId = unpackedPayload.userId;
                     //state변경
-                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_HALF_USN_INFORMED_STATE);
+                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_HALF_USN_INFORMED_STATE);
                     logger.debug("| SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)");
                     //Database verify request
                     payload.userId = unpackedPayload.userId;
@@ -1012,8 +1011,8 @@ router.post("/serverapi", function (req, res) {
                                             loger.debug(err);
                                         } else {
                                             logger.debug(`| SERVER stored active user ${JSON.stringify(command)}`);
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, unpackedPayload.usn, g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, unpackedPayload.usn, g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                             logger.debug("| SERVER change USN state (IDLE) -> (USN INFORMED)");
                                             payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGI.RESCODE_SWP_SGI_OK;
                                             payload.usn = unpackedPayload.usn;
@@ -1026,7 +1025,7 @@ router.post("/serverapi", function (req, res) {
                                 break;
                                 //reject cases
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_OTHER:
-                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                 logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
 
                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGI.RESCODE_SWP_SGI_OTHER;
@@ -1035,7 +1034,7 @@ router.post("/serverapi", function (req, res) {
                                 res.send(protocol.getPackedMsg());
                                 break;
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_NOT_EXIST_USER_ID:
-                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                 logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
 
                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGI.RESCODE_SWP_SGI_NOT_EXIST_USER_ID;
@@ -1044,7 +1043,7 @@ router.post("/serverapi", function (req, res) {
                                 res.send(protocol.getPackedMsg());
                                 break;
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGI.RESCODE_SDP_SGI_INCORRECT_CURRENT_USER_PASSWORD:
-                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                 logger.debug("| SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)");
 
                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGI.RESCODE_SWP_SGI_INCORRECT_CURRENT_USER_PASSWORD;
@@ -1068,7 +1067,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SAP_MSG_TYPE.SAP_SGO_NOT:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {},
                     clientType = g.CLIENT_TYPE.APP;
                 if (resState) {
@@ -1078,7 +1077,7 @@ router.post("/serverapi", function (req, res) {
                             payload.usn = protocol.getEndpointId();
                             payload.clientType = g.CLIENT_TYPE.APP;
                             payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGO_NOT, payload);
-                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_IDLE_STATE);
+                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_IDLE_STATE);
                             logger.debug("| SERVER change USN state (USN INFORMED STATE) ->  (HALF IDLE IDLE)");
                             request.send('http://localhost:8080/databaseapi', payload, (message) => {
                                 protocol.setMsg(message);
@@ -1094,7 +1093,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGO.RESCODE_SAP_SGO_OK;
                                                 protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGO_ACK, payload);
 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE);
                                                 logger.debug("| SERVER change USN state (HALF IDLE STATE) ->  (IDLE)");
 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -1147,7 +1146,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_SGO_NOT:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {},
                     clientType = g.CLIENT_TYPE.WEB;
                 if (resState) {
@@ -1157,7 +1156,7 @@ router.post("/serverapi", function (req, res) {
                             payload.usn = protocol.getEndpointId();
                             payload.clientType = g.CLIENT_TYPE.WEB;
                             payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGO_NOT, payload);
-                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_IDLE_STATE);
+                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_IDLE_STATE);
                             logger.debug("| SERVER change USN state (USN INFORMED STATE) ->  (HALF IDLE IDLE)");
                             request.send('http://localhost:8080/databaseapi', payload, (message) => {
                                 protocol.setMsg(message);
@@ -1173,7 +1172,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SGO.RESCODE_SWP_SGO_OK;
                                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_SGO_ACK, payload);
 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE);
                                                 logger.debug("| SERVER change USN state (HALF IDLE STATE) ->  (IDLE)");
 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -1225,7 +1224,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SAP_MSG_TYPE.SAP_UPC_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 if (resState) {
                     uModule.checkUserSignedInState(g.ENTITY_TYPE.APPCLIENT, g.CLIENT_TYPE.APP, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
@@ -1258,7 +1257,7 @@ router.post("/serverapi", function (req, res) {
                                                             loger.debug(err);
                                                         } else {
                                                             logger.debug(`| SERVER stored active user${JSON.stringify(command)}`);
-                                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                             logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                                             payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UPC.RESCODE_SAP_UPC_OK;
@@ -1284,7 +1283,7 @@ router.post("/serverapi", function (req, res) {
 
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_UPC.RESCODE_SDP_UPC_INCORRECT_CURRENT_USER_PASSWORD:
 
-                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                         logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                         payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UPC.RESCODE_SAP_UPC_INCORRECT_CURRENT_USER_PASSWORD;
@@ -1311,7 +1310,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_UPC_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 if (resState) {
                     uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
@@ -1344,7 +1343,7 @@ router.post("/serverapi", function (req, res) {
                                                             loger.debug(err);
                                                         } else {
                                                             logger.debug(`| SERVER stored active user${JSON.stringify(command)}`);
-                                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                             logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                                             payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UPC.RESCODE_SWP_UPC_OK;
@@ -1370,7 +1369,7 @@ router.post("/serverapi", function (req, res) {
 
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_UPC.RESCODE_SDP_UPC_INCORRECT_CURRENT_USER_PASSWORD:
 
-                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                         logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                         payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UPC.RESCODE_SWP_UPC_INCORRECT_CURRENT_USER_PASSWORD;
@@ -1397,7 +1396,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SAP_MSG_TYPE.SAP_FPU_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 if (!resState) {
                     //Database verify request
@@ -1464,7 +1463,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_FPU_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 if (!resState) {
                     //Database verify request
@@ -1531,7 +1530,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_UDR_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 /**
                  * Receive SWP: UDR-REQ
                  * 1.~ Check USN state.
@@ -1575,7 +1574,7 @@ router.post("/serverapi", function (req, res) {
                                         // 1.1.1.1.1.~
                                         uModule.removeActiveUserInfo(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), (result) => {
                                             if (result) {
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (IDLE)");
                                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_UDR.RESCODE_SWP_UDR_OK;
                                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_UDR_RSP, payload);
@@ -1618,7 +1617,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_AUV_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 //state exist
                 if (resState) {
@@ -1649,7 +1648,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_AUV.RESCODE_SWP_AUV_OK;
                                                 payload.userInfoListEncodings = unpackedPayload.userInfoListEncodings;
                                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_AUV_RSP, payload);
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -1709,7 +1708,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_ASR_REQ:
-            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 //권한체크 필요 없음
                 let payload = {};
                 if (resState) {
@@ -1735,7 +1734,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASR.RESCODE_SWP_ASR_OK;
                                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASR_RSP, payload);
 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -1798,7 +1797,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_ASD_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 //State exist
                 if (resState) {
@@ -1823,7 +1822,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASD.RESCODE_SWP_ASD_OK;
                                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASD_RSP, payload);
                                                 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`)
@@ -1897,7 +1896,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_ASV_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 //state exist
                 if (resState) {
@@ -1928,7 +1927,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.selectedSensorInformationList = unpackedPayload.selectedSensorInformationList;
                                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASV_RSP, payload);
                                                 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
                                                 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`)
@@ -1981,7 +1980,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SAP_MSG_TYPE.SAP_SRG_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 if (resState) {
                     uModule.checkUserSignedInState(g.ENTITY_TYPE.APPCLIENT, g.CLIENT_TYPE.APP, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
@@ -2004,7 +2003,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SRG.RESCODE_SAP_SRG_OK;
                                                 protocol.packMsg(g.SAP_MSG_TYPE.SAP_SRG_RSP, payload);
 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -2053,7 +2052,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_SRG_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 if (resState) {
                     uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
@@ -2076,7 +2075,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SRG.RESCODE_SWP_SRG_OK;
                                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_SRG_RSP, payload);
 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -2125,7 +2124,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SAP_MSG_TYPE.SAP_SAS_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 if (resState) {
                     uModule.checkUserSignedInState(g.ENTITY_TYPE.APPCLIENT, g.CLIENT_TYPE.APP, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
@@ -2147,7 +2146,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_OK;
                                                 protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -2213,7 +2212,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_SAS_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 if (resState) {
                     uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
@@ -2235,7 +2234,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SAS.RESCODE_SWP_SAS_OK;
                                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_SAS_RSP, payload);
                                                 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
                                                 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -2301,7 +2300,7 @@ router.post("/serverapi", function (req, res) {
          */
         case g.SAP_MSG_TYPE.SAP_SDD_REQ:
             //check state
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 //State exist
                 if (resState) {
@@ -2325,7 +2324,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SDD.RESCODE_SAP_SDD_OK;
                                                 protocol.packMsg(g.SAP_MSG_TYPE.SAP_SDD_RSP, payload);
 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -2385,7 +2384,7 @@ router.post("/serverapi", function (req, res) {
          */
         case g.SWP_MSG_TYPE.SWP_SDD_REQ:
             //check state
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 //State exist
                 if (resState) {
@@ -2409,7 +2408,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SDD.RESCODE_SWP_SDD_OK;
                                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_SDD_RSP, payload);
 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
                                                 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -2476,7 +2475,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SAP_MSG_TYPE.SAP_SLV_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 //state exist
                 if (resState) {
@@ -2499,7 +2498,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.selectedSensorInformationList = unpackedPayload.selectedSensorInformationList;
                                                 protocol.packMsg(g.SAP_MSG_TYPE.SAP_SLV_RSP, payload);
 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -2548,7 +2547,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_SLV_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 let payload = {};
                 //state exist
                 if (resState) {
@@ -2571,7 +2570,7 @@ router.post("/serverapi", function (req, res) {
                                                 payload.selectedSensorInformationList = unpackedPayload.selectedSensorInformationList;
                                                 protocol.packMsg(g.SWP_MSG_TYPE.SWP_SLV_RSP, payload);
                                                 
-                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
                                                 
                                                 logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -2639,7 +2638,7 @@ router.post("/serverapi", function (req, res) {
                 if (err) {} else {
                     // 1.1.~ 
                     if (keys.length === 0) {
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_TSI, [protocol.getEndpointId(), unpackedPayload.wmac], g.SERVER_TSI_STATE_ID.SERVER_TSI_HALF_SSN_INFORMED_STATE);
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_TSI, [protocol.getEndpointId(), unpackedPayload.wmac], g.SERVER_TSI_STATE_ID.SERVER_TSI_HALF_SSN_INFORMED_STATE);
                         payload.wmac = unpackedPayload.wmac;
                         let wmac = unpackedPayload.wmac;
                         payload.clientType = g.CLIENT_TYPE.WEB;
@@ -2658,8 +2657,8 @@ router.post("/serverapi", function (req, res) {
                                     payload.ssn = unpackedPayload.ssn;
                                     protocol.packMsg(g.SSP_MSG_TYPE.SSP_SIR_RSP, payload);
 
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_TSI, [protocol.getEndpointId(), wmac], g.SERVER_TSI_STATE_ID.SERVER_TSI_SSN_INFORMED_STATE, g.SERVER_TIMER.T801);
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, unpackedPayload.ssn, g.SERVER_SSN_STATE_ID.SERVER_SSN_HALF_CID_INFORMED_STATE, 300);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_TSI, [protocol.getEndpointId(), wmac], g.SERVER_TSI_STATE_ID.SERVER_TSI_SSN_INFORMED_STATE, g.SERVER_TIMER.T801);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, unpackedPayload.ssn, g.SERVER_SSN_STATE_ID.SERVER_SSN_HALF_CID_INFORMED_STATE, 300);
                                     logger.debug("| SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)");
                                     
                                     logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -2702,7 +2701,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SSP_MSG_TYPE.SSP_DCA_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), (resState, searchedKey) => {
                 /**
                  * Receive SSP: DCA-REQ
                  * 1.~ Get SSN state
@@ -2724,7 +2723,7 @@ router.post("/serverapi", function (req, res) {
                 // 1.1.~
                 if (g.SERVER_RECV_STATE_BY_MSG.SSP_DCA_REQ.includes(resState)) {
                     // 1.1.1.~
-                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_HALF_CID_INFORMED_STATE);
+                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_HALF_CID_INFORMED_STATE);
                     logger.debug("| SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)");
 
                     // 1.1.2.~
@@ -2756,7 +2755,7 @@ router.post("/serverapi", function (req, res) {
                                     ]).exec((err, replies) => {
                                         if (err) {} else {
                                             // 1.1.2.1.3.~
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_CID_INFORMED_STATE, g.SERVER_TIMER.T803);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_CID_INFORMED_STATE, g.SERVER_TIMER.T803);
                                             logger.debug("| SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)", g.SERVER_TIMER.T835);
                                            
                                             // 1.1.2.1.4.~
@@ -2777,7 +2776,7 @@ router.post("/serverapi", function (req, res) {
                                 break;
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_INITIAL_GPS_MISMACH:
                                 //1.1.2.2.1.~
-                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
                                 logger.debug("| SERVER change SSN state (HALF CID INFORMED) ->  (IDLE)");
                                 
                                 //1.1.2.2.2.~
@@ -2790,7 +2789,7 @@ router.post("/serverapi", function (req, res) {
 
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_NOT_AN_ASSOCIATED_SENSOR_WITH_ANY_USER:
                                 //1.1.2.2.1.~
-                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
                                 logger.debug("| SERVER change SSN state (HALF CID INFORMED) ->  (IDLE)");
                                 
                                 //1.1.2.2.2.~
@@ -2820,7 +2819,7 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SAP_MSG_TYPE.SAP_DCA_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 /**
                  * Receive SAP: DCA-REQ
                  * 1.~ Get USN state
@@ -2843,7 +2842,7 @@ router.post("/serverapi", function (req, res) {
                  * 1.2. If state is not SSN INFORMED 
                  * 1.2.1. Send SSP: DCA-RSP with error code 1
                     // 1.1.1~
-                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_CID_INFORMED_STATE);
+                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_CID_INFORMED_STATE);
                     logger.debug("| SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)");
                 */
                 let payload = {};
@@ -2854,7 +2853,7 @@ router.post("/serverapi", function (req, res) {
                         // 1.1.1.1.~
                         if (result === 1) {
                             // 1.1.1.1.1.~
-                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_CID_INFORMED_STATE);
+                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_CID_INFORMED_STATE);
                             logger.debug("| SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)");
                             // 1.1.1.1.2.~
                             payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCA_REQ, payload);
@@ -2878,7 +2877,7 @@ router.post("/serverapi", function (req, res) {
                                             ]).exec((err, replies) => {
                                                 if (err) {} else {
                                                     // 1.1.1.1.2.1.3.~
-                                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_CID_INFORMED_STATE);
+                                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_CID_INFORMED_STATE);
                                                     logger.debug("| SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)", g.SERVER_TIMER.T835);
                                                     // 1.1.1.1.2.1.4.~
                                                     uModule.updateUserSignedInState(g.ENTITY_TYPE.APPCLIENT, protocol.getEndpointId(), (result) => {
@@ -2902,7 +2901,7 @@ router.post("/serverapi", function (req, res) {
                                         // 1.1.1.1.2.2.~
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_NOT_EXIST_USER_SEQUENCE_NUMBER_OR_SENSOR_SERIAL_NUMBER:
                                         //1.1.2.2.1.~
-                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
+                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
                                         logger.debug("| SERVER change USNN state (HALF CID INFORMED) ->  (USN INFORMED)");
                                         //1.1.2.2.2.~
                                         payload = {};
@@ -2915,7 +2914,7 @@ router.post("/serverapi", function (req, res) {
 
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_OTHER:
                                         //1.1.2.2.1.~
-                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
+                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
                                         logger.debug("| SERVER change USN state (HALF CID INFORMED) ->  (USN INFORMED)");
                                         //1.1.2.2.2.~
                                         payload = {};
@@ -2987,12 +2986,12 @@ router.post("/serverapi", function (req, res) {
                     // 1.1.~
                     if (ssn !== null) {
                         // 1.1.1.~
-                        state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, ssn, (resState, searchedKey) => {
+                        state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, ssn, (resState, searchedKey) => {
                             let payload = {};
                             // 1.1.1.1.~
                             if (g.SERVER_RECV_STATE_BY_MSG.SSP_DCD_NOT.includes(resState)) {
                                 // 1.1.1.1.1.~
-                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_HALF_IDLE_STATE);
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_HALF_IDLE_STATE);
                                 logger.debug("| SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)");
                                 // 1.1.1.1.2.~
                                 let cid = protocol.getEndpointId();
@@ -3018,7 +3017,7 @@ router.post("/serverapi", function (req, res) {
                                             ]).exec((err, replies) => {
                                                 if (err) {} else {
                                                     // 1.1.1.1.2.1.2.~
-                                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
                                                     logger.debug("| SERVER change SSN state (HALF IDLE) ->  (IDLE)");
                                                     // 1.1.1.1.2.1.3.~
                                                     payload.resultCode = g.SSP_MSG_RESCODE.RESCODE_SSP_DCD.RESCODE_SSP_DCD_OK;
@@ -3033,7 +3032,7 @@ router.post("/serverapi", function (req, res) {
 
                                         case g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_OTHER:
                                             // 1.1.1.1.2.2.1.~
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
                                             logger.debug("| SERVER change SSN state (HALF IDLE) ->  (IDLE)");
                                             // 1.1.1.1.2.2.2.~
                                             payload.resultCode = g.SSP_MSG_RESCODE.RESCODE_SSP_DCD.RESCODE_SSP_DCD_OTHER;
@@ -3045,7 +3044,7 @@ router.post("/serverapi", function (req, res) {
 
                                         case g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_NOT_EXIST_USER_SEQUENCE_NUMBER_OR_SENSOR_SERIAL_NUMBER:
                                             // 1.1.1.1.2.2.1.~
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
                                             logger.debug("| SERVER change SSN state (HALF IDLE) ->  (IDLE)");
                                             // 1.1.1.1.2.2.2.~
                                             payload.resultCode = g.SSP_MSG_RESCODE.RESCODE_SSP_DCD.RESCODE_SSP_DCD_OTHER;
@@ -3081,11 +3080,11 @@ router.post("/serverapi", function (req, res) {
                     if (usn !== null) {
                         // 1.1.1.~
                         let payload = {};
-                        state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, usn, (resState, searchedKey) => {
+                        state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, usn, (resState, searchedKey) => {
                             // 1.1.1.1.~
                             if (g.SERVER_RECV_STATE_BY_MSG.SAP_DCD_NOT.includes(resState)) {
                                 // 1.1.1.1.1.~
-                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_CID_RELEASED_STATE);
+                                state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_HALF_CID_RELEASED_STATE);
                                 logger.debug("| SERVER change USN state (CID INFORMED) ->  (HALF CID RELEASED)");
 
                                 // 1.1.1.1.2.~
@@ -3110,7 +3109,7 @@ router.post("/serverapi", function (req, res) {
                                             ]).exec((err, replies) => {
                                                 if (err) {} else {
                                                     // 1.1.1.1.2.1.2.~
-                                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
+                                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
                                                     logger.debug("| SERVER change USN state (HALF CID RELEASED) ->  (USN INFORMED)");
 
                                                     // 1.1.1.1.2.1.3.~
@@ -3125,7 +3124,7 @@ router.post("/serverapi", function (req, res) {
                                             // 1.1.1.1.2.2.~
                                         case g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_OTHER:
                                             // 1.1.1.1.2.2.1.~
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
                                             logger.debug("| SERVER change USN state (HALF CID INFORMED) ->  (USN INFORMED)");
                                             // 1.1.1.1.2.2.2.~
                                             payload = {};
@@ -3137,7 +3136,7 @@ router.post("/serverapi", function (req, res) {
 
                                         case g.SDP_MSG_RESCODE.RESCODE_SDP_DCD.RESCODE_SDP_DCD_NOT_EXIST_USER_SEQUENCE_NUMBER_OR_SENSOR_SERIAL_NUMBER:
                                             // 1.1.1.1.2.2.1.~
-                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE);
+                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE);
                                             logger.debug("| SERVER change SAP state (HALF IDLE) ->  (IDLE)");
                                             // 1.1.1.1.2.2.2.~
                                             payload = {};
@@ -3200,9 +3199,9 @@ router.post("/databaseapi", (req, res) => {
         case g.SDP_MSG_TYPE.SDP_SGU_REQ:
             //state check
             if (unpackedPayload.clientType === g.CLIENT_TYPE.APP){
-                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_IDLE_STATE);
+                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_IDLE_STATE);
             } else {
-                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_IDLE_STATE);
+                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_IDLE_STATE);
             }
            logger.debug("| DATABASE change TCI state to IDLE STATE");
             redisCli.get("u:info:id:" + unpackedPayload.userId, (err, reply) => {
@@ -3224,9 +3223,9 @@ router.post("/databaseapi", (req, res) => {
                 logger.debug(`| DATABASE Send response:${JSON.stringify(protocol.getPackedMsg())}`);
 
                 if (unpackedPayload.clientType === g.CLIENT_TYPE.APP) {
-                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE, g.DATABASE_TIMER.T954);
+                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE, g.DATABASE_TIMER.T954);
                 } else {
-                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE, g.DATABASE_TIMER.T954);
+                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE, g.DATABASE_TIMER.T954);
                 }
 
                 logger.debug("| DATABASE change TCI state to UNIQUE USER CONFIRMED STATE");
@@ -3240,9 +3239,9 @@ router.post("/databaseapi", (req, res) => {
          * Author: Junhee Park
          */
         case g.SDP_MSG_TYPE.SDP_UVC_REQ:
-            endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_TCI;
+            endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB){
-                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_TCI;
+                endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI;
             } 
             state.getState(g.ENTITY_TYPE.DATABASE, endpointIdType, [protocol.getEndpointId(), unpackedPayload.userId], (resState, searchedKey) => {
                 if (g.DATABASE_RECV_STATE_BY_MSG.SDP_SGU_REQ.includes(resState)) {
@@ -3353,9 +3352,9 @@ router.post("/databaseapi", (req, res) => {
         case g.SDP_MSG_TYPE.SDP_SGI_REQ:
             return redisCli.get(`u:info:id:${unpackedPayload.userId}`, (err, usn) => {
                 if (err) {} else {
-                    endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+                    endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN;
                     if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
-                        endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                        endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN;
                         signfbit = 1;
                     }
 
@@ -3427,9 +3426,9 @@ router.post("/databaseapi", (req, res) => {
          */
         case g.SDP_MSG_TYPE.SDP_SGO_NOT:
 
-            endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+            endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
-                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN;
                 signfbit = 1;
             }
 
@@ -3469,9 +3468,9 @@ router.post("/databaseapi", (req, res) => {
          */
          case g.SDP_MSG_TYPE.SDP_UPC_REQ:
 
-            endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+            endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN;
             if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
-                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN;
                 signfbit = 1;
             }
             return redisCli.getbit(`u:info:${protocol.getEndpointId()}:signf`, signfbit, (err, signf) => {
@@ -3570,9 +3569,9 @@ router.post("/databaseapi", (req, res) => {
              */
             case g.SDP_MSG_TYPE.SDP_UDR_REQ:
 
-                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+                endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN;
                 if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
-                    endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                    endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN;
                     signfbit = 1;
                 }
                 return redisCli.getbit(`u:info:${protocol.getEndpointId()}:signf`, signfbit, (err, signf) => {
@@ -3587,7 +3586,7 @@ router.post("/databaseapi", (req, res) => {
                             if (err) {} else {
                                 if (hash.checkPassword(unpackedPayload.userPw, hashedPw)) {
                                     redisCli.set(`u:info:${protocol.getEndpointId()}:regf`, 2, (err, result) => {
-                                        state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_IDLE_STATE);
+                                        state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_IDLE_STATE);
                                         logger.debug("| DATABASE change USN state (USN INFORMED) -> (IDLE)");
                                         
                                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_UDR.RESCODE_SDP_UDR_OK;
@@ -3597,7 +3596,7 @@ router.post("/databaseapi", (req, res) => {
                                         res.send(protocol.getPackedMsg());
                                     });
                                 } else {
-                                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_IDLE_STATE);
                                     logger.debug("| DATABASE change USN state (USN INFORMED) -> (IDLE)");
                                     
                                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_UDR.RESCODE_SDP_UDR_INCORRECT_CURRENT_USER_PASSWORD;
@@ -3758,7 +3757,7 @@ router.post("/databaseapi", (req, res) => {
                                                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASR.RESCODE_SDP_ASR_OK;
                                                     protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASR_RSP, payload);
 
-                                                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                                                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
                                                     logger.debug("| DATABASE change USN state (USN INFORMED) -> (USN INFORMED)");
                                                     res.send(protocol.getPackedMsg());
                                                 }
@@ -3769,7 +3768,7 @@ router.post("/databaseapi", (req, res) => {
                                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASR.RESCODE_SDP_ASR_OK;
                                         protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASR_RSP, payload);
 
-                                        state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                                        state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_USN_INFORMED_STATE, g.DATABASE_TIMER.T955);
                                         logger.debug("| DATABASE change USN state (USN INFORMED) -> (USN INFORMED)");
                                         res.send(protocol.getPackedMsg());
                                     }
@@ -4047,9 +4046,9 @@ router.post("/databaseapi", (req, res) => {
              */
             case g.SDP_MSG_TYPE.SDP_SRG_REQ:
 
-                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+                endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN;
                 if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
-                    endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                    endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN;
                     signfbit = 1;
                 }
                 return redisCli.getbit(`u:info:${protocol.getEndpointId()}:signf`, signfbit, (err, signf) => {
@@ -4143,9 +4142,9 @@ router.post("/databaseapi", (req, res) => {
              * Author: Junhee Park
              */
             case g.SDP_MSG_TYPE.SDP_SAS_REQ:
-                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+                endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN;
                 if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
-                    endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                    endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN;
                     signfbit = 1;
                 }
                 return redisCli.getbit(`u:info:${protocol.getEndpointId()}:signf`, signfbit, (err, signf) => {
@@ -4243,9 +4242,9 @@ router.post("/databaseapi", (req, res) => {
              * Author: Junhee Park
              */
             case g.SDP_MSG_TYPE.SDP_SDD_REQ:
-                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+                endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN;
                 if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
-                    endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                    endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN;
                     signfbit = 1;
                 }
 
@@ -4355,9 +4354,9 @@ router.post("/databaseapi", (req, res) => {
              * Author: Junhee Park
              */
             case g.SDP_MSG_TYPE.SDP_SLV_REQ:
-                endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN;
+                endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN;
                 if (unpackedPayload.clientType === g.CLIENT_TYPE.WEB) {
-                    endpointIdType = g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN;
+                    endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN;
                     signfbit = 1;
                 }
                 return redisCli.getbit(`u:info:${protocol.getEndpointId()}:signf`, signfbit, (err, signf) => {
@@ -4466,7 +4465,7 @@ router.post("/databaseapi", (req, res) => {
                                         protocol.packMsg(g.SDP_MSG_TYPE.SDP_SIR_RSP, payload);
 
                                         logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
-                                        state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_INFORMED_STATE, g.DATABASE_TIMER.T951);
+                                        state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_INFORMED_STATE, g.DATABASE_TIMER.T951);
                                         
                                         logger.debug("| DATABASE change SSN state (IDLE) -> (SSN INFORMED)");
                                         res.send(protocol.getPackedMsg());
@@ -4537,7 +4536,7 @@ router.post("/databaseapi", (req, res) => {
                      * 1.2.1.2.1.~ Break
                      */
                     // 1.1.1.~
-                    return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), (resState, searchedKey) => {
+                    return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), (resState, searchedKey) => {
                         // 1.1.1.1.~ 
                         if (g.DATABASE_RECV_STATE_BY_MSG.SDP_DCA_REQ.includes(resState)) {
                             // 1.1.1.1.1.~
@@ -4556,7 +4555,7 @@ router.post("/databaseapi", (req, res) => {
                                                     redisCli.set(`s:info:${protocol.getEndpointId()}:cgeo`, `${unpackedPayload.lat},${unpackedPayload.lng}`);
                                                     //redisCli.sadd(`search:s:crgeo:${unpackedPayload.nat}:${unpackedPayload.state}:${unpackedPayload.city}`, protocol.getEndpointId());
                                                     
-                                                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_CID_ALLOACATED_STATE, g.DATABASE_TIMER.T955);
+                                                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_CID_ALLOACATED_STATE, g.DATABASE_TIMER.T955);
                                                     logger.debug("| DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)");
 
                                                     // 1.1.1.1.1.1.1.1.1.1.1.3.~
@@ -4571,7 +4570,7 @@ router.post("/databaseapi", (req, res) => {
                                                         if(mobf === '0') {
                                                             if (cgeo === `${unpackedPayload.lat},${unpackedPayload.lng}`) {
                                                                 // 1.1.1.1.1.1.1.1.1.1.1.2.~
-                                                                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_CID_ALLOACATED_STATE, g.DATABASE_TIMER.T955);
+                                                                state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_CID_ALLOACATED_STATE, g.DATABASE_TIMER.T955);
                                                                 logger.debug("| DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)");
 
                                                                 // 1.1.1.1.1.1.1.1.1.1.1.3.~
@@ -4609,7 +4608,7 @@ router.post("/databaseapi", (req, res) => {
                                         // 1.1.1.1.1.1.1.2.~
                                         } else if (actf === g.SENSOR_ACT_FLAG.REGISTERED || actf === g.SENSOR_ACT_FLAG.DEREGISTERED) {
                                             // 1.1.1.1.1.1.1.2.1.~
-                                            state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_IDLE_STATE);
+                                            state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_IDLE_STATE);
                                             logger.debug("| DATABASE change SSN state (SSN INFORMED) -> (IDLE)");
                                             // 1.1.1.1.1.1.1.2.2.~
                                             payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_NOT_AN_ASSOCIATED_SENSOR_WITH_ANY_USER;
@@ -4622,7 +4621,7 @@ router.post("/databaseapi", (req, res) => {
                                     // 1.1.1.1.1.2.~
                                     } else {
                                         // 1.1.1.1.1.2.1~
-                                        state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_IDLE_STATE);
+                                        state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_IDLE_STATE);
                                         logger.debug("| DATABASE change SSN state (SSN INFORMED) -> (IDLE)");
 
                                         // 1.1.1.1.1.2.2.~
@@ -4640,7 +4639,7 @@ router.post("/databaseapi", (req, res) => {
                     // 1.2.~
                 } else {
                     // 1.2.1.~ 
-                    return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                    return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                         // 1.2.1.1.~
                         if (g.DATABASE_RECV_STATE_BY_MSG.SDP_DCA_REQ.includes(resState)) {
                             // 1.2.1.1.1.~
@@ -4648,7 +4647,7 @@ router.post("/databaseapi", (req, res) => {
                                 // 1.2.1.1.1.1.~
                                 if (usn !== null) {
                                     // 1.2.1.1.1.1.1.~
-                                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_CID_INFORMED_STATE, g.DATABASE_TIMER.T955);
+                                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_CID_INFORMED_STATE, g.DATABASE_TIMER.T955);
                                     logger.debug("| DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)");
 
                                     // 1.2.1.1.1.1.2.~
@@ -4660,7 +4659,7 @@ router.post("/databaseapi", (req, res) => {
                                     // 1.2.1.1.1.2.~
                                 } else {
                                     // 1.2.1.1.1.2.1.~
-                                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.DATABASE_USN_STATE_ID.DATABASE_USN_IDLE_STATE);
                                     logger.debug("| DATABASE change SSN state (USN INFORMED) -> (IDLE)");
                                     // 1.2.1.1.1.2.2.~
                                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_NOT_EXIST_USER_SEQUENCE_NUMBER_OR_SENSOR_SERIAL_NUMBER;
@@ -4713,7 +4712,7 @@ router.post("/databaseapi", (req, res) => {
                 // 1. & 1.1.~
                 if (unpackedPayload.entityType === g.ENTITY_TYPE.SENSOR) {
                     // 1.1.1.~
-                    return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), (resState, searchKey) => {
+                    return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), (resState, searchKey) => {
                         // 1.1.1.1.~ 
                         payload = {};
                         if (g.DATABASE_RECV_STATE_BY_MSG.SDP_DCD_NOT.includes(resState)) {
@@ -4724,7 +4723,7 @@ router.post("/databaseapi", (req, res) => {
                                     // 1.1.1.1.1.1.1.
                                     redisCli.set(`s:info:${protocol.getEndpointId()}:actf`, 1);
                                     // 1.1.1.1.1.1.2.
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
                                     logger.debug("| SERVER change SSN state (CID INFORMED) ->  (IDLE)");
 
                                     // 1.1.1.1.1.1.3.
@@ -4736,7 +4735,7 @@ router.post("/databaseapi", (req, res) => {
                                     // 1.1.1.1.1.2.~
                                 } else {
                                     // 1.1.1.1.1.2.1.~
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
                                     logger.debug("| SERVER change SSN state (CID INFORMED) ->  (IDLE)");
 
                                     // 1.1.1.1.1.2.2.~
@@ -4752,7 +4751,7 @@ router.post("/databaseapi", (req, res) => {
                     // 1.2.~
                 } else if (unpackedPayload.entityType === g.ENTITY_TYPE.APPCLIENT) {
                     // 1.2.1.~
-                    return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchKey) => {
+                    return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchKey) => {
                         // 1.2.1.1.~
                         payload = {};
                         if (g.DATABASE_RECV_STATE_BY_MSG.SDP_DCD_NOT.includes(resState)) {
@@ -4761,7 +4760,7 @@ router.post("/databaseapi", (req, res) => {
                                 // 1.2.1.1.1.1.~
                                 if (usn !== null) {
                                     // 1.2.1.1.1.1.1.~
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE);
                                     logger.debug("| SERVER change SSN state (CID INFORMED) ->  (USN INFORMED)");
 
                                     // 1.2.1.1.1.1.2.~
@@ -4773,7 +4772,7 @@ router.post("/databaseapi", (req, res) => {
                                 // 1.2.1.1.1.2.~
                                 } else {
                                     // 1.2.1.1.1.2.1.~
-                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE);
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_IDLE_STATE);
                                     logger.debug("| SERVER change SSN state (CID INFORMED) ->  (IDLE)");
 
                                     // 1.2.1.1.1.2.2.~
