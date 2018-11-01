@@ -4134,7 +4134,7 @@ router.post("/databaseapi", (req, res) => {
                                                 //deassociation
                                                 } else {
                                                     let keyHead = `u:ass:${usn}:${ssn}:`;
-                                                    redisCli.get(`${keyHead}:ssn`, (err, result) => {
+                                                    redisCli.get(`${keyHead}ssn`, (err, result) => {
                                                         if (err) {
                                                             logger.error("| DATABASE ERROR search usn ssn");
                                                         } else {
@@ -4148,9 +4148,11 @@ router.post("/databaseapi", (req, res) => {
                                                                     ["del", `${keyHead}mobf`],
                                                                     //Update sensor information
                                                                     ["set", `${keyHead}actf`, 0],
-                                                                    ["srem", "search:s:actf:1", sensorInfo.ssn],
-                                                                    ["sadd", "search:s:actf:0", sensorInfo.ssn],
-                                                                    ["sadd", "search:s:mobf:0", sensorInfo.ssn]
+                                                                    ["srem", "search:s:actf:1", ssn],
+                                                                    ["srem", "search:s:actf:2", ssn],
+                                                                    ["srem", "search:s:actf:3", ssn],
+                                                                    ["sadd", "search:s:actf:0", ssn],
+                                                                    ["sadd", "search:s:mobf:0", ssn]
                                                                 ]).exec((err, replies) => {
                                                                     if (err) {} else {
                                                                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASD.RESCODE_SDP_ASD_OK;
@@ -4388,18 +4390,10 @@ router.post("/databaseapi", (req, res) => {
                                                 `${keyHead}stat`, sensorInfo.stat,
                                                 `s:info:${sensorInfo.wmac}`, sensorInfo.ssn
                                             ],
-                                            [
-                                                "sadd", "search:s:actf:0", sensorInfo.ssn,
-                                            ],
-                                            [
-                                                "sadd", "search:s:mobf:0", sensorInfo.ssn
-                                            ],
-                                            [
-                                                "sadd", "search:s:nat:G30", sensorInfo.ssn,
-                                            ],
-                                            [
-                                                "sadd", `search:s:user:${protocol.getEndpointId()}`, sensorInfo.ssn
-                                            ]
+                                            ["sadd", "search:s:actf:0", sensorInfo.ssn],
+                                            ["sadd", "search:s:mobf:0", sensorInfo.ssn],
+                                            ["sadd", "search:s:nat:G30", sensorInfo.ssn],
+                                            ["sadd", `search:s:user:${protocol.getEndpointId()}`, sensorInfo.ssn]
                                         ]).exec((err, replies) => {
                                             if (err) {} else {
                                                 logger.debug(`| DATABASE stored sensor info${JSON.stringify(sensorInfo)}`);
@@ -4482,16 +4476,13 @@ router.post("/databaseapi", (req, res) => {
                                                     ["set", `${keyHead}mobf`, unpackedPayload.mobf],
                                                     //Update sensor information
                                                     ["set", `${keyHead}actf`, 1],
+                                                    ["set", `${keyHead}drgcd`, 0],
                                                     ["set", `s:info:${ssn}:actf`, 1],
-                                                    [
-                                                        "srem", "search:s:actf:0", ssn,
-                                                    ],
-                                                    [
-                                                        "sadd", "search:s:actf:1", ssn,
-                                                    ],
-                                                    [
-                                                        "sadd", `search:s:mobf:${unpackedPayload.mobf}`, ssn,
-                                                    ]
+                                                    ["srem", "search:s:actf:0", ssn],
+                                                    ["sadd", "search:s:actf:1", ssn],
+                                                    ["srem", "search:s:actf:2", ssn],
+                                                    ["srem", "search:s:actf:3", ssn],
+                                                    ["sadd", `search:s:mobf:${unpackedPayload.mobf}`, ssn]
                                                 ]).exec((err, replies) => {
                                                     if (err) {} else {
                                                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_OK;
@@ -4559,16 +4550,21 @@ router.post("/databaseapi", (req, res) => {
                                     let arrDrg = [0, 2, 3, 4, 5];
                                     //deregistration
                                     if (arrDrg.includes(Number(unpackedPayload.drgcd))) {
+                                        let keyHead = `u:ass:${protocol.getEndpointId()}:${ssn}:`;
                                         redisCli.multi([
                                             //Delete sensor association with user
                                             ["set", `s:info:${ssn}:drgcd`, unpackedPayload.drgcd],
-                                            [
-                                                "srem", "search:s:actf:0", ssn,
-                                                "srem", "search:s:actf:1", ssn,
-                                            ],
-                                            [
-                                                "sadd", "search:s:actf:3", ssn,
-                                            ]
+                                            ["set", `s:info:${ssn}:actf`, 0],
+                                            ["srem", "search:s:actf:0", ssn],
+                                            ["srem", "search:s:actf:1", ssn],
+                                            ["srem", "search:s:actf:2", ssn],
+                                            ["sadd", "search:s:actf:3", ssn],
+                                            ["del", keyHead + "ssn"],
+                                            ["del", keyHead + "usn"],
+                                            ["del", keyHead + "mti"],
+                                            ["del", keyHead + "tti"],
+                                            ["del", keyHead + "mobf"],
+
                                         ]).exec((err, replies) => {
                                             if (err) {
                                                 logger.error("| DATABASE ERROR set drgcd info");
@@ -4582,7 +4578,7 @@ router.post("/databaseapi", (req, res) => {
                                         });
                                         //deassociation
                                     } else {
-                                        let keyHead = `u:ass:${protocol.getEndpointId()}:${ssn}:`;
+                                        let keyHead = `u:ass:${protocol.getEndpointId()}:${ssn}`;
                                         redisCli.get(`${keyHead}ssn`, (err, result) => {
                                             if (err) {
                                                 logger.error("| DATABASE ERROR search usn ssn");
@@ -4596,9 +4592,11 @@ router.post("/databaseapi", (req, res) => {
                                                         ["del", keyHead + "tti"],
                                                         ["del", keyHead + "mobf"],
                                                         //Update sensor information
-                                                        ["set", keyHead + "actf", 0],
+                                                        ["set", `s:info:${ssn}:actf`, 3],
+                                                        ["srem", "search:s:actf:0", ssn],
                                                         ["srem", "search:s:actf:1", ssn],
-                                                        ["sadd", "search:s:actf:0", ssn],
+                                                        ["srem", "search:s:actf:2", ssn],
+                                                        ["sadd", "search:s:actf:3", ssn],
                                                         ["sadd", "search:s:mobf:0", ssn]
                                                     ]).exec((err, replies) => {
                                                         if (err) {
@@ -4634,7 +4632,7 @@ router.post("/databaseapi", (req, res) => {
                     //signed out
                     } else if (signf === g.SIGNED_IN_STATE.SIGNED_OUT) {
                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SDD.RESCODE_SDP_SDD_OTHER;
-                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASD_RSP, payload);
+                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SDD_RSP, payload);
 
                         logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                         res.send(protocol.getPackedMsg());
