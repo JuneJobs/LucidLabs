@@ -50,11 +50,11 @@ router.post("/serverdatatran", function (req, res){
                     if(ssn !== null) {
                         //ssn state update
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, ssn, g.SERVER_SSN_STATE_ID.SERVER_SSN_CID_INFORMED_STATE, g.SERVER_TIMER.T803)
-                        var mti = g.SERVER_TIMER.T805;
-                        var unpackedPayload = sModule.unpackTrnPayload(protocol.msgPayload, mti);
-                        var dataSet = unpackedPayload.success.arrSuccessfulRcvdData;
-                        //add data into buffer
-                        var args = [];
+                        let mti = g.SERVER_TIMER.T805,
+                            unpackedPayload = sModule.unpackTrnPayload(g.ENTITY_TYPE.SENSOR, protocol.msgPayload, mti),
+                            dataSet = unpackedPayload.success.arrSuccessfulRcvdData,
+                            args = [];
+
                         args.push('d:air:' + ssn + ':raw');
                         for (let i = 0, x = dataSet.length; i < x; i++) {
                             args.push(dataSet[i][0]);
@@ -63,10 +63,16 @@ router.post("/serverdatatran", function (req, res){
                                 const nation = dataSet[i][2],
                                         state = dataSet[i][3],
                                         city = dataSet[i][4];
+
                                 let rawData = dataSet[i];
                                 rawData.splice(2,4);
                                 rawData = rawData.toString();
+                                let key = Number(ssn),
+                                    lessKey = key - 1,
+                                    greaterKey = key + 1;
 
+                                lessKey = `(${lessKey.toString()}`;
+                                redisCli.zremrangebyscore(`search:s:realtime:air:${nation}:${state}:${city}`, lessKey, greaterKey);
                                 redisCli.zadd(`search:s:realtime:air:${nation}:${state}:${city}`, ssn, rawData, (err, replies) =>{
                                     if(err){
                                         console.log(err);
@@ -74,12 +80,7 @@ router.post("/serverdatatran", function (req, res){
                                         console.log(replies);
                                     }
                                 });
-                                let key = Number(ssn),
-                                    lessKey = key - 1,
-                                    greaterKey = key + 1;
-                                lessKey = `(${lessKey.toString()}`;
                                 greaterKey = `(${greaterKey.toString()}`;
-                                redisCli.zremrangebyscore(`search:s:realtime:air:${nation}:${state}:${city}`, lessKey, greaterKey);
                                 redisCli.set('c:con:s:' + protocol.getEndpointId() + ':ssn', ssn, 'EX', g.SERVER_TIMER.T835);
 
                                 setTimeout(() => {
@@ -93,7 +94,6 @@ router.post("/serverdatatran", function (req, res){
                         }
                         redisCli.zadd(args, (err, result) => {
                             if (err) {
-                                logger.debug("| SERVER ERROR zadd d:air:" + ssn + ':raw with values');
                             } else {
                                 var payload = {}
                                 payload.successfulRcptFlg = unpackedPayload.success.successfulRcptFlg;
@@ -133,23 +133,51 @@ router.post("/serverdatatran", function (req, res){
                 if (err) {
                     logger.debug("| SERVER ERROR get" + "c:con:a:" + protocol.getEndpointId() + ":usn");
                 } else {
-                    if (ssn !== null) {
-                        //ssn state update
-                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, usn, g.SERVER_USN_STATE_ID.SERVER_USN_CID_INFORMED_STATE, g.SERVER_TIMER.T803);
-                        //here
-                        var mti = g.SERVER_TIMER.T837;
-                        var unpackedPayload = sModule.unpackTrnPayload(protocol.payload, mti);
-                        var dataSet = unpackedPayload.heartRelatedDataListEncodings.heartRelatedDataTuples;
+                    if(usn !== null) {
+                        //usn state update
+                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_USN, usn, g.SERVER_USN_STATE_ID.SERVER_USN_CID_INFORMED_STATE, g.SERVER_TIMER.T803)
+                        var mti = g.SERVER_TIMER.T805;
+                        var unpackedPayload = sModule.unpackTrnPayload(g.ENTITY_TYPE.APPCLIENT, protocol.msgPayload, mti);
+                        var dataSet = unpackedPayload.success.arrSuccessfulRcvdData;
                         //add data into buffer
                         var args = [];
                         args.push('d:heart:' + usn + ':raw');
-                        for (let index = 0; index < dataSet.length; index++) {
-                            args.push(dataSet[index].shift());
-                            args.push(dataSet[index].toString());
+                        for (let i = 0, x = dataSet.length; i < x; i++) {
+                            args.push(dataSet[i][0]);
+                            args.push(dataSet[i].toString());
+                            if (i === x-1) {
+                                const nation = dataSet[i][2],
+                                        state = dataSet[i][3],
+                                        city = dataSet[i][4];
+                                let rawData = dataSet[i];
+                                rawData.splice(2,3);
+                                rawData = rawData.toString();
+                                let key = Number(usn),
+                                    lessKey = key - 1,
+                                    greaterKey = key + 1;
+                                lessKey = `(${lessKey.toString()}`;
+                                redisCli.zremrangebyscore(`search:a:realtime:heart`, lessKey, greaterKey);
+                                redisCli.zadd(`search:a:realtime:heart`, usn, rawData, (err, replies) =>{
+                                    if(err){
+                                        console.log(err);
+                                    } else {
+                                        console.log(replies);
+                                    }
+                                });
+                                greaterKey = `(${greaterKey.toString()}`;
+                                redisCli.set('c:con:a:' + protocol.getEndpointId() + ':usn', usn, 'EX', g.SERVER_TIMER.T835);
+
+                                setTimeout(() => {
+                                    redisCli.zremrangebyscore(`search:a:realtime:heart`, lessKey, greaterKey, (err, reply )=> {
+                                        if(err){} else {
+                                            logger.debug("| SERVER removed realtime data.");
+                                        }
+                                    });
+                                }, g.SERVER_TIMER.T835 * 1000);
+                            }
                         }
                         redisCli.zadd(args, (err, result) => {
                             if (err) {
-                                logger.debug("| SERVER ERROR zadd d:air:" + ssn + ':raw with values');
                             } else {
                                 var payload = {}
                                 payload.successfulRcptFlg = unpackedPayload.success.successfulRcptFlg;
@@ -166,7 +194,7 @@ router.post("/serverdatatran", function (req, res){
                                 }
                                 var sspRadAck = {
                                     "header": {
-                                        "msgType": g.SAP_MSG_TYPE.SAP_RHD_ACK,
+                                        "msgType": g.SSP_MSG_TYPE.SSP_RAD_ACK,
                                         "msgLen": 0,
                                         "endpointId": protocol.getEndpointId()
                                     },
@@ -182,7 +210,6 @@ router.post("/serverdatatran", function (req, res){
                 }
             });
             break;
-
         default:
             break;
     }
@@ -3156,14 +3183,280 @@ router.post("/serverapi", function (req, res) {
                     }
                 }
             });
-
         /**
-         * Receive SAP: DCD-REQ
-         * Last update: 10.25.2018
+         * Receive SAP: RAV-REQ
+         * Last update: 10.31.2018
          * Author: Junhee Park
          */
+        case g.SAP_MSG_TYPE.SAP_RAV_REQ:
+            if (protocol.getEndpointId() === 0) {
+                redisCli.keys(`search:s:realtime:air:${unpackedPayload.provinceListEncodings.commonNatTierTuple.nat}:${unpackedPayload.provinceListEncodings.commonNatTierTuple.commonStateTierTuple[0].state}:${unpackedPayload.provinceListEncodings.commonNatTierTuple.commonStateTierTuple[0].commonCityTierTuple[0]}`, (err, keys) => {
+                    if (err) {} else {
+                        let commandSet = [];
+                        let realtimeAirQualityDataList = [];
+                        for (var index = 0; index < keys.length; index++) {
+                            commandSet.push(['zrevrange', keys[index], 0, 0, 'WITHSCORES']);
+                        }
+                        redisCli.multi(commandSet).exec((err, replies) => {
+                            if (err) {
+                                logger.err('zrevrange');
+                            } else {
+                                //replies[갯수만큼][0]: 키 [1]: 벨류
+                                let arrData = [],
+                                    arrKey = [];
+                                for (let keyCount = 0; keyCount < replies.length; keyCount++) {
+                                    arrData.push(replies[keyCount][0]);
+                                    arrKey.push(replies[keyCount][1]);
+                                }
+                                commandSet = [];
+                                for (let i = 0, x = arrKey.length; i < x; i++) {
+                                    commandSet.push(['get', `s:info:${arrKey[i]}:wmac`]);
+                                }
+                                redisCli.multi(commandSet).exec((err, wmacs) => {
+                                    if (err) {} else {
+                                        arrKey = wmacs;
+                                        for (let i = 0, x = arrData.length; i < x; i++) {
+                                            realtimeAirQualityDataList.push(`${arrKey[i]},${arrData[i]}`);
+                                        }
+                                        let payload = {};
+                                        payload.realtimeAirQualityDataList = realtimeAirQualityDataList;
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_RAV.RESCODE_SAP_RAV_OK;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_RAV_RSP, payload);
+                                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        return res.send(protocol.getPackedMsg());
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                    let payload = {};
+                    //state exist
+                    if (resState) {
+                        uModule.checkUserSignedInState(g.ENTITY_TYPE.APPCLIENT, g.CLIENT_TYPE.APP, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                            if (result === 1) {
+                                redisCli.keys(`search:s:realtime:air:${unpackedPayload.provinceListEncodings.commonNatTierTuple.nat}:${unpackedPayload.provinceListEncodings.commonNatTierTuple.commonStateTierTuple[0].state}:${unpackedPayload.provinceListEncodings.commonNatTierTuple.commonStateTierTuple[0].commonCityTierTuple[0]}`, (err, keys) => {
+                                    if (err) {} else {
+                                        let commandSet = [];
+                                        let realtimeAirQualityDataList = [];
+                                        for (var index = 0; index < keys.length; index++) {
+                                            commandSet.push(['zrevrange', keys[index], 0, 0, 'WITHSCORES']);
+                                        }
+                                        redisCli.multi(commandSet).exec((err, replies) => {
+                                            if (err) {
+                                                logger.err('zrevrange');
+                                            } else {
+                                                //replies[갯수만큼][0]: 키 [1]: 벨류
+                                                let arrData = [],
+                                                    arrKey = [];
+                                                for (let keyCount = 0; keyCount < replies.length; keyCount++) {
+                                                    arrData.push(replies[keyCount][0]);
+                                                    arrKey.push(replies[keyCount][1]);
+                                                }
+                                                commandSet = [];
+                                                for (let i = 0, x = arrKey.length; i < x; i++) {
+                                                    commandSet.push(['get', `s:info:${arrKey[i]}:wmac`]);
+                                                }
+                                                redisCli.multi(commandSet).exec((err, wmacs) => {
+                                                    if (err) {} else {
+                                                        arrKey = wmacs;
+                                                        for (let i = 0, x = arrData.length; i < x; i++) {
+                                                            realtimeAirQualityDataList.push(`${arrKey[i]},${arrData[i]}`);
+                                                        }
+                                                        let payload = {};
+                                                        payload.realtimeAirQualityDataList = realtimeAirQualityDataList;
+                                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_RAV.RESCODE_SAP_RAV_OK;
+                                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_RAV_RSP, payload);
+                                                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                        res.send(protocol.getPackedMsg());
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            } else {
+                                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_RAV.RESCODE_SAP_RAV_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_RAV_RSP, payload);
+                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                            }
+                        });
+                        //state not exist
+                    } else {
+                        payload = {};
+                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_RAV.RESCODE_SAP_RAV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_RAV_RSP, payload);
+                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                        res.send(protocol.getPackedMsg());
+                    }
+                });
+            }
+        break;
+
+        /**
+         * Receive SWP: RAV-REQ
+         * Last update: 10.31.2018
+         * Author: Junhee Park
+         */
+        case g.SWP_MSG_TYPE.SWP_RAV_REQ:
+            if (protocol.getEndpointId() === 0) {
+                redisCli.keys(`search:s:realtime:air:${unpackedPayload.provinceListEncodings.commonNatTierTuple.nat}:${unpackedPayload.provinceListEncodings.commonNatTierTuple.commonStateTierTuple[0].state}:${unpackedPayload.provinceListEncodings.commonNatTierTuple.commonStateTierTuple[0].commonCityTierTuple[0]}`, (err, keys) => {
+                    if (err) {} else {
+                        let commandSet = [];
+                        let realtimeAirQualityDataList = [];
+                        for (var index = 0; index < keys.length; index++) {
+                            commandSet.push(['zrevrange', keys[index], 0, 0, 'WITHSCORES']);
+                        }
+                        redisCli.multi(commandSet).exec((err, replies) => {
+                            if (err) {
+                                logger.err('zrevrange');
+                            } else {
+                                //replies[갯수만큼][0]: 키 [1]: 벨류
+                                let arrData = [],
+                                    arrKey = [];
+                                for (let keyCount = 0; keyCount < replies.length; keyCount++) {
+                                    arrData.push(replies[keyCount][0]);
+                                    arrKey.push(replies[keyCount][1]);
+                                }
+                                commandSet = [];
+                                for (let i = 0, x = arrKey.length; i < x; i++) {
+                                    commandSet.push(['get', `s:info:${arrKey[i]}:wmac`]);
+                                }
+                                redisCli.multi(commandSet).exec((err, wmacs) => {
+                                    if (err) {} else {
+                                        arrKey = wmacs;
+                                        for (let i = 0, x = arrData.length; i < x; i++) {
+                                            realtimeAirQualityDataList.push(`${arrKey[i]},${arrData[i]}`);
+                                        }
+                                        let payload = {};
+                                        payload.realtimeAirQualityDataList = realtimeAirQualityDataList;
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RAV.RESCODE_SWP_RAV_OK;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_RAV_RSP, payload);
+                                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        return res.send(protocol.getPackedMsg());
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                    let payload = {};
+                    //state exist
+                    if (resState) {
+                        uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                            if (result === 1) {
+                                redisCli.keys(`search:s:realtime:air:${unpackedPayload.provinceListEncodings.commonNatTierTuple.nat}:${unpackedPayload.provinceListEncodings.commonNatTierTuple.commonStateTierTuple[0].state}:${unpackedPayload.provinceListEncodings.commonNatTierTuple.commonStateTierTuple[0].commonCityTierTuple[0]}`, (err, keys) => {
+                                    if (err) {} else {
+                                        let commandSet = [];
+                                        let realtimeAirQualityDataList = [];
+                                        for (var index = 0; index < keys.length; index++) {
+                                            commandSet.push(['zrevrange', keys[index], 0, 0, 'WITHSCORES']);
+                                        }
+                                        redisCli.multi(commandSet).exec((err, replies) => {
+                                            if (err) {
+                                                logger.err('zrevrange');
+                                            } else {
+                                                //replies[갯수만큼][0]: 키 [1]: 벨류
+                                                let arrData = [],
+                                                    arrKey = [];
+                                                for (let keyCount = 0; keyCount < replies.length; keyCount++) {
+                                                    arrData.push(replies[keyCount][0]);
+                                                    arrKey.push(replies[keyCount][1]);
+                                                }
+                                                commandSet = [];
+                                                for (let i = 0, x = arrKey.length; i < x; i++) {
+                                                    commandSet.push(['get', `s:info:${arrKey[i]}:wmac`]);
+                                                }
+                                                redisCli.multi(commandSet).exec((err, wmacs) => {
+                                                    if (err) {} else {
+                                                        arrKey = wmacs;
+                                                        for (let i = 0, x = arrData.length; i < x; i++) {
+                                                            realtimeAirQualityDataList.push(`${arrKey[i]},${arrData[i]}`);
+                                                        }
+                                                        let payload = {};
+                                                        payload.realtimeAirQualityDataList = realtimeAirQualityDataList;
+                                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RAV.RESCODE_SWP_RAV_OK;
+                                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_RAV_RSP, payload);
+                                                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                        res.send(protocol.getPackedMsg());
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            } else {
+                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RAV.RESCODE_SWP_RAV_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_RAV_RSP, payload);
+                                logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                            }
+                        });
+                        //state not exist
+                    } else {
+                         payload = {};
+                         payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RAV.RESCODE_SWP_RAV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                         protocol.packMsg(g.SWP_MSG_TYPE.SWP_RAV_RSP, payload);
+                         logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                         res.send(protocol.getPackedMsg());
+                    }
+                });
+            }
+            break;
         
-        
+        /**
+         * Receive SWP: RHV-REQ
+         * Last update: 10.31.2018
+         * Author: Junhee Park
+         */
+        case g.SWP_MSG_TYPE.SWP_RHV_REQ:
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                //state exist
+                if (resState) {
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if (result === 1) {
+                            let key = Number(protocol.getEndpointId()),
+                                lessKey = key - 1,
+                                greaterKey = key + 1;
+
+                            lessKey = `(${lessKey.toString()}`;
+                            redisCli.zrangebyscore('search:a:realtime:heart', lessKey, greaterKey, (err, keys) => {
+                                if (err) {} else {
+
+                                    let payload = {};
+                                    payload.ts = keys[0].split(",")[0]
+                                    payload.lat = keys[0].split(",")[1]
+                                    payload.lng = keys[0].split(",")[2]
+                                    payload.hr = keys[0].split(",")[3]
+                                    payload.rr = keys[0].split(",")[4]
+                                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RHV.RESCODE_SWP_RHV_OK;
+                                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_RHV_RSP, payload);
+                                    logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
+                                }
+                            });
+                        } else {
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RAV.RESCODE_SWP_RAV_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_RAV_RSP, payload);
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
+                        }
+                    });
+                    //state not exist
+                } else {
+                    payload = {};
+                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RAV.RESCODE_SWP_RAV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_RAV_RSP, payload);
+                    logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    res.send(protocol.getPackedMsg());
+                }
+            });
 
         default:
             break;

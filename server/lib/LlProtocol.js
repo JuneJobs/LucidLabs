@@ -260,6 +260,8 @@ class LlProtocol {
                     return this._unpackSdpRadAckPayload();
 
                 //RAV
+                case g.SAP_MSG_TYPE.SAP_RAV_REQ:
+                    return this._unpackSapRavReqPayload();
                 case g.SWP_MSG_TYPE.SWP_RAV_REQ:
                     return this._unpackSwpRavReqPayload();
 
@@ -1075,6 +1077,18 @@ class LlProtocol {
     }
 
     //RAV
+    _unpackSapRavReqPayload() {
+        //validation
+        //parsing
+        const payload = this.msgPayload;
+        this.unpackedPayload = {};
+
+        this.unpackedPayload.nsc = payload.nsc;
+        this.unpackedPayload.provinceListEncodings = payload.provinceListEncodings;
+        this.unpackedPayload.keywordSearchListEncodings = payload.keywordSearchListEncodings;
+
+        return this.unpackedPayload;
+    }
     _unpackSwpRavReqPayload() {
         //validation
         //parsing
@@ -1082,6 +1096,8 @@ class LlProtocol {
         this.unpackedPayload = {};
 
         this.unpackedPayload.nsc = payload.nsc;
+        this.unpackedPayload.provinceListEncodings = payload.provinceListEncodings;
+        this.unpackedPayload.keywordSearchListEncodings = payload.keywordSearchListEncodings;
 
         return this.unpackedPayload;
     }
@@ -1439,6 +1455,8 @@ class LlProtocol {
                     return this._packSdpDcdAck(payload);
 
                 //RAV
+                case g.SAP_MSG_TYPE.SAP_RAV_RSP:
+                    return this._packSapRavRsp(payload);
                 case g.SWP_MSG_TYPE.SWP_RAV_RSP:
                     return this._packSwpRavRsp(payload);
 
@@ -2190,6 +2208,16 @@ class LlProtocol {
     }
     
     //RAV
+    _packSapRavRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_RAV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
     _packSwpRavRsp(payload) {
         return this.packedMsg = {
             "header": {

@@ -133,7 +133,7 @@ class sensorModule {
      * 1.2.2.2.2.2.~ arrUnsucessTs.push(lastTs)
      * 1.2.2.2.3.~ done.
      */
-    unpackTrnPayload(payload, mti) {
+    unpackTrnPayload(entityType, payload, mti) {
         // 1.~
         var arrSuccessfulTs = [];
         var arrUnsuccessfulTs = [];
@@ -146,10 +146,21 @@ class sensorModule {
         var arrSuccessfulRcvdData = [];
         var expTs = 0;
         var lastTs = 0;
-
-        var tuples = payload.airQualityDataListEncodings.airQualityDataTuples;
+        var tuples = [];
+        var count = 0;
+        var dataLen = 0;
+        if (entityType == g.ENTITY_TYPE.SENSOR) {
+            tuples = payload.airQualityDataListEncodings.airQualityDataTuples;
+            count = payload.airQualityDataListEncodings.airQualityDataTuples.length;
+            expTs = tuples[0][0] + (payload.airQualityDataListEncodings.dataTupleLen - 1) * mti;
+            dataLen = payload.airQualityDataListEncodings.dataTupleLen;
+        } else {
+            tuples = payload.heartRelatedDataListEncodings.heartRelatedDataTuples;
+            count = payload.heartRelatedDataListEncodings.heartRelatedDataTuples.length;
+            expTs = tuples[0][0] + (payload.heartRelatedDataListEncodings.dataTupleLen - 1) * mti;
+            dataLen = payload.heartRelatedDataListEncodings.dataTupleLen;
+        }
         // 1.1.~
-        var count = payload.airQualityDataListEncodings.airQualityDataTuples.length;
         if (count !== 0) successfulRcptFlg = 1;
         // 1.1.1. & 1.1.1.1.~
         lastTs = tuples[0][0];
@@ -158,7 +169,6 @@ class sensorModule {
         // 1.1.1.3.~s
         arrSuccessfulRcvdData.push(tuples[0]);
         // 1.1.1.4
-        expTs = tuples[0][0] + (payload.airQualityDataListEncodings.dataTupleLen - 1) * mti;
 
         for (var index = 1; index < count; index++) {
             // 1.1.2.~ 1.1.2.1.~
@@ -238,7 +248,7 @@ class sensorModule {
                 retranReqFlg: retransReqFlg,
                 continuityOfRetransReq: continuityOfRetransReq,
                 arrUnsuccessfulTs: arrUnsuccessfulTs,
-                numOfRetransReq: payload.airQualityDataListEncodings.dataTupleLen - numOfSuccessfulRcpt
+                numOfRetransReq: dataLen - numOfSuccessfulRcpt
             }
         }
         return objResult;
