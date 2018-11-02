@@ -89,7 +89,7 @@ router.post("/serverdatatran", function (req, res){
                                             logger.debug("| SERVER removed realtime data.");
                                         }
                                     });
-                                }, g.SERVER_TIMER.T803 * 1000);
+                                }, g.SERVER_TIMER.T803 * 1000 * 10);
                             }
                         }
                         redisCli.zadd(args, (err, result) => {
@@ -1731,7 +1731,7 @@ router.post("/serverapi", function (req, res) {
             });
         /*
          * Receive SWP: ASR-REQ
-         * Last update: 10.25.2018
+         * Last update: 11.01.2018
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_ASR_REQ:
@@ -1741,7 +1741,6 @@ router.post("/serverapi", function (req, res) {
                 if (resState) {
                     return uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
                         if (result === 1) {
-
                             payload.wmac = unpackedPayload.wmac;
                             payload.cmac = unpackedPayload.cmac;
                             payload.clientType = g.CLIENT_TYPE.WEB;
@@ -1755,7 +1754,6 @@ router.post("/serverapi", function (req, res) {
                                 if (!unpackedPayload) return;
                                 switch (unpackedPayload.resultCode) {
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_ASR.RESCODE_SDP_ASR_OK:
-                                        //유저버퍼 업데이트
                                         uModule.updateUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), (result) => {
                                             if (result) {
                                                 payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASR.RESCODE_SWP_ASR_OK;
@@ -1771,7 +1769,6 @@ router.post("/serverapi", function (req, res) {
                                         break;
 
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_ASR.RESCODE_SDP_ASR_OTHER:
-
                                         payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASR.RESCODE_SWP_ASR_OTHER;
                                         protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASR_RSP, payload);
 
@@ -3195,18 +3192,26 @@ router.post("/serverapi", function (req, res) {
                         let commandSet = [];
                         let realtimeAirQualityDataList = [];
                         for (var index = 0; index < keys.length; index++) {
-                            commandSet.push(['zrevrange', keys[index], 0, 0, 'WITHSCORES']);
+                            commandSet.push(['zrevrange', keys[index], 0, -1, 'WITHSCORES']);
                         }
                         redisCli.multi(commandSet).exec((err, replies) => {
                             if (err) {
                                 logger.err('zrevrange');
                             } else {
+                                if (replies.length === 0) {
+                                    let payload = {};
+                                    payload.realtimeAirQualityDataList = [];
+                                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_RAV.RESCODE_SAP_RAV_OK;
+                                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_RAV_RSP, payload);
+                                    logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    return res.send(protocol.getPackedMsg());
+                                }
                                 //replies[갯수만큼][0]: 키 [1]: 벨류
                                 let arrData = [],
                                     arrKey = [];
-                                for (let keyCount = 0; keyCount < replies.length; keyCount++) {
-                                    arrData.push(replies[keyCount][0]);
-                                    arrKey.push(replies[keyCount][1]);
+                                for (let keyCount = 0; keyCount < (replies[0].length)/2; keyCount++) {
+                                    arrData.push(replies[0][keyCount*2]);
+                                    arrKey.push(replies[0][keyCount*2+1]);
                                 }
                                 commandSet = [];
                                 for (let i = 0, x = arrKey.length; i < x; i++) {
@@ -3242,18 +3247,26 @@ router.post("/serverapi", function (req, res) {
                                         let commandSet = [];
                                         let realtimeAirQualityDataList = [];
                                         for (var index = 0; index < keys.length; index++) {
-                                            commandSet.push(['zrevrange', keys[index], 0, 0, 'WITHSCORES']);
+                                            commandSet.push(['zrevrange', keys[index], 0, -1, 'WITHSCORES']);
                                         }
                                         redisCli.multi(commandSet).exec((err, replies) => {
                                             if (err) {
                                                 logger.err('zrevrange');
                                             } else {
+                                                if (replies.length === 0) {
+                                                    let payload = {};
+                                                    payload.realtimeAirQualityDataList = [];
+                                                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_RAV.RESCODE_SWP_RAV_OK;
+                                                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_RAV_RSP, payload);
+                                                    logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                    return res.send(protocol.getPackedMsg());
+                                                }
                                                 //replies[갯수만큼][0]: 키 [1]: 벨류
                                                 let arrData = [],
                                                     arrKey = [];
-                                                for (let keyCount = 0; keyCount < replies.length; keyCount++) {
-                                                    arrData.push(replies[keyCount][0]);
-                                                    arrKey.push(replies[keyCount][1]);
+                                                for (let keyCount = 0; keyCount < (replies[0].length) / 2; keyCount++) {
+                                                    arrData.push(replies[0][keyCount * 2]);
+                                                    arrKey.push(replies[0][keyCount * 2 + 1]);
                                                 }
                                                 commandSet = [];
                                                 for (let i = 0, x = arrKey.length; i < x; i++) {
@@ -3308,18 +3321,26 @@ router.post("/serverapi", function (req, res) {
                         let commandSet = [];
                         let realtimeAirQualityDataList = [];
                         for (var index = 0; index < keys.length; index++) {
-                            commandSet.push(['zrevrange', keys[index], 0, 0, 'WITHSCORES']);
+                            commandSet.push(['zrevrange', keys[index], 0, -1, 'WITHSCORES']);
                         }
                         redisCli.multi(commandSet).exec((err, replies) => {
                             if (err) {
                                 logger.err('zrevrange');
                             } else {
+                                if (replies.length === 0) {
+                                    let payload = {};
+                                    payload.realtimeAirQualityDataList = [];
+                                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RAV.RESCODE_SWP_RAV_OK;
+                                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_RAV_RSP, payload);
+                                    logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    return res.send(protocol.getPackedMsg());
+                                }
                                 //replies[갯수만큼][0]: 키 [1]: 벨류
                                 let arrData = [],
                                     arrKey = [];
-                                for (let keyCount = 0; keyCount < replies.length; keyCount++) {
-                                    arrData.push(replies[keyCount][0]);
-                                    arrKey.push(replies[keyCount][1]);
+                                for (let keyCount = 0; keyCount < (replies[0].length) / 2; keyCount++) {
+                                    arrData.push(replies[0][keyCount * 2]);
+                                    arrKey.push(replies[0][keyCount * 2 + 1]);
                                 }
                                 commandSet = [];
                                 for (let i = 0, x = arrKey.length; i < x; i++) {
@@ -3355,18 +3376,26 @@ router.post("/serverapi", function (req, res) {
                                         let commandSet = [];
                                         let realtimeAirQualityDataList = [];
                                         for (var index = 0; index < keys.length; index++) {
-                                            commandSet.push(['zrevrange', keys[index], 0, 0, 'WITHSCORES']);
+                                            commandSet.push(['zrevrange', keys[index], 0, -1, 'WITHSCORES']);
                                         }
                                         redisCli.multi(commandSet).exec((err, replies) => {
                                             if (err) {
                                                 logger.err('zrevrange');
                                             } else {
+                                                if (replies.length === 0) {
+                                                    let payload = {};
+                                                    payload.realtimeAirQualityDataList = [];
+                                                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RAV.RESCODE_SWP_RAV_OK;
+                                                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_RAV_RSP, payload);
+                                                    logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                    return res.send(protocol.getPackedMsg());
+                                                }
                                                 //replies[갯수만큼][0]: 키 [1]: 벨류
                                                 let arrData = [],
                                                     arrKey = [];
-                                                for (let keyCount = 0; keyCount < replies.length; keyCount++) {
-                                                    arrData.push(replies[keyCount][0]);
-                                                    arrKey.push(replies[keyCount][1]);
+                                                for (let keyCount = 0; keyCount < (replies[0].length) / 2; keyCount++) {
+                                                    arrData.push(replies[0][keyCount * 2]);
+                                                    arrKey.push(replies[0][keyCount * 2 + 1]);
                                                 }
                                                 commandSet = [];
                                                 for (let i = 0, x = arrKey.length; i < x; i++) {
@@ -3428,13 +3457,20 @@ router.post("/serverapi", function (req, res) {
                             lessKey = `(${lessKey.toString()}`;
                             redisCli.zrangebyscore('search:a:realtime:heart', lessKey, greaterKey, (err, keys) => {
                                 if (err) {} else {
-
                                     let payload = {};
-                                    payload.ts = keys[0].split(",")[0]
-                                    payload.lat = keys[0].split(",")[1]
-                                    payload.lng = keys[0].split(",")[2]
-                                    payload.hr = keys[0].split(",")[3]
-                                    payload.rr = keys[0].split(",")[4]
+                                    if (keys.length === 0)  {
+                                        payload.ts = 0
+                                        payload.lat = 0
+                                        payload.lng = 0
+                                        payload.hr = 0
+                                        payload.rr = 0
+                                    } else {
+                                        payload.ts = keys[0].split(",")[0]
+                                        payload.lat = keys[0].split(",")[1]
+                                        payload.lng = keys[0].split(",")[2]
+                                        payload.hr = keys[0].split(",")[3]
+                                        payload.rr = keys[0].split(",")[4]
+                                    }
                                     payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RHV.RESCODE_SWP_RHV_OK;
                                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_RHV_RSP, payload);
                                     logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -4756,7 +4792,7 @@ router.post("/databaseapi", (req, res) => {
                                         protocol.packMsg(g.SDP_MSG_TYPE.SDP_SIR_RSP, payload);
 
                                         logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
-                                        state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_INFORMED_STATE, g.DATABASE_TIMER.T951);
+                                        state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, ssn, g.DATABASE_SSN_STATE_ID.DATABASE_SSN_INFORMED_STATE, g.DATABASE_TIMER.T951);
                                         
                                         logger.debug("| DATABASE change SSN state (IDLE) -> (SSN INFORMED)");
                                         res.send(protocol.getPackedMsg());
