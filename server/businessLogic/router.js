@@ -65,7 +65,7 @@ router.post("/serverdatatran", function (req, res){
                                         city = dataSet[i][4];
 
                                 let rawData = dataSet[i];
-                                rawData.splice(2,4);
+                                rawData.splice(2,3);
                                 rawData = rawData.toString();
                                 let key = Number(ssn),
                                     lessKey = key - 1,
