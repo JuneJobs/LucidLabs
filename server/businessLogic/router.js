@@ -3502,10 +3502,10 @@ router.post("/serverapi", function (req, res) {
          * Author: Junhee Park
          */
         case g.SWP_MSG_TYPE.SWP_HAV_REQ:
-            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                 if (g.SERVER_RECV_STATE_BY_MSG.SWP_HAV_REQ.includes(resState)) {
                     let payload = {};
-                    uModule.checkUserSignedInState(g.ENDPOIONT_ID_TYPE.WEBCLIENT, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                    uModule.checkUserSignedInState(g.ENDPOINT_ID_TYPE.WEBCLIENT, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
                         if (result === 1) {
                             payload.ownershipCode = unpackedPayload.ownershipCode;
                             payload.sTs = unpackedPayload.sTs;
@@ -3560,13 +3560,88 @@ router.post("/serverapi", function (req, res) {
                             payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HAV.RESCODE_SWP_HAV_UNALLOCATED_USER_SEQUENCE_NUMBER;
                             protocol.packMsg(g.SWP_MSG_TYPE.SWP_HAV_RSP, payload);
 
-                            logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                             res.send(protocol.getPackedMsg());
                         }
                     })
                 }
             });
+        /**
+         * Receive SAP: KAS-REQ
+         * Last update: 11.05.2018
+         * Author: Junhee Park
+         */
+        case g.SAP_MSG_TYPE.SAP_KAS_REQ:
+            // 1.~
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                // 1.1~
+                if (resState) {
+                    // 1.1.1.~\
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.APPCLIENT, g.CLIENT_TYPE.APP, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        // 1.1.1.1.~
+                        if (result === 1) {
+                            uModule.updateUserSignedInState(g.ENTITY_TYPE.APPCLIENT, protocol.getEndpointId(), (result) => {
+                                if (result) {
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                    logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
+                                    payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_KAS.RESCODE_SAP_KAS_OK;
+                                    protocol.packMsg(g.SAP_MSG_TYPE.SAP_KAS_RSP, payload);
 
+                                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
+                                }
+                            });
+                            // 1.1.1.2.~
+                        } else {
+                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_KAS.RESCODE_SAP_KAS_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_KAS_RSP, payload);
+
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
+                        }
+                    });
+                }
+            });
+
+        /**
+         * Receive SWP: KAS-REQ
+         * Last update: 11.05.2018
+         * Author: Junhee Park
+         */
+        case g.SWP_MSG_TYPE.SWP_KAS_REQ:
+            // 1.~
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                let payload = {};
+                // 1.1~
+                if (resState) {
+                    // 1.1.1.~
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        // 1.1.1.1.~
+                        if (result === 1) {
+                            uModule.updateUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, protocol.getEndpointId(), (result) => {
+                                if (result) {
+                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
+                                    logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
+                                    payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_KAS.RESCODE_SWP_KAS_OK;
+                                    protocol.packMsg(g.SWP_MSG_TYPE.SWP_KAS_RSP, payload);
+
+                                    logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
+                                }
+                            });
+                            // 1.1.1.2.~
+                        } else {
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_KAS.RESCODE_SWP_KAS_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_KAS_RSP, payload);
+
+                            logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
+                        }
+                    });
+                }
+            });
+        
         default:
             break;
     }
@@ -4972,7 +5047,6 @@ router.post("/databaseapi", (req, res) => {
                                                                 // 1.1.1.1.1.1.1.1.1.1.1.2.~
                                                                 state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.DATABASE_SSN_STATE_ID.DATABASE_SSN_CID_ALLOACATED_STATE, g.DATABASE_TIMER.T955);
                                                                 logger.debug("| DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)");
-
                                                                 // 1.1.1.1.1.1.1.1.1.1.1.3.~
                                                                 payload.mobf = mobf;
                                                                 payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_OK;
@@ -4992,7 +5066,6 @@ router.post("/databaseapi", (req, res) => {
                                                             }
                                                         } else {
                                                             redisCli.set(`s:info:${protocol.getEndpointId()}:cgeo`, `${unpackedPayload.lat},${unpackedPayload.lng}`);
-
                                                             // 1.1.1.1.1.1.1.1.1.1.1.3.~
                                                             payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_DCA.RESCODE_SDP_DCA_OK;
                                                             protocol.packMsg(g.SDP_MSG_TYPE.SDP_DCA_RSP, payload);
@@ -5122,6 +5195,7 @@ router.post("/databaseapi", (req, res) => {
                                 if (actf !== null) {
                                     // 1.1.1.1.1.1.1.
                                     redisCli.set(`s:info:${protocol.getEndpointId()}:actf`, 1);
+                                    redisCli.del(`s:info:${protocol.getEndpointId()}:cgeo`);
                                     // 1.1.1.1.1.1.2.
                                     state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
                                     logger.debug("| SERVER change SSN state (CID INFORMED) ->  (IDLE)");
@@ -5192,7 +5266,7 @@ router.post("/databaseapi", (req, res) => {
              * Author: Junhee Park
              */
             case g.SDP_MSG_TYPE.SDP_HAV_REQ:
-                state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOIONT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
                     var payload = {};
                     if (g.DATABASE_RECV_STATE_BY_MSG.SDP_HAV_REQ.includes(resState)) {
                         //Auth, It should be repfactoring

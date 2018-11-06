@@ -295,7 +295,7 @@ class LlProtocol {
 
                 //KAS
                 case g.SAP_MSG_TYPE.SAP_KAS_REQ:
-                    return this._unpackSapKasuReqPayload();
+                    return this._unpackSapKasReqPayload();
                 case g.SWP_MSG_TYPE.SWP_KAS_REQ:
                     return this._unpackSwpKasReqPayload();
 
