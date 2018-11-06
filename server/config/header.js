@@ -72,11 +72,11 @@ const SAP_MSG_TYPE = {
     SAP_RHD_TRN: 0x37,
     SAP_RHD_ACK: 0x38,
     SAP_RAV_REQ: 0x39,
-    SAP_RAV_RSP: 0x40,
-    SAP_HHV_REQ: 0x41,
-    SAP_HHV_RSP: 0x42,
-    SAP_KAS_REQ: 0x43,
-    SAP_KAS_RSP: 0x44
+    SAP_RAV_RSP: 0x3a,
+    SAP_HHV_REQ: 0x3b,
+    SAP_HHV_RSP: 0x3c,
+    SAP_KAS_REQ: 0x3d,
+    SAP_KAS_RSP: 0x3e
 };
 /** SWP protocol message type define
  *  Define 0x65 (101) ~ 0x8e (142)

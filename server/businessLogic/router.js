@@ -3566,6 +3566,15 @@ router.post("/serverapi", function (req, res) {
                     })
                 }
             });
+
+        /**
+         * Receive SWP: HAV-REQ
+         * Last update: 11.05.2018
+         * Author: Junhee Park
+         */
+        
+
+
         /**
          * Receive SAP: KAS-REQ
          * Last update: 11.05.2018
@@ -4332,6 +4341,8 @@ router.post("/databaseapi", (req, res) => {
                                                                     ["del", `${keyHead}mobf`],
                                                                     //Update sensor information
                                                                     ["set", `${keyHead}actf`, 0],
+                                                                    ["del", `${keyHead}cgeo`],
+                                                                    ["del", `s:info:${ssn}:cgeo`],
                                                                     ["srem", "search:s:actf:1", ssn],
                                                                     ["srem", "search:s:actf:2", ssn],
                                                                     ["srem", "search:s:actf:3", ssn],
@@ -4661,6 +4672,7 @@ router.post("/databaseapi", (req, res) => {
                                                     //Update sensor information
                                                     ["set", `${keyHead}actf`, 1],
                                                     ["set", `${keyHead}drgcd`, 0],
+                                                    ["set", `s:info:${ssn}:mobf`, unpackedPayload.mobf],
                                                     ["set", `s:info:${ssn}:actf`, 1],
                                                     ["srem", "search:s:actf:0", ssn],
                                                     ["sadd", "search:s:actf:1", ssn],
@@ -4738,7 +4750,7 @@ router.post("/databaseapi", (req, res) => {
                                         redisCli.multi([
                                             //Delete sensor association with user
                                             ["set", `s:info:${ssn}:drgcd`, unpackedPayload.drgcd],
-                                            ["set", `s:info:${ssn}:actf`, 0],
+                                            ["set", `s:info:${ssn}:actf`, 3],
                                             ["srem", "search:s:actf:0", ssn],
                                             ["srem", "search:s:actf:1", ssn],
                                             ["srem", "search:s:actf:2", ssn],
@@ -4748,6 +4760,7 @@ router.post("/databaseapi", (req, res) => {
                                             ["del", keyHead + "mti"],
                                             ["del", keyHead + "tti"],
                                             ["del", keyHead + "mobf"],
+                                            ["del", keyHead + "cgeo"],
 
                                         ]).exec((err, replies) => {
                                             if (err) {
@@ -4776,7 +4789,8 @@ router.post("/databaseapi", (req, res) => {
                                                         ["del", keyHead + "tti"],
                                                         ["del", keyHead + "mobf"],
                                                         //Update sensor information
-                                                        ["set", `s:info:${ssn}:actf`, 3],
+                                                        ["set", `s:info:${ssn}:actf`, 0],
+                                                        ["del", `s:info:${ssn}:cgeo`],
                                                         ["srem", "search:s:actf:0", ssn],
                                                         ["srem", "search:s:actf:1", ssn],
                                                         ["srem", "search:s:actf:2", ssn],
@@ -5195,7 +5209,6 @@ router.post("/databaseapi", (req, res) => {
                                 if (actf !== null) {
                                     // 1.1.1.1.1.1.1.
                                     redisCli.set(`s:info:${protocol.getEndpointId()}:actf`, 1);
-                                    redisCli.del(`s:info:${protocol.getEndpointId()}:cgeo`);
                                     // 1.1.1.1.1.1.2.
                                     state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, protocol.getEndpointId(), g.SERVER_SSN_STATE_ID.SERVER_SSN_IDLE_STATE);
                                     logger.debug("| SERVER change SSN state (CID INFORMED) ->  (IDLE)");
