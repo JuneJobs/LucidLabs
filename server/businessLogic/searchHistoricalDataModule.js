@@ -7,7 +7,7 @@ class searchHistoricalDataModule {
 
     }
     searchHistoricalAirData(nation, state, city, sTs, eTs, cb) {
-        let keyHead = 'd:air:geo:*' + ':' + nation + ':' + state + ':' + city;
+        let keyHead = 'd:air:s:geo:' + nation + ':' + state + ':' + city+ ':*';
         this._getKeys(keyHead, (keys) => {
             if (keys.length === 0) {
                 cb(false);
@@ -32,13 +32,13 @@ class searchHistoricalDataModule {
     _makeSearchHisticalAirDataCommand(keys, nation, state, city, sTs, eTs) {
         let commandList = [];
         for (let i = 0, x = keys.length; i < x; i++) {
-            let key = keys[i].split(':')[4],
+            let key = keys[i].split(':')[7],
                 geoString = ':' + nation + ':' + state + ':' + city;
 
             commandList.push(
                 ['get', 's:info:' + key + ':wmac'],
-                ['zrangebyscore', 'd:air:s:geo:' + key + geoString, sTs, eTs],
-                ['zrangebyscore', 'd:air:s:raw:' + key + geoString, sTs, eTs])
+                ['zrangebyscore', `d:air:s:geo${geoString}:${key}`, sTs, eTs],
+                ['zrangebyscore', `d:air:s:raw${geoString}:${key}`, sTs, eTs])
         }
         return commandList;
     }
@@ -60,10 +60,10 @@ class searchHistoricalDataModule {
         var differentialSensorIdxs = []; //현재 가지고 있는센서의 인덱스, 센서시리얼넘버, 현재 가지고있는 센서의 첫번째 타임스탬프
         dataOfSensors.forEach((dataOfSensor, idx) => {
             //TS 셋팅
+            let firstTsOfData = dataOfSensor.dataList[0].split(',')[0];
             //검색한 기간에 GPS정보가 존재하는 경우
             if (dataOfSensor.geoList.length > 0) {
-                let firstTsOfData = dataOfSensor.dataList[0].split(',')[0],
-                    firstTsOfGeo = dataOfSensor.geoList[0].split(',')[0];
+                let firstTsOfGeo = dataOfSensor.geoList[0].split(',')[0];
                 //첫번째 GPS가 첫번째 TS와 맞아 떨어지는 경우
                 //skip
                 //첫번째 GPS가 첫번째 TS와 맞아 떨어지지 않는 경우

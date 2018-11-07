@@ -20,12 +20,12 @@ class historicalAirDataModule {
     }
     _getLastGeoData(sensorType, nation, state, city, ssn, cb) {
         //ZREVRANGEBYSCORE myset +inf -inf WITHSCORES LIMIT 0 1
-        redisCli.zrevrangebyscore(`d:air:${sensorType}:geo:${nation}:${state}:${city}:${ssn}`, '+inf', '-inf', 'WITHSCORES', 'LIMIT', 0, 1, (err, geo) => {
+        redisCli.zrevrangebyscore(`d:air:${sensorType}:geo:${nation}:${state}:${city}:${ssn}`, '+inf', '-inf', 'LIMIT', 0, 1, (err, geo) => {
             if (err) {} else {
-                if (geo === null) {
-                    cb(false)
+                if (geo.length === 0) {
+                    cb(false);
                 } else {
-                    cb(geo)
+                    cb(`${geo[0].split(',')[1]},${geo[0].split(',')[2]}`);
                 }
             }
         })
@@ -75,9 +75,10 @@ class historicalAirDataModule {
             geo_data_set = this.geo_data_set;
         for (let i = 0, x = this.geo_data_set.length; i < x; i++) {
             commandList.push([
-                'zadd', `d:air:${sensorType}:geo:${geo_data_set[i][2]}:${geo_data_set[i][3]}:${geo_data_set[i][4]}:${ssn}`, 
-                 geo_data_set[i][0], 
-                 geo_data_set[i][1]
+                'zadd', 
+                `d:air:${sensorType}:geo:${geo_data_set[i][2]}:${geo_data_set[i][3]}:${geo_data_set[i][4]}:${ssn}`, 
+                geo_data_set[i][0],
+                `${geo_data_set[i][0]},${geo_data_set[i][1]}`
             ])
         }
         redisCli.multi(commandList).exec((err, replies) => {
@@ -93,7 +94,7 @@ class historicalAirDataModule {
                 'zadd', 
                 `d:air:${sensorType}:raw:${air_data_set[i][1]}:${air_data_set[i][2]}:${air_data_set[i][3]}:${ssn}`,
                 air_data_set[i][0],
-                `${air_data_set[i][4]},${air_data_set[i][5]},${air_data_set[i][6]},${air_data_set[i][7]},${air_data_set[i][8]},${air_data_set[i][9]},${air_data_set[i][10]},${air_data_set[i][11]},${air_data_set[i][12]},${air_data_set[i][13]},${air_data_set[i][14]},${air_data_set[i][15]},${air_data_set[i][16]},${air_data_set[i][17]},`
+                `${air_data_set[i][0]},${air_data_set[i][4]},${air_data_set[i][5]},${air_data_set[i][6]},${air_data_set[i][7]},${air_data_set[i][8]},${air_data_set[i][9]},${air_data_set[i][10]},${air_data_set[i][11]},${air_data_set[i][12]},${air_data_set[i][13]},${air_data_set[i][14]},${air_data_set[i][15]},${air_data_set[i][16]}`
             ])
         }
         redisCli.multi(commandList).exec((err, replies) => {
@@ -114,8 +115,8 @@ class historicalAirDataModule {
             let firstData = this.geo_data_set[0];
             this._getLastGeoData(sensorType, firstData[2], firstData[3], firstData[4], ssn, (geo) => {
                 if(geo) {
-                    if(geo === this.geo_data_set[1]) {
-                        this.geo_data_set.pop();
+                    if (geo === firstData[1]) {
+                        this.geo_data_set.shift();
                     }
                 }
                 this._storeGeoData(ssn, sensorType);

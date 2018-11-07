@@ -271,7 +271,7 @@ class LlProtocol {
 
                 //HAV
                 case g.SWP_MSG_TYPE.SWP_HAV_REQ:
-                    return this._unpackSwphavReqPayload();
+                    return this._unpackSwpHavReqPayload();
                 case g.SDP_MSG_TYPE.SDP_HAV_REQ:
                     return this._unpackSdpHavReqPayload();
                 case g.SDP_MSG_TYPE.SDP_HAV_RSP:
