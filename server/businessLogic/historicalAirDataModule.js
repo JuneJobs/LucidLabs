@@ -104,7 +104,7 @@ class historicalAirDataModule {
     storeData(ssn, rcvdDataSet, cb) {
         this._categorizeData(rcvdDataSet);
 
-        this._getSensorType(ssn, (mobf) => {
+        this._getSensorType(ssn, (ssn, mobf) => {
             
             let sensorType = ''
             if(mobf === "0") { 

@@ -5298,7 +5298,8 @@ router.post("/databaseapi", (req, res) => {
                                         let dataTuple = result[i];
                                         historicalAirQualityDataListEncodings.push({
                                             wmac: dataTuple.wmac,
-                                            geo: dataTuple.geoList,
+                                            lat: dataTuple.geoList[0].split(',')[1],
+                                            lng: dataTuple.geoList[0].split(',')[2],
                                             commonDataTierTuple: dataTuple.dataList
                                         });
                                     }
