@@ -2,40 +2,21 @@
 const redis = require("redis"),
       redisCli = redis.createClient();
 
-let cid = 49;
 
-let dataType = [
-        [1541542329, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 25, 9.31, 76.57, 32.21, 41.68, 93.67, 53.32, 255, 167, 90, 200, 82, 156],
-        [1541542330, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 21, 36.78, 62.55, 45.87, 22.11, 75.47, 16.16, 330, 194, 64, 1, 248, 96],
-        [1541542331, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 24, 8.03, 33.96, 52.63, 82.27, 68.22, 83.33, 404, 461, 451, 150, 151, 89],
-        [1541542332, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 29, 1.47, 82.5, 5.26, 7.56, 63.43, 92.07, 389, 263, 161, 260, 58, 185],
-        [1541542333, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 28, 47.71, 46.83, 77.58, 79.74, 51.8, 55.57, 268, 170, 399, 397, 98, 404],
-        [1541542334, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 23, 29.36, 72.94, 55.52, 49.61, 82.99, 87.74, 436, 346, 495, 283, 43, 320],
-        [1541542335, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 27, 8.5, 25.22, 58.27, 96.36, 35.95, 85.33, 208, 489, 243, 371, 198, 406],
-        [1541542336, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 25, 41.42, 65.73, 17.83, 83.99, 91.42, 34.65, 232, 214, 354, 394, 449, 378],
-        [1541542337, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 25, 27.78, 20.11, 57.03, 50.26, 70.74, 49.98, 20, 126, 90, 16, 88, 26],
-        [1541542338, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 22, 47.02, 83.44, 89.66, 86.74, 35.44, 82.62, 144, 187, 270, 134, 255, 433]
-    ];
+
 
 class historicalAirDataModule {
-    constructor() {
+    constructor(cid) {
+        this.cid = cid;
         this.air_data_set = [];
         this.geo_data_set = [];
     }
-    _getSensorInfo(cid, cb) {
-        redisCli.get(`c:con:s:${cid}`, (err, ssn)=> {
+    _getSensorType(ssn, cb) {
+        redisCli.get(`s:info:${ssn}:mobf`, (err, mobf) => {
             if (err) {} else {
-                if(ssn === null) {
-                    cb(false)
-                } else {
-                    redisCli.get(`s:info:${ssn}:mobf`, (err, mobf) => {
-                        if(err) {} else {
-                            cb(ssn, mobf);
-                        }
-                    })
-                }
+                cb(ssn, mobf);
             }
-        });
+        })
     }
     _getLastGeoData(sensorType, nation, state, city, ssn, cb) {
         //ZREVRANGEBYSCORE myset +inf -inf WITHSCORES LIMIT 0 1
@@ -99,34 +80,36 @@ class historicalAirDataModule {
                  geo_data_set[i][1]
             ])
         }
-        console.log(commandList);
+        redisCli.multi(commandList).exec((err, replies) => {
+           
+        });
 
     }
     _storeAirData(ssn, sensorType) {
-        let commandList = [];
-        air_data_set = this.air_data_set;
+        let commandList = [],
+            air_data_set = this.air_data_set;
         for (let i = 0, x = this.air_data_set.length; i < x; i++) {
             commandList.push([
                 'zadd', 
-                `d:air:${sensorType}:raw:${air_data_set[i][1]}:${air_data_set[i][2]}:${air_data_set[i][3]}:${ssn}`, 
+                `d:air:${sensorType}:raw:${air_data_set[i][1]}:${air_data_set[i][2]}:${air_data_set[i][3]}:${ssn}`,
                 air_data_set[i][0],
-                `${air_data_set[i][5]},${air_data_set[i][6]},${air_data_set[i][7]},${air_data_set[i][8]},${air_data_set[i][9]},${air_data_set[i][10]},${air_data_set[i][11]},${air_data_set[i][12]},${air_data_set[i][13]},${air_data_set[i][14]},${air_data_set[i][15]},${air_data_set[i][16]},${air_data_set[i][17]},`
+                `${air_data_set[i][4]},${air_data_set[i][5]},${air_data_set[i][6]},${air_data_set[i][7]},${air_data_set[i][8]},${air_data_set[i][9]},${air_data_set[i][10]},${air_data_set[i][11]},${air_data_set[i][12]},${air_data_set[i][13]},${air_data_set[i][14]},${air_data_set[i][15]},${air_data_set[i][16]},${air_data_set[i][17]},`
             ])
         }
-        console.log(commandList);
-    }
-    storeData() {
-        this._categorizeData(dataType);
+        redisCli.multi(commandList).exec((err, replies) => {
 
-        this._getSensorInfo(cid, (ssn, mobf) => {
+        });
+    }
+    storeData(ssn, rcvdDataSet, cb) {
+        this._categorizeData(rcvdDataSet);
+
+        this._getSensorType(ssn, (mobf) => {
             
             let sensorType = ''
             if(mobf === "0") { 
                 sensorType = 'p'
             } else if (mobf === "1") {
                 sensorType = 's'
-            } else {
-                return false;
             }
             let firstData = this.geo_data_set[0];
             this._getLastGeoData(sensorType, firstData[2], firstData[3], firstData[4], ssn, (geo) => {
@@ -137,6 +120,7 @@ class historicalAirDataModule {
                 }
                 this._storeGeoData(ssn, sensorType);
                 this._storeAirData(ssn, sensorType);
+                cb(true);
             });
         })
 
@@ -145,8 +129,21 @@ class historicalAirDataModule {
 
 module.exports = historicalAirDataModule;
 
-let test = new historicalAirDataModule();
-test.storeData();
+// let test = new historicalAirDataModule(51);
+// let dataSet = [
+//     [1541542329, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 25, 9.31, 76.57, 32.21, 41.68, 93.67, 53.32, 255, 167, 90, 200, 82, 156],
+//     [1541542330, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 21, 36.78, 62.55, 45.87, 22.11, 75.47, 16.16, 330, 194, 64, 1, 248, 96],
+//     [1541542331, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 24, 8.03, 33.96, 52.63, 82.27, 68.22, 83.33, 404, 461, 451, 150, 151, 89],
+//     [1541542332, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 29, 1.47, 82.5, 5.26, 7.56, 63.43, 92.07, 389, 263, 161, 260, 58, 185],
+//     [1541542333, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 28, 47.71, 46.83, 77.58, 79.74, 51.8, 55.57, 268, 170, 399, 397, 98, 404],
+//     [1541542334, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 23, 29.36, 72.94, 55.52, 49.61, 82.99, 87.74, 436, 346, 495, 283, 43, 320],
+//     [1541542335, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 27, 8.5, 25.22, 58.27, 96.36, 35.95, 85.33, 208, 489, 243, 371, 198, 406],
+//     [1541542336, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 25, 41.42, 65.73, 17.83, 83.99, 91.42, 34.65, 232, 214, 354, 394, 449, 378],
+//     [1541542337, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 25, 27.78, 20.11, 57.03, 50.26, 70.74, 49.98, 20, 126, 90, 16, 88, 26],
+//     [1541542338, "32.88247,-117.23484", "Q30", "Q99", "Q16552", 22, 47.02, 83.44, 89.66, 86.74, 35.44, 82.62, 144, 187, 270, 134, 255, 433]
+// ];
+
+// test.storeData(dataSet);
 
 /*
     저장되어야 하는 포맷

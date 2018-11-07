@@ -25,6 +25,7 @@ const userModule = require('./userModule');
 const sensorModule = require('./sensorModule');
 const commonModule = require('./commonModule');
 const dataModule = require('./searchHistoricalDataModule');
+const storeHistoricalDataModule = require('./historicalAirDataModule');
 
 const redis = require("redis");
 //Connect with Redis client
@@ -37,6 +38,7 @@ router.post("/serverdatatran", function (req, res){
     let protocol = new LlProtocol();
     let state = new LlState();
     let sModule = new sensorModule();
+    let sDataModule = new storeHistoricalDataModule(protocol.getEndpointId());
     protocol.setMsg(req.body);
     if(!protocol.verifyHeader()) return;
     
@@ -52,19 +54,18 @@ router.post("/serverdatatran", function (req, res){
                         state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN, ssn, g.SERVER_SSN_STATE_ID.SERVER_SSN_CID_INFORMED_STATE, g.SERVER_TIMER.T803)
                         let mti = g.SERVER_TIMER.T805,
                             unpackedPayload = sModule.unpackTrnPayload(g.ENTITY_TYPE.SENSOR, protocol.msgPayload, mti),
-                            dataSet = unpackedPayload.success.arrSuccessfulRcvdData,
-                            args = [];
-
-                        args.push('d:air:' + ssn + ':raw');
+                            dataSet = unpackedPayload.success.arrSuccessfulRcvdData;
                         for (let i = 0, x = dataSet.length; i < x; i++) {
-                            args.push(dataSet[i][0]);
-                            args.push(dataSet[i].toString());
-                            if (i === x-1) {
+                            if (i === x-1) {    //last row
                                 const nation = dataSet[i][2],
                                         state = dataSet[i][3],
                                         city = dataSet[i][4];
 
-                                let rawData = dataSet[i];
+                                let rawData = [];
+                                for(let j in dataSet[i]){
+                                    rawData[j] = dataSet[i][j];
+                                }
+                                
                                 rawData.splice(2,3);
                                 rawData = rawData.toString();
                                 let key = Number(ssn),
@@ -92,9 +93,8 @@ router.post("/serverdatatran", function (req, res){
                                 }, g.SERVER_TIMER.T803 * 1000 * 10);
                             }
                         }
-                        redisCli.zadd(args, (err, result) => {
-                            if (err) {
-                            } else {
+                        sDataModule.storeData(ssn, dataSet, (result) => {
+                            if(result) {
                                 let payload = {},
                                     sspRadAck = {};
                                 payload.successfulRcptFlg = unpackedPayload.success.successfulRcptFlg;
