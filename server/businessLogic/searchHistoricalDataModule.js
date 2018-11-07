@@ -37,8 +37,8 @@ class searchHistoricalDataModule {
 
             commandList.push(
                 ['get', 's:info:' + key + ':wmac'],
-                ['zrangebyscore', 'd:air:geo:' + key + geoString, sTs, eTs],
-                ['zrangebyscore', 'd:air:data:' + key + geoString, sTs, eTs])
+                ['zrangebyscore', 'd:air:s:geo:' + key + geoString, sTs, eTs],
+                ['zrangebyscore', 'd:air:s:raw:' + key + geoString, sTs, eTs])
         }
         return commandList;
     }
@@ -79,7 +79,7 @@ class searchHistoricalDataModule {
         let commandList = []; //
         for (let i = 0, x = differentialSensorIdxs.length; i < x; i++) {
             commandList.push(
-                ['zrevrangebyscore', 'd:air:geo:' + differentialSensorIdxs[i][1] + ':' + nation + ':' + state + ':' + city, differentialSensorIdxs[i][2] - 1, 0, 'LIMIT', 0, 1]
+                ['zrevrangebyscore', 'd:air:s:geo:' + differentialSensorIdxs[i][1] + ':' + nation + ':' + state + ':' + city, differentialSensorIdxs[i][2] - 1, 0, 'LIMIT', 0, 1]
             );
         }
         redisCli.multi(commandList).exec((err, differentialSensorGeos) => {
