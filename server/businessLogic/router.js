@@ -5277,8 +5277,8 @@ router.post("/databaseapi", (req, res) => {
              * Author: Junhee Park
              */
             case g.SDP_MSG_TYPE.SDP_HAV_REQ:
-                state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
-                    var payload = {};
+                return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                    payload = {};
                     if (g.DATABASE_RECV_STATE_BY_MSG.SDP_HAV_REQ.includes(resState)) {
                         //Auth, It should be repfactoring
                         if (protocol.getEndpointId() < 2) {
@@ -5288,8 +5288,6 @@ router.post("/databaseapi", (req, res) => {
                                 city = unpackedPayload.city,
                                 sTs = unpackedPayload.sTs,
                                 eTs = unpackedPayload.eTs;
-
-                            
                             
                             searchHistoricalData.searchHistoricalAirData(nat, state, city, sTs, eTs, (result) => {
                                 var historicalAirQualityDataListEncodings = [];
@@ -5304,23 +5302,22 @@ router.post("/databaseapi", (req, res) => {
                                         });
                                     }
                                 }
-                                payload = {};
                                 payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_OK;
                                 payload.lastFlg = 1;
                                 payload.flgSeqNum = 0;
                                 payload.historicalAirQualityDataListEncodings = historicalAirQualityDataListEncodings;
                                 protocol.packMsg(g.SDP_MSG_TYPE.SDP_HAV_RSP, payload);
-                                logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
-                                return res.send(protocol.getPackedMsg());
+
+                                logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
                             });
                         } else {
-                            payload = {};
                             payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
                             protocol.packMsg(g.SDP_MSG_TYPE.SDP_HAV_RSP, payload);
-                            logger.debug("| DATABASE Send response: " + JSON.stringify(protocol.getPackedMsg()));
+
+                            logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
                         }
-                    } else {
-                        return;
                     }
                 });
 
