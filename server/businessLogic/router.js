@@ -5288,12 +5288,13 @@ router.post("/databaseapi", (req, res) => {
                                 city = unpackedPayload.city,
                                 sTs = unpackedPayload.sTs,
                                 eTs = unpackedPayload.eTs;
-                            
+
                             searchHistoricalData.searchHistoricalAirData(nat, state, city, sTs, eTs, (result) => {
                                 var historicalAirQualityDataListEncodings = [];
                                 if (result) {
                                     for (let i = 0, x = result.length; i < x; i++) {
                                         let dataTuple = result[i];
+                                        console.log(">>>", dataTuple.geoList);
                                         historicalAirQualityDataListEncodings.push({
                                             wmac: dataTuple.wmac,
                                             lat: dataTuple.geoList[0].split(',')[1],

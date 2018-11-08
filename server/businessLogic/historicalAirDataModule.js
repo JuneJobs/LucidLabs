@@ -108,9 +108,9 @@ class historicalAirDataModule {
             
             let sensorType = ''
             if(mobf === "0") { 
-                sensorType = 'p'
-            } else if (mobf === "1") {
                 sensorType = 's'
+            } else if (mobf === "1") {
+                sensorType = 'p'
             }
             let firstData = this.geo_data_set[0];
             this._getLastGeoData(sensorType, firstData[2], firstData[3], firstData[4], ssn, (geo) => {

@@ -11,17 +11,18 @@ class searchHistoricalDataModule {
         this._getKeys(keyHead, (keys) => {
             if (keys.length === 0) {
                 cb(false);
-            }
-            let commandList = this._makeSearchHisticalAirDataCommand(keys, nation, state, city, sTs, eTs);
-            this._executeCommandList(commandList, (dataOfSensors) => {
-                this._interporationGeoList(keys, dataOfSensors, (result) => {
-                    if (result) {
-                        cb(dataOfSensors);
-                    } else {
-                        cb([]);
-                    }
+            } else {
+                let commandList = this._makeSearchHisticalAirDataCommand(keys, nation, state, city, sTs, eTs);
+                this._executeCommandList(commandList, (dataOfSensors) => {
+                    this._interporationGeoList(keys, dataOfSensors, (result) => {
+                        if (result) {
+                            cb(dataOfSensors);
+                        } else {
+                            cb([]);
+                        }
+                    });
                 });
-            });
+            }
         });
 
 
