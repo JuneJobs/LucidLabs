@@ -143,18 +143,18 @@ router.post("/serverdatatran", function (req, res){
                             commandList = [];
                         //add data into buffer
                         for (let i = 0, x = dataSet.length; i < x; i++) {
+                            let nat = dataSet[i][2],
+                                state = dataSet[i][3],
+                                city = dataSet[i][4];
+                            dataSet[i].splice(2, 3);
                             commandList.push([
                                 'zadd',
-                                `d:heart:raw:${dataSet[i][2]}:${dataSet[i][3]}:${dataSet[i][4]}:${usn}`,
+                                `d:heart:raw:${nat}:${state}:${city}:${usn}`,
                                 dataSet[i][0],
                                 dataSet[i].toString()
                             ])
                             if (i === x-1) {
-                                const nation = dataSet[i][2],
-                                        state = dataSet[i][3],
-                                        city = dataSet[i][4];
                                 let rawData = dataSet[i];
-                                rawData.splice(2,3);
                                 rawData = rawData.toString();
                                 let key = Number(usn),
                                     lessKey = key - 1,
