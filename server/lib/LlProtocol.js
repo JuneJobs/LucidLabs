@@ -278,8 +278,10 @@ class LlProtocol {
                     return this._unpackSdpHavRspPayload();
 
                 //HHV
-                case g.SWP_MSG_TYPE.SWP_HHB_REQ:
-                    return this._unpackSwphhvReqPayload();
+                case g.SAP_MSG_TYPE.SAP_HHV_REQ:
+                    return this._unpackSapHhvReqPayload();
+                case g.SWP_MSG_TYPE.SWP_HHV_REQ:
+                    return this._unpackSwpHhvReqPayload();
                 case g.SDP_MSG_TYPE.SDP_HHV_REQ:
                     return this._unpackSdpHhvReqPayload();
                 case g.SDP_MSG_TYPE.SDP_HHV_RSP:
@@ -1160,6 +1162,20 @@ class LlProtocol {
     }
     
     //HHV
+    _unpackSapHhvReqPayload() {
+        //validation
+        //parsing
+        const payload = this.msgPayload;
+        this.unpackedPayload = {};
+        this.unpackedPayload.nsc = payload.nsc;
+        this.unpackedPayload.sTs = payload.sTs;
+        this.unpackedPayload.eTs = payload.eTs;
+        this.unpackedPayload.nat = payload.nat;
+        this.unpackedPayload.state = payload.state;
+        this.unpackedPayload.city = payload.city;
+
+        return this.unpackedPayload;
+    }
     _unpackSwpHhvReqPayload() {
         //validation
         //parsing
@@ -1185,6 +1201,7 @@ class LlProtocol {
         this.unpackedPayload.nat = payload.nat;
         this.unpackedPayload.state = payload.state;
         this.unpackedPayload.city = payload.city;
+        this.unpackedPayload.clientType = payload.clientType;
 
         return this.unpackedPayload;
     }
@@ -1196,7 +1213,7 @@ class LlProtocol {
         this.unpackedPayload.resultCode = payload.resultCode;
         if (payload.resultCode === 0) this.unpackedPayload.lastFlg = payload.lastFlg;
         if (payload.resultCode === 0) this.unpackedPayload.flgSeqNum = payload.flgSeqNum;
-        if (payload.resultCode === 0) this.unpackedPayload.historicalHeartRelatedDataListEncodings = payload.historicalHeartRelatedDataListEncodings;
+        if (payload.resultCode === 0) this.unpackedPayload.historicalHeartQualityDataListEncodings = payload.historicalHeartQualityDataListEncodings;
         return this.unpackedPayload;
     }
     //SHR
@@ -1473,6 +1490,8 @@ class LlProtocol {
                     return this._packSdpHavRsp(payload);
 
                 //HHV
+                case g.SAP_MSG_TYPE.SAP_HHV_RSP:
+                    return this._packSapHhvRsp(payload);
                 case g.SWP_MSG_TYPE.SWP_HHV_RSP:
                     return this._packSwpHhvRsp(payload);
                 case g.SDP_MSG_TYPE.SDP_HHV_REQ:
