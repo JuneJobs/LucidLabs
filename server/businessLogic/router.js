@@ -3685,6 +3685,77 @@ router.post("/serverapi", function (req, res) {
                 });
             }
             break;
+        /**
+         * Receive SAP: HHV-REQ
+         * Last update: 11.07.2018
+         * Author: Junhee Park
+         */
+        case g.SAP_MSG_TYPE.SAP_HHV_REQ:
+            return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                if (g.SERVER_RECV_STATE_BY_MSG.SAP_HHV_REQ.includes(resState)) {
+                    let payload = {};
+                    uModule.checkUserSignedInState(g.ENTITY_TYPE.APPCLIENT, g.CLIENT_TYPE.APP, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                        if (result === 1) {
+                            payload.sTs = unpackedPayload.sTs;
+                            payload.eTs = unpackedPayload.eTs;
+                            payload.nat = unpackedPayload.nat;
+                            payload.state = unpackedPayload.state;
+                            payload.city = unpackedPayload.city;
+                            payload.clientType = g.CLIENT_TYPE.APP;
+                            payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_HHV_REQ, payload);
+                            request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                protocol.setMsg(message);
+                                if (!protocol.verifyHeader()) return;
+                                unpackedPayload = protocol.unpackPayload();
+                                if (!unpackedPayload) return;
+                                //switch
+                                switch (unpackedPayload.resultCode) {
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OK:
+                                        payload = {}
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_HHV.RESCODE_SAP_HHV_OK;
+                                        payload.historicalHeartQualityDataListEncodings = unpackedPayload.historicalHeartQualityDataListEncodings;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_HHV_RSP, payload);
+
+                                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OTHER:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_HHV.RESCODE_SAP_HHV_OTHER;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_HHV_RSP, payload);
+
+                                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_HHV.RESCODE_SAP_HHV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_HHV_RSP, payload);
+
+                                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER:
+                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_HHV.RESCODE_SAP_HHV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
+                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_HHV_RSP, payload);
+
+                                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+                                }
+
+                            });
+                        } else {
+                            payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_HHV.RESCODE_SAP_HHV_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                            protocol.packMsg(g.SAP_MSG_TYPE.SAP_HHV_RSP, payload);
+
+                            logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            res.send(protocol.getPackedMsg());
+                        }
+                    })
+                }
+            });
 
         /**
          * Receive SWP: HHV-REQ

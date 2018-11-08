@@ -2293,6 +2293,16 @@ class LlProtocol {
     }
 
     //HHV
+    _packSapHhvRsp(payload) {
+        return this.packedMsg = {
+            "header": {
+                "msgType": g.SAP_MSG_TYPE.SAP_HHV_RSP,
+                "msgLen": 0,
+                "endpointId": this.endpointId
+            },
+            "payload": payload
+        }
+    }
     _packSwpHhvRsp(payload) {
         return this.packedMsg = {
             "header": {
