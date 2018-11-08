@@ -3304,7 +3304,7 @@ router.post("/serverapi", function (req, res) {
                         payload = {};
                         payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_RAV.RESCODE_SAP_RAV_UNALLOCATED_USER_SEQUENCE_NUMBER;
                         protocol.packMsg(g.SAP_MSG_TYPE.SAP_RAV_RSP, payload);
-                        logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                         res.send(protocol.getPackedMsg());
                     }
                 });
@@ -3433,7 +3433,7 @@ router.post("/serverapi", function (req, res) {
                          payload = {};
                          payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RAV.RESCODE_SWP_RAV_UNALLOCATED_USER_SEQUENCE_NUMBER;
                          protocol.packMsg(g.SWP_MSG_TYPE.SWP_RAV_RSP, payload);
-                         logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                         logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                          res.send(protocol.getPackedMsg());
                     }
                 });
@@ -3491,7 +3491,7 @@ router.post("/serverapi", function (req, res) {
                     payload = {};
                     payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_RAV.RESCODE_SWP_RAV_UNALLOCATED_USER_SEQUENCE_NUMBER;
                     protocol.packMsg(g.SWP_MSG_TYPE.SWP_RAV_RSP, payload);
-                    logger.debug("Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                    logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                     res.send(protocol.getPackedMsg());
                 }
             });
@@ -3572,6 +3572,115 @@ router.post("/serverapi", function (req, res) {
                     });
                 }
             });
+        /**
+         * Receive SWP: SHR-REQ
+         * Last update: 11.05.2018
+         * Author: Junhee Park
+         */
+        case g.SWP_MSG_TYPE.SWP_SHR_REQ:
+            //1.Check USN. & 1.1.If USN is 0.~
+            if (protocol.getEndpointId() === 0) {
+                let payload = {};
+                payload.nat = unpackedPayload.nat;
+                payload.state = unpackedPayload.state;
+                payload.city = unpackedPayload.city;
+                payload.clientType = g.CLIENT_TYPE.WEB;
+                payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SHR_REQ, payload);
+                request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                    payload = {};
+                    protocol.setMsg(message);
+                    if (!protocol.verifyHeader()) return;
+                    let unpackedPayload = protocol.unpackPayload();
+                    if (!unpackedPayload) return;
+                    switch (unpackedPayload.resultCode) {
+                        case g.SDP_MSG_RESCODE.RESCODE_SDP_SHR.RESCODE_SDP_SHR_OK:
+                            payload.mlv = 0;
+                            payload.historyRecordList = unpackedPayload.historyRecordList;
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SHR.RESCODE_SWP_SHR_OK;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_SHR_RSP, payload);
+
+                            logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            return res.send(protocol.getPackedMsg());
+                        case g.SDP_MSG_RESCODE.RESCODE_SDP_SHR.RESCODE_SDP_SHR_OTHER:
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SHR.RESCODE_SWP_SHR_OTHER;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_SHR_RSP, payload);
+
+                            logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            return res.send(protocol.getPackedMsg());
+                        case g.SDP_MSG_RESCODE.RESCODE_SDP_SHR.RESCODE_SDP_SHR_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SHR.RESCODE_SWP_SHR_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_SHR_RSP, payload);
+
+                            logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                            return res.send(protocol.getPackedMsg());
+
+                    }
+                });
+            // 1.2. IF USN is not 0.~
+            } else {
+                return state.getState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                    if (g.SERVER_RECV_STATE_BY_MSG.SWP_SHR_REQ.includes(resState)) {
+                        uModule.checkUserSignedInState(g.ENTITY_TYPE.WEBCLIENT, g.CLIENT_TYPE.WEB, protocol.getEndpointId(), unpackedPayload.nsc, (result) => {
+                            let payload = {};
+                            if (result === 1) {
+                                payload.nat = unpackedPayload.nat;
+                                payload.state = unpackedPayload.state;
+                                payload.city = unpackedPayload.city;
+                                payload.clientType = g.CLIENT_TYPE.WEB;
+                                payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_SHR_REQ, payload);
+                                request.send('http://localhost:8080/databaseapi', payload, (message) => {
+                                    payload = {};
+                                    protocol.setMsg(message);
+                                    if (!protocol.verifyHeader()) return;
+                                    let unpackedPayload = protocol.unpackPayload();
+                                    if (!unpackedPayload) return;
+                                    switch (unpackedPayload.resultCode) {
+                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_SHR.RESCODE_SDP_SHR_OK:
+                                            payload.mlv = 0;
+                                            payload.historyRecordList = unpackedPayload.historyRecordList;
+                                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SHR.RESCODE_SWP_SHR_OK;
+                                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_SHR_RSP, payload);
+
+                                            logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                            res.send(protocol.getPackedMsg());
+                                            break;
+
+                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_SHR.RESCODE_SDP_SHR_OTHER:
+                                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SHR.RESCODE_SWP_SHR_OTHER;
+                                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_SHR_RSP, payload);
+
+                                            logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                            res.send(protocol.getPackedMsg());
+                                            break;
+
+                                        case g.SDP_MSG_RESCODE.RESCODE_SDP_SHR.RESCODE_SDP_SHR_UNALLOCATED_USER_SEQUENCE_NUMBER:
+                                            payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SHR.RESCODE_SWP_SHR_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                            protocol.packMsg(g.SWP_MSG_TYPE.SWP_SHR_RSP, payload);
+
+                                            logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                            res.send(protocol.getPackedMsg());
+                                            break;
+                                    }
+                                });
+                            } else if (result === 2) {
+                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SHR.RESCODE_SWP_SHR_UNALLOCATED_USER_SEQUENCE_NUMBER;
+                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_SHR_RSP, payload);
+
+                                logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+
+                            } else if (result === 3) {
+                                payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SHR.RESCODE_SWP_SHR_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
+                                protocol.packMsg(g.SWP_MSG_TYPE.SWP_SHR_RSP, payload);
+
+                                logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                            }
+                        });
+                    }
+                });
+            }
+            break;
 
         /**
          * Receive SAP: KAS-REQ
@@ -4230,7 +4339,7 @@ router.post("/databaseapi", (req, res) => {
                                                     "sadd", "search:s:mobf:0", sensorInfo.ssn
                                                 ],
                                                 [
-                                                    "sadd", "search:s:nat:G30", sensorInfo.ssn,
+                                                    "sadd", "search:s:nat:Q30", sensorInfo.ssn,
                                                 ],
                                                 [
                                                     "sadd", "search:s:user:" + protocol.getEndpointId(), sensorInfo.ssn
@@ -4585,7 +4694,7 @@ router.post("/databaseapi", (req, res) => {
                                             ],
                                             ["sadd", "search:s:actf:0", sensorInfo.ssn],
                                             ["sadd", "search:s:mobf:0", sensorInfo.ssn],
-                                            ["sadd", "search:s:nat:G30", sensorInfo.ssn],
+                                            ["sadd", "search:s:nat:Q30", sensorInfo.ssn],
                                             ["sadd", `search:s:user:${protocol.getEndpointId()}`, sensorInfo.ssn]
                                         ]).exec((err, replies) => {
                                             if (err) {} else {
@@ -5273,7 +5382,7 @@ router.post("/databaseapi", (req, res) => {
                 }
             /**
              * Receive SDP: HAV-REQ
-             * Last update: 11.02.2018
+             * Last update: 11.07.2018
              * Author: Junhee Park
              */
             case g.SDP_MSG_TYPE.SDP_HAV_REQ:
@@ -5321,6 +5430,141 @@ router.post("/databaseapi", (req, res) => {
                         }
                     }
                 });
+            /**
+             * Receive SDP: SHR-REQ
+             * Last update: 11.07.2018
+             * Author: Junhee Park
+             */
+            case g.SDP_MSG_TYPE.SDP_SHR_REQ:
+                /**
+                 * 지역별로 센서정보를 검색하기 위해선 미리 관련된 검색조건이 자료형으로 존재해야함
+                 * 지역이 처음등록되는 시점은 ASR(SRG)이후 SAS이후 DCA과정에 일어나야함. 그런데 DCA에서 두가지 경우로 나뉘게 되는데
+                 * 첫 번째는 고정형 센서에서 측정하는 맨 처음값이 지역으로 등록되고, 
+                 * 두 번째는 이동형 센서에서 측정하는 매 순간의 지역들이 등록된다.
+                 * 즉 DCA과정이 일어날 때 지역이 업데이트 되어야 함.
+                 * 
+                 * 여기서 고정형 센서는 항상 동일한위치에서 데이터를 측정한다. 그렇다면 가정으로 현재 사용중인 센서의 경우 고정형은 과거에 등록된 위치,
+                 * 이동형은 최신위치를 사용한다. 
+                 * 
+                 */
+                if (protocol.getEndpointId() !== 0) {
+                    return state.getState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN, protocol.getEndpointId(), (resState, searchedKey) => {
+                        if (g.DATABASE_RECV_STATE_BY_MSG.SDP_SHR_REQ.includes(resState)) {
+                            //센서 관련 내용 검색이 가능해야함
+                            //서치옵션을 이용한 센서리스트 확보
+                            redisCli.smembers(`search:s:nat:${unpackedPayload.nat}`, (err, ssnList) => {
+                                if (err) {} else {
+                                    if (ssnList.length === 0) {
+                                        payload = {};
+                                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SHR.RESCODE_SDP_SHR_OK;
+                                        payload.historyRecordList = [];
+                                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SHR_RSP, payload);
+
+                                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                        res.send(protocol.getPackedMsg());
+                                    } else {
+                                        let commandSet = [];
+                                        for (let i = 0, x = ssnList.length; i < x; i++) {
+                                            let keyHead = 's:info:' + ssnList[i] + ':';
+                                            commandSet.push(['mget',
+                                                `${keyHead}wmac`,
+                                                `${keyHead}cgeo`,
+                                                `${keyHead}sdt`,
+                                                `${keyHead}edt`,
+                                                `${keyHead}actf`,
+                                                `${keyHead}stat`
+                                            ]);
+                                        }
+
+                                        //확보된 키를 이용한 센서정보 조회
+                                        redisCli.multi(commandSet).exec((err, replies) => {
+                                            if (err) {}
+                                            let historyRecordList = []
+                                            //집계
+                                            for (let i = 0, x = replies.length; i < x; i++) {
+                                                if (replies[i][1] !== null) {
+                                                    historyRecordList.push([
+                                                        replies[i][0],
+                                                        replies[i][1].split(',')[0],
+                                                        replies[i][1].split(',')[1],
+                                                        replies[i][2],
+                                                        replies[i][3],
+                                                        replies[i][4],
+                                                        replies[i][5]
+                                                    ]);
+                                                }
+                                                
+                                            }
+                                            payload = {};
+                                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SHR.RESCODE_SDP_SHR_OK;
+                                            payload.historyRecordList = historyRecordList;
+                                            protocol.packMsg(g.SDP_MSG_TYPE.SDP_SHR_RSP, payload);
+
+                                            logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                            res.send(protocol.getPackedMsg());
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    redisCli.smembers(`search:s:nat:${unpackedPayload.nat}`, (err, ssnList) => {
+                        if (err) { } else {
+                            if (ssnList.length === 0) {
+                                payload = {};
+                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SHR.RESCODE_SDP_SHR_OK;
+                                payload.historyRecordList = [];
+                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_SHR_RSP, payload);
+
+                                logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                            } else {
+                                let commandSet = [];
+                                for (let i = 0, x = ssnList.length; i < x; i++) {
+                                    let keyHead = `s:info:${ssnList[i]}:`;
+                                    commandSet.push(
+                                        [
+                                            "mget",
+                                            `${keyHead}wmac`,
+                                            `${keyHead}cgeo`,
+                                            `${keyHead}sdt`,
+                                            `${keyHead}edt`,
+                                            `${keyHead}actf`,
+                                            `${keyHead}stat`
+                                        ]
+                                    );
+                                }
+                                redisCli.multi(commandSet).exec((err, replies) => {
+                                    if (err) { }
+                                    let historyRecordList = []
+                                    for (let i = 0, x = replies.length; i < x; i++) {
+                                        if (replies[i][1] !== null) {
+                                            historyRecordList.push([
+                                                replies[i][0],
+                                                replies[i][1].split(',')[0],
+                                                replies[i][1].split(',')[1],
+                                                replies[i][2],
+                                                replies[i][3],
+                                                replies[i][4],
+                                                replies[i][5]
+                                            ]);
+                                        }
+                                    }
+                                    payload = {};
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SHR.RESCODE_SDP_SHR_OK;
+                                    payload.historyRecordList = historyRecordList;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_SHR_RSP, payload);
+
+                                    logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
+                                });
+                            }
+                        }
+                    });
+                }
+                break;
+
 
             default:
                 break;

@@ -131,3 +131,177 @@
 [2018-11-07T17:04:16.033] [DEBUG] default - Running on port 8080
 [2018-11-07T17:05:16.039] [DEBUG] default - Running on port 8080
 [2018-11-07T17:06:16.039] [DEBUG] default - Running on port 8080
+[2018-11-07T17:34:52.858] [DEBUG] default - Running on port 8080
+[2018-11-07T17:35:52.858] [DEBUG] default - Running on port 8080
+[2018-11-07T17:36:52.857] [DEBUG] default - Running on port 8080
+[2018-11-07T18:01:09.745] [DEBUG] default - Running on port 8080
+[2018-11-07T18:02:09.745] [DEBUG] default - Running on port 8080
+[2018-11-07T18:03:09.745] [DEBUG] default - Running on port 8080
+[2018-11-07T18:04:09.747] [DEBUG] default - Running on port 8080
+[2018-11-07T18:05:09.744] [DEBUG] default - Running on port 8080
+[2018-11-07T18:06:09.745] [DEBUG] default - Running on port 8080
+[2018-11-07T18:06:12.595] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:06:12.596] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:06:39.588] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:06:39.592] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:06:56.195] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:06:56.197] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-07T18:06:56.200] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-07T18:06:56.214] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":2}}
+[2018-11-07T18:06:56.216] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":2}}
+[2018-11-07T18:06:56.223] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-07T18:06:56.224] [DEBUG] default - | SERVER send response: {"header":{"msgType":106,"msgLen":0,"endpointId":4},"payload":{"resultCode":3}}
+[2018-11-07T18:06:59.207] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:06:59.208] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-11-07T18:06:59.210] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-07T18:06:59.219] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2018-11-07T18:06:59.303] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-11-07T18:06:59.304] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-11-07T18:06:59.308] [DEBUG] default - | SERVER stored active user [["set","c:act:s:w:1:signf","1","EX",1800],["set","c:act:s:w:1:nsc","1","EX",1800],["set","c:act:s:w:1:ml","0","EX",1800]]
+[2018-11-07T18:06:59.309] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-11-07T18:07:07.843] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:07:07.845] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:07:17.508] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:07:17.509] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:07:37.515] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:07:37.516] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:07:41.211] [DEBUG] default - Running on port 8080
+[2018-11-07T18:08:41.213] [DEBUG] default - Running on port 8080
+[2018-11-07T18:09:10.084] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:09:10.088] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:09:27.902] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:09:27.903] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:09:47.718] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:09:47.718] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:11:18.712] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:11:18.716] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:11:26.216] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T18:11:40.321] [DEBUG] default - Server Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"historyRecordList":[]}}
+[2018-11-07T18:11:40.328] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":1},"payload":{"mlv":0,"resultCode":0,"entityType":"w"}}
+[2018-11-07T18:11:43.755] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:11:43.756] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:11:53.457] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T18:11:53.458] [DEBUG] default - Server Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"historyRecordList":[]}}
+[2018-11-07T18:11:53.461] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":1},"payload":{"mlv":0,"resultCode":0,"entityType":"w"}}
+[2018-11-07T18:12:14.937] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:12:14.937] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:12:16.504] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T18:12:18.964] [DEBUG] default - Running on port 8080
+[2018-11-07T18:13:26.742] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:13:26.747] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:13:28.153] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T18:13:46.161] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:13:46.165] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:13:48.730] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T18:15:46.386] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:15:46.391] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:15:46.410] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T18:16:03.761] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:16:03.765] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:16:03.787] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T18:17:26.523] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:17:26.527] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:17:26.548] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T18:18:11.557] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:18:11.562] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:18:11.581] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T18:19:55.827] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:19:55.832] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:19:55.850] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T18:21:06.952] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T18:21:06.956] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T18:21:06.977] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T18:23:36.365] [DEBUG] default - Running on port 8080
+[2018-11-07T21:05:06.250] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:05:06.257] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:05:16.271] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:05:16.272] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-11-07T21:05:16.274] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-07T21:05:16.288] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2018-11-07T21:05:16.368] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-11-07T21:05:16.369] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-11-07T21:05:16.377] [DEBUG] default - | SERVER stored active user [["set","c:act:s:w:1:signf","1","EX",1800],["set","c:act:s:w:1:nsc","1","EX",1800],["set","c:act:s:w:1:ml","0","EX",1800]]
+[2018-11-07T21:05:16.378] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-11-07T21:05:23.561] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:05:23.561] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:05:23.569] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:05:26.056] [DEBUG] default - Running on port 8080
+[2018-11-07T21:06:16.374] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:06:16.378] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:06:16.398] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:06:32.563] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"historyRecordList":[["1a2b3c4d5e6f","0","0","2","255"],["a1b2c3d4e5f6","0","0","2","255"],["acfdcee276af","0","0","2","255"],["AA2E33FFCCBB","0","0","2","255"],["A3123DF2E3DD","0","0","2","255"],["3a2b3c4d5e6f","0","0","2","255"],["4F22AAe2e9ac","0","0","1","255"]]}}
+[2018-11-07T21:06:32.574] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":1},"payload":{"mlv":0,"resultCode":0,"entityType":"w"}}
+[2018-11-07T21:07:14.681] [DEBUG] default - Running on port 8080
+[2018-11-07T21:08:04.649] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:08:04.650] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:08:04.659] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:08:04.661] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"historyRecordList":[["1a2b3c4d5e6f","0","0","2","255"],["a1b2c3d4e5f6","0","0","2","255"],["acfdcee276af","0","0","2","255"],["AA2E33FFCCBB","0","0","2","255"],["A3123DF2E3DD","0","0","2","255"],["3a2b3c4d5e6f","0","0","2","255"],["4F22AAe2e9ac","0","0","1","255"]]}}
+[2018-11-07T21:09:45.185] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:09:45.190] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:09:45.210] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:09:45.213] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"historyRecordList":[["1a2b3c4d5e6f","0","0","2","255"],["a1b2c3d4e5f6","0","0","2","255"],["acfdcee276af","0","0","2","255"],["AA2E33FFCCBB","0","0","2","255"],["A3123DF2E3DD","0","0","2","255"],["3a2b3c4d5e6f","0","0","2","255"],["4F22AAe2e9ac","0","0","1","255"]]}}
+[2018-11-07T21:10:13.727] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":1},"payload":{"mlv":0,"resultCode":0,"entityType":"w"}}
+[2018-11-07T21:10:33.749] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:10:33.753] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:10:33.773] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:10:33.777] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"historyRecordList":[["1a2b3c4d5e6f","0","0","2","255"],["a1b2c3d4e5f6","0","0","2","255"],["acfdcee276af","0","0","2","255"],["AA2E33FFCCBB","0","0","2","255"],["A3123DF2E3DD","0","0","2","255"],["3a2b3c4d5e6f","0","0","2","255"],["4F22AAe2e9ac","0","0","1","255"]]}}
+[2018-11-07T21:10:35.708] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":1},"payload":{"mlv":0,"historyRecordList":[["1a2b3c4d5e6f","0","0","2","255"],["a1b2c3d4e5f6","0","0","2","255"],["acfdcee276af","0","0","2","255"],["AA2E33FFCCBB","0","0","2","255"],["A3123DF2E3DD","0","0","2","255"],["3a2b3c4d5e6f","0","0","2","255"],["4F22AAe2e9ac","0","0","1","255"]],"resultCode":0}}
+[2018-11-07T21:11:33.507] [DEBUG] default - Running on port 8080
+[2018-11-07T21:12:33.496] [DEBUG] default - Running on port 8080
+[2018-11-07T21:13:33.498] [DEBUG] default - Running on port 8080
+[2018-11-07T21:14:33.500] [DEBUG] default - Running on port 8080
+[2018-11-07T21:15:31.858] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:15:31.862] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:15:31.881] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:15:31.884] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"historyRecordList":[["1a2b3c4d5e6f","32.88247","-117.23484","0","0","2","255"],["a1b2c3d4e5f6","32.88247","-117.23484","0","0","2","255"],["acfdcee276af","32.892425","-117.234657","0","0","2","255"],["AA2E33FFCCBB","32.879824","-117.236168","0","0","2","255"],["A3123DF2E3DD","32.879184","-117.235084","0","0","2","255"],["3a2b3c4d5e6f","32.88126","-117.237607","0","0","2","255"]]}}
+[2018-11-07T21:15:34.554] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":1},"payload":{"mlv":0,"historyRecordList":[["1a2b3c4d5e6f","32.88247","-117.23484","0","0","2","255"],["a1b2c3d4e5f6","32.88247","-117.23484","0","0","2","255"],["acfdcee276af","32.892425","-117.234657","0","0","2","255"],["AA2E33FFCCBB","32.879824","-117.236168","0","0","2","255"],["A3123DF2E3DD","32.879184","-117.235084","0","0","2","255"],["3a2b3c4d5e6f","32.88126","-117.237607","0","0","2","255"]],"resultCode":0}}
+[2018-11-07T21:15:58.805] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:15:58.806] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q31","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:15:58.816] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q31","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:15:58.817] [DEBUG] default - Server Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"historyRecordList":[]}}
+[2018-11-07T21:15:58.820] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":1},"payload":{"mlv":0,"historyRecordList":[],"resultCode":0}}
+[2018-11-07T21:16:05.925] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:16:05.926] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:16:05.932] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:16:05.934] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"historyRecordList":[["1a2b3c4d5e6f","32.88247","-117.23484","0","0","2","255"],["a1b2c3d4e5f6","32.88247","-117.23484","0","0","2","255"],["acfdcee276af","32.892425","-117.234657","0","0","2","255"],["AA2E33FFCCBB","32.879824","-117.236168","0","0","2","255"],["A3123DF2E3DD","32.879184","-117.235084","0","0","2","255"],["3a2b3c4d5e6f","32.88126","-117.237607","0","0","2","255"]]}}
+[2018-11-07T21:16:05.935] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":1},"payload":{"mlv":0,"historyRecordList":[["1a2b3c4d5e6f","32.88247","-117.23484","0","0","2","255"],["a1b2c3d4e5f6","32.88247","-117.23484","0","0","2","255"],["acfdcee276af","32.892425","-117.234657","0","0","2","255"],["AA2E33FFCCBB","32.879824","-117.236168","0","0","2","255"],["A3123DF2E3DD","32.879184","-117.235084","0","0","2","255"],["3a2b3c4d5e6f","32.88126","-117.237607","0","0","2","255"]],"resultCode":0}}
+[2018-11-07T21:16:29.795] [DEBUG] default - Running on port 8080
+[2018-11-07T21:16:39.565] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:16:39.566] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:16:39.573] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":0},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:17:10.185] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:17:10.186] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:17:21.734] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":0},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:17:34.935] [DEBUG] default - Running on port 8080
+[2018-11-07T21:18:38.099] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:18:38.104] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:18:41.396] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":0},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:18:43.563] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":0},"payload":{"resultCode":0,"historyRecordList":[]}}
+[2018-11-07T21:18:43.570] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":0},"payload":{"mlv":0,"resultCode":0,"entityType":"w"}}
+[2018-11-07T21:19:29.482] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:19:29.486] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:19:29.504] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":0},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:19:29.506] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":0},"payload":{"resultCode":0,"historyRecordList":[]}}
+[2018-11-07T21:19:29.512] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":0},"payload":{"mlv":0,"historyRecordList":[],"resultCode":0}}
+[2018-11-07T21:19:38.913] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:19:38.914] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:19:38.921] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":0},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:19:38.922] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":0},"payload":{"resultCode":0,"historyRecordList":[]}}
+[2018-11-07T21:19:38.924] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":0},"payload":{"mlv":0,"historyRecordList":[],"resultCode":0}}
+[2018-11-07T21:19:54.425] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:19:54.426] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:19:54.433] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":0},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:20:20.199] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:20:20.204] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:20:20.224] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":0},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:20:35.964] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:20:35.968] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:20:35.984] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":0},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:20:38.458] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":0},"payload":{"resultCode":0,"historyRecordList":[["1a2b3c4d5e6f","32.88247","-117.23484","0","0","2","255"],["a1b2c3d4e5f6","32.88247","-117.23484","0","0","2","255"],["acfdcee276af","32.892425","-117.234657","0","0","2","255"],["AA2E33FFCCBB","32.879824","-117.236168","0","0","2","255"],["A3123DF2E3DD","32.879184","-117.235084","0","0","2","255"],["3a2b3c4d5e6f","32.88126","-117.237607","0","0","2","255"]]}}
+[2018-11-07T21:20:38.465] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":0},"payload":{"mlv":0,"historyRecordList":[["1a2b3c4d5e6f","32.88247","-117.23484","0","0","2","255"],["a1b2c3d4e5f6","32.88247","-117.23484","0","0","2","255"],["acfdcee276af","32.892425","-117.234657","0","0","2","255"],["AA2E33FFCCBB","32.879824","-117.236168","0","0","2","255"],["A3123DF2E3DD","32.879184","-117.235084","0","0","2","255"],["3a2b3c4d5e6f","32.88126","-117.237607","0","0","2","255"]],"resultCode":0}}
+[2018-11-07T21:20:45.265] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-07T21:20:45.266] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":137,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2018-11-07T21:20:45.274] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":213,"msgLen":0,"endpointId":1},"payload":{"nat":"Q30","state":"Q99","city":"Q16552","clientType":2}}
+[2018-11-07T21:20:45.277] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":214,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"historyRecordList":[["1a2b3c4d5e6f","32.88247","-117.23484","0","0","2","255"],["a1b2c3d4e5f6","32.88247","-117.23484","0","0","2","255"],["acfdcee276af","32.892425","-117.234657","0","0","2","255"],["AA2E33FFCCBB","32.879824","-117.236168","0","0","2","255"],["A3123DF2E3DD","32.879184","-117.235084","0","0","2","255"],["3a2b3c4d5e6f","32.88126","-117.237607","0","0","2","255"]]}}
+[2018-11-07T21:20:45.279] [DEBUG] default - Server Send response: {"header":{"msgType":138,"msgLen":0,"endpointId":1},"payload":{"mlv":0,"historyRecordList":[["1a2b3c4d5e6f","32.88247","-117.23484","0","0","2","255"],["a1b2c3d4e5f6","32.88247","-117.23484","0","0","2","255"],["acfdcee276af","32.892425","-117.234657","0","0","2","255"],["AA2E33FFCCBB","32.879824","-117.236168","0","0","2","255"],["A3123DF2E3DD","32.879184","-117.235084","0","0","2","255"],["3a2b3c4d5e6f","32.88126","-117.237607","0","0","2","255"]],"resultCode":0}}
+[2018-11-07T21:21:34.531] [DEBUG] default - Running on port 8080

@@ -1230,7 +1230,7 @@ class LlProtocol {
         const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
-        if (payload.resultCode === 0) this.unpackedPayload.sensorHistoryRecordListEncodings = payload.sensorHistoryRecordListEncodings;
+        if (payload.resultCode === 0) this.unpackedPayload.historyRecordList = payload.historyRecordList;
         return this.unpackedPayload;
     }
 
