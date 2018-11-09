@@ -199,7 +199,7 @@ router.post("/serverdatatran", function (req, res){
                                 }
                                 sspRhdAck = {
                                     "header": {
-                                        "msgType": g.SSP_MSG_TYPE.SSP_RAD_ACK,
+                                        "msgType": g.SAP_MSG_TYPE.SAP_RHD_ACK,
                                         "msgLen": 0,
                                         "endpointId": protocol.getEndpointId()
                                     },

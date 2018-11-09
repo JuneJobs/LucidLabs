@@ -934,3 +934,115 @@
 [2018-11-08T00:01:00.772] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":133,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
 [2018-11-08T00:01:00.774] [DEBUG] default - Server Send response: {"header":{"msgType":134,"msgLen":0,"endpointId":1},"payload":{"ts":"1541664058","lat":"32.882425","lng":"-117.234667","hr":"78","rr":"124","resultCode":0}}
 [2018-11-08T00:01:14.283] [DEBUG] default - Running on port 8080
+[2018-11-08T00:02:14.285] [DEBUG] default - Running on port 8080
+[2018-11-08T00:02:29.319] [DEBUG] default - | SERVER removed realtime data.
+[2018-11-08T16:37:07.420] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-08T16:37:07.428] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2018-11-08T16:37:07.435] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-08T16:37:07.449] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":1}}
+[2018-11-08T16:37:07.532] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2018-11-08T16:37:07.533] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2018-11-08T16:37:07.542] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","1","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2018-11-08T16:37:07.543] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2018-11-08T16:37:10.993] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-08T16:37:10.994] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-11-08T16:37:10.996] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-11-08T16:37:11.002] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-11-08T16:37:11.004] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-11-08T16:37:11.005] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-11-08T16:37:11.008] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-11-08T16:37:14.082] [DEBUG] default - | SERVER send response: {"header":{"msgType":52,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"68","mti":1,"tti":10}}
+[2018-11-08T16:37:21.206] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-08T16:37:21.207] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":2},"payload":{"nsc":1}}
+[2018-11-08T16:37:23.310] [DEBUG] default - | SERVER send response: {"header":{"msgType":52,"msgLen":0,"endpointId":2},"payload":{"resultCode":1}}
+[2018-11-08T16:37:30.632] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-08T16:37:30.632] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":3},"payload":{"nsc":1}}
+[2018-11-08T16:37:33.498] [DEBUG] default - | SERVER send response: {"header":{"msgType":52,"msgLen":0,"endpointId":3},"payload":{"resultCode":1}}
+[2018-11-08T16:37:45.808] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-08T16:37:45.809] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":2}}
+[2018-11-08T16:37:47.754] [DEBUG] default - | SERVER send response: {"header":{"msgType":52,"msgLen":0,"endpointId":1},"payload":{"resultCode":3}}
+[2018-11-08T16:38:07.264] [DEBUG] default - Running on port 8080
+[2018-11-08T16:39:07.263] [DEBUG] default - Running on port 8080
+[2018-11-08T16:39:22.445] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-08T16:39:22.446] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-11-08T16:39:22.449] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-11-08T16:39:22.455] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-11-08T16:39:22.457] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-11-08T16:39:22.457] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-11-08T16:39:22.461] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-11-08T16:39:26.757] [DEBUG] default - | SERVER send response: {"header":{"msgType":52,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"69","mti":1,"tti":10}}
+[2018-11-08T16:39:55.529] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-08T16:39:55.530] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":51,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2018-11-08T16:39:55.532] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (HALF CID INFORMED)
+[2018-11-08T16:39:55.539] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{}}
+[2018-11-08T16:39:55.540] [DEBUG] default - | DATABASE change SSN state (USN INFORMED) -> (CID ALLOCATED)
+[2018-11-08T16:39:55.541] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2018-11-08T16:39:55.545] [DEBUG] default - | SERVER change USN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2018-11-08T16:39:55.546] [DEBUG] default - | SERVER send response: {"header":{"msgType":52,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"70","mti":1,"tti":10}}
+[2018-11-08T16:40:07.263] [DEBUG] default - Running on port 8080
+[2018-11-08T16:41:07.261] [DEBUG] default - Running on port 8080
+[2018-11-08T16:42:07.262] [DEBUG] default - Running on port 8080
+[2018-11-08T16:43:07.263] [DEBUG] default - Running on port 8080
+[2018-11-08T16:44:07.264] [DEBUG] default - Running on port 8080
+[2018-11-08T16:45:07.266] [DEBUG] default - Running on port 8080
+[2018-11-08T16:46:07.263] [DEBUG] default - Running on port 8080
+[2018-11-08T16:47:07.261] [DEBUG] default - Running on port 8080
+[2018-11-08T16:48:07.264] [DEBUG] default - Running on port 8080
+[2018-11-08T16:49:07.265] [DEBUG] default - Running on port 8080
+[2018-11-08T16:50:07.265] [DEBUG] default - Running on port 8080
+[2018-11-08T16:51:07.263] [DEBUG] default - Running on port 8080
+[2018-11-08T16:52:07.262] [DEBUG] default - Running on port 8080
+[2018-11-08T16:53:07.264] [DEBUG] default - Running on port 8080
+[2018-11-08T16:54:07.262] [DEBUG] default - Running on port 8080
+[2018-11-08T16:55:07.264] [DEBUG] default - Running on port 8080
+[2018-11-08T16:56:07.265] [DEBUG] default - Running on port 8080
+[2018-11-08T16:57:07.263] [DEBUG] default - Running on port 8080
+[2018-11-08T16:58:07.261] [DEBUG] default - Running on port 8080
+[2018-11-08T16:59:07.269] [DEBUG] default - Running on port 8080
+[2018-11-08T17:00:07.273] [DEBUG] default - Running on port 8080
+[2018-11-08T17:01:07.281] [DEBUG] default - Running on port 8080
+[2018-11-08T17:02:07.287] [DEBUG] default - Running on port 8080
+[2018-11-08T17:03:07.294] [DEBUG] default - Running on port 8080
+[2018-11-08T17:04:07.301] [DEBUG] default - Running on port 8080
+[2018-11-08T17:05:07.305] [DEBUG] default - Running on port 8080
+[2018-11-08T17:06:07.304] [DEBUG] default - Running on port 8080
+[2018-11-08T17:07:07.307] [DEBUG] default - Running on port 8080
+[2018-11-08T17:08:07.308] [DEBUG] default - Running on port 8080
+[2018-11-08T17:09:07.309] [DEBUG] default - Running on port 8080
+[2018-11-08T17:10:07.307] [DEBUG] default - Running on port 8080
+[2018-11-08T17:11:07.309] [DEBUG] default - Running on port 8080
+[2018-11-08T17:12:07.308] [DEBUG] default - Running on port 8080
+[2018-11-08T17:13:07.311] [DEBUG] default - Running on port 8080
+[2018-11-08T17:14:07.314] [DEBUG] default - Running on port 8080
+[2018-11-08T17:15:07.315] [DEBUG] default - Running on port 8080
+[2018-11-08T17:16:07.316] [DEBUG] default - Running on port 8080
+[2018-11-08T17:17:07.313] [DEBUG] default - Running on port 8080
+[2018-11-08T17:18:07.311] [DEBUG] default - Running on port 8080
+[2018-11-08T17:19:07.309] [DEBUG] default - Running on port 8080
+[2018-11-08T17:20:07.307] [DEBUG] default - Running on port 8080
+[2018-11-08T17:21:07.305] [DEBUG] default - Running on port 8080
+[2018-11-08T17:22:07.312] [DEBUG] default - Running on port 8080
+[2018-11-08T17:23:07.317] [DEBUG] default - Running on port 8080
+[2018-11-08T17:24:07.317] [DEBUG] default - Running on port 8080
+[2018-11-08T17:25:07.319] [DEBUG] default - Running on port 8080
+[2018-11-08T17:26:07.323] [DEBUG] default - Running on port 8080
+[2018-11-08T17:27:07.321] [DEBUG] default - Running on port 8080
+[2018-11-08T17:28:07.321] [DEBUG] default - Running on port 8080
+[2018-11-08T17:29:07.325] [DEBUG] default - Running on port 8080
+[2018-11-08T17:30:07.332] [DEBUG] default - Running on port 8080
+[2018-11-08T17:31:07.339] [DEBUG] default - Running on port 8080
+[2018-11-08T17:32:07.339] [DEBUG] default - Running on port 8080
+[2018-11-08T17:33:07.340] [DEBUG] default - Running on port 8080
+[2018-11-08T17:34:07.338] [DEBUG] default - Running on port 8080
+[2018-11-08T17:36:05.002] [DEBUG] default - Running on port 8080
+[2018-11-08T17:37:05.006] [DEBUG] default - Running on port 8080
+[2018-11-08T17:39:33.024] [DEBUG] default - Running on port 8080
+[2018-11-08T17:40:33.030] [DEBUG] default - Running on port 8080
+[2018-11-08T17:41:33.031] [DEBUG] default - Running on port 8080
+[2018-11-08T17:42:33.037] [DEBUG] default - Running on port 8080
+[2018-11-08T20:58:02.534] [DEBUG] default - Running on port 8080
+[2018-11-08T20:59:02.534] [DEBUG] default - Running on port 8080
+[2018-11-08T21:00:02.539] [DEBUG] default - Running on port 8080
+[2018-11-08T21:01:02.539] [DEBUG] default - Running on port 8080
+[2018-11-08T21:02:02.540] [DEBUG] default - Running on port 8080
+[2018-11-08T21:03:02.542] [DEBUG] default - Running on port 8080

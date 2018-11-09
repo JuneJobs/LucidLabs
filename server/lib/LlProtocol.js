@@ -2156,7 +2156,7 @@ class LlProtocol {
     _packSapDcaRsp(payload) {
         return this.packedMsg = {
             "header": {
-                "msgType": g.SWP_MSG_TYPE.SAP_DCA_RSP,
+                "msgType": g.SAP_MSG_TYPE.SAP_DCA_RSP,
                 "msgLen": 0,
                 "endpointId": this.endpointId
             },
