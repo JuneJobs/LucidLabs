@@ -3708,10 +3708,10 @@ router.post("/serverapi", function (req, res) {
                                 if (!protocol.verifyHeader()) return;
                                 unpackedPayload = protocol.unpackPayload();
                                 if (!unpackedPayload) return;
+                                payload = {}
                                 //switch
                                 switch (unpackedPayload.resultCode) {
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OK:
-                                        payload = {}
                                         payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_HHV.RESCODE_SAP_HHV_OK;
                                         payload.historicalHeartQualityDataListEncodings = unpackedPayload.historicalHeartQualityDataListEncodings;
                                         protocol.packMsg(g.SAP_MSG_TYPE.SAP_HHV_RSP, payload);
@@ -3730,14 +3730,6 @@ router.post("/serverapi", function (req, res) {
 
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_UNALLOCATED_USER_SEQUENCE_NUMBER:
                                         payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_HHV.RESCODE_SAP_HHV_UNALLOCATED_USER_SEQUENCE_NUMBER;
-                                        protocol.packMsg(g.SAP_MSG_TYPE.SAP_HHV_RSP, payload);
-
-                                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
-                                        res.send(protocol.getPackedMsg());
-                                        break;
-
-                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER:
-                                        payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_HHV.RESCODE_SAP_HHV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
                                         protocol.packMsg(g.SAP_MSG_TYPE.SAP_HHV_RSP, payload);
 
                                         logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -3780,10 +3772,10 @@ router.post("/serverapi", function (req, res) {
                                 if (!protocol.verifyHeader()) return;
                                 unpackedPayload = protocol.unpackPayload();
                                 if (!unpackedPayload) return;
+                                payload = {}
                                 //switch
                                 switch (unpackedPayload.resultCode) {
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OK:
-                                        payload = {}
                                         payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HHV.RESCODE_SWP_HHV_OK;
                                         payload.historicalHeartQualityDataListEncodings = unpackedPayload.historicalHeartQualityDataListEncodings;
                                         protocol.packMsg(g.SWP_MSG_TYPE.SWP_HHV_RSP, payload);
@@ -3802,14 +3794,6 @@ router.post("/serverapi", function (req, res) {
 
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_UNALLOCATED_USER_SEQUENCE_NUMBER:
                                         payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HHV.RESCODE_SWP_HHV_UNALLOCATED_USER_SEQUENCE_NUMBER;
-                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_HHV_RSP, payload);
-
-                                        logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
-                                        res.send(protocol.getPackedMsg());
-                                        break;
-
-                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER:
-                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_HHV.RESCODE_SWP_HHV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
                                         protocol.packMsg(g.SWP_MSG_TYPE.SWP_HHV_RSP, payload);
 
                                         logger.debug(`Server Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
@@ -5550,13 +5534,15 @@ router.post("/databaseapi", (req, res) => {
                                 if (result) {
                                     for (let i = 0, x = result.length; i < x; i++) {
                                         let dataTuple = result[i];
-                                        console.log(">>>", dataTuple.geoList);
-                                        historicalAirQualityDataListEncodings.push({
-                                            wmac: dataTuple.wmac,
-                                            lat: dataTuple.geoList[0].split(',')[1],
-                                            lng: dataTuple.geoList[0].split(',')[2],
-                                            commonDataTierTuple: dataTuple.dataList
-                                        });
+                                        if (dataTuple.dataList.length > 0){
+                                            historicalAirQualityDataListEncodings.push({
+                                                wmac: dataTuple.wmac,
+                                                lat: dataTuple.geoList[0].split(',')[1],
+                                                lng: dataTuple.geoList[0].split(',')[2],
+                                                commonDataTierTuple: dataTuple.dataList
+                                            });
+                                        }
+                                        
                                     }
                                 }
                                 payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HAV.RESCODE_SDP_HAV_OK;
@@ -5726,80 +5712,51 @@ router.post("/databaseapi", (req, res) => {
                     payload = {};
                     if (g.DATABASE_RECV_STATE_BY_MSG.SDP_HHV_REQ.includes(resState)) {
                         //Auth, It should be repfactoring
-                        if (protocol.getEndpointId() < 2) {
-                            let nat = '',
-                                state = '',
-                                city = '',
-                                sTs = unpackedPayload.sTs,
-                                eTs = unpackedPayload.eTs
-                            nat = unpackedPayload.nat === '' ? '*' : unpackedPayload.nat;
-                            state = unpackedPayload.state === '' ? '*' : unpackedPayload.state;
-                            city = unpackedPayload.city === '' ? '*' : unpackedPayload.city;
-                            
+                        let nat = '',
+                            state = '',
+                            city = '',
+                            sTs = unpackedPayload.sTs,
+                            eTs = unpackedPayload.eTs
+                        nat = unpackedPayload.nat === '' ? '*' : unpackedPayload.nat;
+                        state = unpackedPayload.state === '' ? '*' : unpackedPayload.state;
+                        city = unpackedPayload.city === '' ? '*' : unpackedPayload.city;
 
-                            redisCli.keys(`d:heart:raw:${nat}:${state}:${city}:${protocol.getEndpointId()}`, (err, keys) => {
-                                if(err){} else {
-                                    if(keys.length > 0){
-                                        keys;
-                                        let commandList = [];
-                                        for (let i = 0, x = keys.length; i < x; i++) {
-                                            commandList.push(['zrangebyscore', keys[i], sTs, eTs]);
-                                        }
-                                        redisCli.multi(commandList).exec((err, replies) => {
-                                            if (err) {} else {
-                                                let historicalHeartQualityDataListEncodings = [];
-                                                for (let i = 0, x = replies.length; i < x; i++) {
-                                                    for(let j = 0, y = replies[i].length; j < y; j++){
-                                                        historicalHeartQualityDataListEncodings.push(replies[i][j]);
-                                                    }
-                                                }
-                                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OK;
-                                                payload.historicalHeartQualityDataListEncodings = historicalHeartQualityDataListEncodings;
-                                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_HHV_RSP, payload);
 
-                                                logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
-                                                res.send(protocol.getPackedMsg());
-                                            }
-                                        });
-                                    } else {
-                                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OK;
-                                         payload.historicalHeartQualityDataListEncodings = [];
-                                         protocol.packMsg(g.SDP_MSG_TYPE.SDP_HHV_RSP, payload);
-
-                                         logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
-                                         res.send(protocol.getPackedMsg());
+                        redisCli.keys(`d:heart:raw:${nat}:${state}:${city}:${protocol.getEndpointId()}`, (err, keys) => {
+                            if (err) {} else {
+                                if (keys.length > 0) {
+                                    keys;
+                                    let commandList = [];
+                                    for (let i = 0, x = keys.length; i < x; i++) {
+                                        commandList.push(['zrangebyscore', keys[i], sTs, eTs]);
                                     }
-                                    
+                                    redisCli.multi(commandList).exec((err, replies) => {
+                                        if (err) {} else {
+                                            let historicalHeartQualityDataListEncodings = [];
+                                            for (let i = 0, x = replies.length; i < x; i++) {
+                                                for (let j = 0, y = replies[i].length; j < y; j++) {
+                                                    historicalHeartQualityDataListEncodings.push(replies[i][j]);
+                                                }
+                                            }
+                                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OK;
+                                            payload.historicalHeartQualityDataListEncodings = historicalHeartQualityDataListEncodings;
+                                            protocol.packMsg(g.SDP_MSG_TYPE.SDP_HHV_RSP, payload);
+
+                                            logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                            res.send(protocol.getPackedMsg());
+                                        }
+                                    });
+                                } else {
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OK;
+                                    payload.historicalHeartQualityDataListEncodings = [];
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_HHV_RSP, payload);
+
+                                    logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    res.send(protocol.getPackedMsg());
                                 }
-                            });
-                            
 
-                            // searchHistoricalData.searchHistoricalHeartData(nat, state, city, sTs, eTs, (result) => {
-                            //     var historicalHeartQualityDataListEncodings = [];
-                            //     if (result) {
-                            //         for (let i = 0, x = result.length; i < x; i++) {
-                            //             let dataTuple = result[i];
-                            //             historicalHeartQualityDataListEncodings.push({
-                            //                 wmac: dataTuple.wmac,
-                            //                 geo: dataTuple.geoList,
-                            //                 commonDataTierTuple: dataTuple.dataList
-                            //             });
-                            //         }
-                            //     }
-                            //     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_OK;
-                            //     payload.historicalHeartQualityDataListEncodings = historicalHeartQualityDataListEncodings;
-                            //     protocol.packMsg(g.SDP_MSG_TYPE.SDP_HHV_RSP, payload);
-
-                            //     logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
-                            //     res.send(protocol.getPackedMsg());
-                            // });
-                        } else {
-                            payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_HHV.RESCODE_SDP_HHV_REQUESTED_BY_AN_UNAUTHORIZED_USER_SEQUENCE_NUMBER;
-                            protocol.packMsg(g.SDP_MSG_TYPE.SDP_HHV_RSP, payload);
-
-                            logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
-                            res.send(protocol.getPackedMsg());
-                        }
+                            }
+                        });
                     }
                 });
 
