@@ -1046,3 +1046,258 @@
 [2018-11-08T21:01:02.539] [DEBUG] default - Running on port 8080
 [2018-11-08T21:02:02.540] [DEBUG] default - Running on port 8080
 [2018-11-08T21:03:02.542] [DEBUG] default - Running on port 8080
+[2018-11-14T12:25:17.752] [DEBUG] default - Running on port 8080
+[2018-11-14T12:26:17.754] [DEBUG] default - Running on port 8080
+[2018-11-14T12:27:17.752] [DEBUG] default - Running on port 8080
+[2018-11-14T12:28:17.755] [DEBUG] default - Running on port 8080
+[2018-11-14T12:29:17.754] [DEBUG] default - Running on port 8080
+[2018-11-14T12:30:04.299] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:04.300] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:04.305] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:04.320] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:04.321] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:04.329] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:04.330] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:10.018] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:10.019] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:10.022] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:10.029] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:10.031] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:10.033] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:10.034] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:12.562] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:12.563] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:12.565] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:12.572] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:12.573] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:12.575] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:12.576] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:17.752] [DEBUG] default - Running on port 8080
+[2018-11-14T12:30:19.633] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:19.634] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:19.636] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:19.644] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:19.645] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:19.647] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:19.648] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:20.592] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:20.593] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:20.595] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:20.602] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:20.603] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:20.605] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:20.607] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:20.954] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:20.956] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:20.959] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:20.966] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:20.967] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:20.969] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:20.970] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:21.118] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:21.119] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:21.120] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:21.126] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:21.128] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:21.130] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:21.131] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:21.325] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:21.326] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:21.328] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:21.336] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:21.337] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:21.339] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:21.340] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:21.436] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:21.437] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:21.439] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:21.446] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:21.447] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:21.449] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:21.450] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:21.625] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:21.627] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:21.628] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:21.634] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:21.635] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:21.637] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:21.638] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:21.735] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:21.737] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:21.740] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:21.747] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:21.748] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:21.749] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:21.750] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:21.914] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:21.916] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:21.917] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:21.924] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:21.925] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:21.927] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:21.927] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:22.051] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:22.052] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:22.054] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:22.061] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:22.062] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:22.064] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:22.065] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:22.232] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:22.233] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:22.235] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:22.241] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:22.242] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:22.244] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:22.245] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:22.400] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:22.401] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:22.403] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:22.409] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:22.411] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:22.413] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:22.414] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:23.491] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:23.493] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:23.496] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:23.503] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:23.504] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:23.506] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:23.507] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:24.535] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:24.536] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:24.537] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:24.543] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:24.544] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:24.548] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:24.548] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:34.470] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:34.471] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:34.473] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:34.480] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:34.481] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:34.483] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:34.484] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:34.823] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:34.824] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:34.827] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:34.834] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:34.835] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:34.836] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:34.837] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:34.865] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:34.867] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:34.869] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:34.876] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:34.877] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:34.878] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:34.879] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:35.193] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:35.195] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:35.196] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:35.203] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:35.204] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:35.206] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:35.207] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:35.274] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:35.276] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:35.277] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:35.284] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:35.285] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:35.287] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:35.288] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:35.421] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:35.423] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:35.425] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:35.431] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:35.432] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:35.434] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:35.435] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:36.528] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:36.529] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:36.531] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:36.537] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:36.538] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:36.541] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:36.541] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:37.932] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:37.934] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:37.936] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:37.943] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:37.944] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:37.946] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:37.947] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:38.327] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:38.329] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:38.330] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:38.337] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:38.338] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:38.340] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:38.341] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:38.466] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:38.467] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:38.468] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:38.474] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:38.476] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:38.478] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:38.479] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:38.642] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:38.643] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:38.645] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:38.652] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:38.654] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:38.655] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:38.656] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:38.747] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:38.749] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:38.751] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:38.758] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:38.759] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:38.760] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:38.761] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:38.868] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:38.869] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:38.871] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:38.878] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:38.879] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:38.881] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:38.882] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:39.097] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:39.098] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:39.099] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:39.105] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:39.106] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:39.108] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:39.109] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:30:39.209] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2018-11-14T12:30:39.211] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@"}}
+[2018-11-14T12:30:39.212] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2018-11-14T12:30:39.219] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"hyon5623@gmail.com","userPw":"test123@","clientType":1}}
+[2018-11-14T12:30:39.221] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":2}}
+[2018-11-14T12:30:39.223] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2018-11-14T12:30:39.224] [DEBUG] default - | SERVER send response: {"header":{"msgType":36,"msgLen":0,"endpointId":5},"payload":{"resultCode":3}}
+[2018-11-14T12:31:17.751] [DEBUG] default - Running on port 8080
+[2018-11-14T12:32:17.749] [DEBUG] default - Running on port 8080
+[2018-11-14T12:33:17.748] [DEBUG] default - Running on port 8080
+[2018-11-14T12:34:17.749] [DEBUG] default - Running on port 8080
+[2018-11-14T12:35:17.747] [DEBUG] default - Running on port 8080
+[2018-11-14T12:36:17.749] [DEBUG] default - Running on port 8080
+[2018-11-14T12:37:17.746] [DEBUG] default - Running on port 8080
+[2018-11-14T12:38:17.746] [DEBUG] default - Running on port 8080
+[2018-11-14T12:39:17.753] [DEBUG] default - Running on port 8080
+[2018-11-14T12:40:17.760] [DEBUG] default - Running on port 8080
+[2018-11-14T12:41:17.763] [DEBUG] default - Running on port 8080
+[2018-11-14T12:42:17.768] [DEBUG] default - Running on port 8080
+[2018-11-14T12:43:17.766] [DEBUG] default - Running on port 8080
+[2018-11-14T12:44:17.769] [DEBUG] default - Running on port 8080
+[2018-11-14T12:45:17.767] [DEBUG] default - Running on port 8080
+[2018-11-14T12:46:17.772] [DEBUG] default - Running on port 8080
+[2018-11-14T12:47:17.776] [DEBUG] default - Running on port 8080
+[2018-11-14T12:48:17.774] [DEBUG] default - Running on port 8080
+[2018-11-14T12:49:17.773] [DEBUG] default - Running on port 8080
+[2018-11-14T12:50:51.636] [DEBUG] default - Running on port 8080
+[2018-11-14T12:51:51.640] [DEBUG] default - Running on port 8080
+[2018-11-14T12:52:51.638] [DEBUG] default - Running on port 8080
+[2018-11-14T13:38:19.154] [DEBUG] default - Running on port 8080
+[2018-11-14T13:39:19.160] [DEBUG] default - Running on port 8080
+[2018-11-14T13:40:19.164] [DEBUG] default - Running on port 8080

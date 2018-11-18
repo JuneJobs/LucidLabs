@@ -5131,9 +5131,12 @@ router.post("/databaseapi", (req, res) => {
                                                 replies[i * 10 + 2],
                                                 replies[i * 10 + 3],
                                                 replies[i * 10 + 4],
-                                                replies[i * 10 + 5],
-                                                replies[i * 10 + 6],
-                                                replies[i * 10 + 7],
+                                                //replies[i * 10 + 5],
+                                                //replies[i * 10 + 6],
+                                                //replies[i * 10 + 7],
+                                                '',
+                                                '',
+                                                '',
                                                 replies[i * 10 + 8],
                                                 ''
                                             ]);
