@@ -1,0 +1,174 @@
+.primary {
+    color: var(--on-primary);
+    background-color: var(--primary);
+}
+
+.primary-variant {
+    color: var(--on-primary);
+    background-color: var(--primary-variant);
+}
+
+.secondary {
+    color: var(--on-secondary);
+    background-color: var(--secondary);
+}
+
+.secondary-variant {
+    color: var(--on-secondary-variant);
+    background-color: var(--secondary-variant);
+}
+
+.background {
+    color: var(--on-background);
+    background-color: var(--background);
+}
+
+.surface {
+    color: var(--on-surface);
+    background-color: var(--surface);
+}
+
+.error {
+    color: var(--on-error);
+    background-color: var(--error);
+}
+
+/*---------------------------------------------*/
+
+.on-primary {
+    color: var(--on-primary) !important;
+}
+
+.on-secondary {
+    color: var(--on-secondary) !important;
+}
+
+.on-background {
+    color: var(--on-background);
+}
+
+.on-surface {
+    color: var(--on-surface);
+}
+
+.on-error {
+    color: var(--on-error);
+}
+
+/**/
+
+.signin {
+    background: rgb(238,154,229);
+    background: linear-gradient(90deg, rgba(238,154,229,1) 0%, rgba(89,97,249,1) 100%);
+}
+
+.signup {
+    background: rgb(0,195,196);
+    background: linear-gradient(90deg, rgba(0,195,196,1) 0%, rgba(77,83,201,1) 100%);
+}
+
+.forgotpw {
+    background: rgb(67, 203, 255);
+    background: linear-gradient(90deg, rgba(67, 203, 255, 1) 0%, rgba(151, 8, 204, 1) 100%);
+}
+
+/* Link */
+
+.link-primary:link,
+.link-primary:visited {
+    color: var(--primary-variant);
+}
+
+.link-primary:hover {
+    color: #a833ec;
+}
+
+.link-secondary:link,
+.link-secondary:visited {
+    color: var(--secondary-variant);
+}
+
+.link-secondary:hover {
+    color: #0ac0c0;
+}
+
+.link-error:link,
+.link-error:visited {
+    color: var(--error);
+}
+
+.link-error:hover {
+    color: #c25988;
+}
+
+.addition {
+    color: var(--on-addition);
+    background-color: var(--addition);
+}
+
+.deletion {
+    color: var(--on-deletion);
+    background-color: var(--deletion);
+}
+
+.cancel {
+    color: #ffffff;
+    background-color: var(--cancel);
+}
+
+.active {
+    color: var(--active);
+}
+
+.inactive {
+    color: var(--inactive);
+}
+
+/** Color definition */
+
+:root {
+    --primary: #6200EE;
+    --primary-light: #bb95f13b;
+    --primary-variant: #3700B3;
+    --secondary: #03DAC6;
+    --secondary-light: #03dac51f;
+    --secondary-variant: #018786;
+    --background: #FFFFFF;
+    --surface: #FFFFFF;
+    --error: #C51162;
+    --on-primary: #ffffff;
+    --on-secondary: #000000;
+    --on-secondary-variant: #FFFFFF;
+    --on-background: #000000;
+    --on-surface: #000000;
+    --on-surface-light: #b1b1b12a;
+    --on-error: #ffffff;
+    /*--------------------------*/
+    --cancel: #554b6b;
+    --addition: #03DAC6;
+    --on-addition: #000000;
+    --deletion: #C51162;
+    --on-deletion: #ffffff;
+    --active: #03daa4;
+    --inactive: #8585858c;
+    /*--------------------------*/
+    --heartRate: #e77080;
+    --heartRate-light: #f8bbc3;
+    /*--------------------------*/
+    --aqi-good: #33e081ab;
+    --aqi-moderate: #ebe841ab;
+    --aqi-unhealthy-for-sensitive-groups: #f19040ab;
+    --aqi-unhealthy: #ec4545ab;
+    --aqi-very-unhealthy: #b046e0ab;
+    --aqi-hazardous: #6b132eab;
+    --aqi-undefined: #4e4e4e;
+    --grey: #949393ab;
+    --any: #bec4f8;
+    /*-------------------------*/
+    --aqi-good-gradient: radial-gradient(circle, #33e08148, #33e08148, #33e08140, #33e08100, #33e08100, #33e08100);
+    --aqi-moderate-gradient: radial-gradient(circle, #ebe84148, #ebe84148, #ebe84140, #ebe84100, #ebe84100, #ebe84100);
+    --aqi-unhealthy-for-sensitive-groups-gradient: radial-gradient(circle, #f1904048, #f1904048, #f1904040, #f1904000, #f1904000, #f1904000);
+    --aqi-unhealthy-gradient: radial-gradient(circle, #ec454548, #ec454548, #ec454540, #ec454500, #ec454500, #ec454500);
+    --aqi-very-unhealthy-gradient: radial-gradient(circle, #b046e048, #b046e048, #b046e040, #b046e000, #b046e000, #b046e000);
+    --aqi-hazardous-gradient: radial-gradient(circle, #6b132e48, #6b132e48, #6b132e40, #6b132e00, #6b132e00, #6b132e00);
+}
