@@ -12,6 +12,91 @@ class LlState {
     constructor(){
 
     }
+    _getState(entity, endpointIdType, stateId) {
+        return new Promise((promiseResult) => {
+            let key = '';
+            let searchType = '';
+            if (this.checkValidType(endpointIdType)) {
+                //데이터가 있으면 스테이트 반환
+                switch (endpointIdType) {
+                    case g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_TSI:
+                        if (entity === g.ENTITY_TYPE.SERVER) {
+                            key = `c:sta:s:s:tsi:${stateId}:*`;
+                        } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                            key = `c:sta:d:s:tsi:${stateId}:*`;
+                        }
+                        searchType = 'keys';
+                        break;
+                    case g.ENDPOINT_ID_TYPE.EI_TYPE_SENSOR_SSN:
+                        if (entity === g.ENTITY_TYPE.SERVER) {
+                            key = `c:sta:s:s:ssn:${stateId}`;
+                        } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                            key = `c:sta:d:s:ssn:${stateId}`;
+                        }
+                        searchType = 'get';
+                        break;
+                    case g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI:
+                        if (entity === g.ENTITY_TYPE.SERVER) {
+                            key = `c:sta:s:a:tci:${stateId}:*`;
+                        } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                            key = `c:sta:d:a:tci:${stateId[0]}:${stateId[1]}`;
+                        }
+                        searchType = 'keys';
+                        break;
+                    case g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN:
+                        if (entity === g.ENTITY_TYPE.SERVER) {
+                            key = `c:sta:s:a:usn:${stateId}`;
+                        } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                            key = `c:sta:d:a:usn:${stateId}`;
+                        }
+                        searchType = 'get';
+                        break;
+                    case g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI:
+                        if (entity === g.ENTITY_TYPE.SERVER) {
+                            key = `c:sta:s:w:tci:${stateId}:*`;
+                        } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                            key = `c:sta:d:w:tci:${stateId[0]}:${stateId[1]}`;
+                        }
+                        searchType = 'keys';
+                        break;
+                    case g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_USN:
+                        if (entity === g.ENTITY_TYPE.SERVER) {
+                            key = `c:sta:s:w:usn:${stateId}`;
+                        } else if (entity === g.ENTITY_TYPE.DATABASE) {
+                            key = `c:sta:d:w:usn:${stateId}`;
+                        }
+                        searchType = 'get';
+                        break;
+                }
+                if (searchType === 'keys') {
+                    redisCli.keys(key, (err, searchedKey) => {
+                        if (err) {} else {
+                            if (searchedKey.length === 0) {
+                                promiseResult(-1);
+                            } else {
+                                redisCli.get(searchedKey[0], (err, reply) => {
+                                    if (err) {} else {
+                                        promiseResult(Number(reply), searchedKey[0]);
+                                    }
+                                });
+
+                            }
+                        }
+                    });
+                } else if (searchType === 'get') {
+                    redisCli.get(key, (err, reply) => {
+                        if (err) {} else {
+                            promiseResult(Number(reply));
+                        }
+                    });
+                }
+
+            } else {
+                // 
+                promiseResul(-1);
+            }
+        })
+    }
     getState(entity,endpointIdType, stateId, cb) {
         let key = '';
         let searchType = '';
