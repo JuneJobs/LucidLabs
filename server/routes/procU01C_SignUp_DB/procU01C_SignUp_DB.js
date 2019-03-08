@@ -52,18 +52,20 @@ class procU01C_SignUp_DB {
                 //Initial state
                 if (resState === g.DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE) {
                     //Insert user info
+                    logger.debug("      | DB | GET | WEB | TCI STATE | (Unique User ID Confirmed)");
                     let userInfo = unpackedPayload;
                     redisCli.keys("u:info:" + unpackedPayload.userId, (err, reply) => {
                         if (err) {
+                            logger.debug("      | DB | PACK| APP | SDP: UVC-RSP");
                             payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_OTHER;
                             protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_RSP, payload)
-                            logger.debug(`| DATABASE Send response:${JSON.stringify(protocol.getPackedMsg())}`);
+                           
+                            logger.debug(`      | DB | SEND| REQ | SDP: UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                             return res.send(protocol.getPackedMsg());
                         } else {
                             if (reply.length === 0) {
                                 uModule.getNewUserSeqNum((newUsn) => {
-                                    var payload = null;
-                                    var userInfo = unpackedPayload;
+                                    let payload = {};
                                     userInfo.regf = 0;
                                     userInfo.ml = 0;
                                     userInfo.mti = 0;
@@ -71,7 +73,7 @@ class procU01C_SignUp_DB {
                                     userInfo.ass = 0;
                                     userInfo.expd = 0;
                                     userInfo.newUsn = newUsn;
-                                    var keyHead = "u:info:" + newUsn + ":";
+                                    let keyHead = "u:info:" + newUsn + ":";
                                     //can be made
                                     redisCli.multi([
                                         [
@@ -99,50 +101,60 @@ class procU01C_SignUp_DB {
                                         ]
                                     ]).exec((err, replies) => {
                                         if (err) {
+                                            logger.debug("      | DB | PACK| APP | SDP: UVC-RSP");
                                             payload = {
                                                 "resultCode": g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OTHER
                                             }
                                             protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_RSP, payload);
                                             state.setState(g.ENTITY_TYPE.DATABASE, endpointIdType, [protocol.getEndpointId(), userInfo.userId], g.DATABASE_TCI_STATE_ID.DATABASE_USN_ALLOCATED_STATE, g.DATABASE_TIMER.T902);
-                                            logger.debug("| DATABASE change TCI state to USN ALLOCATED STATE");
+                                            
+                                            logger.debug(`      | DB | SEND| REQ | SDP: UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                                             return res.send(protocol.getPackedMsg());
                                         } else {
-                                            logger.debug("| DATABASE stored user info" + JSON.stringify(userInfo));
+                                            logger.debug(`      | DB | STOR| APP | User information | Data:  ${JSON.stringify(userInfo)}`);
+
+                                            logger.debug("      | DB | PACK| APP | SDP: UVC-RSP");
                                             payload = {
                                                 "resultCode": g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OK
                                             }
                                             protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_RSP, payload);
                                             state.setState(g.ENTITY_TYPE.DATABASE, endpointIdType, [protocol.getEndpointId(), userInfo.userId], g.DATABASE_TCI_STATE_ID.DATABASE_USN_ALLOCATED_STATE, g.DATABASE_TIMER.T902);
-                                            logger.debug("| DATABASE change TCI state to USN ALLOCATED STATE");
+                                            
+                                            logger.debug(`      | DB | SEND| REQ | SDP: UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                                             return res.send(protocol.getPackedMsg());
                                         }
                                     });
 
                                 });
                             } else {
+                                logger.debug("      | DB | PACK| APP | SDP: UVC-RSP");
                                 payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_DUPLICATE_OF_USER_ID;
                                 protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_RSP, payload)
-                                logger.debug(`| DATABASE Send response:${JSON.stringify(protocol.getPackedMsg())}`);
+                                
+                                logger.debug(`      | DB | SEND| REQ | SDP: UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                                 return res.send(protocol.getPackedMsg());
                             }
                         }
                     });
                     //Retries state
                 } else if (resState === g.DATABASE_TCI_STATE_ID.DATABASE_USN_ALLOCATED_STATE) {
+                    logger.debug("      | DB | GET | WEB | TCI STATE | (USN Allocated)");
                     payload = {
                         "resultCode": g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OK
                     }
                     protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_RSP, payload);
-                    logger.debug(`| DATABASE Send response:${JSON.stringify(protocol.getPackedMsg())}`);
+
+                    logger.debug(`      | DB | SEND| REQ | SDP: UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                     return res.send(protocol.getPackedMsg());
                 }
             } else {
-                //other
+                logger.debug("      | DB | GET | WEB | TCI STATE | (USN Allocated)");
                 payload = {
                     "resultCode": g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OTHER
                 }
                 protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_RSP, payload);
-                logger.debug(`| DATABASE Send response:${JSON.stringify(protocol.getPackedMsg())}`);
+
+                logger.debug(`      | DB | SEND| REQ | SDP: UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                 return res.send(protocol.getPackedMsg());
             }
         });

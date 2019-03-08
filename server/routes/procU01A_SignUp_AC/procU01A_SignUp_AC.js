@@ -1,6 +1,6 @@
 "use strict";
 
-class procU01_SignUp_AC {
+class procU01A_SignUp_AC {
     constructor() {
     }
     SAP_SGU_REQ(protocol, unpackedPayload, res) {
@@ -89,10 +89,12 @@ class procU01_SignUp_AC {
                                 logger.debug("| SV | SET | APP | TCI STATE | (User ID Duplicate Requested) -> (Idle)");
                                 state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), userInfo.userId], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                 
-                                logger.debug(`| SV | SEND| REQ | SAP:SGU-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
+                                logger.debug(`| SV | SEND| REQ | SAP: SGU-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                                 return res.send(protocol.getPackedMsg());
 
                             case g.SDP_MSG_RESCODE.RESCODE_SDP_SGU.RESCODE_SDP_SGU_DUPLICATE_OF_USER_ID:
+
+                                logger.debug(`| SV | PACK| APP | SAP: SGU-RSP`);
                                 payload = {};
                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SGU.RESCODE_SAP_SGU_DUPLICATE_OF_USER_ID;
                                 protocol.packMsg(g.SAP_MSG_TYPE.SAP_SGU_RSP, payload);
@@ -225,18 +227,23 @@ class procU01_SignUp_AC {
             //state exist
             let payload = {};
             if (resState) {
-                //Receivable state
                 if (g.SERVER_RECV_STATE_BY_MSG.SAP_UVC_REQ.includes(resState)) {
+                    logger.debug("| SV | GET | APP | TCI STATE | (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)");
                     let keyHead = `u:temp:${protocol.getEndpointId()}:`;
                     redisCli.get(`${keyHead}vc`, (err, vc) => {
                         if (err) {} else {
                             if (vc === null) {
+
+                                logger.debug(`| SV | PACK| APP | SAP: UVC-RSP`);
                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_OTHER;
                                 protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload);
-                                logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+
+                                logger.debug(`| SV | SEND| REQ | SDP:UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                                 res.send(protocol.getPackedMsg());
                             } else {
                                 //correct vc
+
+                                logger.debug(`| SV | VRFY| APP | Compare user information`);
                                 if (unpackedPayload.vc === vc) {
                                     redisCli.get(`${keyHead}ac`, (err, ac) => {
                                         if (err) {} else {
@@ -269,11 +276,23 @@ class procU01_SignUp_AC {
                                                                         break;
                                                                 }
                                                             }
+                                                            logger.debug(`| SV | PACK| DB  | SDP: UVC-REQ`);
                                                             payload.clientType = g.CLIENT_TYPE.APP;
                                                             payload = protocol.packMsg(g.SDP_MSG_TYPE.SDP_UVC_REQ, payload);
+
+                                                            logger.debug(`| SV | SEND| DB  | SDP: UVC-REQ | ${JSON.stringify(protocol.getPackedMsg())}`);
+
+                                                            logger.debug("| SV | SET | APP | TCI STATE | (User Id Availablity Confirmed) -> (Half-USN Allocated)");
+                                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), payload.userId], g.SERVER_TCI_STATE_ID.SERVER_HALF_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
+                                                            
                                                             request.send('http://localhost:8080/apidatabase', payload, (message) => {
+                                                                logger.debug("| SV | RCVD| RSP | SDP:UVC-RSP");
+                                        
+                                                                logger.debug("| SV | VRFY| HDR | SDP:UVC-RSP");
                                                                 protocol.setMsg(message);
                                                                 if (!protocol.verifyHeader()) return;
+
+                                                                logger.debug("| SV | UNPK| PYLD| SDP:UVC-RSP");
                                                                 let unpackedPayload = protocol.unpackPayload();
                                                                 if (!unpackedPayload) return;
                                                                 payload = {};
@@ -281,10 +300,9 @@ class procU01_SignUp_AC {
                                                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OK:
                                                                         let keyHead = "u:temp:" + protocol.getEndpointId() + ":";
                                                                         redisCli.get(`${keyHead}id`, (err, id) => {
-                                                                            state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), id], g.SERVER_TCI_STATE_ID.SERVER_TCI_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
-                                                                            logger.debug("| SERVER change TCI state to USN ALLOCATED STATE");
                                                                             payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_OK;
                                                                             //remove temp Data
+                                                                            logger.debug("| SV | DEL | APP | Temporary user sign-up information");
                                                                             redisCli.multi([
                                                                                 ["del", `${keyHead}id`],
                                                                                 ["del", `${keyHead}pw`],
@@ -296,36 +314,51 @@ class procU01_SignUp_AC {
                                                                                 ["del", `${keyHead}vc`],
                                                                             ]).exec((err, replies) => {
                                                                                 if (err) {} else {
+                                                                                    logger.debug(`| SV | PACK| APP | SAP: UVC-RSP`);
                                                                                     payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_OK;
                                                                                     protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload);
-                                                                                    logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+
+                                                                                    logger.debug(`| SV | SEND| RSP | SAP:UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                                                                                     res.send(protocol.getPackedMsg());
+
+                                                                                    logger.debug("| SV | SET | APP | TCI STATE | (Half-USN Allocated) -> (USN Allocated)");
+                                                                                    state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), id], g.SERVER_TCI_STATE_ID.SERVER_TCI_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
                                                                                 }
                                                                             });
                                                                         });
                                                                         break;
                                                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_OTHER:
+                                                                        logger.debug(`| SV | PACK| APP | SAP: UVC-RSP`);
                                                                         payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_OTHER;
                                                                         protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload);
-                                                                        logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+
+                                                                        logger.debug(`| SV | SEND| RSP | SAP:UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                                                                         res.send(protocol.getPackedMsg());
+
+                                                                        logger.debug("| SV | SET | APP | TCI STATE | (Half-USN Allocated) -> (USN Allocated)");
+                                                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), id], g.SERVER_TCI_STATE_ID.SERVER_TCI_IDLE_STATE);
                                                                         break;
                                                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_UVC.RESCODE_SDP_UVC_DUPLICATE_OF_USER_ID:
                                                                         payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_DUPLICATE_OF_USER_ID;
                                                                         protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload);
-                                                                        logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                                                        
+                                                                        logger.debug(`| SV | SEND| RSP | SAP:UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                                                                         res.send(protocol.getPackedMsg());
+
+                                                                        logger.debug("| SV | SET | APP | TCI STATE | (Half-USN Allocated) -> (USN Allocated)");
+                                                                        state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), id], g.SERVER_TCI_STATE_ID.SERVER_TCI_USN_ALLOCATED_STATE, g.SERVER_TIMER.T832);
                                                                         break;
                                                                 }
                                                             });
                                                         });
                                                     }
                                                 });
-                                                //incorrect ac
                                             } else {
+                                                logger.debug(`| SV | PACK| APP | SAP: UVC-RSP`);
                                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_INCORRECT_AC_UNDER_THE_VC;
-                                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload)
-                                                logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
+                                                protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload);
+
+                                                logger.debug(`| SV | SEND| RSP | SAP:UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                                                 res.send(protocol.getPackedMsg());
                                             }
                                         }
@@ -333,9 +366,11 @@ class procU01_SignUp_AC {
                                     //incorrect vc
                                 } else {
                                     //인증코드 불일치 - error코드 4번 전송
+                                    logger.debug(`| SV | PACK| APP | SAP: UVC-RSP`);
                                     payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_INCORRECT_AC_UNDER_THE_VC;
                                     protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload)
-                                    logger.debug(`| SERVER Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                    
+                                    logger.debug(`| SV | SEND| RSP | SAP:UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
                                     res.send(protocol.getPackedMsg());
                                 }
                             }
@@ -345,14 +380,16 @@ class procU01_SignUp_AC {
                 //state not exist
             } else {
                 // not exist
-                payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_NOT_EXIST_TEMPORARY_CLIENT_ID;
-                protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload)
-                logger.debug("| Server Send response: " + JSON.stringify(protocol.getPackedMsg()));
-                res.send(protocol.getPackedMsg());
+                // logger.debug("| SV | GET | APP | TCI STATE | (Null) ");
+                // payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_UVC.RESCODE_SAP_UVC_NOT_EXIST_TEMPORARY_CLIENT_ID;
+                // protocol.packMsg(g.SAP_MSG_TYPE.SAP_UVC_RSP, payload);
+                
+                // logger.debug(`| SV | SEND| RSP | SAP:UVC-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
+                // res.send(protocol.getPackedMsg());
             };
         });
     }
 }
 
-let procedure = new procU01_SignUp_AC()
+let procedure = new procU01A_SignUp_AC()
 module.exports = procedure;

@@ -2042,3 +2042,68 @@
 [2019-03-07T16:56:41.032] [DEBUG] default - Running on port 8080
 [2019-03-07T16:57:41.034] [DEBUG] default - Running on port 8080
 [2019-03-07T16:58:41.042] [DEBUG] default - Running on port 8080
+[2019-03-08T17:35:11.716] [DEBUG] default - | SV | RCVD| Message
+[2019-03-08T17:35:11.722] [DEBUG] default - | SV | VRFY| HDR | Message
+[2019-03-08T17:35:11.724] [DEBUG] default - | SV | UNPK| PYLD| SAP: SGU-REQ
+[2019-03-08T17:35:11.727] [DEBUG] default - | SV | GET | APP | TCI STATE | (Null)
+[2019-03-08T17:35:11.728] [DEBUG] default - | SV | SET | APP | TCI STATE | (null) -> (Idle)
+[2019-03-08T17:35:11.729] [DEBUG] default - | SV | PACK| APP | SDP: SGU-REQ
+[2019-03-08T17:35:11.730] [DEBUG] default - | SV | SET | APP | TCI STATE | (Idle) -> (User ID Duplicate Request)
+[2019-03-08T17:35:11.731] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-08T17:35:11.744] [DEBUG] default -       | DB | RCVD| Message
+[2019-03-08T17:35:11.745] [DEBUG] default -       | DB | VRFY| HDR | Message
+[2019-03-08T17:35:11.746] [DEBUG] default -       | DB | UNPK| PYLD| SDP: SGU-REQ
+[2019-03-08T17:35:11.747] [DEBUG] default -       | DB | SET | APP | TCI STATE | (Null) -> (Idle)
+[2019-03-08T17:35:11.749] [DEBUG] default -       | DB | PACK| APP | SDP:SGU-RSP
+[2019-03-08T17:35:11.749] [DEBUG] default -       | DB | SET | WEB | TCI STATE | (Idle) -> (Unique User ID Confirmed)
+[2019-03-08T17:35:11.750] [DEBUG] default -       | DB | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-08T17:35:11.756] [DEBUG] default - | SV | RCVD| RSP | SDP:SGU-RSP
+[2019-03-08T17:35:11.757] [DEBUG] default - | SV | VRFY| HDR | SDP:SGU-RSP
+[2019-03-08T17:35:11.758] [DEBUG] default - | SV | UNPK| PYLD| SDP:SGU-RSP
+[2019-03-08T17:35:11.760] [DEBUG] default - | SV | GET | APP | TCI STATE | Available
+[2019-03-08T17:35:11.760] [DEBUG] default - | SV | GEN | CODE| Get VC, AC code
+[2019-03-08T17:35:11.762] [DEBUG] default - | SV | SEND| MAIL| Send Verification Email | VC:8064 | AC: M4A3K8D3G658J9U7
+[2019-03-08T17:35:11.769] [DEBUG] default - | SV | STOR| APP | Temporary user sign-up information | Expire in: 300 | Data:  {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-08T17:35:11.770] [DEBUG] default - | SV | PACK| APP | SAP: SGU-RSP
+[2019-03-08T17:35:11.771] [DEBUG] default - | SV | SET | APP | TCI STATE | (User ID Duplicate Requested) -> (User ID Availability Confirmed)
+[2019-03-08T17:35:11.772] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"8064"}}
+[2019-03-08T17:35:39.072] [DEBUG] default - | SV | RCVD| Message
+[2019-03-08T17:35:39.073] [DEBUG] default - | SV | VRFY| HDR | Message
+[2019-03-08T17:35:39.074] [DEBUG] default - | SV | UNPK| PYLD| SAP: UVC-REQ
+[2019-03-08T17:35:39.076] [DEBUG] default - | SV | GET | APP | TCI STATE | (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-08T17:35:39.077] [DEBUG] default - | SV | VRFY| APP | Compare user information
+[2019-03-08T17:35:39.079] [DEBUG] default - | SV | PACK| DB  | SDP: UVC-REQ
+[2019-03-08T17:38:51.276] [DEBUG] default - | SV | RCVD| Message
+[2019-03-08T17:38:51.280] [DEBUG] default - | SV | VRFY| HDR | Message
+[2019-03-08T17:38:51.282] [DEBUG] default - | SV | UNPK| PYLD| SAP: UVC-REQ
+[2019-03-08T17:38:51.286] [DEBUG] default - | SV | GET | APP | TCI STATE | (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-08T17:38:51.287] [DEBUG] default - | SV | VRFY| APP | Compare user information
+[2019-03-08T17:38:51.290] [DEBUG] default - | SV | PACK| DB  | SDP: UVC-REQ
+[2019-03-08T17:38:51.291] [DEBUG] default - | SV | SEND| DB  | SDP: UVC-REQ | {"header":{"msgType":173,"msgLen":0,"endpointId":1},"payload":{"userPw":"test1234@","bdt":"657072000","userLn":"System","userFn":"Admin","userId":"dev.j.jobs1028@gmail.com","gender":"0","clientType":1}}
+[2019-03-08T17:38:51.292] [DEBUG] default - | SV | SET | APP | TCI STATE | (User Id Availablity Confirmed) -> (Half-USN Allocated)
+[2019-03-08T17:38:51.307] [DEBUG] default -       | DB | RCVD| Message
+[2019-03-08T17:38:51.308] [DEBUG] default -       | DB | VRFY| HDR | Message
+[2019-03-08T17:38:51.309] [DEBUG] default -       | DB | UNPK| PYLD| SDP: UVC-REQ
+[2019-03-08T17:38:51.310] [DEBUG] default -       | DB | GET | WEB | TCI STATE | (Unique User ID Confirmed)
+[2019-03-08T17:38:51.394] [DEBUG] default - | SV | STOR| APP | User information | Data:  {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System","clientType":1,"regf":0,"ml":0,"mti":0,"tti":0,"ass":0,"expd":0,"newUsn":"1"}
+[2019-03-08T17:38:51.395] [DEBUG] default -       | DB | PACK| APP | SDP: UVC-RSP
+[2019-03-08T17:38:51.395] [DEBUG] default -       | DB | SEND| REQ | SDP: UVC-RSP | {"header":{"msgType":174,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-08T17:38:51.402] [DEBUG] default - | SV | RCVD| RSP | SDP:UVC-RSP
+[2019-03-08T17:38:51.403] [DEBUG] default - | SV | VRFY| HDR | SDP:UVC-RSP
+[2019-03-08T17:38:51.404] [DEBUG] default - | SV | UNPK| PYLD| SDP:UVC-RSP
+[2019-03-08T17:38:51.406] [DEBUG] default - | SV | DEL | APP | Temporary user sign-up information
+[2019-03-08T17:38:51.407] [DEBUG] default - | SV | PACK| APP | SAP: UVC-RSP
+[2019-03-08T17:38:51.407] [DEBUG] default - | SV | SEND| RSP | SAP:UVC-RSP | {"header":{"msgType":34,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-08T17:38:51.408] [DEBUG] default - | SV | SET | APP | TCI STATE | (Half-USN Allocated) -> (USN Allocated)
+[2019-03-08T17:39:49.715] [DEBUG] default - Running on port 8080
+[2019-03-08T17:40:49.718] [DEBUG] default - Running on port 8080
+[2019-03-08T17:41:49.721] [DEBUG] default - Running on port 8080
+[2019-03-08T17:42:49.723] [DEBUG] default - Running on port 8080
+[2019-03-08T17:42:57.668] [DEBUG] default - | SV | RCVD| Message
+[2019-03-08T17:42:57.673] [DEBUG] default - | SV | VRFY| HDR | Message
+[2019-03-08T17:42:57.676] [DEBUG] default - | SV | UNPK| PYLD| SAP: UVC-REQ
+[2019-03-08T17:43:02.392] [DEBUG] default - | SV | RCVD| Message
+[2019-03-08T17:43:02.393] [DEBUG] default - | SV | VRFY| HDR | Message
+[2019-03-08T17:43:02.394] [DEBUG] default - | SV | UNPK| PYLD| SAP: UVC-REQ
+[2019-03-08T17:43:55.397] [DEBUG] default - Running on port 8080
+[2019-03-08T17:44:55.400] [DEBUG] default - Running on port 8080
