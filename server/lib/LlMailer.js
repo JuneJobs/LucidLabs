@@ -24,7 +24,7 @@ class LlMailer {
             if(err){
                 console.error(err);
             } else {
-                console.log('Mail sento to ', recevier);
+                //console.log('Mail sento to ', recevier);
             }
             this.transporter.close();
         })

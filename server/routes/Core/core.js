@@ -40,6 +40,9 @@ const procU01B_SignUp_WC = require("../procU01B_SignUp_WC");
 const procU01C_SignUp_DB = require("../procU01C_SignUp_DB");
 
 router.post("/apiserver", (req, res) => {
+    logger.debug(`| SV | RCVD| Message`);
+
+    logger.debug(`| SV | VRFY| HDR | Message`);
     let protocol = new LlProtocol();
     protocol.setMsg(req.body);
     if (!protocol.verifyHeader()) return;
@@ -49,18 +52,25 @@ router.post("/apiserver", (req, res) => {
 
     switch (protocol.getMsgType()) {
         case g.SAP_MSG_TYPE.SAP_SGU_REQ:
+            logger.debug(`| SV | UNPK| PYLD| SAP: SGU-REQ`);
             return procU01A_SignUp_AC.SAP_SGU_REQ(protocol, unpackedPayload, res);
         case g.SAP_MSG_TYPE.SAP_UVC_REQ:
+            logger.debug(`| SV | UNPK| PYLD| SAP: UVC-REQ`);
             return procU01A_SignUp_AC.SAP_UVC_REQ(protocol, unpackedPayload, res);
         case g.SWP_MSG_TYPE.SWP_SGU_REQ:
+            logger.debug(`| SV | UNPK| PYLD| SWP: SGU-REQ`);
             return procU01B_SignUp_WC.SWP_SGU_REQ(protocol, unpackedPayload, res);
         case g.SWP_MSG_TYPE.SWP_UVC_REQ:
+            logger.debug(`| SV | UNPK| PYLD| SWP: UVC-REQ`);
             return procU01B_SignUp_WC.SWP_UVC_REQ(protocol, unpackedPayload, res);
     }
 
 });
 
 router.post("/apidatabase", (req, res) => {
+    logger.debug(`      | DB | RCVD| Message`);
+
+    logger.debug(`      | DB | VRFY| HDR | Message`);
     let protocol = new LlProtocol();
     protocol.setMsg(req.body);
     if (!protocol.verifyHeader()) return;
@@ -73,8 +83,10 @@ router.post("/apidatabase", (req, res) => {
 
     switch (protocol.getMsgType()) {
         case g.SDP_MSG_TYPE.SDP_SGU_REQ:
+            logger.debug(`      | DB | UNPK| PYLD| SDP: SGU-REQ`);
             return procU01C_SignUp_DB.SDP_SGU_REQ(protocol, unpackedPayload, res);
         case g.SDP_MSG_TYPE.SDP_UVC_REQ:
+            logger.debug(`      | DB | UNPK| PYLD| SDP: UVC-REQ`);
             return procU01C_SignUp_DB.SDP_UVC_REQ(protocol, unpackedPayload, res);
     }
 

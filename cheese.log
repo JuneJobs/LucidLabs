@@ -1537,3 +1537,508 @@
 [2019-03-07T11:05:05.213] [DEBUG] default - Running on port 8080
 [2019-03-07T11:06:05.212] [DEBUG] default - Running on port 8080
 [2019-03-07T11:07:05.213] [DEBUG] default - Running on port 8080
+[2019-03-07T11:08:05.211] [DEBUG] default - Running on port 8080
+[2019-03-07T11:09:05.209] [DEBUG] default - Running on port 8080
+[2019-03-07T11:10:05.207] [DEBUG] default - Running on port 8080
+[2019-03-07T11:10:42.637] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-03-07T11:10:42.638] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T11:10:42.638] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-07T11:10:42.646] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2019-03-07T11:10:42.647] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":2}}
+[2019-03-07T11:10:42.648] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T11:10:42.651] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-03-07T11:10:42.652] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":3}}
+[2019-03-07T11:10:55.704] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-03-07T11:10:55.705] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T11:10:55.706] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-07T11:10:55.711] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2019-03-07T11:10:55.713] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T11:10:55.713] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T11:10:55.727] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE
+[2019-03-07T11:10:55.728] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"3201"}}
+[2019-03-07T11:10:55.746] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T11:11:05.205] [DEBUG] default - Running on port 8080
+[2019-03-07T11:12:05.203] [DEBUG] default - Running on port 8080
+[2019-03-07T11:13:05.202] [DEBUG] default - Running on port 8080
+[2019-03-07T11:14:05.200] [DEBUG] default - Running on port 8080
+[2019-03-07T11:14:15.726] [DEBUG] default - | SV | change TCI state to IDLE STATE
+[2019-03-07T11:14:15.730] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T11:14:15.731] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-07T11:14:15.748] [DEBUG] default - 		| DB | change TCI state to IDLE STATE
+[2019-03-07T11:14:15.750] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T11:14:15.751] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T11:14:15.767] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE
+[2019-03-07T11:14:15.768] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"5796"}}
+[2019-03-07T11:14:15.782] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T11:14:52.358] [DEBUG] default - | SV | change TCI state to IDLE STATE
+[2019-03-07T11:14:52.362] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T11:14:52.365] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-07T11:14:52.379] [DEBUG] default - 	| DB | change TCI state to IDLE STATE
+[2019-03-07T11:14:52.381] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T11:14:52.381] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T11:14:52.397] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE
+[2019-03-07T11:14:52.398] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"2269"}}
+[2019-03-07T11:14:52.411] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T11:15:50.142] [DEBUG] default - Running on port 8080
+[2019-03-07T11:16:50.145] [DEBUG] default - Running on port 8080
+[2019-03-07T11:17:50.145] [DEBUG] default - Running on port 8080
+[2019-03-07T11:18:50.142] [DEBUG] default - Running on port 8080
+[2019-03-07T11:19:50.144] [DEBUG] default - Running on port 8080
+[2019-03-07T11:20:50.144] [DEBUG] default - Running on port 8080
+[2019-03-07T11:21:50.145] [DEBUG] default - Running on port 8080
+[2019-03-07T11:22:50.147] [DEBUG] default - Running on port 8080
+[2019-03-07T11:23:50.146] [DEBUG] default - Running on port 8080
+[2019-03-07T11:24:50.149] [DEBUG] default - Running on port 8080
+[2019-03-07T11:25:50.152] [DEBUG] default - Running on port 8080
+[2019-03-07T11:26:50.154] [DEBUG] default - Running on port 8080
+[2019-03-07T11:27:50.155] [DEBUG] default - Running on port 8080
+[2019-03-07T11:28:50.154] [DEBUG] default - Running on port 8080
+[2019-03-07T11:29:50.156] [DEBUG] default - Running on port 8080
+[2019-03-07T11:30:50.157] [DEBUG] default - Running on port 8080
+[2019-03-07T11:31:50.159] [DEBUG] default - Running on port 8080
+[2019-03-07T11:32:53.577] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-03-07T11:32:53.581] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T11:32:53.583] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-07T11:32:53.601] [DEBUG] default - 	| DB | Set state TCI state to IDLE STATE
+[2019-03-07T11:32:53.603] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T11:32:53.604] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T11:32:53.629] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE
+[2019-03-07T11:32:53.630] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"6754"}}
+[2019-03-07T11:32:53.649] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T11:33:41.297] [DEBUG] default - Running on port 8080
+[2019-03-07T11:34:10.680] [DEBUG] default - | SV | Get state /n|    |(User ID Duplication Requested)/n|    |or (User ID Availability Confirmed)/n|    |or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T11:34:10.686] [DEBUG] default - | SV | Set state (Idle) -> (User ID Duplication Requested)
+[2019-03-07T11:34:10.690] [DEBUG] default - | SV | Send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T11:34:10.692] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-07T11:34:10.712] [DEBUG] default - 	| DB | Set state TCI state to IDLE STATE
+[2019-03-07T11:34:10.714] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T11:34:10.715] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T11:34:10.735] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE
+[2019-03-07T11:34:10.735] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"6377"}}
+[2019-03-07T11:34:10.753] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T11:35:12.094] [DEBUG] default - | SV | Get state (User ID Duplication Requested) or (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T11:35:12.100] [DEBUG] default - | SV | Set state (Idle) -> (User ID Duplication Requested)
+[2019-03-07T11:35:12.107] [DEBUG] default - | SV | Send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T11:35:12.108] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-07T11:35:12.138] [DEBUG] default - 	| DB | Set state TCI state to IDLE STATE
+[2019-03-07T11:35:12.142] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T11:35:12.143] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T11:35:12.165] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE
+[2019-03-07T11:35:12.166] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"2866"}}
+[2019-03-07T11:35:12.187] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T11:36:03.420] [DEBUG] default - | SV | Get App TCI state (User ID Duplication Requested) or (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T11:36:03.424] [DEBUG] default - | SV | Set App TCI state (Idle) -> (User ID Duplication Requested)
+[2019-03-07T11:36:03.429] [DEBUG] default - | SV | Send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T11:36:03.430] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-07T11:36:03.446] [DEBUG] default - 	| DB | Set state TCI state to IDLE STATE
+[2019-03-07T11:36:03.447] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T11:36:03.448] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T11:36:03.465] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE
+[2019-03-07T11:36:03.465] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"3105"}}
+[2019-03-07T11:36:03.480] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T11:36:48.813] [DEBUG] default - | SV | Get App TCI state (User ID Duplication Requested) or (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T11:36:48.818] [DEBUG] default - | SV | Set App TCI state (  ^  ) -> (User ID Duplication Requested)
+[2019-03-07T11:36:48.822] [DEBUG] default - | SV | Send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T11:36:48.822] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-07T11:36:48.839] [DEBUG] default - 	| DB | Set state TCI state to IDLE STATE
+[2019-03-07T11:36:48.840] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T11:36:48.841] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T11:36:48.858] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE
+[2019-03-07T11:36:48.859] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"8620"}}
+[2019-03-07T11:36:48.872] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T11:37:48.492] [DEBUG] default - Running on port 8080
+[2019-03-07T11:38:48.494] [DEBUG] default - Running on port 8080
+[2019-03-07T11:39:48.495] [DEBUG] default - Running on port 8080
+[2019-03-07T11:40:48.497] [DEBUG] default - Running on port 8080
+[2019-03-07T11:41:48.496] [DEBUG] default - Running on port 8080
+[2019-03-07T11:42:48.494] [DEBUG] default - Running on port 8080
+[2019-03-07T11:43:48.497] [DEBUG] default - Running on port 8080
+[2019-03-07T11:44:41.877] [DEBUG] default - | SV | Get state /n|    |(Null)
+[2019-03-07T11:44:41.883] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-03-07T11:44:41.885] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T11:44:41.886] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-07T11:44:41.907] [DEBUG] default - 	| DB | Set state TCI state to IDLE STATE
+[2019-03-07T11:44:41.909] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T11:44:41.910] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T11:44:41.928] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE
+[2019-03-07T11:44:41.929] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"5173"}}
+[2019-03-07T11:44:41.948] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T11:44:49.177] [DEBUG] default - | SV | GET | APP | TCI STATE | (User ID Duplication Requested) or (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T11:44:49.178] [DEBUG] default - | SV | SET | APP | TCI STATE | (  ^  ) -> (IDLE)
+[2019-03-07T11:44:49.179] [DEBUG] default - | SV | SET | APP | TCI STATE | (IDLE) -> (User ID Duplicate Request)
+[2019-03-07T11:44:49.180] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T11:44:49.187] [DEBUG] default - 	| DB | Set state TCI state to IDLE STATE
+[2019-03-07T11:44:49.188] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T11:44:49.189] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T11:44:49.195] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE
+[2019-03-07T11:44:49.196] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"4998"}}
+[2019-03-07T11:44:49.199] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T11:45:34.574] [DEBUG] default - Running on port 8080
+[2019-03-07T11:46:34.575] [DEBUG] default - Running on port 8080
+[2019-03-07T11:47:34.576] [DEBUG] default - Running on port 8080
+[2019-03-07T11:48:34.575] [DEBUG] default - Running on port 8080
+[2019-03-07T11:49:34.573] [DEBUG] default - Running on port 8080
+[2019-03-07T11:50:34.571] [DEBUG] default - Running on port 8080
+[2019-03-07T11:51:34.573] [DEBUG] default - Running on port 8080
+[2019-03-07T11:52:34.571] [DEBUG] default - Running on port 8080
+[2019-03-07T11:53:34.569] [DEBUG] default - Running on port 8080
+[2019-03-07T11:54:34.569] [DEBUG] default - Running on port 8080
+[2019-03-07T11:55:34.570] [DEBUG] default - Running on port 8080
+[2019-03-07T11:56:34.571] [DEBUG] default - Running on port 8080
+[2019-03-07T11:57:34.573] [DEBUG] default - Running on port 8080
+[2019-03-07T11:58:34.576] [DEBUG] default - Running on port 8080
+[2019-03-07T11:59:34.576] [DEBUG] default - Running on port 8080
+[2019-03-07T12:00:34.575] [DEBUG] default - Running on port 8080
+[2019-03-07T12:01:34.576] [DEBUG] default - Running on port 8080
+[2019-03-07T12:02:34.576] [DEBUG] default - Running on port 8080
+[2019-03-07T12:03:34.575] [DEBUG] default - Running on port 8080
+[2019-03-07T12:04:34.577] [DEBUG] default - Running on port 8080
+[2019-03-07T12:05:34.580] [DEBUG] default - Running on port 8080
+[2019-03-07T12:06:34.581] [DEBUG] default - Running on port 8080
+[2019-03-07T12:07:34.581] [DEBUG] default - Running on port 8080
+[2019-03-07T12:08:34.584] [DEBUG] default - Running on port 8080
+[2019-03-07T12:09:34.585] [DEBUG] default - Running on port 8080
+[2019-03-07T12:10:34.585] [DEBUG] default - Running on port 8080
+[2019-03-07T12:11:34.585] [DEBUG] default - Running on port 8080
+[2019-03-07T12:12:34.584] [DEBUG] default - Running on port 8080
+[2019-03-07T12:13:34.582] [DEBUG] default - Running on port 8080
+[2019-03-07T12:14:34.582] [DEBUG] default - Running on port 8080
+[2019-03-07T12:15:34.585] [DEBUG] default - Running on port 8080
+[2019-03-07T12:16:34.585] [DEBUG] default - Running on port 8080
+[2019-03-07T12:17:34.583] [DEBUG] default - Running on port 8080
+[2019-03-07T12:18:34.582] [DEBUG] default - Running on port 8080
+[2019-03-07T12:19:34.585] [DEBUG] default - Running on port 8080
+[2019-03-07T12:20:34.583] [DEBUG] default - Running on port 8080
+[2019-03-07T12:21:34.581] [DEBUG] default - Running on port 8080
+[2019-03-07T12:22:34.582] [DEBUG] default - Running on port 8080
+[2019-03-07T12:23:34.585] [DEBUG] default - Running on port 8080
+[2019-03-07T12:24:34.586] [DEBUG] default - Running on port 8080
+[2019-03-07T12:25:46.869] [DEBUG] default - | SV | Get state /n|    |(Null)
+[2019-03-07T12:25:46.875] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-03-07T12:25:46.877] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T12:25:46.878] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-07T12:25:46.899] [DEBUG] default - 	| DB | Set state TCI state to IDLE STATE
+[2019-03-07T12:25:46.902] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T12:25:46.903] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T12:25:46.927] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE
+[2019-03-07T12:25:46.928] [DEBUG] default - | Server Send response: {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"3343"}}
+[2019-03-07T12:25:46.949] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T12:25:59.274] [DEBUG] default - | SV | GET | APP | TCI STATE | (User ID Duplication Requested) or (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T12:25:59.278] [DEBUG] default - | SV | SET | APP | TCI STATE | (  ^  ) -> (Idle)
+[2019-03-07T12:25:59.280] [DEBUG] default - | SV | PACK| APP | SDP:SGU-REQ
+[2019-03-07T12:25:59.281] [DEBUG] default - | SV | SET | APP | TCI STATE | (Idle) -> (User ID Duplicate Request)
+[2019-03-07T12:25:59.282] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"clientType":1,"userId":"dev.j.jobs1028@gmail.com"}}
+[2019-03-07T12:25:59.301] [DEBUG] default - 	| DB | Set state TCI state to IDLE STATE
+[2019-03-07T12:25:59.302] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T12:25:59.303] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T12:25:59.310] [DEBUG] default - | SV | RCVD| RSP | SDP:SGU-RSP
+[2019-03-07T12:25:59.311] [DEBUG] default - | SV | VRFY| HDR | SDP:SGU-RSP
+[2019-03-07T12:25:59.311] [DEBUG] default - | SV | UNPK| PYLD| SDP:SGU-RSP
+[2019-03-07T15:14:56.972] [DEBUG] default - | SV | GET | APP | TCI STATE | (User ID Duplication Requested) or (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T15:14:56.978] [DEBUG] default - | SV | SET | APP | TCI STATE | (  ^  ) -> (Idle)
+[2019-03-07T15:14:56.979] [DEBUG] default - | SV | PACK| APP | SDP:SGU-REQ
+[2019-03-07T15:14:56.980] [DEBUG] default - | SV | SET | APP | TCI STATE | (Idle) -> (User ID Duplicate Request)
+[2019-03-07T15:14:56.981] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"clientType":1,"userId":"dev.j.jobs1028@gmail.com"}}
+[2019-03-07T15:14:56.995] [DEBUG] default - 	| DB | Set state TCI state to IDLE STATE
+[2019-03-07T15:14:56.997] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T15:14:56.998] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-07T15:14:57.005] [DEBUG] default - | SV | RCVD| RSP | SDP:SGU-RSP
+[2019-03-07T15:14:57.006] [DEBUG] default - | SV | VRFY| HDR | SDP:SGU-RSP
+[2019-03-07T15:14:57.006] [DEBUG] default - | SV | UNPK| PYLD| SDP:SGU-RSP
+[2019-03-07T15:14:57.009] [DEBUG] default - | SV | GET | APP | TCI STATE | Available
+[2019-03-07T15:14:57.009] [DEBUG] default - | SV | GEN | CODE| Get VC, AC code
+[2019-03-07T15:14:57.011] [DEBUG] default - | SV | SEND| MAIL| Send Verification Email | VC:1536 | AC: T7R1H5Q5C429B7S0
+[2019-03-07T15:14:57.017] [DEBUG] default - | SV | STOR| APP | Temporary user sign-up information | Expire in: 300 | Data:  {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T15:14:57.019] [DEBUG] default - | SV | PACK| APP | SAP: SGU-RSP
+[2019-03-07T15:14:57.019] [DEBUG] default - | SV | SET | APP | TCI STATE | (User ID Duplicate Requested) -> (User ID Availability Confirmed)
+[2019-03-07T15:14:57.020] [DEBUG] default - | SV | SEND| REQ | SAP:SGU-RSP | {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"1536"}}
+[2019-03-07T15:15:32.961] [DEBUG] default - Running on port 8080
+[2019-03-07T15:16:32.963] [DEBUG] default - Running on port 8080
+[2019-03-07T15:17:32.965] [DEBUG] default - Running on port 8080
+[2019-03-07T15:18:32.968] [DEBUG] default - Running on port 8080
+[2019-03-07T15:19:32.971] [DEBUG] default - Running on port 8080
+[2019-03-07T15:20:32.972] [DEBUG] default - Running on port 8080
+[2019-03-07T15:21:32.971] [DEBUG] default - Running on port 8080
+[2019-03-07T15:22:32.971] [DEBUG] default - Running on port 8080
+[2019-03-07T15:23:32.978] [DEBUG] default - Running on port 8080
+[2019-03-07T15:24:32.984] [DEBUG] default - Running on port 8080
+[2019-03-07T15:25:32.992] [DEBUG] default - Running on port 8080
+[2019-03-07T15:26:32.996] [DEBUG] default - Running on port 8080
+[2019-03-07T15:27:32.998] [DEBUG] default - Running on port 8080
+[2019-03-07T15:28:32.997] [DEBUG] default - Running on port 8080
+[2019-03-07T15:29:32.996] [DEBUG] default - Running on port 8080
+[2019-03-07T15:30:32.999] [DEBUG] default - Running on port 8080
+[2019-03-07T15:31:32.999] [DEBUG] default - Running on port 8080
+[2019-03-07T15:32:33.001] [DEBUG] default - Running on port 8080
+[2019-03-07T15:33:33.002] [DEBUG] default - Running on port 8080
+[2019-03-07T15:34:33.002] [DEBUG] default - Running on port 8080
+[2019-03-07T15:35:33.002] [DEBUG] default - Running on port 8080
+[2019-03-07T15:36:13.374] [DEBUG] default - | SV | GET | APP | TCI STATE | (Null)
+[2019-03-07T15:36:13.379] [DEBUG] default - | SV | SET | APP | TCI STATE | (null) -> (IDLE)
+[2019-03-07T15:36:13.380] [DEBUG] default - | SV | PACK| APP | SDP: SGU-REQ
+[2019-03-07T15:36:13.381] [DEBUG] default - | SV | SET | APP | TCI STATE | (IDLE) -> (User ID Duplicate Request)
+[2019-03-07T15:36:13.382] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T15:36:13.401] [DEBUG] default -   | DB | SET | APP | TCI STATE | (Null) -> (Idle)
+[2019-03-07T15:36:13.402] [DEBUG] default -   | DB | PACK| APP | SDP:SGU-RSP
+[2019-03-07T15:36:13.403] [DEBUG] default -   | DB | SET | WEB | TCI STATE | (Idle) -> (Unique User ID Confirmed)
+[2019-03-07T15:36:13.404] [DEBUG] default -   | DB | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T15:36:13.410] [DEBUG] default - | SV | RCVD| RSP | SDP:SGU-RSP
+[2019-03-07T15:36:13.410] [DEBUG] default - | SV | VRFY| HDR | SDP:SGU-RSP
+[2019-03-07T15:36:13.411] [DEBUG] default - | SV | UNPK| PYLD| SDP:SGU-RSP
+[2019-03-07T15:36:13.413] [DEBUG] default - | SV | GET | APP | TCI STATE | Available
+[2019-03-07T15:36:13.414] [DEBUG] default - | SV | GEN | CODE| Get VC, AC code
+[2019-03-07T15:36:13.416] [DEBUG] default - | SV | SEND| MAIL| Send Verification Email | VC:8033 | AC: F367X773N7V3G0F9
+[2019-03-07T15:36:13.422] [DEBUG] default - | SV | STOR| APP | Temporary user sign-up information | Expire in: 300 | Data:  {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T15:36:13.424] [DEBUG] default - | SV | PACK| APP | SAP: SGU-RSP
+[2019-03-07T15:36:13.424] [DEBUG] default - | SV | SET | APP | TCI STATE | (User ID Duplicate Requested) -> (User ID Availability Confirmed)
+[2019-03-07T15:36:13.425] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"8033"}}
+[2019-03-07T15:36:13.439] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T15:37:09.820] [DEBUG] default - Running on port 8080
+[2019-03-07T15:38:09.819] [DEBUG] default - Running on port 8080
+[2019-03-07T15:39:09.815] [DEBUG] default - Running on port 8080
+[2019-03-07T15:40:11.538] [DEBUG] default - | SV | GET | APP | TCI STATE | (User ID Duplication Requested) or (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T15:40:11.542] [DEBUG] default - | SV | SET | APP | TCI STATE | (  ^  ) -> (Idle)
+[2019-03-07T15:40:11.544] [DEBUG] default - | SV | PACK| APP | SDP:SGU-REQ
+[2019-03-07T15:40:11.545] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"clientType":1,"userId":"dev.j.jobs1028@gmail.com"}}
+[2019-03-07T15:40:11.546] [DEBUG] default - | SV | SET | APP | TCI STATE | (Idle) -> (User ID Duplicate Request)
+[2019-03-07T15:40:11.561] [DEBUG] default -       | DB | SET | APP | TCI STATE | (Null) -> (Idle)
+[2019-03-07T15:40:11.563] [DEBUG] default -       | DB | PACK| APP | SDP:SGU-RSP
+[2019-03-07T15:40:11.563] [DEBUG] default -       | DB | SET | WEB | TCI STATE | (Idle) -> (Unique User ID Confirmed)
+[2019-03-07T15:40:11.564] [DEBUG] default -       | DB | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T15:40:11.571] [DEBUG] default - | SV | RCVD| RSP | SDP:SGU-RSP
+[2019-03-07T15:40:11.572] [DEBUG] default - | SV | VRFY| HDR | SDP:SGU-RSP
+[2019-03-07T15:40:11.573] [DEBUG] default - | SV | UNPK| PYLD| SDP:SGU-RSP
+[2019-03-07T15:40:11.575] [DEBUG] default - | SV | GET | APP | TCI STATE | Available
+[2019-03-07T15:40:11.576] [DEBUG] default - | SV | GEN | CODE| Get VC, AC code
+[2019-03-07T15:40:11.578] [DEBUG] default - | SV | SEND| MAIL| Send Verification Email | VC:0801 | AC: P2W456C3W1V6U7V4
+[2019-03-07T15:40:11.585] [DEBUG] default - | SV | STOR| APP | Temporary user sign-up information | Expire in: 300 | Data:  {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T15:40:11.586] [DEBUG] default - | SV | PACK| APP | SAP: SGU-RSP
+[2019-03-07T15:40:11.587] [DEBUG] default - | SV | SET | APP | TCI STATE | (User ID Duplicate Requested) -> (User ID Availability Confirmed)
+[2019-03-07T15:40:11.588] [DEBUG] default - | SV | SEND| REQ | SAP:SGU-RSP | {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"0801"}}
+[2019-03-07T15:41:09.058] [DEBUG] default - Running on port 8080
+[2019-03-07T15:42:09.055] [DEBUG] default - Running on port 8080
+[2019-03-07T15:43:09.058] [DEBUG] default - Running on port 8080
+[2019-03-07T15:44:09.056] [DEBUG] default - Running on port 8080
+[2019-03-07T15:45:09.059] [DEBUG] default - Running on port 8080
+[2019-03-07T15:46:09.062] [DEBUG] default - Running on port 8080
+[2019-03-07T15:47:09.065] [DEBUG] default - Running on port 8080
+[2019-03-07T15:48:09.065] [DEBUG] default - Running on port 8080
+[2019-03-07T15:49:09.068] [DEBUG] default - Running on port 8080
+[2019-03-07T15:50:07.745] [DEBUG] default - | SV | RCVD| Message
+[2019-03-07T15:50:07.748] [DEBUG] default - | SV | VRFY| HDR | Message
+[2019-03-07T15:50:07.750] [DEBUG] default - | SV | UNPK| PYLD| SAP: SGU-REQ
+[2019-03-07T15:50:07.753] [DEBUG] default - | SV | GET | APP | TCI STATE | (Null)
+[2019-03-07T15:50:07.754] [DEBUG] default - | SV | SET | APP | TCI STATE | (null) -> (Idle)
+[2019-03-07T15:50:07.755] [DEBUG] default - | SV | PACK| APP | SDP: SGU-REQ
+[2019-03-07T15:50:07.756] [DEBUG] default - | SV | SET | APP | TCI STATE | (Idle) -> (User ID Duplicate Request)
+[2019-03-07T15:50:07.757] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T15:50:07.770] [DEBUG] default - | DB | RCVD| Message
+[2019-03-07T15:50:07.771] [DEBUG] default - | DB | VRFY| HDR | Message
+[2019-03-07T15:50:07.771] [DEBUG] default - | DB | UNPK| PYLD| SDP: SGU-REQ
+[2019-03-07T15:50:07.772] [DEBUG] default -       | DB | SET | APP | TCI STATE | (Null) -> (Idle)
+[2019-03-07T15:50:07.774] [DEBUG] default -       | DB | PACK| APP | SDP:SGU-RSP
+[2019-03-07T15:50:07.775] [DEBUG] default -       | DB | SET | WEB | TCI STATE | (Idle) -> (Unique User ID Confirmed)
+[2019-03-07T15:50:07.776] [DEBUG] default -       | DB | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T15:50:07.783] [DEBUG] default - | SV | RCVD| RSP | SDP:SGU-RSP
+[2019-03-07T15:50:07.784] [DEBUG] default - | SV | VRFY| HDR | SDP:SGU-RSP
+[2019-03-07T15:50:07.784] [DEBUG] default - | SV | UNPK| PYLD| SDP:SGU-RSP
+[2019-03-07T15:50:07.787] [DEBUG] default - | SV | GET | APP | TCI STATE | Available
+[2019-03-07T15:50:07.787] [DEBUG] default - | SV | GEN | CODE| Get VC, AC code
+[2019-03-07T15:50:07.789] [DEBUG] default - | SV | SEND| MAIL| Send Verification Email | VC:2534 | AC: W41814P3H0N3A8N0
+[2019-03-07T15:50:07.796] [DEBUG] default - | SV | STOR| APP | Temporary user sign-up information | Expire in: 300 | Data:  {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T15:50:07.797] [DEBUG] default - | SV | PACK| APP | SAP: SGU-RSP
+[2019-03-07T15:50:07.798] [DEBUG] default - | SV | SET | APP | TCI STATE | (User ID Duplicate Requested) -> (User ID Availability Confirmed)
+[2019-03-07T15:50:07.798] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"2534"}}
+[2019-03-07T15:50:07.812] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T15:50:36.166] [DEBUG] default - | SV | RCVD| Message
+[2019-03-07T15:50:36.170] [DEBUG] default - | SV | VRFY| HDR | Message
+[2019-03-07T15:50:36.172] [DEBUG] default - | SV | UNPK| PYLD| SAP: SGU-REQ
+[2019-03-07T15:50:36.176] [DEBUG] default - | SV | GET | APP | TCI STATE | (User ID Duplication Requested) or (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T15:50:36.176] [DEBUG] default - | SV | SET | APP | TCI STATE | (  ^  ) -> (Idle)
+[2019-03-07T15:50:36.177] [DEBUG] default - | SV | PACK| APP | SDP:SGU-REQ
+[2019-03-07T15:50:36.178] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"clientType":1,"userId":"dev.j.jobs1028@gmail.com"}}
+[2019-03-07T15:50:36.179] [DEBUG] default - | SV | SET | APP | TCI STATE | (Idle) -> (User ID Duplicate Request)
+[2019-03-07T15:50:36.192] [DEBUG] default -   | DB | RCVD| Message
+[2019-03-07T15:50:36.192] [DEBUG] default -   | DB | VRFY| HDR | Message
+[2019-03-07T15:50:36.193] [DEBUG] default -   | DB | UNPK| PYLD| SDP: SGU-REQ
+[2019-03-07T15:50:36.194] [DEBUG] default -       | DB | SET | APP | TCI STATE | (Null) -> (Idle)
+[2019-03-07T15:50:36.195] [DEBUG] default -       | DB | PACK| APP | SDP:SGU-RSP
+[2019-03-07T15:50:36.196] [DEBUG] default -       | DB | SET | WEB | TCI STATE | (Idle) -> (Unique User ID Confirmed)
+[2019-03-07T15:50:36.197] [DEBUG] default -       | DB | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T15:50:36.203] [DEBUG] default - | SV | RCVD| RSP | SDP:SGU-RSP
+[2019-03-07T15:50:36.204] [DEBUG] default - | SV | VRFY| HDR | SDP:SGU-RSP
+[2019-03-07T15:50:36.204] [DEBUG] default - | SV | UNPK| PYLD| SDP:SGU-RSP
+[2019-03-07T15:50:36.206] [DEBUG] default - | SV | GET | APP | TCI STATE | Available
+[2019-03-07T15:50:36.207] [DEBUG] default - | SV | GEN | CODE| Get VC, AC code
+[2019-03-07T15:50:36.209] [DEBUG] default - | SV | SEND| MAIL| Send Verification Email | VC:9185 | AC: H9A5C61534C8W3L1
+[2019-03-07T15:50:36.216] [DEBUG] default - | SV | STOR| APP | Temporary user sign-up information | Expire in: 300 | Data:  {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T15:50:36.217] [DEBUG] default - | SV | PACK| APP | SAP: SGU-RSP
+[2019-03-07T15:50:36.218] [DEBUG] default - | SV | SET | APP | TCI STATE | (User ID Duplicate Requested) -> (User ID Availability Confirmed)
+[2019-03-07T15:50:36.218] [DEBUG] default - | SV | SEND| REQ | SAP:SGU-RSP | {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"9185"}}
+[2019-03-07T15:50:59.772] [DEBUG] default - | SV | RCVD| Message
+[2019-03-07T15:50:59.776] [DEBUG] default - | SV | VRFY| HDR | Message
+[2019-03-07T15:50:59.778] [DEBUG] default - | SV | UNPK| PYLD| SAP: SGU-REQ
+[2019-03-07T15:50:59.782] [DEBUG] default - | SV | GET | APP | TCI STATE | (User ID Duplication Requested) or (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T15:50:59.783] [DEBUG] default - | SV | SET | APP | TCI STATE | (  ^  ) -> (Idle)
+[2019-03-07T15:50:59.784] [DEBUG] default - | SV | PACK| APP | SDP:SGU-REQ
+[2019-03-07T15:50:59.785] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"clientType":1,"userId":"dev.j.jobs1028@gmail.com"}}
+[2019-03-07T15:50:59.785] [DEBUG] default - | SV | SET | APP | TCI STATE | (Idle) -> (User ID Duplicate Request)
+[2019-03-07T15:50:59.798] [DEBUG] default -       | DB | RCVD| Message
+[2019-03-07T15:50:59.799] [DEBUG] default -       | DB | VRFY| HDR | Message
+[2019-03-07T15:50:59.799] [DEBUG] default -       | DB | UNPK| PYLD| SDP: SGU-REQ
+[2019-03-07T15:50:59.800] [DEBUG] default -       | DB | SET | APP | TCI STATE | (Null) -> (Idle)
+[2019-03-07T15:50:59.802] [DEBUG] default -       | DB | PACK| APP | SDP:SGU-RSP
+[2019-03-07T15:50:59.802] [DEBUG] default -       | DB | SET | WEB | TCI STATE | (Idle) -> (Unique User ID Confirmed)
+[2019-03-07T15:50:59.803] [DEBUG] default -       | DB | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T15:50:59.809] [DEBUG] default - | SV | RCVD| RSP | SDP:SGU-RSP
+[2019-03-07T15:50:59.810] [DEBUG] default - | SV | VRFY| HDR | SDP:SGU-RSP
+[2019-03-07T15:50:59.810] [DEBUG] default - | SV | UNPK| PYLD| SDP:SGU-RSP
+[2019-03-07T15:50:59.812] [DEBUG] default - | SV | GET | APP | TCI STATE | Available
+[2019-03-07T15:50:59.813] [DEBUG] default - | SV | GEN | CODE| Get VC, AC code
+[2019-03-07T15:50:59.815] [DEBUG] default - | SV | SEND| MAIL| Send Verification Email | VC:7393 | AC: R4D619K720M0Q0J9
+[2019-03-07T15:50:59.822] [DEBUG] default - | SV | STOR| APP | Temporary user sign-up information | Expire in: 300 | Data:  {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T15:50:59.823] [DEBUG] default - | SV | PACK| APP | SAP: SGU-RSP
+[2019-03-07T15:50:59.823] [DEBUG] default - | SV | SET | APP | TCI STATE | (User ID Duplicate Requested) -> (User ID Availability Confirmed)
+[2019-03-07T15:50:59.824] [DEBUG] default - | SV | SEND| REQ | SAP:SGU-RSP | {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"7393"}}
+[2019-03-07T15:51:57.669] [DEBUG] default - Running on port 8080
+[2019-03-07T15:52:57.672] [DEBUG] default - Running on port 8080
+[2019-03-07T15:53:57.674] [DEBUG] default - Running on port 8080
+[2019-03-07T15:54:57.675] [DEBUG] default - Running on port 8080
+[2019-03-07T15:55:52.132] [DEBUG] default - | SV | RCVD| Message
+[2019-03-07T15:55:52.136] [DEBUG] default - | SV | VRFY| HDR | Message
+[2019-03-07T15:55:52.139] [DEBUG] default - | SV | UNPK| PYLD| SAP: SGU-REQ
+[2019-03-07T15:55:52.143] [DEBUG] default - | SV | GET | APP | TCI STATE | (User ID Duplication Requested) or (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T15:55:52.144] [DEBUG] default - | SV | SET | APP | TCI STATE | (  ^  ) -> (Idle)
+[2019-03-07T15:55:52.145] [DEBUG] default - | SV | PACK| APP | SDP:SGU-REQ
+[2019-03-07T15:55:52.146] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"clientType":1,"userId":"dev.j.jobs1028@gmail.com"}}
+[2019-03-07T15:55:52.146] [DEBUG] default - | SV | SET | APP | TCI STATE | (Idle) -> (User ID Duplicate Request)
+[2019-03-07T15:55:52.160] [DEBUG] default -       | DB | RCVD| Message
+[2019-03-07T15:55:52.161] [DEBUG] default -       | DB | VRFY| HDR | Message
+[2019-03-07T15:55:52.162] [DEBUG] default -       | DB | UNPK| PYLD| SDP: SGU-REQ
+[2019-03-07T15:55:52.162] [DEBUG] default -       | DB | SET | APP | TCI STATE | (Null) -> (Idle)
+[2019-03-07T15:55:52.164] [DEBUG] default -       | DB | PACK| APP | SDP:SGU-RSP
+[2019-03-07T15:55:52.164] [DEBUG] default -       | DB | SET | WEB | TCI STATE | (Idle) -> (Unique User ID Confirmed)
+[2019-03-07T15:55:52.165] [DEBUG] default -       | DB | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T15:55:52.172] [DEBUG] default - | SV | RCVD| RSP | SDP:SGU-RSP
+[2019-03-07T15:55:52.173] [DEBUG] default - | SV | VRFY| HDR | SDP:SGU-RSP
+[2019-03-07T15:55:52.173] [DEBUG] default - | SV | UNPK| PYLD| SDP:SGU-RSP
+[2019-03-07T15:55:52.175] [DEBUG] default - | SV | GET | APP | TCI STATE | Available
+[2019-03-07T15:55:52.176] [DEBUG] default - | SV | GEN | CODE| Generate Verification Code & Authentication Code
+[2019-03-07T15:55:52.178] [DEBUG] default - | SV | SEND| MAIL| Send Verification Email | VC:2310 | AC: 59U2L9P1G8B6B3X0
+[2019-03-07T15:55:52.185] [DEBUG] default - | SV | STOR| APP | Temporary user sign-up information | Expire in: 300 | Data:  {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T15:55:52.186] [DEBUG] default - | SV | PACK| APP | SAP: SGU-RSP
+[2019-03-07T15:55:52.187] [DEBUG] default - | SV | SET | APP | TCI STATE | (User ID Duplicate Requested) -> (User ID Availability Confirmed)
+[2019-03-07T15:55:52.187] [DEBUG] default - | SV | SEND| REQ | SAP:SGU-RSP | {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"2310"}}
+[2019-03-07T15:56:46.336] [DEBUG] default - Running on port 8080
+[2019-03-07T15:57:46.335] [DEBUG] default - Running on port 8080
+[2019-03-07T15:58:46.333] [DEBUG] default - Running on port 8080
+[2019-03-07T15:59:46.333] [DEBUG] default - Running on port 8080
+[2019-03-07T16:00:46.333] [DEBUG] default - Running on port 8080
+[2019-03-07T16:01:46.332] [DEBUG] default - Running on port 8080
+[2019-03-07T16:02:46.331] [DEBUG] default - Running on port 8080
+[2019-03-07T16:03:46.333] [DEBUG] default - Running on port 8080
+[2019-03-07T16:04:46.334] [DEBUG] default - Running on port 8080
+[2019-03-07T16:05:46.332] [DEBUG] default - Running on port 8080
+[2019-03-07T16:06:46.330] [DEBUG] default - Running on port 8080
+[2019-03-07T16:07:46.329] [DEBUG] default - Running on port 8080
+[2019-03-07T16:08:46.328] [DEBUG] default - Running on port 8080
+[2019-03-07T16:09:46.328] [DEBUG] default - Running on port 8080
+[2019-03-07T16:10:46.326] [DEBUG] default - Running on port 8080
+[2019-03-07T16:11:46.325] [DEBUG] default - Running on port 8080
+[2019-03-07T16:12:46.323] [DEBUG] default - Running on port 8080
+[2019-03-07T16:13:46.321] [DEBUG] default - Running on port 8080
+[2019-03-07T16:14:46.324] [DEBUG] default - Running on port 8080
+[2019-03-07T16:15:46.322] [DEBUG] default - Running on port 8080
+[2019-03-07T16:16:46.321] [DEBUG] default - Running on port 8080
+[2019-03-07T16:17:46.324] [DEBUG] default - Running on port 8080
+[2019-03-07T16:18:46.326] [DEBUG] default - Running on port 8080
+[2019-03-07T16:19:46.329] [DEBUG] default - Running on port 8080
+[2019-03-07T16:20:46.327] [DEBUG] default - Running on port 8080
+[2019-03-07T16:21:46.328] [DEBUG] default - Running on port 8080
+[2019-03-07T16:22:46.332] [DEBUG] default - Running on port 8080
+[2019-03-07T16:23:46.331] [DEBUG] default - Running on port 8080
+[2019-03-07T16:24:46.332] [DEBUG] default - Running on port 8080
+[2019-03-07T16:25:46.332] [DEBUG] default - Running on port 8080
+[2019-03-07T16:26:46.333] [DEBUG] default - Running on port 8080
+[2019-03-07T16:27:46.332] [DEBUG] default - Running on port 8080
+[2019-03-07T16:28:46.335] [DEBUG] default - Running on port 8080
+[2019-03-07T16:29:50.643] [DEBUG] default - | SV | RCVD| Message
+[2019-03-07T16:29:50.647] [DEBUG] default - | SV | VRFY| HDR | Message
+[2019-03-07T16:29:50.648] [DEBUG] default - | SV | UNPK| PYLD| SAP: SGU-REQ
+[2019-03-07T16:29:50.652] [DEBUG] default - | SV | GET | APP | TCI STATE | (Null)
+[2019-03-07T16:29:50.653] [DEBUG] default - | SV | SET | APP | TCI STATE | (null) -> (Idle)
+[2019-03-07T16:29:50.654] [DEBUG] default - | SV | PACK| APP | SDP: SGU-REQ
+[2019-03-07T16:29:50.655] [DEBUG] default - | SV | SET | APP | TCI STATE | (Idle) -> (User ID Duplicate Request)
+[2019-03-07T16:29:50.655] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"userId":"dev.j.jobs1028@gmail.com","clientType":1}}
+[2019-03-07T16:29:50.669] [DEBUG] default -       | DB | RCVD| Message
+[2019-03-07T16:29:50.670] [DEBUG] default -       | DB | VRFY| HDR | Message
+[2019-03-07T16:29:50.670] [DEBUG] default -       | DB | UNPK| PYLD| SDP: SGU-REQ
+[2019-03-07T16:29:50.671] [DEBUG] default -       | DB | SET | APP | TCI STATE | (Null) -> (Idle)
+[2019-03-07T16:29:50.673] [DEBUG] default -       | DB | PACK| APP | SDP:SGU-RSP
+[2019-03-07T16:29:50.674] [DEBUG] default -       | DB | SET | WEB | TCI STATE | (Idle) -> (Unique User ID Confirmed)
+[2019-03-07T16:29:50.674] [DEBUG] default -       | DB | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T16:29:50.681] [DEBUG] default - | SV | RCVD| RSP | SDP:SGU-RSP
+[2019-03-07T16:29:50.682] [DEBUG] default - | SV | VRFY| HDR | SDP:SGU-RSP
+[2019-03-07T16:29:50.682] [DEBUG] default - | SV | UNPK| PYLD| SDP:SGU-RSP
+[2019-03-07T16:29:50.685] [DEBUG] default - | SV | GET | APP | TCI STATE | Available
+[2019-03-07T16:29:50.685] [DEBUG] default - | SV | GEN | CODE| Get VC, AC code
+[2019-03-07T16:29:50.687] [DEBUG] default - | SV | SEND| MAIL| Send Verification Email | VC:6319 | AC: D1S9Y2H1M2B6S2D4
+[2019-03-07T16:29:50.694] [DEBUG] default - | SV | STOR| APP | Temporary user sign-up information | Expire in: 300 | Data:  {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T16:29:50.695] [DEBUG] default - | SV | PACK| APP | SAP: SGU-RSP
+[2019-03-07T16:29:50.696] [DEBUG] default - | SV | SET | APP | TCI STATE | (User ID Duplicate Requested) -> (User ID Availability Confirmed)
+[2019-03-07T16:29:50.696] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"6319"}}
+[2019-03-07T16:29:50.710] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T16:30:30.079] [DEBUG] default - Running on port 8080
+[2019-03-07T16:31:30.082] [DEBUG] default - Running on port 8080
+[2019-03-07T16:31:42.488] [DEBUG] default - | SV | RCVD| Message
+[2019-03-07T16:31:42.492] [DEBUG] default - | SV | VRFY| HDR | Message
+[2019-03-07T16:31:42.493] [DEBUG] default - | SV | UNPK| PYLD| SAP: SGU-REQ
+[2019-03-07T16:31:42.497] [DEBUG] default - | SV | GET | APP | TCI STATE | (User ID Duplication Requested) or (User ID Availability Confirmed) or (Half-USN Allocated) or (USN Allocated)
+[2019-03-07T16:31:42.498] [DEBUG] default - | SV | SET | APP | TCI STATE | (  ^  ) -> (Idle)
+[2019-03-07T16:31:42.499] [DEBUG] default - | SV | PACK| APP | SDP:SGU-REQ
+[2019-03-07T16:31:42.500] [DEBUG] default - | SV | SEND| REQ | SDP:SGU-REQ | {"header":{"msgType":171,"msgLen":0,"endpointId":1},"payload":{"clientType":1,"userId":"dev.j.jobs1028@gmail.com"}}
+[2019-03-07T16:31:42.501] [DEBUG] default - | SV | SET | APP | TCI STATE | (Idle) -> (User ID Duplicate Request)
+[2019-03-07T16:31:42.513] [DEBUG] default -       | DB | RCVD| Message
+[2019-03-07T16:31:42.514] [DEBUG] default -       | DB | VRFY| HDR | Message
+[2019-03-07T16:31:42.515] [DEBUG] default -       | DB | UNPK| PYLD| SDP: SGU-REQ
+[2019-03-07T16:31:42.516] [DEBUG] default -       | DB | SET | APP | TCI STATE | (Null) -> (Idle)
+[2019-03-07T16:31:42.517] [DEBUG] default -       | DB | PACK| APP | SDP:SGU-RSP
+[2019-03-07T16:31:42.518] [DEBUG] default -       | DB | SET | WEB | TCI STATE | (Idle) -> (Unique User ID Confirmed)
+[2019-03-07T16:31:42.518] [DEBUG] default -       | DB | SEND| REQ | SDP:SGU-RSP | {"header":{"msgType":172,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-07T16:31:42.525] [DEBUG] default - | SV | RCVD| RSP | SDP:SGU-RSP
+[2019-03-07T16:31:42.526] [DEBUG] default - | SV | VRFY| HDR | SDP:SGU-RSP
+[2019-03-07T16:31:42.526] [DEBUG] default - | SV | UNPK| PYLD| SDP:SGU-RSP
+[2019-03-07T16:31:42.528] [DEBUG] default - | SV | GET | APP | TCI STATE | Available
+[2019-03-07T16:31:42.529] [DEBUG] default - | SV | GEN | CODE| Generate Verification Code & Authentication Code
+[2019-03-07T16:31:42.531] [DEBUG] default - | SV | STOR| APP | Temporary user sign-up information | Expire in: 300 | Data:  {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","userFn":"Admin","userLn":"System"}
+[2019-03-07T16:31:42.532] [DEBUG] default - | SV | PACK| APP | SAP: SGU-RSP
+[2019-03-07T16:31:42.533] [DEBUG] default - | SV | SEND| MAIL| Send Verification Email | VC:9194 | AC: 71D3F4Y1Y7N5A6D6
+[2019-03-07T16:31:42.539] [DEBUG] default - | SV | SET | APP | TCI STATE | (User ID Duplicate Requested) -> (User ID Availability Confirmed)
+[2019-03-07T16:31:42.540] [DEBUG] default - | SV | SEND| REQ | SAP:SGU-RSP | {"header":{"msgType":32,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"vc":"9194"}}
+[2019-03-07T16:32:40.979] [DEBUG] default - Running on port 8080
+[2019-03-07T16:33:40.977] [DEBUG] default - Running on port 8080
+[2019-03-07T16:34:40.980] [DEBUG] default - Running on port 8080
+[2019-03-07T16:35:40.977] [DEBUG] default - Running on port 8080
+[2019-03-07T16:36:40.976] [DEBUG] default - Running on port 8080
+[2019-03-07T16:37:40.975] [DEBUG] default - Running on port 8080
+[2019-03-07T16:38:40.977] [DEBUG] default - Running on port 8080
+[2019-03-07T16:39:40.979] [DEBUG] default - Running on port 8080
+[2019-03-07T16:40:40.983] [DEBUG] default - Running on port 8080
+[2019-03-07T16:41:40.985] [DEBUG] default - Running on port 8080
+[2019-03-07T16:42:40.983] [DEBUG] default - Running on port 8080
+[2019-03-07T16:43:40.986] [DEBUG] default - Running on port 8080
+[2019-03-07T16:44:40.989] [DEBUG] default - Running on port 8080
+[2019-03-07T16:45:40.987] [DEBUG] default - Running on port 8080
+[2019-03-07T16:46:40.995] [DEBUG] default - Running on port 8080
+[2019-03-07T16:47:40.993] [DEBUG] default - Running on port 8080
+[2019-03-07T16:48:41.000] [DEBUG] default - Running on port 8080
+[2019-03-07T16:49:41.003] [DEBUG] default - Running on port 8080
+[2019-03-07T16:50:41.008] [DEBUG] default - Running on port 8080
+[2019-03-07T16:51:41.011] [DEBUG] default - Running on port 8080
+[2019-03-07T16:52:41.019] [DEBUG] default - Running on port 8080
+[2019-03-07T16:53:41.018] [DEBUG] default - Running on port 8080
+[2019-03-07T16:54:41.025] [DEBUG] default - Running on port 8080
+[2019-03-07T16:55:41.026] [DEBUG] default - Running on port 8080
+[2019-03-07T16:56:41.032] [DEBUG] default - Running on port 8080
+[2019-03-07T16:57:41.034] [DEBUG] default - Running on port 8080
+[2019-03-07T16:58:41.042] [DEBUG] default - Running on port 8080

@@ -6,12 +6,15 @@ class procU01C_SignUp_DB {
     SDP_SGU_REQ(protocol, unpackedPayload, res) {
         //state check
         if (unpackedPayload.clientType === g.CLIENT_TYPE.APP) {
+            logger.debug("      | DB | SET | APP | TCI STATE | (Null) -> (Idle)");
             state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_IDLE_STATE);
         } else {
+            logger.debug("      | DB | SET | WEB | TCI STATE | (Null) -> (Idle)");
             state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_IDLE_STATE);
         }
-        logger.debug("| DATABASE change TCI state to IDLE STATE");
         redisCli.get("u:info:id:" + unpackedPayload.userId, (err, reply) => {
+            
+            logger.debug("      | DB | PACK| APP | SDP:SGU-RSP");
             let payload = {},
                 sdpSguRspCode = 0;
             if (err) {
@@ -26,16 +29,16 @@ class procU01C_SignUp_DB {
             payload = {
                 "resultCode": sdpSguRspCode
             }
-            protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGU_RSP, payload)
-            logger.debug(`| DATABASE Send response:${JSON.stringify(protocol.getPackedMsg())}`);
+            protocol.packMsg(g.SDP_MSG_TYPE.SDP_SGU_RSP, payload);
 
+            logger.debug(`      | DB | SET | WEB | TCI STATE | (Idle) -> (Unique User ID Confirmed)`);
             if (unpackedPayload.clientType === g.CLIENT_TYPE.APP) {
                 state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE, g.DATABASE_TIMER.T954);
             } else {
                 state.setState(g.ENTITY_TYPE.DATABASE, g.ENDPOINT_ID_TYPE.EI_TYPE_WEB_TCI, [protocol.getEndpointId(), unpackedPayload.userId], g.DATABASE_TCI_STATE_ID.DATABASE_TCI_UNIQUE_USER_ID_CONFIRMED_STATE, g.DATABASE_TIMER.T954);
             }
 
-            logger.debug("| DATABASE change TCI state to UNIQUE USER CONFIRMED STATE");
+            logger.debug(`      | DB | SEND| REQ | SDP:SGU-RSP | ${JSON.stringify(protocol.getPackedMsg())}`);
             return res.send(protocol.getPackedMsg());
         });
     }
