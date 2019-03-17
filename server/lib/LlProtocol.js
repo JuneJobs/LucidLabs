@@ -786,7 +786,7 @@ class LlProtocol {
         const payload = this.msgPayload;
         this.unpackedPayload = {};
         this.unpackedPayload.resultCode = payload.resultCode;
-        this.unpackedPayload.selectedSensorInformationList = payload.selectedSensorInformationList;
+        if (payload.resultCode === 0 && payload.existCode === 0) this.unpackedPayload.selectedSensorInformationList = payload.selectedSensorInformationList;
         return this.unpackedPayload;
     }
 

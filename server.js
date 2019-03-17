@@ -22,8 +22,8 @@ global.path = __dirname;
 app.use(bodyParser.json()); // support json encoded bodies
 app.use("/", router);
 
-//require('./server/businessLogic/router');
-require('./server/routes/Core');
+require('./server/businessLogic/router');
+//require('./server/routes/Core');
 
 //Server runner
 app.listen(_apiPort, function(){

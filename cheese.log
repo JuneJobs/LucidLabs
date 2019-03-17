@@ -2107,3 +2107,851 @@
 [2019-03-08T17:43:02.394] [DEBUG] default - | SV | UNPK| PYLD| SAP: UVC-REQ
 [2019-03-08T17:43:55.397] [DEBUG] default - Running on port 8080
 [2019-03-08T17:44:55.400] [DEBUG] default - Running on port 8080
+[2019-03-08T17:45:55.402] [DEBUG] default - Running on port 8080
+[2019-03-08T17:46:55.402] [DEBUG] default - Running on port 8080
+[2019-03-08T17:47:55.400] [DEBUG] default - Running on port 8080
+[2019-03-08T17:48:55.404] [DEBUG] default - Running on port 8080
+[2019-03-08T17:49:55.407] [DEBUG] default - Running on port 8080
+[2019-03-08T17:50:55.410] [DEBUG] default - Running on port 8080
+[2019-03-08T17:51:55.413] [DEBUG] default - Running on port 8080
+[2019-03-08T17:52:55.414] [DEBUG] default - Running on port 8080
+[2019-03-08T17:53:55.413] [DEBUG] default - Running on port 8080
+[2019-03-08T17:54:55.411] [DEBUG] default - Running on port 8080
+[2019-03-08T17:55:55.497] [DEBUG] default - Running on port 8080
+[2019-03-08T17:56:55.483] [DEBUG] default - Running on port 8080
+[2019-03-08T17:57:55.518] [DEBUG] default - Running on port 8080
+[2019-03-08T17:58:55.492] [DEBUG] default - Running on port 8080
+[2019-03-08T17:59:55.492] [DEBUG] default - Running on port 8080
+[2019-03-08T18:00:55.489] [DEBUG] default - Running on port 8080
+[2019-03-08T18:01:55.488] [DEBUG] default - Running on port 8080
+[2019-03-08T18:02:55.491] [DEBUG] default - Running on port 8080
+[2019-03-08T18:03:55.494] [DEBUG] default - Running on port 8080
+[2019-03-08T18:04:55.491] [DEBUG] default - Running on port 8080
+[2019-03-08T18:05:55.495] [DEBUG] default - Running on port 8080
+[2019-03-08T18:06:55.497] [DEBUG] default - Running on port 8080
+[2019-03-17T11:42:33.717] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:42:33.723] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T11:42:33.729] [DEBUG] default - | SERVER send response: {}
+[2019-03-17T11:42:57.980] [DEBUG] default - Running on port 8080
+[2019-03-17T11:43:04.269] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:43:04.270] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test123@"}}
+[2019-03-17T11:43:04.273] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2019-03-17T11:43:04.286] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test123@","clientType":2}}
+[2019-03-17T11:43:04.288] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":2}}
+[2019-03-17T11:43:04.294] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2019-03-17T11:43:04.296] [DEBUG] default - | SERVER send response: {"header":{"msgType":106,"msgLen":0,"endpointId":4},"payload":{"resultCode":3}}
+[2019-03-17T11:43:16.100] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:43:16.101] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@"}}
+[2019-03-17T11:43:16.103] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2019-03-17T11:43:16.108] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","clientType":2}}
+[2019-03-17T11:43:16.191] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":3}}
+[2019-03-17T11:43:16.194] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2019-03-17T11:43:16.195] [DEBUG] default - | SERVER send response: {"header":{"msgType":106,"msgLen":0,"endpointId":4},"payload":{"resultCode":4}}
+[2019-03-17T11:43:27.659] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:43:27.660] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"wnsgml90"}}
+[2019-03-17T11:43:27.661] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2019-03-17T11:43:27.667] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"wnsgml90","clientType":2}}
+[2019-03-17T11:43:27.749] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":3}}
+[2019-03-17T11:43:27.751] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2019-03-17T11:43:27.752] [DEBUG] default - | SERVER send response: {"header":{"msgType":106,"msgLen":0,"endpointId":4},"payload":{"resultCode":4}}
+[2019-03-17T11:43:36.487] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:43:36.488] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"wnsgml90"}}
+[2019-03-17T11:43:36.489] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2019-03-17T11:43:36.495] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"wnsgml90","clientType":2}}
+[2019-03-17T11:43:36.576] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":3}}
+[2019-03-17T11:43:36.578] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2019-03-17T11:43:36.578] [DEBUG] default - | SERVER send response: {"header":{"msgType":106,"msgLen":0,"endpointId":4},"payload":{"resultCode":4}}
+[2019-03-17T11:43:44.837] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:43:44.838] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@"}}
+[2019-03-17T11:43:44.839] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2019-03-17T11:43:44.845] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test1234@","clientType":2}}
+[2019-03-17T11:43:44.928] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2019-03-17T11:43:44.929] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2019-03-17T11:43:44.933] [DEBUG] default - | SERVER stored active user [["set","c:act:s:w:1:signf","1","EX",1800],["set","c:act:s:w:1:nsc","1","EX",1800],["set","c:act:s:w:1:ml","0","EX",1800]]
+[2019-03-17T11:43:44.934] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2019-03-17T11:43:50.443] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:43:50.444] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@"}}
+[2019-03-17T11:43:50.445] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2019-03-17T11:43:50.450] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","clientType":2}}
+[2019-03-17T11:43:50.531] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":3}}
+[2019-03-17T11:43:50.534] [DEBUG] default - | SERVER change TCI state (HALF USN INFORMED STATE) ->  (IDLE)
+[2019-03-17T11:43:50.534] [DEBUG] default - | SERVER send response: {"header":{"msgType":106,"msgLen":0,"endpointId":4},"payload":{"resultCode":4}}
+[2019-03-17T11:43:57.980] [DEBUG] default - Running on port 8080
+[2019-03-17T11:44:43.853] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:44:43.853] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin"}}
+[2019-03-17T11:44:43.855] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-03-17T11:44:43.856] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin","clientType":2}}
+[2019-03-17T11:44:43.856] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-17T11:44:43.861] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin","clientType":2}}
+[2019-03-17T11:44:43.862] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2019-03-17T11:44:43.864] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":3},"payload":{"resultCode":0}}
+[2019-03-17T11:44:43.865] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-17T11:44:43.877] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE
+[2019-03-17T11:44:43.877] [DEBUG] default - | Server Send response: {"header":{"msgType":102,"msgLen":0,"endpointId":3},"payload":{"resultCode":0,"vc":"2135"}}
+[2019-03-17T11:44:43.894] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin","clientType":2}
+[2019-03-17T11:44:57.981] [DEBUG] default - Running on port 8080
+[2019-03-17T11:45:57.980] [DEBUG] default - Running on port 8080
+[2019-03-17T11:47:07.784] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:47:07.788] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin"}}
+[2019-03-17T11:47:07.795] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-03-17T11:47:07.796] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin","clientType":2}}
+[2019-03-17T11:47:07.797] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-17T11:47:07.811] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin","clientType":2}}
+[2019-03-17T11:47:07.812] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2019-03-17T11:47:07.813] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":3},"payload":{"resultCode":0}}
+[2019-03-17T11:47:07.814] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-17T11:47:07.829] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE
+[2019-03-17T11:47:07.830] [DEBUG] default - | Server Send response: {"header":{"msgType":102,"msgLen":0,"endpointId":3},"payload":{"resultCode":0,"vc":"1654"}}
+[2019-03-17T11:47:07.845] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin","clientType":2}
+[2019-03-17T11:47:55.004] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:47:55.008] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin"}}
+[2019-03-17T11:47:55.015] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-03-17T11:47:55.016] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin","clientType":2}}
+[2019-03-17T11:47:55.017] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-03-17T11:47:55.033] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin","clientType":2}}
+[2019-03-17T11:47:55.034] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2019-03-17T11:47:55.035] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":3},"payload":{"resultCode":0}}
+[2019-03-17T11:47:55.037] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-03-17T11:47:55.054] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE
+[2019-03-17T11:47:55.055] [DEBUG] default - | Server Send response: {"header":{"msgType":102,"msgLen":0,"endpointId":3},"payload":{"resultCode":0,"vc":"2753"}}
+[2019-03-17T11:47:55.069] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin","clientType":2}
+[2019-03-17T11:48:17.555] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:48:17.556] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":3},"payload":{"vc":"2753","ac":"C388T11555J5T9J1"}}
+[2019-03-17T11:48:17.565] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":173,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","userId":"j.jobs1028@gmail.com","userLn":"Admin","userPw":"test123@","gender":"0","userFn":"Admin","clientType":2}}
+[2019-03-17T11:48:17.650] [DEBUG] default - | DATABASE stored user info{"bdt":"657072000","gender":"0","userId":"j.jobs1028@gmail.com","userPw":"test123@","userFn":"Admin","userLn":"Admin","clientType":2,"regf":0,"ml":0,"mti":0,"tti":0,"ass":0,"expd":0,"newUsn":"1"}
+[2019-03-17T11:48:17.651] [DEBUG] default - | DATABASE change TCI state to USN ALLOCATED STATE
+[2019-03-17T11:48:17.654] [DEBUG] default - | SERVER change TCI state to USN ALLOCATED STATE
+[2019-03-17T11:48:17.655] [DEBUG] default - | SERVER Send response: {"header":{"msgType":104,"msgLen":0,"endpointId":3},"payload":{"resultCode":0}}
+[2019-03-17T11:48:21.631] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:48:21.632] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test123@"}}
+[2019-03-17T11:48:21.633] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2019-03-17T11:48:21.639] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"j.jobs1028@gmail.com","userPw":"test123@","clientType":2}}
+[2019-03-17T11:48:21.721] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2019-03-17T11:48:21.722] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2019-03-17T11:48:21.727] [DEBUG] default - | SERVER stored active user [["set","c:act:s:w:1:signf","1","EX",1800],["set","c:act:s:w:1:nsc","1","EX",1800],["set","c:act:s:w:1:ml","0","EX",1800]]
+[2019-03-17T11:48:21.728] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2019-03-17T11:48:44.281] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:48:44.282] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T11:48:44.289] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T11:48:46.871] [DEBUG] default - Running on port 8080
+[2019-03-17T11:48:46.873] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T11:48:46.876] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T11:48:46.876] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T11:48:55.768] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:48:55.769] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T11:48:55.776] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T11:48:55.777] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T11:48:55.780] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T11:48:55.781] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T11:49:46.874] [DEBUG] default - Running on port 8080
+[2019-03-17T11:50:46.875] [DEBUG] default - Running on port 8080
+[2019-03-17T11:50:56.742] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:50:56.743] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":123,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac"}}
+[2019-03-17T11:50:56.749] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":193,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2}}
+[2019-03-17T11:50:56.753] [DEBUG] default - | DATABASE stored sensor info{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2,"ssn":"2147479552","actf":0,"mobf":0,"stat":255,"rdt":"1552791056","sdt":0,"edt":0,"drgcd":0,"regusn":1}
+[2019-03-17T11:50:56.754] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T11:50:56.757] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T11:50:56.757] [DEBUG] default - | SERVER send response: {"header":{"msgType":124,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T11:51:01.120] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:51:01.121] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T11:51:01.127] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T11:51:01.128] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T11:51:01.130] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T11:51:01.131] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T11:51:46.874] [DEBUG] default - Running on port 8080
+[2019-03-17T11:51:59.900] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:51:59.901] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T11:51:59.907] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T11:51:59.909] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T11:51:59.911] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T11:51:59.912] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T11:52:31.647] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:52:31.647] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T11:52:31.655] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T11:52:36.443] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T11:52:36.448] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T11:52:36.449] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T11:52:46.875] [DEBUG] default - Running on port 8080
+[2019-03-17T11:53:46.877] [DEBUG] default - Running on port 8080
+[2019-03-17T11:53:49.031] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:53:49.032] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T11:53:49.039] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T11:54:15.164] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T11:54:15.168] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T11:54:15.169] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T11:54:18.875] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:54:18.876] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T11:54:18.883] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T11:55:56.580] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:55:56.584] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T11:55:56.609] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T11:55:59.545] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T11:55:59.557] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T11:55:59.558] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T11:56:12.363] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:56:12.364] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T11:56:12.372] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T11:56:49.985] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T11:56:49.988] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T11:56:50.007] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T11:57:28.002] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552791056","0","255","","","",""]]}}
+[2019-03-17T11:57:28.016] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T11:57:28.016] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552791056","0","255","","","",""]]}}
+[2019-03-17T11:57:44.583] [DEBUG] default - Running on port 8080
+[2019-03-17T11:58:44.586] [DEBUG] default - Running on port 8080
+[2019-03-17T11:59:44.589] [DEBUG] default - Running on port 8080
+[2019-03-17T12:00:44.587] [DEBUG] default - Running on port 8080
+[2019-03-17T12:01:44.589] [DEBUG] default - Running on port 8080
+[2019-03-17T12:02:44.592] [DEBUG] default - Running on port 8080
+[2019-03-17T12:03:44.595] [DEBUG] default - Running on port 8080
+[2019-03-17T12:04:44.597] [DEBUG] default - Running on port 8080
+[2019-03-17T12:05:44.599] [DEBUG] default - Running on port 8080
+[2019-03-17T12:06:44.602] [DEBUG] default - Running on port 8080
+[2019-03-17T12:07:44.608] [DEBUG] default - Running on port 8080
+[2019-03-17T12:08:44.611] [DEBUG] default - Running on port 8080
+[2019-03-17T12:09:44.610] [DEBUG] default - Running on port 8080
+[2019-03-17T12:10:16.830] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:10:16.831] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"1"}}
+[2019-03-17T12:10:16.841] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"1","clientType":2}}
+[2019-03-17T12:10:16.843] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":4}}
+[2019-03-17T12:10:16.846] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":5}}
+[2019-03-17T12:10:18.228] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:10:18.229] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"1"}}
+[2019-03-17T12:10:18.235] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"1","clientType":2}}
+[2019-03-17T12:10:18.236] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":4}}
+[2019-03-17T12:10:18.239] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":5}}
+[2019-03-17T12:10:25.997] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:10:25.998] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"1"}}
+[2019-03-17T12:10:26.007] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"1","clientType":2}}
+[2019-03-17T12:10:26.008] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":4}}
+[2019-03-17T12:10:26.010] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":5}}
+[2019-03-17T12:10:44.613] [DEBUG] default - Running on port 8080
+[2019-03-17T12:10:51.972] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:10:51.973] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"1"}}
+[2019-03-17T12:11:13.271] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"1","clientType":2}}
+[2019-03-17T12:11:13.273] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":4}}
+[2019-03-17T12:12:17.586] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":5}}
+[2019-03-17T12:12:17.588] [DEBUG] default - Running on port 8080
+[2019-03-17T12:12:17.591] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:12:17.592] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"1"}}
+[2019-03-17T12:12:17.599] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"1","clientType":2}}
+[2019-03-17T12:12:27.621] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":4}}
+[2019-03-17T12:12:27.624] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":5}}
+[2019-03-17T12:12:40.359] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:12:40.360] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"1"}}
+[2019-03-17T12:12:40.370] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"1","clientType":2}}
+[2019-03-17T12:13:26.702] [DEBUG] default - Running on port 8080
+[2019-03-17T12:13:58.967] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:13:58.972] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"1"}}
+[2019-03-17T12:13:58.996] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"1","clientType":2}}
+[2019-03-17T12:15:14.003] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":4}}
+[2019-03-17T12:15:14.007] [DEBUG] default - Running on port 8080
+[2019-03-17T12:15:14.012] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":5}}
+[2019-03-17T12:15:38.938] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:15:38.939] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":117,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f"}}
+[2019-03-17T12:15:38.947] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":187,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f","clientType":2}}
+[2019-03-17T12:15:38.951] [DEBUG] default - | DATABASE stored sensor info{"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f","ssn":"1","actf":0,"mobf":0,"stat":255,"rdt":"1552792538","sdt":0,"edt":0,"drgcd":0,"regusn":1}
+[2019-03-17T12:15:38.952] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T12:15:38.956] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:15:38.957] [DEBUG] default - | SERVER send response: {"header":{"msgType":118,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:16:05.813] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:16:05.814] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"1"}}
+[2019-03-17T12:16:05.823] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"1","clientType":2}}
+[2019-03-17T12:17:58.640] [DEBUG] default - Running on port 8080
+[2019-03-17T12:18:01.844] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":4}}
+[2019-03-17T12:18:01.846] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":5}}
+[2019-03-17T12:18:04.771] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:18:04.772] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"0"}}
+[2019-03-17T12:18:04.778] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"0","clientType":2}}
+[2019-03-17T12:18:14.927] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:18:14.930] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:18:14.931] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:18:58.641] [DEBUG] default - Running on port 8080
+[2019-03-17T12:19:58.644] [DEBUG] default - Running on port 8080
+[2019-03-17T12:20:58.646] [DEBUG] default - Running on port 8080
+[2019-03-17T12:21:50.504] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:21:50.505] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:21:50.512] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:21:50.515] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[["3a2b3c4d5e6f","3a2b3c4d5e6f","1552792538","0","255","","","",""],["4F22AAe2e9ac","3c22c2e2e9ac","1552791056","3","255","","","",""]]}}
+[2019-03-17T12:21:50.518] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:21:50.519] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["3a2b3c4d5e6f","3a2b3c4d5e6f","1552792538","0","255","","","",""],["4F22AAe2e9ac","3c22c2e2e9ac","1552791056","3","255","","","",""]]}}
+[2019-03-17T12:21:58.648] [DEBUG] default - Running on port 8080
+[2019-03-17T12:22:01.867] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:22:01.868] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"0"}}
+[2019-03-17T12:22:01.875] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"0","clientType":2}}
+[2019-03-17T12:22:05.590] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:22:05.592] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:22:05.593] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:22:10.710] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:22:10.711] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:22:10.719] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:22:10.720] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[["3a2b3c4d5e6f","3a2b3c4d5e6f","1552792538","0","255","","","",""],["4F22AAe2e9ac","3c22c2e2e9ac","1552791056","3","255","","","",""]]}}
+[2019-03-17T12:22:10.722] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:22:10.723] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["3a2b3c4d5e6f","3a2b3c4d5e6f","1552792538","0","255","","","",""],["4F22AAe2e9ac","3c22c2e2e9ac","1552791056","3","255","","","",""]]}}
+[2019-03-17T12:22:58.651] [DEBUG] default - Running on port 8080
+[2019-03-17T12:23:12.901] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:23:12.902] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"0"}}
+[2019-03-17T12:23:12.909] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"0","clientType":2}}
+[2019-03-17T12:24:50.232] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:24:50.234] [DEBUG] default - Running on port 8080
+[2019-03-17T12:24:50.237] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:24:50.237] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:25:00.815] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:25:00.816] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"0"}}
+[2019-03-17T12:25:00.822] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"0","clientType":2}}
+[2019-03-17T12:31:11.068] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:31:11.072] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"0"}}
+[2019-03-17T12:31:11.091] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"0","clientType":2}}
+[2019-03-17T12:31:47.467] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:31:47.471] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"0"}}
+[2019-03-17T12:31:47.489] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"0","clientType":2}}
+[2019-03-17T12:32:00.396] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:32:00.407] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:32:00.408] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:32:17.354] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:32:17.355] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:32:17.364] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:32:17.366] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552791056","3","255","","","",""]]}}
+[2019-03-17T12:32:17.370] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:32:17.371] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552791056","3","255","","","",""]]}}
+[2019-03-17T12:32:23.967] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:32:23.967] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"0"}}
+[2019-03-17T12:32:23.975] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"0","clientType":2}}
+[2019-03-17T12:32:30.056] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:32:30.058] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:32:30.059] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:32:34.627] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:32:34.628] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:32:34.635] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:32:34.637] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T12:32:34.639] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:32:34.640] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:32:45.309] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:32:45.310] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":123,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac"}}
+[2019-03-17T12:32:45.317] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":193,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2}}
+[2019-03-17T12:32:45.319] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T12:32:45.322] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:32:45.322] [DEBUG] default - | SERVER send response: {"header":{"msgType":124,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:32:46.075] [DEBUG] default - Running on port 8080
+[2019-03-17T12:32:50.386] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:32:50.387] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:32:50.393] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:32:50.395] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T12:32:50.398] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:32:50.399] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:32:51.376] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:32:51.377] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:32:51.383] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:32:51.384] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T12:32:51.386] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:32:51.387] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:32:51.929] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:32:51.930] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:32:51.937] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:32:51.939] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T12:32:51.941] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:32:51.942] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:32:53.009] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:32:53.010] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:32:53.018] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:32:53.019] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T12:32:53.021] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:32:53.021] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:32:53.921] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:32:53.922] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:32:53.929] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:32:53.930] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T12:32:53.932] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:32:53.933] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:32:55.165] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:32:55.166] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:32:55.173] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:32:55.174] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T12:32:55.177] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:32:55.178] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:33:13.632] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:33:13.633] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":123,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac"}}
+[2019-03-17T12:33:13.640] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":193,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2}}
+[2019-03-17T12:33:13.641] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T12:33:13.644] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:33:13.644] [DEBUG] default - | SERVER send response: {"header":{"msgType":124,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:33:34.416] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:33:34.417] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":123,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac"}}
+[2019-03-17T12:33:34.423] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":193,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2}}
+[2019-03-17T12:33:34.425] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T12:33:34.428] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:33:34.429] [DEBUG] default - | SERVER send response: {"header":{"msgType":124,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:33:46.096] [DEBUG] default - Running on port 8080
+[2019-03-17T12:33:48.811] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:33:48.812] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":123,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac"}}
+[2019-03-17T12:33:48.819] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":193,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2}}
+[2019-03-17T12:33:48.820] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T12:33:48.823] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:33:48.824] [DEBUG] default - | SERVER send response: {"header":{"msgType":124,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:34:45.283] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:34:45.284] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":123,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac"}}
+[2019-03-17T12:34:45.291] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":193,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2}}
+[2019-03-17T12:34:50.016] [DEBUG] default - Running on port 8080
+[2019-03-17T12:37:41.597] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:37:41.601] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:37:41.622] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:37:41.625] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T12:37:41.634] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:37:41.635] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:37:46.585] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:37:46.586] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"0"}}
+[2019-03-17T12:37:46.596] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"0","clientType":2}}
+[2019-03-17T12:37:53.962] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:37:53.965] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:37:53.966] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:37:59.040] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:37:59.041] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:37:59.048] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:37:59.049] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T12:37:59.051] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:37:59.051] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:38:36.698] [DEBUG] default - Running on port 8080
+[2019-03-17T12:38:59.914] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:38:59.917] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:38:59.936] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:38:59.938] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[],"existCode":1}}
+[2019-03-17T12:38:59.946] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:38:59.947] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:39:01.009] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:39:01.010] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:39:01.017] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:39:01.019] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[],"existCode":1}}
+[2019-03-17T12:39:01.021] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:39:01.022] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:39:24.509] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:39:24.514] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:39:24.534] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:39:24.536] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[],"existCode":1}}
+[2019-03-17T12:39:24.544] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:39:24.545] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:39:25.503] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:39:25.504] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:39:25.512] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:39:25.513] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[],"existCode":1}}
+[2019-03-17T12:39:25.516] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:39:25.516] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:40:21.898] [DEBUG] default - Running on port 8080
+[2019-03-17T12:41:06.331] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:41:06.332] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:41:06.339] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:41:06.341] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[],"existCode":1}}
+[2019-03-17T12:43:31.855] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:43:31.858] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:43:31.879] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:43:31.881] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:43:33.584] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:43:33.585] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:43:49.531] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:43:49.532] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":123,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac"}}
+[2019-03-17T12:43:49.540] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":193,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2}}
+[2019-03-17T12:43:54.231] [DEBUG] default - | DATABASE stored sensor info{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2,"ssn":"2147479552","actf":0,"mobf":0,"stat":255,"rdt":"1552794234","sdt":0,"edt":0,"drgcd":0,"regusn":1}
+[2019-03-17T12:43:54.232] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T12:43:54.237] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:43:54.238] [DEBUG] default - | SERVER send response: {"header":{"msgType":124,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:43:59.649] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:43:59.650] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:43:59.658] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:43:59.659] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552794234","0","255","","","",""]]}}
+[2019-03-17T12:44:01.496] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:44:01.497] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552794234","0","255","","","",""]]}}
+[2019-03-17T12:44:10.974] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:44:10.975] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"0"}}
+[2019-03-17T12:44:10.983] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"0","clientType":2}}
+[2019-03-17T12:44:17.254] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:44:17.258] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:44:17.259] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:44:20.570] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:44:20.571] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"0"}}
+[2019-03-17T12:44:20.577] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"0","clientType":2}}
+[2019-03-17T12:44:22.764] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{}}
+[2019-03-17T12:44:22.766] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{}}
+[2019-03-17T12:44:30.909] [DEBUG] default - Running on port 8080
+[2019-03-17T12:44:32.264] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:44:32.265] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:44:32.271] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:44:32.273] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:44:32.275] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:44:32.276] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:45:30.908] [DEBUG] default - Running on port 8080
+[2019-03-17T12:46:30.909] [DEBUG] default - Running on port 8080
+[2019-03-17T12:47:30.909] [DEBUG] default - Running on port 8080
+[2019-03-17T12:47:57.275] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:47:57.276] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:47:57.283] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:47:57.284] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:47:57.286] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:47:57.286] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:48:16.603] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:48:16.603] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":123,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac"}}
+[2019-03-17T12:48:16.609] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":193,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2}}
+[2019-03-17T12:48:21.363] [DEBUG] default - | DATABASE stored sensor info{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2,"ssn":"2147479552","actf":0,"mobf":0,"stat":255,"rdt":"1552794501","sdt":0,"edt":0,"drgcd":0,"regusn":1}
+[2019-03-17T12:48:21.364] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T12:48:21.366] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:48:21.367] [DEBUG] default - | SERVER send response: {"header":{"msgType":124,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:48:30.908] [DEBUG] default - Running on port 8080
+[2019-03-17T12:49:30.908] [DEBUG] default - Running on port 8080
+[2019-03-17T12:49:48.053] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:49:48.054] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":125,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","mobf":"1"}}
+[2019-03-17T12:49:55.497] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":195,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","mobf":"1","clientType":2}}
+[2019-03-17T12:49:59.321] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":196,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:50:00.155] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:50:00.155] [DEBUG] default - | SERVER send response: {"header":{"msgType":126,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:50:06.347] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:50:06.348] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:50:06.355] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:50:06.357] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552794501","1","255","","","",""]]}}
+[2019-03-17T12:50:06.359] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:50:06.361] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552794501","1","255","","","",""]]}}
+[2019-03-17T12:50:27.346] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:50:27.347] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"1"}}
+[2019-03-17T12:50:27.353] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"1","clientType":2}}
+[2019-03-17T12:50:30.909] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:50:30.911] [DEBUG] default - Running on port 8080
+[2019-03-17T12:50:30.913] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:50:30.913] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:50:35.022] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:50:35.023] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:50:35.030] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:50:35.032] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552794501","0","255","","","",""]]}}
+[2019-03-17T12:50:35.034] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:50:35.034] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552794501","0","255","","","",""]]}}
+[2019-03-17T12:50:35.960] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:50:35.961] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:50:35.968] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:50:35.969] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552794501","0","255","","","",""]]}}
+[2019-03-17T12:50:35.971] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:50:35.972] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552794501","0","255","","","",""]]}}
+[2019-03-17T12:50:36.875] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:50:36.876] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:50:36.883] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:50:36.885] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552794501","0","255","","","",""]]}}
+[2019-03-17T12:50:36.888] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:50:36.889] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552794501","0","255","","","",""]]}}
+[2019-03-17T12:50:53.586] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:50:53.587] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"0"}}
+[2019-03-17T12:50:53.594] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"0","clientType":2}}
+[2019-03-17T12:50:57.581] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:50:57.584] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:50:57.585] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:51:03.979] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:51:03.980] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T12:51:03.988] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T12:51:03.989] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:51:03.991] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:51:03.992] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:51:17.639] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:51:17.640] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T12:51:17.647] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T12:51:17.651] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:51:17.654] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:51:17.655] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:51:30.914] [DEBUG] default - Running on port 8080
+[2019-03-17T12:52:06.697] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:52:06.701] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T12:52:06.720] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T12:52:06.725] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:52:06.733] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:52:06.733] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:53:04.141] [DEBUG] default - Running on port 8080
+[2019-03-17T12:54:04.141] [DEBUG] default - Running on port 8080
+[2019-03-17T12:55:04.141] [DEBUG] default - Running on port 8080
+[2019-03-17T12:55:36.850] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:55:36.854] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T12:55:36.873] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T12:55:36.878] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:55:36.886] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:55:36.887] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:55:42.694] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:55:42.695] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":117,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f"}}
+[2019-03-17T12:55:42.703] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":187,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f","clientType":2}}
+[2019-03-17T12:55:42.705] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T12:55:42.708] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:55:42.709] [DEBUG] default - | SERVER send response: {"header":{"msgType":118,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:55:46.107] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:55:46.108] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T12:55:46.116] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T12:55:46.119] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:55:46.121] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:55:46.122] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:55:47.048] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:55:47.049] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T12:55:47.057] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T12:55:47.059] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:55:47.061] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:55:47.062] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:55:50.489] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:55:50.490] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":117,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f"}}
+[2019-03-17T12:55:50.498] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":187,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f","clientType":2}}
+[2019-03-17T12:55:50.499] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T12:55:50.502] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:55:50.502] [DEBUG] default - | SERVER send response: {"header":{"msgType":118,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T12:56:34.406] [DEBUG] default - Running on port 8080
+[2019-03-17T12:56:46.170] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:56:46.171] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T12:56:46.178] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T12:56:46.181] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T12:56:52.846] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:56:52.846] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","drgcd":"0"}}
+[2019-03-17T12:56:52.853] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","drgcd":"0","clientType":2}}
+[2019-03-17T12:56:56.408] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{}}
+[2019-03-17T12:56:56.411] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{}}
+[2019-03-17T12:57:10.390] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:57:10.391] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3c22c2e2e9ac","drgcd":"0"}}
+[2019-03-17T12:57:10.397] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","drgcd":"0","clientType":2}}
+[2019-03-17T12:57:13.694] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{}}
+[2019-03-17T12:57:13.697] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{}}
+[2019-03-17T12:57:34.410] [DEBUG] default - Running on port 8080
+[2019-03-17T12:58:34.409] [DEBUG] default - Running on port 8080
+[2019-03-17T12:59:34.412] [DEBUG] default - Running on port 8080
+[2019-03-17T12:59:50.289] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T12:59:50.290] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T12:59:50.296] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T12:59:50.298] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T12:59:50.300] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T12:59:50.301] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:00:21.137] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:00:21.138] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:00:21.145] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:00:21.147] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T13:00:21.150] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:00:21.151] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:00:30.669] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:00:30.670] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:00:30.678] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:00:36.752] [DEBUG] default - Running on port 8080
+[2019-03-17T13:00:37.840] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T13:00:37.843] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:00:37.843] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:00:41.515] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:00:41.516] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:00:41.523] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:04:53.711] [DEBUG] default - Running on port 8080
+[2019-03-17T13:05:09.739] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:05:09.742] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":117,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f"}}
+[2019-03-17T13:05:09.762] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":187,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f","clientType":2}}
+[2019-03-17T13:05:09.764] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T13:05:09.773] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:05:09.773] [DEBUG] default - | SERVER send response: {"header":{"msgType":118,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:06:08.175] [DEBUG] default - Running on port 8080
+[2019-03-17T13:06:18.826] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:06:18.827] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":117,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f"}}
+[2019-03-17T13:06:18.835] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":187,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f","clientType":2}}
+[2019-03-17T13:13:06.394] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:13:06.398] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":117,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f"}}
+[2019-03-17T13:13:06.417] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":187,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f","clientType":2}}
+[2019-03-17T13:13:11.238] [DEBUG] default - | DATABASE stored sensor info{"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f","ssn":"2","actf":0,"mobf":0,"stat":255,"rdt":"1552795991","sdt":0,"edt":0,"drgcd":0,"regusn":1}
+[2019-03-17T13:13:11.239] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T13:13:11.252] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:13:11.253] [DEBUG] default - | SERVER send response: {"header":{"msgType":118,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:13:16.156] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:13:16.157] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:13:16.165] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:13:20.901] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T13:13:20.908] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:13:20.909] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:13:26.643] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:13:26.644] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:13:26.651] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:13:38.685] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T13:13:38.688] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:13:38.689] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:13:47.042] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:13:47.042] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":1,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:13:47.049] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":1,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:13:51.290] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[]}}
+[2019-03-17T13:13:51.293] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:13:51.293] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:14:05.349] [DEBUG] default - Running on port 8080
+[2019-03-17T13:14:59.142] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:14:59.142] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:14:59.148] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:15:02.836] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[{"edt":"0","regusn":"1","wmac":"3a2b3c4d5e6f","actf":"0","rdt":"1552795991","drgcd":"0","sdt":"0","stat":"255","ssn":"2","cmac":"3a2b3c4d5e6f","mobf":"0"}]}}
+[2019-03-17T13:15:02.839] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:15:02.839] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:15:05.346] [DEBUG] default - Running on port 8080
+[2019-03-17T13:15:09.412] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:15:09.413] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:15:09.420] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:17:54.055] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:17:54.059] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:17:54.080] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:18:21.638] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:18:21.642] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:18:21.660] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:18:38.400] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[{"edt":"0","regusn":"1","wmac":"3a2b3c4d5e6f","actf":"0","rdt":"1552795991","drgcd":"0","sdt":"0","stat":"255","ssn":"2","cmac":"3a2b3c4d5e6f","mobf":"0"}]}}
+[2019-03-17T13:18:38.411] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:18:38.412] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[{"edt":"0","regusn":"1","wmac":"3a2b3c4d5e6f","actf":"0","rdt":"1552795991","drgcd":"0","sdt":"0","stat":"255","ssn":"2","cmac":"3a2b3c4d5e6f","mobf":"0"}]}}
+[2019-03-17T13:18:45.972] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:18:45.973] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:18:45.981] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:18:45.984] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:19:14.353] [DEBUG] default - Running on port 8080
+[2019-03-17T13:20:14.355] [DEBUG] default - Running on port 8080
+[2019-03-17T13:21:14.358] [DEBUG] default - Running on port 8080
+[2019-03-17T13:22:14.361] [DEBUG] default - Running on port 8080
+[2019-03-17T13:23:14.359] [DEBUG] default - Running on port 8080
+[2019-03-17T13:23:32.246] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:23:32.247] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:23:32.254] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:24:56.404] [DEBUG] default - Running on port 8080
+[2019-03-17T13:25:18.811] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:25:44.412] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:25:44.413] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:25:44.420] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:25:50.945] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:26:33.159] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:26:33.162] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:26:33.183] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:26:40.923] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:26:48.256] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:26:48.259] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:26:48.278] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:26:54.866] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:27:03.237] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:27:03.238] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:27:03.247] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:30:43.901] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:30:43.904] [DEBUG] default - Running on port 8080
+[2019-03-17T13:30:45.601] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:30:45.602] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:30:45.610] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:31:04.470] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:31:15.515] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:31:15.515] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:31:15.522] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:31:19.204] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:31:43.903] [DEBUG] default - Running on port 8080
+[2019-03-17T13:31:52.672] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:31:52.673] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:31:52.680] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:31:52.682] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:32:01.108] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:32:01.109] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:32:01.116] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:32:01.117] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:32:34.099] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:32:34.100] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:32:34.107] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:32:34.109] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:32:49.864] [DEBUG] default - Running on port 8080
+[2019-03-17T13:33:32.896] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:33:32.900] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:33:32.920] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"1","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:33:32.922] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":6}}
+[2019-03-17T13:33:37.161] [DEBUG] default - | SERVER send response: {"header":{"msgType":120,"msgLen":0,"endpointId":1},"payload":{"resultCode":1}}
+[2019-03-17T13:33:46.391] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:33:46.392] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":119,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","drgcd":"0","userId":"j.jobs1028@gmail.com"}}
+[2019-03-17T13:33:46.400] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":189,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","drgcd":"0","userId":"j.jobs1028@gmail.com","clientType":2}}
+[2019-03-17T13:33:46.404] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":190,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:33:48.151] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:33:48.152] [DEBUG] default - | SERVER send response: {"header":{"msgType":120,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:33:52.986] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:33:52.987] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:33:52.995] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:33:52.999] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1,"selectedSensorInformationList":[]}}
+[2019-03-17T13:33:53.002] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:33:53.003] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:33:56.902] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:33:56.903] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":3,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:33:56.911] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":3,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:33:56.916] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[{"actf":"3","ssn":"1"},{"actf":"3","ssn":"2"},{"actf":"3","ssn":"2147479552"}]}}
+[2019-03-17T13:33:56.918] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:33:56.919] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[{"actf":"3","ssn":"1"},{"actf":"3","ssn":"2"},{"actf":"3","ssn":"2147479552"}]}}
+[2019-03-17T13:34:04.302] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:34:04.303] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:34:04.310] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:34:04.312] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1,"selectedSensorInformationList":[]}}
+[2019-03-17T13:34:04.315] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:34:04.315] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:34:07.895] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:34:07.896] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":117,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f"}}
+[2019-03-17T13:34:07.904] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":187,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f","clientType":2}}
+[2019-03-17T13:34:10.891] [DEBUG] default - | DATABASE stored sensor info{"wmac":"3a2b3c4d5e6f","cmac":"3a2b3c4d5e6f","ssn":"3","actf":0,"mobf":0,"stat":255,"rdt":"1552797250","sdt":0,"edt":0,"drgcd":0,"regusn":1}
+[2019-03-17T13:34:10.892] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T13:34:10.895] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:34:10.896] [DEBUG] default - | SERVER send response: {"header":{"msgType":118,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:34:20.709] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:34:20.710] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:34:20.716] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:34:20.719] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[{"actf":"0","wmac":"3a2b3c4d5e6f","sdt":"0","edt":"0","stat":"255","ssn":"3","drgcd":"0","rdt":"1552797250","mobf":"0","cmac":"3a2b3c4d5e6f","regusn":"1"}]}}
+[2019-03-17T13:34:20.722] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:34:20.723] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[{"actf":"0","wmac":"3a2b3c4d5e6f","sdt":"0","edt":"0","stat":"255","ssn":"3","drgcd":"0","rdt":"1552797250","mobf":"0","cmac":"3a2b3c4d5e6f","regusn":"1"}]}}
+[2019-03-17T13:34:28.103] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:34:28.104] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":125,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3a2b3c4d5e6f","mobf":"1"}}
+[2019-03-17T13:34:29.943] [DEBUG] default - Running on port 8080
+[2019-03-17T13:34:30.494] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":195,"msgLen":0,"endpointId":1},"payload":{"wmac":"3a2b3c4d5e6f","mobf":"1","clientType":2}}
+[2019-03-17T13:34:32.722] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":196,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:34:33.505] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:34:33.506] [DEBUG] default - | SERVER send response: {"header":{"msgType":126,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:34:40.015] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:34:40.015] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":0,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:34:40.021] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":0,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:34:40.025] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1,"selectedSensorInformationList":[]}}
+[2019-03-17T13:34:40.027] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:34:40.028] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:34:44.000] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:34:44.001] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":121,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"","actf":1,"mobf":0,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-03-17T13:34:44.008] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":191,"msgLen":0,"endpointId":1},"payload":{"wmac":"","actf":1,"mobf":0,"state":"Q99","city":"Q16552","clientType":2}}
+[2019-03-17T13:34:44.010] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":192,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":0,"selectedSensorInformationList":[{"actf":"1","wmac":"3a2b3c4d5e6f","sdt":"0","edt":"0","stat":"255","ssn":"3","drgcd":"0","rdt":"1552797250","mobf":"1","cmac":"3a2b3c4d5e6f","regusn":"1"}]}}
+[2019-03-17T13:34:44.013] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:34:44.014] [DEBUG] default - | SERVER send response: {"header":{"msgType":122,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[{"actf":"1","wmac":"3a2b3c4d5e6f","sdt":"0","edt":"0","stat":"255","ssn":"3","drgcd":"0","rdt":"1552797250","mobf":"1","cmac":"3a2b3c4d5e6f","regusn":"1"}]}}
+[2019-03-17T13:34:59.720] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:34:59.721] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3c22c2e2e9ac","drgcd":"1"}}
+[2019-03-17T13:34:59.727] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","drgcd":"1","clientType":2}}
+[2019-03-17T13:35:02.065] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{}}
+[2019-03-17T13:35:02.067] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{}}
+[2019-03-17T13:35:11.510] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:35:11.511] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T13:35:11.518] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T13:35:11.520] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[[null,null,null,"3",null,"","","",""],["3a2b3c4d5e6f","3a2b3c4d5e6f","1552797250","1","255","","","",""]],"existCode":0}}
+[2019-03-17T13:35:11.523] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:35:11.524] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[[null,null,null,"3",null,"","","",""],["3a2b3c4d5e6f","3a2b3c4d5e6f","1552797250","1","255","","","",""]]}}
+[2019-03-17T13:35:19.983] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:35:19.984] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T13:35:19.991] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T13:35:19.992] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[[null,null,null,"3",null,"","","",""],["3a2b3c4d5e6f","3a2b3c4d5e6f","1552797250","1","255","","","",""]],"existCode":0}}
+[2019-03-17T13:35:19.994] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:35:19.995] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[[null,null,null,"3",null,"","","",""],["3a2b3c4d5e6f","3a2b3c4d5e6f","1552797250","1","255","","","",""]]}}
+[2019-03-17T13:35:29.877] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:35:29.878] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":127,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"3c22c2e2e9ac","drgcd":"1"}}
+[2019-03-17T13:35:29.884] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":197,"msgLen":0,"endpointId":1},"payload":{"wmac":"3c22c2e2e9ac","drgcd":"1","clientType":2}}
+[2019-03-17T13:35:29.885] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":198,"msgLen":0,"endpointId":1},"payload":{}}
+[2019-03-17T13:35:29.887] [DEBUG] default - | SERVER send response: {"header":{"msgType":128,"msgLen":0,"endpointId":1},"payload":{}}
+[2019-03-17T13:35:29.942] [DEBUG] default - Running on port 8080
+[2019-03-17T13:35:32.475] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:35:32.476] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T13:35:32.482] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T13:35:32.484] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[[null,null,null,"3",null,"","","",""],["3a2b3c4d5e6f","3a2b3c4d5e6f","1552797250","1","255","","","",""]],"existCode":0}}
+[2019-03-17T13:35:32.487] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:35:32.488] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[[null,null,null,"3",null,"","","",""],["3a2b3c4d5e6f","3a2b3c4d5e6f","1552797250","1","255","","","",""]]}}
+[2019-03-17T13:36:29.945] [DEBUG] default - Running on port 8080
+[2019-03-17T13:37:04.247] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:37:04.248] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T13:37:04.255] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T13:40:42.242] [DEBUG] default - Running on port 8080
+[2019-03-17T13:40:42.244] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[[null,null,null,"3",null,"","","",""],["3a2b3c4d5e6f","3a2b3c4d5e6f","1552797250","1","255","","","",""]],"existCode":0}}
+[2019-03-17T13:40:51.351] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:40:51.356] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T13:40:51.375] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T13:40:53.871] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"existCode":1}}
+[2019-03-17T13:40:53.880] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:40:53.881] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:41:02.287] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:41:02.288] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":123,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac"}}
+[2019-03-17T13:41:02.298] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":193,"msgLen":0,"endpointId":1},"payload":{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2}}
+[2019-03-17T13:41:04.157] [DEBUG] default - | DATABASE stored sensor info{"wmac":"4F22AAe2e9ac","cmac":"3c22c2e2e9ac","clientType":2,"ssn":"2147479552","actf":0,"mobf":0,"stat":255,"rdt":"1552797662","sdt":0,"edt":0,"drgcd":0,"regusn":1}
+[2019-03-17T13:41:04.158] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-03-17T13:41:04.162] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:41:04.162] [DEBUG] default - | SERVER send response: {"header":{"msgType":124,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-03-17T13:41:09.658] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-03-17T13:41:09.658] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":129,"msgLen":0,"endpointId":1},"payload":{"nsc":1}}
+[2019-03-17T13:41:09.665] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":199,"msgLen":0,"endpointId":1},"payload":{"clientType":2}}
+[2019-03-17T13:41:11.309] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":200,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552797662","0","255","","","",""]],"existCode":0}}
+[2019-03-17T13:41:11.312] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-03-17T13:41:11.312] [DEBUG] default - | SERVER send response: {"header":{"msgType":130,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"selectedSensorInformationList":[["4F22AAe2e9ac","3c22c2e2e9ac","1552797662","0","255","","","",""]]}}
+[2019-03-17T13:41:49.854] [DEBUG] default - Running on port 8080

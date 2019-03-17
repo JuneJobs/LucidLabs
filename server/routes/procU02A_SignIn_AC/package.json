@@ -1,0 +1,5 @@
+{
+    "private": true,
+    "name": "procU02A_SignIn_AC",
+    "main": "./procU02A_SignIn_AC.js"
+}

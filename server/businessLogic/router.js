@@ -281,7 +281,7 @@ router.post("/serverapi", function (req, res) {
                                             const ac = codeGen.getAuthenticationCode(),
                                                   vc = codeGen.getVerificationCode(),
                                                   contect = `<H1> Verification code: ${vc}<H1></BR><H1> Authentication code: ${ac}<H1>`;
-
+                                            console.log('codes: ', ac, vc);
                                             mailer.sendEmail(userInfo.userId, 'Verification from Airound', contect);
                                             
                                             const keyHead = `u:temp:${protocol.getEndpointId()}:`,
@@ -378,7 +378,7 @@ router.post("/serverapi", function (req, res) {
                                             const ac = codeGen.getAuthenticationCode(),
                                                 vc = codeGen.getVerificationCode(),
                                                 contect = `<H1> Verification code: ${vc}<H1></BR><H1> Authentication code: ${ac}<H1>`;
-
+                                            console.log('codes: ', ac, vc);
                                             mailer.sendEmail(userInfo.userId, 'Verification from Airound', contect);
                                             
                                             const keyHead = `u:temp:${protocol.getEndpointId()}:`,
@@ -475,7 +475,7 @@ router.post("/serverapi", function (req, res) {
                                             const ac = codeGen.getAuthenticationCode(),
                                                 vc = codeGen.getVerificationCode(),
                                                 contect = `<H1> Verification code: ${vc}<H1></BR><H1> Authentication code: ${ac}<H1>`;
-
+                                            console.log('codes: ', ac, vc);
                                             mailer.sendEmail(userInfo.userId, 'Verification from Airound', contect);
 
                                             const keyHead = `u:temp:${protocol.getEndpointId()}:`,
@@ -575,7 +575,7 @@ router.post("/serverapi", function (req, res) {
                                                   contect = `<H1> Verification code: ${vc}<H1></BR><H1> Authentication code: ${ac}<H1>`;
 
                                             mailer.sendEmail(userInfo.userId, 'Verification from Airound', contect);
-
+                                            console.log('codes: ', ac, vc);
                                             const keyHead = `u:temp:${protocol.getEndpointId()}:`,
                                                   expTime = g.SERVER_TIMER.T862;
 
@@ -1895,6 +1895,14 @@ router.post("/serverapi", function (req, res) {
                                         
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_ASD.RESCODE_SDP_ASD_NOT_EXIST_USER_ID:
                                         payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASD.RESCODE_SWP_ASD_NOT_EXIST_USER_ID;
+                                        protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASD_RSP, payload);
+
+                                        logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`)
+                                        res.send(protocol.getPackedMsg());
+                                        break;
+                                        
+                                    case g.SDP_MSG_RESCODE.RESCODE_SDP_ASD.RESCODE_SDP_ASD_THE_REQUESTED_WIFI_MAC_IS_NOT_AN_ASSOCIATED_WITH_USER_ID:
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_ASD.RESCODE_SWP_ASD_OTHER;
                                         protocol.packMsg(g.SWP_MSG_TYPE.SWP_ASD_RSP, payload);
 
                                         logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`)
@@ -4550,6 +4558,18 @@ router.post("/databaseapi", (req, res) => {
                                                         //Delete sensor association with user
                                                         ["set", `s:info:${ssn}:drgcd`, unpackedPayload.drgcd],
                                                         ["set", `s:info:${ssn}:actf`, 3],
+                                                        ["del", `s:info:${ssn}:wmac`],
+                                                        ["del", `s:info:${ssn}:cmac`],
+                                                        ["del", `s:info:${ssn}:rdt`],
+                                                        ["del", `s:info:${ssn}:sdt`],
+                                                        ["del", `s:info:${ssn}:edt`],
+                                                        ["del", `s:info:${ssn}:drgcd`],
+                                                        ["del", `s:info:${ssn}:regusn`],
+                                                        ["del", `s:info:${ssn}:mobf`],
+                                                        ["del", `s:info:${ssn}:stat`],
+                                                        ["del", `s:info:${unpackedPayload.wmac}`],
+                                                        //search:s:user:1
+                                                        ["srem", `search:s:user:${protocol.getEndpointId()}`, ssn],
                                                         ["srem", "search:s:actf:0", ssn],
                                                         ["srem", "search:s:actf:1", ssn],
                                                         ["srem", "search:s:actf:2", ssn],
@@ -4674,6 +4694,7 @@ router.post("/databaseapi", (req, res) => {
                                                     }
                                                     payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OK;
                                                     payload.selectedSensorInformationList = [arr];
+                                                    payload.existCode = 0;
                                                     protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
                                                     logger.debug(`| DATABASE Send response:${JSON.stringify(protocol.getPackedMsg())}`);
                                                     res.send(protocol.getPackedMsg());
@@ -4682,7 +4703,7 @@ router.post("/databaseapi", (req, res) => {
                                         });
                                     } else {
                                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OK;
-                                        payload.selectedSensorInformationList = [];
+                                        payload.existCode = 1;
                                         protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
                                         logger.debug(`| DATABASE Send response:${JSON.stringify(protocol.getPackedMsg())}`);
                                         res.send(protocol.getPackedMsg());
@@ -4728,6 +4749,11 @@ router.post("/databaseapi", (req, res) => {
                                 if (typeof unpackedPayload.userId === 'undefined') {
                                     sModule.searchSensor(searchSets, (result) => {
                                         payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OK;
+                                        if (result.length > 0) {
+                                            payload.existCode = 0;
+                                        } else {
+                                            payload.existCode = 1;
+                                        }
                                         payload.selectedSensorInformationList = result;
                                         protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
                                         logger.debug(`| DATABASE Send response:${JSON.stringify(protocol.getPackedMsg())}`);
@@ -4737,7 +4763,7 @@ router.post("/databaseapi", (req, res) => {
                                 } else {
                                     redisCli.get('u:info:id:' + unpackedPayload.userId, (err, usn) => {
                                         if (usn === null) {
-                                            payload.selectedSensorInformationList = [];
+                                            payload.existCode = 1;
                                             payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OK;
                                             protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
                                             logger.debug(`| DATABASE Send response:${JSON.stringify(protocol.getPackedMsg())}`);
@@ -4745,6 +4771,7 @@ router.post("/databaseapi", (req, res) => {
                                         } else {
                                             sModule.searchSensor(['search:s:user:' + usn], (result) => {
                                                 payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_ASV.RESCODE_SDP_ASV_OK;
+                                                payload.existCode = 0;
                                                 payload.selectedSensorInformationList = result;
                                                 protocol.packMsg(g.SDP_MSG_TYPE.SDP_ASV_RSP, payload);
                                                 logger.debug(`| DATABASE Send response:${JSON.stringify(protocol.getPackedMsg())}`);
@@ -4990,10 +5017,21 @@ router.post("/databaseapi", (req, res) => {
                                             //Delete sensor association with user
                                             ["set", `s:info:${ssn}:drgcd`, unpackedPayload.drgcd],
                                             ["set", `s:info:${ssn}:actf`, 3],
+                                            ["del", `s:info:${ssn}:wmac`],
+                                            ["del", `s:info:${ssn}:cmac`],
+                                            ["del", `s:info:${ssn}:rdt`],
+                                            ["del", `s:info:${ssn}:sdt`],
+                                            ["del", `s:info:${ssn}:edt`],
+                                            ["del", `s:info:${ssn}:drgcd`],
+                                            ["del", `s:info:${ssn}:regusn`],
+                                            ["del", `s:info:${ssn}:mobf`],
+                                            ["del", `s:info:${ssn}:stat`],
+                                            ["del", `s:info:${unpackedPayload.wmac}`],
                                             ["srem", "search:s:actf:0", ssn],
                                             ["srem", "search:s:actf:1", ssn],
                                             ["srem", "search:s:actf:2", ssn],
                                             ["sadd", "search:s:actf:3", ssn],
+                                            ["srem", `search:s:user:${protocol.getEndpointId()}`, ssn],
                                             ["del", keyHead + "ssn"],
                                             ["del", keyHead + "usn"],
                                             ["del", keyHead + "mti"],
@@ -5014,7 +5052,7 @@ router.post("/databaseapi", (req, res) => {
                                         });
                                         //deassociation
                                     } else {
-                                        let keyHead = `u:ass:${protocol.getEndpointId()}:${ssn}`;
+                                        let keyHead = `u:ass:${protocol.getEndpointId()}:${ssn}:`;
                                         redisCli.get(`${keyHead}ssn`, (err, result) => {
                                             if (err) {
                                                 logger.error("| DATABASE ERROR search usn ssn");
@@ -5098,59 +5136,57 @@ router.post("/databaseapi", (req, res) => {
                     //signed-in
                     } else if (signf === g.SIGNED_IN_STATE.SIGNED_IN) {
                         redisCli.smembers(`search:s:user:${protocol.getEndpointId()}`, (err, replies) => {
-                            if (err) {} else {
-                                if (replies.length === 0) {
-                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SLV.RESCODE_SDP_SLV_OK;
-                                    payload.existCode = 1;
-                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_SLV_RSP, payload);
+                            if (replies.length === 0) {
+                                payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SLV.RESCODE_SDP_SLV_OK;
+                                payload.existCode = 1;
+                                protocol.packMsg(g.SDP_MSG_TYPE.SDP_SLV_RSP, payload);
 
+                                logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
+                                res.send(protocol.getPackedMsg());
+                            } else {
+                                let selectedSensorInformationList = [],
+                                    commandList = [];
+                                for (let i = 0, x = replies.length; i < x; i++) {
+                                    let ssn = replies[i];
+                                    commandList.push(
+                                        ['get', `s:info:${ssn}:wmac`],
+                                        ['get', `s:info:${ssn}:cmac`],
+                                        ['get', `s:info:${ssn}:rdt`],
+                                        ['get', `s:info:${ssn}:actf`],
+                                        ['get', `s:info:${ssn}:stat`],
+                                        ['get', `s:info:${ssn}:mobf`],
+                                        ['get', `s:info:${ssn}:nat`],
+                                        ['get', `s:info:${ssn}:state`],
+                                        ['get', `s:info:${ssn}:city`],
+                                        ['get', `s:info:${ssn}:userId`]
+                                    );
+                                }
+                                redisCli.multi(commandList).exec((err, replies) => {
+                                    for (let i = 0, x = replies.length / 10; i < x; i++) {
+                                        selectedSensorInformationList.push([
+                                            replies[i * 10],
+                                            replies[i * 10 + 1],
+                                            replies[i * 10 + 2],
+                                            replies[i * 10 + 3],
+                                            replies[i * 10 + 4],
+                                            //replies[i * 10 + 5],
+                                            //replies[i * 10 + 6],
+                                            //replies[i * 10 + 7],
+                                            '',
+                                            '',
+                                            '',
+                                            '',
+                                            //replies[i * 10 + 8],
+                                            
+                                        ]);
+                                    }
+                                    payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SLV.RESCODE_SDP_SLV_OK;
+                                    payload.selectedSensorInformationList = selectedSensorInformationList;
+                                    protocol.packMsg(g.SDP_MSG_TYPE.SDP_SLV_RSP, payload);
+                                    payload.existCode = 0;
                                     logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                                     res.send(protocol.getPackedMsg());
-                                } else {
-                                    let selectedSensorInformationList = [],
-                                        commandList = [];
-                                    for (let i = 1, x = replies.length; i < x; i++) {
-                                        let ssn = replies[i];
-                                        commandList.push(
-                                            ['get', `s:info:${ssn}:wmac`],
-                                            ['get', `s:info:${ssn}:cmac`],
-                                            ['get', `s:info:${ssn}:rdt`],
-                                            ['get', `s:info:${ssn}:actf`],
-                                            ['get', `s:info:${ssn}:stat`],
-                                            ['get', `s:info:${ssn}:mobf`],
-                                            ['get', `s:info:${ssn}:nat`],
-                                            ['get', `s:info:${ssn}:state`],
-                                            ['get', `s:info:${ssn}:city`],
-                                            ['get', `s:info:${ssn}:userId`]
-                                        );
-                                    }
-                                    redisCli.multi(commandList).exec((err, replies) => {
-                                        for (let i = 0, x = replies.length / 10; i < x; i++) {
-                                            selectedSensorInformationList.push([
-                                                replies[i * 10],
-                                                replies[i * 10 + 1],
-                                                replies[i * 10 + 2],
-                                                replies[i * 10 + 3],
-                                                replies[i * 10 + 4],
-                                                //replies[i * 10 + 5],
-                                                //replies[i * 10 + 6],
-                                                //replies[i * 10 + 7],
-                                                '',
-                                                '',
-                                                '',
-                                                replies[i * 10 + 8],
-                                                ''
-                                            ]);
-                                        }
-                                        payload.resultCode = g.SDP_MSG_RESCODE.RESCODE_SDP_SLV.RESCODE_SDP_SLV_OK;
-                                        payload.existCode = 0;
-                                        payload.selectedSensorInformationList = selectedSensorInformationList;
-                                        protocol.packMsg(g.SDP_MSG_TYPE.SDP_SLV_RSP, payload);
-
-                                        logger.debug(`| DATABASE Send response: ${JSON.stringify(protocol.getPackedMsg())}`);
-                                        res.send(protocol.getPackedMsg());
-                                    });
-                                }
+                                });
                             }
                         });
                     //signed-out
