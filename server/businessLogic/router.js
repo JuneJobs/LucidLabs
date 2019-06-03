@@ -4088,6 +4088,7 @@ router.post("/databaseapi", (req, res) => {
          * Author: Junhee Park
          */
         case g.SDP_MSG_TYPE.SDP_SGI_REQ:
+            console.log('test');
             return redisCli.get(`u:info:id:${unpackedPayload.userId}`, (err, usn) => {
                 if (err) {} else {
                     endpointIdType = g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN;
