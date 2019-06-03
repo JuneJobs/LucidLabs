@@ -2182,6 +2182,7 @@ router.post("/serverapi", function (req, res) {
                                 if (!protocol.verifyHeader()) return;
                                 unpackedPayload = protocol.unpackPayload();
                                 if (!unpackedPayload) return;
+                                console.log('test');
                                 switch (unpackedPayload.resultCode) {
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_OK:
                                         uModule.updateUserSignedInState(g.ENTITY_TYPE.APPCLIENT, protocol.getEndpointId(), (result) => {
