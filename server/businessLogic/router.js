@@ -2189,7 +2189,7 @@ router.post("/serverapi", function (req, res) {
                                             if (result) {
                                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_OK;
                                                 protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
-                                                console.log(payload);
+                                                console.log(1);
                                                 state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
@@ -2202,6 +2202,7 @@ router.post("/serverapi", function (req, res) {
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_OTHER:
                                         payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_OTHER;
                                         protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
+                                                console.log(2);
 
                                         logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                                         res.send(protocol.getPackedMsg());
@@ -2210,6 +2211,7 @@ router.post("/serverapi", function (req, res) {
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_UNALLOCATED_USER_SEQUENCE_NUMBER:
                                         payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_UNALLOCATED_USER_SEQUENCE_NUMBER;
                                         protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
+                                        console.log(3);
 
                                         logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                                         res.send(protocol.getPackedMsg());
@@ -2219,6 +2221,7 @@ router.post("/serverapi", function (req, res) {
                                         payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SDP_SAS_NOT_EXIST_WIFI_MAC_ADDRESS;
                                         protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
 
+                                                console.log(3);
                                         logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                                         res.send(protocol.getPackedMsg());
                                         break;
@@ -2227,6 +2230,7 @@ router.post("/serverapi", function (req, res) {
                                         payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_THE_REQUESTED_WIFI_MAC_WAS_ALREADY_ASSOCIATED_WITH_OWN_USN;
                                         protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
 
+                                                console.log(4);
                                         logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                                         res.send(protocol.getPackedMsg());
                                         break;
@@ -2236,6 +2240,7 @@ router.post("/serverapi", function (req, res) {
                             payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_INCORRECT_NUMBER_OF_SIGNED_IN_COMPLETIONS;
                             protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
 
+                                                console.log(5);
                             logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                             res.send(protocol.getPackedMsg());
                         }
@@ -2244,6 +2249,7 @@ router.post("/serverapi", function (req, res) {
                     payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_OTHER;
                     protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
 
+                                                console.log(6);
                     logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
                     res.send(protocol.getPackedMsg());
                 }
