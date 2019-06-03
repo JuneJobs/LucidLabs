@@ -1508,7 +1508,7 @@ class LlProtocol {
                     return this._packSdpShrRsp(payload);
 
                 //KAS
-                case g.SWP_MSG_TYPE.SWP_KAS_RSP:
+                case g.SAP_MSG_TYPE.SAP_KAS_RSP:
                     return this._packSwpKasRsp(payload);
                 case g.SWP_MSG_TYPE.SWP_KAS_RSP:
                     return this._packSwpKasRsp(payload);

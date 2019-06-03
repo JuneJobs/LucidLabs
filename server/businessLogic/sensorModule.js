@@ -27,6 +27,7 @@ class sensorModule {
                         return cb(reply);
                     });
                 } else {
+                    redisCli.incr("c:key:ssn:user");
                     redisCli.get("c:key:ssn:user", (err, reply) => {
                         return cb(reply);
                     });

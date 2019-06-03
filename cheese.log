@@ -1,0 +1,949 @@
+[2019-05-30T13:24:30.946] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-30T13:24:30.950] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park"}}
+[2019-05-30T13:24:30.955] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-05-30T13:24:30.956] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park","clientType":2}}
+[2019-05-30T13:24:30.956] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-05-30T13:24:30.972] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park","clientType":2}}
+[2019-05-30T13:24:30.972] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2019-05-30T13:24:30.972] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":3},"payload":{"resultCode":0}}
+[2019-05-30T13:24:30.973] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-05-30T13:24:30.988] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE
+[2019-05-30T13:24:30.988] [DEBUG] default - | Server Send response: {"header":{"msgType":102,"msgLen":0,"endpointId":3},"payload":{"resultCode":0,"vc":"6714"}}
+[2019-05-30T13:24:31.002] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park","clientType":2}
+[2019-05-30T13:24:48.056] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-30T13:24:48.056] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park"}}
+[2019-05-30T13:24:48.057] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-05-30T13:24:48.057] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park","clientType":2}}
+[2019-05-30T13:24:48.057] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-05-30T13:24:48.063] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park","clientType":2}}
+[2019-05-30T13:24:48.064] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2019-05-30T13:24:48.064] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":3},"payload":{"resultCode":0}}
+[2019-05-30T13:24:48.064] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-05-30T13:24:48.068] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED_STATE
+[2019-05-30T13:24:48.068] [DEBUG] default - | Server Send response: {"header":{"msgType":102,"msgLen":0,"endpointId":3},"payload":{"resultCode":0,"vc":"7470"}}
+[2019-05-30T13:24:48.071] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park","clientType":2}
+[2019-05-30T13:24:57.373] [DEBUG] default - Running on port 8080
+[2019-05-30T13:25:57.372] [DEBUG] default - Running on port 8080
+[2019-05-30T13:26:57.375] [DEBUG] default - Running on port 8080
+[2019-05-30T13:27:57.379] [DEBUG] default - Running on port 8080
+[2019-05-30T13:28:57.378] [DEBUG] default - Running on port 8080
+[2019-05-30T13:29:57.380] [DEBUG] default - Running on port 8080
+[2019-05-30T13:30:57.379] [DEBUG] default - Running on port 8080
+[2019-05-30T13:31:57.378] [DEBUG] default - Running on port 8080
+[2019-05-30T13:32:57.377] [DEBUG] default - Running on port 8080
+[2019-05-30T13:33:57.380] [DEBUG] default - Running on port 8080
+[2019-05-30T13:34:57.382] [DEBUG] default - Running on port 8080
+[2019-05-30T13:35:57.382] [DEBUG] default - Running on port 8080
+[2019-05-30T13:36:57.383] [DEBUG] default - Running on port 8080
+[2019-05-30T13:37:57.381] [DEBUG] default - Running on port 8080
+[2019-05-30T13:38:57.379] [DEBUG] default - Running on port 8080
+[2019-05-30T13:39:57.379] [DEBUG] default - Running on port 8080
+[2019-05-30T13:40:57.377] [DEBUG] default - Running on port 8080
+[2019-05-30T13:41:57.376] [DEBUG] default - Running on port 8080
+[2019-05-30T13:42:57.379] [DEBUG] default - Running on port 8080
+[2019-05-30T13:43:57.380] [DEBUG] default - Running on port 8080
+[2019-05-30T13:44:57.380] [DEBUG] default - Running on port 8080
+[2019-05-30T13:45:57.377] [DEBUG] default - Running on port 8080
+[2019-05-30T13:46:57.376] [DEBUG] default - Running on port 8080
+[2019-05-30T13:47:57.374] [DEBUG] default - Running on port 8080
+[2019-05-30T13:48:57.371] [DEBUG] default - Running on port 8080
+[2019-05-30T13:49:57.366] [DEBUG] default - Running on port 8080
+[2019-05-30T13:50:57.366] [DEBUG] default - Running on port 8080
+[2019-05-30T13:51:57.368] [DEBUG] default - Running on port 8080
+[2019-05-30T13:52:57.368] [DEBUG] default - Running on port 8080
+[2019-05-30T13:53:57.371] [DEBUG] default - Running on port 8080
+[2019-05-30T13:54:57.374] [DEBUG] default - Running on port 8080
+[2019-05-30T13:55:57.373] [DEBUG] default - Running on port 8080
+[2019-05-30T13:56:57.375] [DEBUG] default - Running on port 8080
+[2019-05-30T13:57:57.375] [DEBUG] default - Running on port 8080
+[2019-05-30T13:58:57.375] [DEBUG] default - Running on port 8080
+[2019-05-30T13:59:57.376] [DEBUG] default - Running on port 8080
+[2019-05-30T14:00:57.374] [DEBUG] default - Running on port 8080
+[2019-05-30T14:01:57.376] [DEBUG] default - Running on port 8080
+[2019-05-30T14:02:57.377] [DEBUG] default - Running on port 8080
+[2019-05-30T14:03:57.380] [DEBUG] default - Running on port 8080
+[2019-05-30T14:04:57.380] [DEBUG] default - Running on port 8080
+[2019-05-30T14:05:57.382] [DEBUG] default - Running on port 8080
+[2019-05-30T14:06:57.385] [DEBUG] default - Running on port 8080
+[2019-05-30T14:07:57.386] [DEBUG] default - Running on port 8080
+[2019-05-30T14:08:57.384] [DEBUG] default - Running on port 8080
+[2019-05-30T14:09:57.381] [DEBUG] default - Running on port 8080
+[2019-05-30T14:10:57.382] [DEBUG] default - Running on port 8080
+[2019-05-30T14:11:57.382] [DEBUG] default - Running on port 8080
+[2019-05-30T14:12:57.383] [DEBUG] default - Running on port 8080
+[2019-05-30T14:13:57.383] [DEBUG] default - Running on port 8080
+[2019-05-30T14:14:57.382] [DEBUG] default - Running on port 8080
+[2019-05-30T14:15:57.382] [DEBUG] default - Running on port 8080
+[2019-05-30T14:16:57.383] [DEBUG] default - Running on port 8080
+[2019-05-30T14:17:57.385] [DEBUG] default - Running on port 8080
+[2019-05-30T14:18:57.382] [DEBUG] default - Running on port 8080
+[2019-05-30T14:19:57.382] [DEBUG] default - Running on port 8080
+[2019-05-30T14:20:57.385] [DEBUG] default - Running on port 8080
+[2019-05-30T14:21:57.387] [DEBUG] default - Running on port 8080
+[2019-05-30T14:22:57.385] [DEBUG] default - Running on port 8080
+[2019-05-30T14:23:57.383] [DEBUG] default - Running on port 8080
+[2019-05-30T14:24:57.385] [DEBUG] default - Running on port 8080
+[2019-05-30T14:25:57.386] [DEBUG] default - Running on port 8080
+[2019-05-30T14:26:57.384] [DEBUG] default - Running on port 8080
+[2019-05-30T14:27:57.386] [DEBUG] default - Running on port 8080
+[2019-05-30T14:28:57.389] [DEBUG] default - Running on port 8080
+[2019-05-30T14:29:57.392] [DEBUG] default - Running on port 8080
+[2019-05-30T14:30:57.390] [DEBUG] default - Running on port 8080
+[2019-05-30T14:31:57.391] [DEBUG] default - Running on port 8080
+[2019-05-30T14:32:57.391] [DEBUG] default - Running on port 8080
+[2019-05-30T14:33:57.391] [DEBUG] default - Running on port 8080
+[2019-05-30T14:34:57.393] [DEBUG] default - Running on port 8080
+[2019-05-30T14:35:57.391] [DEBUG] default - Running on port 8080
+[2019-05-30T14:36:57.389] [DEBUG] default - Running on port 8080
+[2019-05-30T14:37:57.389] [DEBUG] default - Running on port 8080
+[2019-05-30T14:38:57.392] [DEBUG] default - Running on port 8080
+[2019-05-30T14:39:57.394] [DEBUG] default - Running on port 8080
+[2019-05-30T14:40:57.394] [DEBUG] default - Running on port 8080
+[2019-05-30T14:41:57.394] [DEBUG] default - Running on port 8080
+[2019-05-30T14:42:57.396] [DEBUG] default - Running on port 8080
+[2019-05-30T14:43:57.396] [DEBUG] default - Running on port 8080
+[2019-05-30T14:44:57.395] [DEBUG] default - Running on port 8080
+[2019-05-30T14:45:57.397] [DEBUG] default - Running on port 8080
+[2019-05-30T14:46:57.396] [DEBUG] default - Running on port 8080
+[2019-05-30T14:47:57.405] [DEBUG] default - Running on port 8080
+[2019-05-30T14:48:57.405] [DEBUG] default - Running on port 8080
+[2019-05-30T14:49:57.407] [DEBUG] default - Running on port 8080
+[2019-05-30T14:50:57.409] [DEBUG] default - Running on port 8080
+[2019-05-30T14:51:57.407] [DEBUG] default - Running on port 8080
+[2019-05-30T14:52:57.408] [DEBUG] default - Running on port 8080
+[2019-05-30T14:53:57.414] [DEBUG] default - Running on port 8080
+[2019-05-30T14:54:57.413] [DEBUG] default - Running on port 8080
+[2019-05-30T14:55:57.420] [DEBUG] default - Running on port 8080
+[2019-05-30T14:56:57.425] [DEBUG] default - Running on port 8080
+[2019-05-30T14:57:57.429] [DEBUG] default - Running on port 8080
+[2019-05-30T14:58:57.428] [DEBUG] default - Running on port 8080
+[2019-05-30T14:59:57.431] [DEBUG] default - Running on port 8080
+[2019-05-30T15:00:57.435] [DEBUG] default - Running on port 8080
+[2019-05-30T15:01:57.434] [DEBUG] default - Running on port 8080
+[2019-05-30T15:02:57.441] [DEBUG] default - Running on port 8080
+[2019-05-30T15:03:57.440] [DEBUG] default - Running on port 8080
+[2019-05-30T15:04:57.438] [DEBUG] default - Running on port 8080
+[2019-05-30T15:05:57.440] [DEBUG] default - Running on port 8080
+[2019-05-30T15:06:57.444] [DEBUG] default - Running on port 8080
+[2019-05-30T15:07:57.445] [DEBUG] default - Running on port 8080
+[2019-05-30T15:08:57.457] [DEBUG] default - Running on port 8080
+[2019-05-30T15:09:57.463] [DEBUG] default - Running on port 8080
+[2019-05-30T15:10:57.465] [DEBUG] default - Running on port 8080
+[2019-05-30T15:11:57.463] [DEBUG] default - Running on port 8080
+[2019-05-30T15:12:57.464] [DEBUG] default - Running on port 8080
+[2019-05-30T15:13:57.467] [DEBUG] default - Running on port 8080
+[2019-05-30T15:14:57.468] [DEBUG] default - Running on port 8080
+[2019-05-30T15:15:57.469] [DEBUG] default - Running on port 8080
+[2019-05-30T15:16:57.472] [DEBUG] default - Running on port 8080
+[2019-05-30T15:17:57.474] [DEBUG] default - Running on port 8080
+[2019-05-30T15:18:57.473] [DEBUG] default - Running on port 8080
+[2019-05-30T15:19:57.474] [DEBUG] default - Running on port 8080
+[2019-05-30T15:20:57.476] [DEBUG] default - Running on port 8080
+[2019-05-30T15:21:57.477] [DEBUG] default - Running on port 8080
+[2019-05-30T15:22:57.476] [DEBUG] default - Running on port 8080
+[2019-05-30T15:23:57.474] [DEBUG] default - Running on port 8080
+[2019-05-30T15:24:57.472] [DEBUG] default - Running on port 8080
+[2019-05-30T15:25:57.470] [DEBUG] default - Running on port 8080
+[2019-05-30T15:26:57.468] [DEBUG] default - Running on port 8080
+[2019-05-30T15:27:57.473] [DEBUG] default - Running on port 8080
+[2019-05-30T15:28:57.476] [DEBUG] default - Running on port 8080
+[2019-05-30T15:29:57.476] [DEBUG] default - Running on port 8080
+[2019-05-30T15:30:57.474] [DEBUG] default - Running on port 8080
+[2019-05-30T15:31:57.473] [DEBUG] default - Running on port 8080
+[2019-05-30T15:32:57.472] [DEBUG] default - Running on port 8080
+[2019-05-30T15:33:57.474] [DEBUG] default - Running on port 8080
+[2019-05-30T15:34:57.475] [DEBUG] default - Running on port 8080
+[2019-05-30T15:35:57.474] [DEBUG] default - Running on port 8080
+[2019-05-30T15:36:57.476] [DEBUG] default - Running on port 8080
+[2019-05-30T15:37:57.478] [DEBUG] default - Running on port 8080
+[2019-05-30T15:38:57.476] [DEBUG] default - Running on port 8080
+[2019-05-30T15:39:57.474] [DEBUG] default - Running on port 8080
+[2019-05-30T15:40:57.472] [DEBUG] default - Running on port 8080
+[2019-05-30T15:41:57.471] [DEBUG] default - Running on port 8080
+[2019-05-30T15:42:57.468] [DEBUG] default - Running on port 8080
+[2019-05-30T15:43:57.471] [DEBUG] default - Running on port 8080
+[2019-05-30T15:44:57.474] [DEBUG] default - Running on port 8080
+[2019-05-30T15:45:57.480] [DEBUG] default - Running on port 8080
+[2019-05-30T15:46:57.484] [DEBUG] default - Running on port 8080
+[2019-05-30T15:47:57.485] [DEBUG] default - Running on port 8080
+[2019-05-30T15:48:57.491] [DEBUG] default - Running on port 8080
+[2019-05-30T15:49:57.489] [DEBUG] default - Running on port 8080
+[2019-05-30T15:50:57.488] [DEBUG] default - Running on port 8080
+[2019-05-30T15:51:57.489] [DEBUG] default - Running on port 8080
+[2019-05-30T15:52:57.491] [DEBUG] default - Running on port 8080
+[2019-05-30T15:53:57.493] [DEBUG] default - Running on port 8080
+[2019-05-30T15:54:57.494] [DEBUG] default - Running on port 8080
+[2019-05-30T15:55:57.495] [DEBUG] default - Running on port 8080
+[2019-05-30T15:56:57.493] [DEBUG] default - Running on port 8080
+[2019-05-30T15:57:57.496] [DEBUG] default - Running on port 8080
+[2019-05-30T15:58:57.495] [DEBUG] default - Running on port 8080
+[2019-05-30T15:59:57.494] [DEBUG] default - Running on port 8080
+[2019-05-30T16:00:57.496] [DEBUG] default - Running on port 8080
+[2019-05-30T16:01:57.498] [DEBUG] default - Running on port 8080
+[2019-05-30T16:02:57.502] [DEBUG] default - Running on port 8080
+[2019-05-30T16:03:57.501] [DEBUG] default - Running on port 8080
+[2019-05-30T16:04:57.499] [DEBUG] default - Running on port 8080
+[2019-05-30T16:05:57.501] [DEBUG] default - Running on port 8080
+[2019-05-30T16:06:57.505] [DEBUG] default - Running on port 8080
+[2019-05-30T16:07:57.503] [DEBUG] default - Running on port 8080
+[2019-05-30T16:08:57.501] [DEBUG] default - Running on port 8080
+[2019-05-30T16:09:57.502] [DEBUG] default - Running on port 8080
+[2019-05-30T16:10:57.505] [DEBUG] default - Running on port 8080
+[2019-05-30T16:11:57.506] [DEBUG] default - Running on port 8080
+[2019-05-30T16:12:57.508] [DEBUG] default - Running on port 8080
+[2019-05-30T16:13:57.504] [DEBUG] default - Running on port 8080
+[2019-05-30T16:14:57.506] [DEBUG] default - Running on port 8080
+[2019-05-30T16:15:57.505] [DEBUG] default - Running on port 8080
+[2019-05-30T16:16:57.506] [DEBUG] default - Running on port 8080
+[2019-05-30T16:17:57.508] [DEBUG] default - Running on port 8080
+[2019-05-30T16:18:57.510] [DEBUG] default - Running on port 8080
+[2019-05-30T16:19:57.509] [DEBUG] default - Running on port 8080
+[2019-05-30T16:20:57.513] [DEBUG] default - Running on port 8080
+[2019-05-30T16:21:57.513] [DEBUG] default - Running on port 8080
+[2019-05-30T16:22:57.516] [DEBUG] default - Running on port 8080
+[2019-05-30T16:23:57.518] [DEBUG] default - Running on port 8080
+[2019-05-30T16:24:57.517] [DEBUG] default - Running on port 8080
+[2019-05-30T16:25:57.520] [DEBUG] default - Running on port 8080
+[2019-05-30T16:26:57.519] [DEBUG] default - Running on port 8080
+[2019-05-30T16:27:57.521] [DEBUG] default - Running on port 8080
+[2019-05-30T16:28:57.523] [DEBUG] default - Running on port 8080
+[2019-05-30T16:29:57.522] [DEBUG] default - Running on port 8080
+[2019-05-30T16:30:57.521] [DEBUG] default - Running on port 8080
+[2019-05-30T16:31:57.519] [DEBUG] default - Running on port 8080
+[2019-05-30T16:32:57.519] [DEBUG] default - Running on port 8080
+[2019-05-30T16:33:57.517] [DEBUG] default - Running on port 8080
+[2019-05-30T16:34:57.520] [DEBUG] default - Running on port 8080
+[2019-05-30T16:35:57.520] [DEBUG] default - Running on port 8080
+[2019-05-30T16:36:57.519] [DEBUG] default - Running on port 8080
+[2019-05-30T16:37:57.521] [DEBUG] default - Running on port 8080
+[2019-05-30T16:38:57.522] [DEBUG] default - Running on port 8080
+[2019-05-30T16:39:57.521] [DEBUG] default - Running on port 8080
+[2019-05-30T16:40:57.522] [DEBUG] default - Running on port 8080
+[2019-05-30T16:41:57.529] [DEBUG] default - Running on port 8080
+[2019-05-30T16:42:57.530] [DEBUG] default - Running on port 8080
+[2019-05-30T16:43:57.534] [DEBUG] default - Running on port 8080
+[2019-05-30T16:44:57.537] [DEBUG] default - Running on port 8080
+[2019-05-30T16:45:57.536] [DEBUG] default - Running on port 8080
+[2019-05-30T16:46:57.539] [DEBUG] default - Running on port 8080
+[2019-05-30T16:47:57.543] [DEBUG] default - Running on port 8080
+[2019-05-30T16:48:57.549] [DEBUG] default - Running on port 8080
+[2019-05-30T16:49:57.547] [DEBUG] default - Running on port 8080
+[2019-05-30T16:50:57.553] [DEBUG] default - Running on port 8080
+[2019-05-30T16:51:57.559] [DEBUG] default - Running on port 8080
+[2019-05-30T16:52:57.564] [DEBUG] default - Running on port 8080
+[2019-05-30T16:53:57.561] [DEBUG] default - Running on port 8080
+[2019-05-30T16:54:57.566] [DEBUG] default - Running on port 8080
+[2019-05-30T16:55:57.570] [DEBUG] default - Running on port 8080
+[2019-05-30T16:56:57.576] [DEBUG] default - Running on port 8080
+[2019-05-30T16:57:57.580] [DEBUG] default - Running on port 8080
+[2019-05-30T16:58:57.588] [DEBUG] default - Running on port 8080
+[2019-05-30T16:59:57.588] [DEBUG] default - Running on port 8080
+[2019-05-30T17:00:57.587] [DEBUG] default - Running on port 8080
+[2019-05-30T17:01:57.593] [DEBUG] default - Running on port 8080
+[2019-05-30T17:02:57.600] [DEBUG] default - Running on port 8080
+[2019-05-30T17:03:57.604] [DEBUG] default - Running on port 8080
+[2019-05-30T17:04:57.609] [DEBUG] default - Running on port 8080
+[2019-05-30T17:05:57.615] [DEBUG] default - Running on port 8080
+[2019-05-30T17:06:57.619] [DEBUG] default - Running on port 8080
+[2019-05-30T17:07:57.623] [DEBUG] default - Running on port 8080
+[2019-05-30T17:08:57.628] [DEBUG] default - Running on port 8080
+[2019-05-30T17:09:57.626] [DEBUG] default - Running on port 8080
+[2019-05-30T17:10:57.630] [DEBUG] default - Running on port 8080
+[2019-05-30T17:11:57.634] [DEBUG] default - Running on port 8080
+[2019-05-30T17:12:57.636] [DEBUG] default - Running on port 8080
+[2019-05-30T17:13:57.642] [DEBUG] default - Running on port 8080
+[2019-05-30T17:14:57.655] [DEBUG] default - Running on port 8080
+[2019-05-30T17:15:57.655] [DEBUG] default - Running on port 8080
+[2019-05-30T17:16:57.657] [DEBUG] default - Running on port 8080
+[2019-05-30T17:17:57.659] [DEBUG] default - Running on port 8080
+[2019-05-30T17:18:57.663] [DEBUG] default - Running on port 8080
+[2019-05-30T17:19:57.661] [DEBUG] default - Running on port 8080
+[2019-05-30T17:20:57.662] [DEBUG] default - Running on port 8080
+[2019-05-30T17:21:57.661] [DEBUG] default - Running on port 8080
+[2019-05-30T17:22:57.665] [DEBUG] default - Running on port 8080
+[2019-05-30T17:23:57.674] [DEBUG] default - Running on port 8080
+[2019-05-30T17:24:57.682] [DEBUG] default - Running on port 8080
+[2019-05-30T17:25:57.683] [DEBUG] default - Running on port 8080
+[2019-05-30T17:26:57.687] [DEBUG] default - Running on port 8080
+[2019-05-30T17:27:57.695] [DEBUG] default - Running on port 8080
+[2019-05-30T17:28:57.702] [DEBUG] default - Running on port 8080
+[2019-05-30T17:29:57.711] [DEBUG] default - Running on port 8080
+[2019-05-30T17:30:57.719] [DEBUG] default - Running on port 8080
+[2019-05-30T17:31:57.721] [DEBUG] default - Running on port 8080
+[2019-05-30T17:32:57.729] [DEBUG] default - Running on port 8080
+[2019-05-30T17:33:57.728] [DEBUG] default - Running on port 8080
+[2019-05-30T17:34:57.735] [DEBUG] default - Running on port 8080
+[2019-05-30T17:35:57.738] [DEBUG] default - Running on port 8080
+[2019-05-30T17:36:57.736] [DEBUG] default - Running on port 8080
+[2019-05-30T17:37:57.733] [DEBUG] default - Running on port 8080
+[2019-05-30T17:38:57.731] [DEBUG] default - Running on port 8080
+[2019-05-30T17:39:57.729] [DEBUG] default - Running on port 8080
+[2019-05-30T17:40:57.736] [DEBUG] default - Running on port 8080
+[2019-05-30T17:41:57.736] [DEBUG] default - Running on port 8080
+[2019-05-30T17:42:57.734] [DEBUG] default - Running on port 8080
+[2019-05-30T17:43:57.734] [DEBUG] default - Running on port 8080
+[2019-05-30T17:44:57.742] [DEBUG] default - Running on port 8080
+[2019-05-30T17:45:57.748] [DEBUG] default - Running on port 8080
+[2019-05-30T17:46:57.746] [DEBUG] default - Running on port 8080
+[2019-05-30T17:47:57.748] [DEBUG] default - Running on port 8080
+[2019-05-30T17:48:57.748] [DEBUG] default - Running on port 8080
+[2019-05-30T17:49:57.755] [DEBUG] default - Running on port 8080
+[2019-05-30T17:50:57.758] [DEBUG] default - Running on port 8080
+[2019-05-30T17:51:57.766] [DEBUG] default - Running on port 8080
+[2019-05-30T17:52:57.768] [DEBUG] default - Running on port 8080
+[2019-05-30T17:53:57.769] [DEBUG] default - Running on port 8080
+[2019-05-30T17:54:57.767] [DEBUG] default - Running on port 8080
+[2019-05-30T17:55:57.775] [DEBUG] default - Running on port 8080
+[2019-05-30T17:56:57.776] [DEBUG] default - Running on port 8080
+[2019-05-30T17:57:57.780] [DEBUG] default - Running on port 8080
+[2019-05-30T17:58:57.785] [DEBUG] default - Running on port 8080
+[2019-05-30T17:59:57.789] [DEBUG] default - Running on port 8080
+[2019-05-30T18:00:57.786] [DEBUG] default - Running on port 8080
+[2019-05-30T18:01:57.786] [DEBUG] default - Running on port 8080
+[2019-05-30T18:02:57.791] [DEBUG] default - Running on port 8080
+[2019-05-30T18:03:57.798] [DEBUG] default - Running on port 8080
+[2019-05-30T18:04:57.806] [DEBUG] default - Running on port 8080
+[2019-05-30T18:05:57.810] [DEBUG] default - Running on port 8080
+[2019-05-30T18:06:57.813] [DEBUG] default - Running on port 8080
+[2019-05-30T18:07:57.812] [DEBUG] default - Running on port 8080
+[2019-05-30T18:08:57.820] [DEBUG] default - Running on port 8080
+[2019-05-30T18:09:57.827] [DEBUG] default - Running on port 8080
+[2019-05-30T18:10:57.829] [DEBUG] default - Running on port 8080
+[2019-05-30T18:11:57.828] [DEBUG] default - Running on port 8080
+[2019-05-30T18:12:57.833] [DEBUG] default - Running on port 8080
+[2019-05-30T18:13:57.834] [DEBUG] default - Running on port 8080
+[2019-05-30T18:14:57.841] [DEBUG] default - Running on port 8080
+[2019-05-30T18:15:57.848] [DEBUG] default - Running on port 8080
+[2019-05-30T18:16:57.849] [DEBUG] default - Running on port 8080
+[2019-05-30T18:17:57.848] [DEBUG] default - Running on port 8080
+[2019-05-30T18:18:57.846] [DEBUG] default - Running on port 8080
+[2019-05-30T18:19:57.854] [DEBUG] default - Running on port 8080
+[2019-05-30T18:20:57.856] [DEBUG] default - Running on port 8080
+[2019-05-30T18:21:57.861] [DEBUG] default - Running on port 8080
+[2019-05-30T18:22:57.869] [DEBUG] default - Running on port 8080
+[2019-05-30T18:23:57.870] [DEBUG] default - Running on port 8080
+[2019-05-30T18:24:57.877] [DEBUG] default - Running on port 8080
+[2019-05-30T18:25:57.882] [DEBUG] default - Running on port 8080
+[2019-05-30T18:26:57.884] [DEBUG] default - Running on port 8080
+[2019-05-30T18:27:57.885] [DEBUG] default - Running on port 8080
+[2019-05-30T18:28:57.892] [DEBUG] default - Running on port 8080
+[2019-05-30T18:29:57.893] [DEBUG] default - Running on port 8080
+[2019-05-30T18:30:57.899] [DEBUG] default - Running on port 8080
+[2019-05-30T18:31:57.900] [DEBUG] default - Running on port 8080
+[2019-05-30T18:32:57.905] [DEBUG] default - Running on port 8080
+[2019-05-30T18:33:57.904] [DEBUG] default - Running on port 8080
+[2019-05-30T18:34:57.912] [DEBUG] default - Running on port 8080
+[2019-05-30T18:35:57.912] [DEBUG] default - Running on port 8080
+[2019-05-30T18:36:57.909] [DEBUG] default - Running on port 8080
+[2019-05-30T18:37:57.907] [DEBUG] default - Running on port 8080
+[2019-05-30T18:38:57.915] [DEBUG] default - Running on port 8080
+[2019-05-30T18:39:57.920] [DEBUG] default - Running on port 8080
+[2019-05-30T20:40:58.504] [DEBUG] default - Running on port 8080
+[2019-05-31T08:15:51.916] [DEBUG] default - Running on port 8080
+[2019-05-31T09:00:17.283] [DEBUG] default - Running on port 8080
+[2019-05-31T09:01:17.281] [DEBUG] default - Running on port 8080
+[2019-05-31T09:02:17.279] [DEBUG] default - Running on port 8080
+[2019-05-31T09:03:17.279] [DEBUG] default - Running on port 8080
+[2019-05-31T09:04:17.280] [DEBUG] default - Running on port 8080
+[2019-05-31T09:05:17.276] [DEBUG] default - Running on port 8080
+[2019-05-31T09:06:17.276] [DEBUG] default - Running on port 8080
+[2019-05-31T09:07:17.274] [DEBUG] default - Running on port 8080
+[2019-05-31T09:08:17.274] [DEBUG] default - Running on port 8080
+[2019-05-31T09:09:17.276] [DEBUG] default - Running on port 8080
+[2019-05-31T09:10:17.276] [DEBUG] default - Running on port 8080
+[2019-05-31T09:11:17.274] [DEBUG] default - Running on port 8080
+[2019-05-31T09:12:17.272] [DEBUG] default - Running on port 8080
+[2019-05-31T09:13:17.273] [DEBUG] default - Running on port 8080
+[2019-05-31T09:14:17.274] [DEBUG] default - Running on port 8080
+[2019-05-31T09:15:17.272] [DEBUG] default - Running on port 8080
+[2019-05-31T09:16:17.269] [DEBUG] default - Running on port 8080
+[2019-05-31T09:17:17.270] [DEBUG] default - Running on port 8080
+[2019-05-31T09:18:17.271] [DEBUG] default - Running on port 8080
+[2019-05-31T09:19:17.270] [DEBUG] default - Running on port 8080
+[2019-05-31T09:20:17.270] [DEBUG] default - Running on port 8080
+[2019-05-31T09:21:17.269] [DEBUG] default - Running on port 8080
+[2019-05-31T09:22:17.270] [DEBUG] default - Running on port 8080
+[2019-05-31T09:23:17.271] [DEBUG] default - Running on port 8080
+[2019-05-31T09:24:17.268] [DEBUG] default - Running on port 8080
+[2019-05-31T09:25:17.267] [DEBUG] default - Running on port 8080
+[2019-05-31T09:26:17.268] [DEBUG] default - Running on port 8080
+[2019-05-31T09:27:17.265] [DEBUG] default - Running on port 8080
+[2019-05-31T09:28:17.268] [DEBUG] default - Running on port 8080
+[2019-05-31T09:29:17.269] [DEBUG] default - Running on port 8080
+[2019-05-31T09:30:17.270] [DEBUG] default - Running on port 8080
+[2019-05-31T09:31:17.274] [DEBUG] default - Running on port 8080
+[2019-05-31T09:32:17.276] [DEBUG] default - Running on port 8080
+[2019-05-31T09:33:17.278] [DEBUG] default - Running on port 8080
+[2019-05-31T09:34:17.279] [DEBUG] default - Running on port 8080
+[2019-05-31T09:35:17.278] [DEBUG] default - Running on port 8080
+[2019-05-31T09:36:17.280] [DEBUG] default - Running on port 8080
+[2019-05-31T09:37:17.277] [DEBUG] default - Running on port 8080
+[2019-05-31T09:38:17.279] [DEBUG] default - Running on port 8080
+[2019-05-31T09:39:17.279] [DEBUG] default - Running on port 8080
+[2019-05-31T09:40:17.279] [DEBUG] default - Running on port 8080
+[2019-05-31T09:41:17.280] [DEBUG] default - Running on port 8080
+[2019-05-31T09:42:17.280] [DEBUG] default - Running on port 8080
+[2019-05-31T09:43:17.282] [DEBUG] default - Running on port 8080
+[2019-05-31T09:44:17.284] [DEBUG] default - Running on port 8080
+[2019-05-31T09:45:17.282] [DEBUG] default - Running on port 8080
+[2019-05-31T09:46:17.294] [DEBUG] default - Running on port 8080
+[2019-05-31T09:47:17.296] [DEBUG] default - Running on port 8080
+[2019-05-31T09:48:17.296] [DEBUG] default - Running on port 8080
+[2019-05-31T09:49:17.297] [DEBUG] default - Running on port 8080
+[2019-05-31T09:50:17.297] [DEBUG] default - Running on port 8080
+[2019-05-31T09:51:17.299] [DEBUG] default - Running on port 8080
+[2019-05-31T09:52:17.297] [DEBUG] default - Running on port 8080
+[2019-05-31T09:53:17.297] [DEBUG] default - Running on port 8080
+[2019-05-31T09:54:17.296] [DEBUG] default - Running on port 8080
+[2019-05-31T09:55:17.299] [DEBUG] default - Running on port 8080
+[2019-05-31T09:56:17.301] [DEBUG] default - Running on port 8080
+[2019-05-31T09:57:17.302] [DEBUG] default - Running on port 8080
+[2019-05-31T09:58:17.304] [DEBUG] default - Running on port 8080
+[2019-05-31T09:59:17.306] [DEBUG] default - Running on port 8080
+[2019-05-31T10:00:17.308] [DEBUG] default - Running on port 8080
+[2019-05-31T10:01:17.309] [DEBUG] default - Running on port 8080
+[2019-05-31T10:02:17.311] [DEBUG] default - Running on port 8080
+[2019-05-31T10:03:17.310] [DEBUG] default - Running on port 8080
+[2019-05-31T10:04:17.308] [DEBUG] default - Running on port 8080
+[2019-05-31T10:05:17.306] [DEBUG] default - Running on port 8080
+[2019-05-31T10:06:17.312] [DEBUG] default - Running on port 8080
+[2019-05-31T10:07:17.319] [DEBUG] default - Running on port 8080
+[2019-05-31T10:08:17.321] [DEBUG] default - Running on port 8080
+[2019-05-31T10:09:17.323] [DEBUG] default - Running on port 8080
+[2019-05-31T10:10:17.322] [DEBUG] default - Running on port 8080
+[2019-05-31T10:11:17.320] [DEBUG] default - Running on port 8080
+[2019-05-31T10:12:17.318] [DEBUG] default - Running on port 8080
+[2019-05-31T10:13:17.316] [DEBUG] default - Running on port 8080
+[2019-05-31T10:14:17.314] [DEBUG] default - Running on port 8080
+[2019-05-31T10:15:17.313] [DEBUG] default - Running on port 8080
+[2019-05-31T10:16:17.312] [DEBUG] default - Running on port 8080
+[2019-05-31T10:17:17.313] [DEBUG] default - Running on port 8080
+[2019-05-31T10:18:17.316] [DEBUG] default - Running on port 8080
+[2019-05-31T10:19:17.315] [DEBUG] default - Running on port 8080
+[2019-05-31T10:20:17.318] [DEBUG] default - Running on port 8080
+[2019-05-31T10:21:17.321] [DEBUG] default - Running on port 8080
+[2019-05-31T10:22:17.324] [DEBUG] default - Running on port 8080
+[2019-05-31T10:23:17.322] [DEBUG] default - Running on port 8080
+[2019-05-31T10:24:17.325] [DEBUG] default - Running on port 8080
+[2019-05-31T10:25:17.328] [DEBUG] default - Running on port 8080
+[2019-05-31T10:26:17.328] [DEBUG] default - Running on port 8080
+[2019-05-31T10:27:17.329] [DEBUG] default - Running on port 8080
+[2019-05-31T10:28:17.335] [DEBUG] default - Running on port 8080
+[2019-05-31T10:29:17.344] [DEBUG] default - Running on port 8080
+[2019-05-31T10:30:17.342] [DEBUG] default - Running on port 8080
+[2019-05-31T10:31:17.349] [DEBUG] default - Running on port 8080
+[2019-05-31T10:32:17.353] [DEBUG] default - Running on port 8080
+[2019-05-31T10:33:17.348] [DEBUG] default - Running on port 8080
+[2019-05-31T10:34:17.356] [DEBUG] default - Running on port 8080
+[2019-05-31T10:35:17.357] [DEBUG] default - Running on port 8080
+[2019-05-31T10:36:17.365] [DEBUG] default - Running on port 8080
+[2019-05-31T10:37:17.368] [DEBUG] default - Running on port 8080
+[2019-05-31T10:38:17.377] [DEBUG] default - Running on port 8080
+[2019-05-31T10:39:17.376] [DEBUG] default - Running on port 8080
+[2019-05-31T10:40:17.376] [DEBUG] default - Running on port 8080
+[2019-05-31T10:41:17.384] [DEBUG] default - Running on port 8080
+[2019-05-31T10:42:17.389] [DEBUG] default - Running on port 8080
+[2019-05-31T10:43:17.387] [DEBUG] default - Running on port 8080
+[2019-05-31T10:44:17.389] [DEBUG] default - Running on port 8080
+[2019-05-31T10:45:17.390] [DEBUG] default - Running on port 8080
+[2019-05-31T10:46:17.391] [DEBUG] default - Running on port 8080
+[2019-05-31T10:47:17.393] [DEBUG] default - Running on port 8080
+[2019-05-31T10:48:17.395] [DEBUG] default - Running on port 8080
+[2019-05-31T10:49:17.394] [DEBUG] default - Running on port 8080
+[2019-05-31T10:50:17.398] [DEBUG] default - Running on port 8080
+[2019-05-31T10:51:17.395] [DEBUG] default - Running on port 8080
+[2019-05-31T10:52:17.394] [DEBUG] default - Running on port 8080
+[2019-05-31T10:53:17.390] [DEBUG] default - Running on port 8080
+[2019-05-31T10:54:17.390] [DEBUG] default - Running on port 8080
+[2019-05-31T10:55:17.393] [DEBUG] default - Running on port 8080
+[2019-05-31T10:56:17.391] [DEBUG] default - Running on port 8080
+[2019-05-31T10:57:17.392] [DEBUG] default - Running on port 8080
+[2019-05-31T10:58:17.396] [DEBUG] default - Running on port 8080
+[2019-05-31T10:59:17.394] [DEBUG] default - Running on port 8080
+[2019-05-31T11:00:17.391] [DEBUG] default - Running on port 8080
+[2019-05-31T11:01:17.390] [DEBUG] default - Running on port 8080
+[2019-05-31T11:02:17.388] [DEBUG] default - Running on port 8080
+[2019-05-31T11:03:17.386] [DEBUG] default - Running on port 8080
+[2019-05-31T11:04:17.388] [DEBUG] default - Running on port 8080
+[2019-05-31T11:05:17.392] [DEBUG] default - Running on port 8080
+[2019-05-31T11:06:17.390] [DEBUG] default - Running on port 8080
+[2019-05-31T11:07:17.393] [DEBUG] default - Running on port 8080
+[2019-05-31T11:08:17.391] [DEBUG] default - Running on port 8080
+[2019-05-31T11:09:17.395] [DEBUG] default - Running on port 8080
+[2019-05-31T11:10:17.398] [DEBUG] default - Running on port 8080
+[2019-05-31T11:11:17.400] [DEBUG] default - Running on port 8080
+[2019-05-31T11:12:17.405] [DEBUG] default - Running on port 8080
+[2019-05-31T11:13:17.410] [DEBUG] default - Running on port 8080
+[2019-05-31T11:14:17.413] [DEBUG] default - Running on port 8080
+[2019-05-31T11:15:17.415] [DEBUG] default - Running on port 8080
+[2019-05-31T11:16:17.418] [DEBUG] default - Running on port 8080
+[2019-05-31T11:17:17.416] [DEBUG] default - Running on port 8080
+[2019-05-31T11:18:17.417] [DEBUG] default - Running on port 8080
+[2019-05-31T11:19:17.420] [DEBUG] default - Running on port 8080
+[2019-05-31T11:20:17.419] [DEBUG] default - Running on port 8080
+[2019-05-31T11:21:17.419] [DEBUG] default - Running on port 8080
+[2019-05-31T11:22:17.421] [DEBUG] default - Running on port 8080
+[2019-05-31T11:23:17.421] [DEBUG] default - Running on port 8080
+[2019-05-31T11:24:17.422] [DEBUG] default - Running on port 8080
+[2019-05-31T11:25:17.426] [DEBUG] default - Running on port 8080
+[2019-05-31T11:26:17.426] [DEBUG] default - Running on port 8080
+[2019-05-31T11:27:17.428] [DEBUG] default - Running on port 8080
+[2019-05-31T11:28:17.433] [DEBUG] default - Running on port 8080
+[2019-05-31T11:29:17.436] [DEBUG] default - Running on port 8080
+[2019-05-31T11:30:17.439] [DEBUG] default - Running on port 8080
+[2019-05-31T11:31:17.437] [DEBUG] default - Running on port 8080
+[2019-05-31T11:32:17.435] [DEBUG] default - Running on port 8080
+[2019-05-31T11:33:17.435] [DEBUG] default - Running on port 8080
+[2019-05-31T11:34:17.434] [DEBUG] default - Running on port 8080
+[2019-05-31T11:35:17.446] [DEBUG] default - Running on port 8080
+[2019-05-31T11:36:17.449] [DEBUG] default - Running on port 8080
+[2019-05-31T11:37:17.447] [DEBUG] default - Running on port 8080
+[2019-05-31T11:38:17.448] [DEBUG] default - Running on port 8080
+[2019-05-31T11:39:17.448] [DEBUG] default - Running on port 8080
+[2019-05-31T11:40:17.451] [DEBUG] default - Running on port 8080
+[2019-05-31T11:41:17.453] [DEBUG] default - Running on port 8080
+[2019-05-31T11:42:17.451] [DEBUG] default - Running on port 8080
+[2019-05-31T11:43:17.453] [DEBUG] default - Running on port 8080
+[2019-05-31T11:44:17.456] [DEBUG] default - Running on port 8080
+[2019-05-31T11:45:17.457] [DEBUG] default - Running on port 8080
+[2019-05-31T11:46:17.460] [DEBUG] default - Running on port 8080
+[2019-05-31T11:47:17.459] [DEBUG] default - Running on port 8080
+[2019-05-31T11:48:17.460] [DEBUG] default - Running on port 8080
+[2019-05-31T11:49:17.461] [DEBUG] default - Running on port 8080
+[2019-05-31T11:50:17.462] [DEBUG] default - Running on port 8080
+[2019-05-31T11:51:17.460] [DEBUG] default - Running on port 8080
+[2019-05-31T11:52:17.460] [DEBUG] default - Running on port 8080
+[2019-05-31T11:53:17.464] [DEBUG] default - Running on port 8080
+[2019-05-31T11:54:17.463] [DEBUG] default - Running on port 8080
+[2019-05-31T11:55:17.464] [DEBUG] default - Running on port 8080
+[2019-05-31T11:56:17.466] [DEBUG] default - Running on port 8080
+[2019-05-31T11:57:17.467] [DEBUG] default - Running on port 8080
+[2019-05-31T11:58:17.469] [DEBUG] default - Running on port 8080
+[2019-05-31T11:59:17.469] [DEBUG] default - Running on port 8080
+[2019-05-31T12:00:17.471] [DEBUG] default - Running on port 8080
+[2019-05-31T12:01:17.472] [DEBUG] default - Running on port 8080
+[2019-05-31T12:02:17.473] [DEBUG] default - Running on port 8080
+[2019-05-31T12:03:17.465] [DEBUG] default - Running on port 8080
+[2019-05-31T12:04:17.462] [DEBUG] default - Running on port 8080
+[2019-05-31T12:05:17.461] [DEBUG] default - Running on port 8080
+[2019-05-31T12:06:17.463] [DEBUG] default - Running on port 8080
+[2019-05-31T12:07:17.461] [DEBUG] default - Running on port 8080
+[2019-05-31T12:08:17.459] [DEBUG] default - Running on port 8080
+[2019-05-31T12:09:17.460] [DEBUG] default - Running on port 8080
+[2019-05-31T12:10:17.463] [DEBUG] default - Running on port 8080
+[2019-05-31T12:11:17.465] [DEBUG] default - Running on port 8080
+[2019-05-31T12:12:17.472] [DEBUG] default - Running on port 8080
+[2019-05-31T12:13:17.481] [DEBUG] default - Running on port 8080
+[2019-05-31T12:14:17.482] [DEBUG] default - Running on port 8080
+[2019-05-31T12:15:17.486] [DEBUG] default - Running on port 8080
+[2019-05-31T12:16:17.486] [DEBUG] default - Running on port 8080
+[2019-05-31T12:17:17.495] [DEBUG] default - Running on port 8080
+[2019-05-31T12:18:17.494] [DEBUG] default - Running on port 8080
+[2019-05-31T12:19:17.501] [DEBUG] default - Running on port 8080
+[2019-05-31T12:20:17.508] [DEBUG] default - Running on port 8080
+[2019-05-31T12:21:17.512] [DEBUG] default - Running on port 8080
+[2019-05-31T12:22:17.520] [DEBUG] default - Running on port 8080
+[2019-05-31T12:23:17.521] [DEBUG] default - Running on port 8080
+[2019-05-31T12:24:17.529] [DEBUG] default - Running on port 8080
+[2019-05-31T12:25:17.528] [DEBUG] default - Running on port 8080
+[2019-05-31T12:26:17.535] [DEBUG] default - Running on port 8080
+[2019-05-31T12:27:17.536] [DEBUG] default - Running on port 8080
+[2019-05-31T12:28:17.544] [DEBUG] default - Running on port 8080
+[2019-05-31T12:29:17.542] [DEBUG] default - Running on port 8080
+[2019-05-31T12:30:17.543] [DEBUG] default - Running on port 8080
+[2019-05-31T12:31:17.551] [DEBUG] default - Running on port 8080
+[2019-05-31T12:32:17.558] [DEBUG] default - Running on port 8080
+[2019-05-31T12:33:17.555] [DEBUG] default - Running on port 8080
+[2019-05-31T12:34:17.553] [DEBUG] default - Running on port 8080
+[2019-05-31T12:35:17.558] [DEBUG] default - Running on port 8080
+[2019-05-31T12:36:17.561] [DEBUG] default - Running on port 8080
+[2019-05-31T12:37:17.566] [DEBUG] default - Running on port 8080
+[2019-05-31T12:38:17.567] [DEBUG] default - Running on port 8080
+[2019-05-31T12:39:17.575] [DEBUG] default - Running on port 8080
+[2019-05-31T12:40:17.581] [DEBUG] default - Running on port 8080
+[2019-05-31T12:41:17.585] [DEBUG] default - Running on port 8080
+[2019-05-31T12:42:17.590] [DEBUG] default - Running on port 8080
+[2019-05-31T12:43:17.593] [DEBUG] default - Running on port 8080
+[2019-05-31T12:44:17.597] [DEBUG] default - Running on port 8080
+[2019-05-31T12:45:17.604] [DEBUG] default - Running on port 8080
+[2019-05-31T12:46:17.612] [DEBUG] default - Running on port 8080
+[2019-05-31T12:47:17.620] [DEBUG] default - Running on port 8080
+[2019-05-31T12:48:17.621] [DEBUG] default - Running on port 8080
+[2019-05-31T12:49:17.623] [DEBUG] default - Running on port 8080
+[2019-05-31T12:50:17.626] [DEBUG] default - Running on port 8080
+[2019-05-31T12:51:17.629] [DEBUG] default - Running on port 8080
+[2019-05-31T12:52:17.638] [DEBUG] default - Running on port 8080
+[2019-05-31T12:53:17.644] [DEBUG] default - Running on port 8080
+[2019-05-31T12:54:17.646] [DEBUG] default - Running on port 8080
+[2019-05-31T12:55:17.653] [DEBUG] default - Running on port 8080
+[2019-05-31T12:56:17.652] [DEBUG] default - Running on port 8080
+[2019-05-31T12:57:17.659] [DEBUG] default - Running on port 8080
+[2019-05-31T12:58:17.666] [DEBUG] default - Running on port 8080
+[2019-05-31T12:59:17.668] [DEBUG] default - Running on port 8080
+[2019-05-31T13:00:17.666] [DEBUG] default - Running on port 8080
+[2019-05-31T13:01:17.674] [DEBUG] default - Running on port 8080
+[2019-05-31T13:02:17.674] [DEBUG] default - Running on port 8080
+[2019-05-31T13:03:17.683] [DEBUG] default - Running on port 8080
+[2019-05-31T13:04:17.684] [DEBUG] default - Running on port 8080
+[2019-05-31T13:05:17.684] [DEBUG] default - Running on port 8080
+[2019-05-31T13:06:17.684] [DEBUG] default - Running on port 8080
+[2019-05-31T13:07:17.691] [DEBUG] default - Running on port 8080
+[2019-05-31T13:08:17.699] [DEBUG] default - Running on port 8080
+[2019-05-31T13:09:17.699] [DEBUG] default - Running on port 8080
+[2019-05-31T13:10:17.700] [DEBUG] default - Running on port 8080
+[2019-05-31T13:11:17.698] [DEBUG] default - Running on port 8080
+[2019-05-31T13:12:17.696] [DEBUG] default - Running on port 8080
+[2019-05-31T13:13:17.697] [DEBUG] default - Running on port 8080
+[2019-05-31T13:14:17.699] [DEBUG] default - Running on port 8080
+[2019-05-31T13:15:17.701] [DEBUG] default - Running on port 8080
+[2019-05-31T13:16:17.703] [DEBUG] default - Running on port 8080
+[2019-05-31T13:17:17.702] [DEBUG] default - Running on port 8080
+[2019-05-31T13:18:17.705] [DEBUG] default - Running on port 8080
+[2019-05-31T13:19:17.708] [DEBUG] default - Running on port 8080
+[2019-05-31T13:20:17.706] [DEBUG] default - Running on port 8080
+[2019-05-31T13:21:17.705] [DEBUG] default - Running on port 8080
+[2019-05-31T13:22:17.703] [DEBUG] default - Running on port 8080
+[2019-05-31T13:23:17.700] [DEBUG] default - Running on port 8080
+[2019-05-31T13:24:17.703] [DEBUG] default - Running on port 8080
+[2019-05-31T13:25:17.708] [DEBUG] default - Running on port 8080
+[2019-05-31T13:26:17.711] [DEBUG] default - Running on port 8080
+[2019-05-31T13:27:17.715] [DEBUG] default - Running on port 8080
+[2019-05-31T13:28:17.718] [DEBUG] default - Running on port 8080
+[2019-05-31T13:29:17.720] [DEBUG] default - Running on port 8080
+[2019-05-31T13:30:17.723] [DEBUG] default - Running on port 8080
+[2019-05-31T13:31:17.723] [DEBUG] default - Running on port 8080
+[2019-05-31T13:32:17.722] [DEBUG] default - Running on port 8080
+[2019-05-31T13:33:17.725] [DEBUG] default - Running on port 8080
+[2019-05-31T13:34:17.727] [DEBUG] default - Running on port 8080
+[2019-05-31T13:35:17.724] [DEBUG] default - Running on port 8080
+[2019-05-31T13:36:17.727] [DEBUG] default - Running on port 8080
+[2019-05-31T13:37:17.730] [DEBUG] default - Running on port 8080
+[2019-05-31T13:38:17.728] [DEBUG] default - Running on port 8080
+[2019-05-31T13:39:17.731] [DEBUG] default - Running on port 8080
+[2019-05-31T13:40:17.732] [DEBUG] default - Running on port 8080
+[2019-05-31T13:41:17.730] [DEBUG] default - Running on port 8080
+[2019-05-31T13:42:17.730] [DEBUG] default - Running on port 8080
+[2019-05-31T13:43:17.728] [DEBUG] default - Running on port 8080
+[2019-05-31T13:44:17.721] [DEBUG] default - Running on port 8080
+[2019-05-31T13:45:17.721] [DEBUG] default - Running on port 8080
+[2019-05-31T13:46:17.724] [DEBUG] default - Running on port 8080
+[2019-05-31T13:47:17.722] [DEBUG] default - Running on port 8080
+[2019-05-31T13:48:17.720] [DEBUG] default - Running on port 8080
+[2019-05-31T13:49:17.723] [DEBUG] default - Running on port 8080
+[2019-05-31T13:50:17.721] [DEBUG] default - Running on port 8080
+[2019-05-31T13:51:17.723] [DEBUG] default - Running on port 8080
+[2019-05-31T13:52:17.723] [DEBUG] default - Running on port 8080
+[2019-05-31T13:53:17.725] [DEBUG] default - Running on port 8080
+[2019-05-31T13:54:17.728] [DEBUG] default - Running on port 8080
+[2019-05-31T13:55:17.728] [DEBUG] default - Running on port 8080
+[2019-05-31T13:56:17.736] [DEBUG] default - Running on port 8080
+[2019-05-31T13:57:17.736] [DEBUG] default - Running on port 8080
+[2019-05-31T13:58:17.735] [DEBUG] default - Running on port 8080
+[2019-05-31T13:59:17.734] [DEBUG] default - Running on port 8080
+[2019-05-31T14:00:17.737] [DEBUG] default - Running on port 8080
+[2019-05-31T14:01:17.736] [DEBUG] default - Running on port 8080
+[2019-05-31T14:02:17.738] [DEBUG] default - Running on port 8080
+[2019-05-31T14:03:17.748] [DEBUG] default - Running on port 8080
+[2019-05-31T14:04:17.753] [DEBUG] default - Running on port 8080
+[2019-05-31T14:05:17.755] [DEBUG] default - Running on port 8080
+[2019-05-31T14:06:17.752] [DEBUG] default - Running on port 8080
+[2019-05-31T14:07:17.755] [DEBUG] default - Running on port 8080
+[2019-05-31T14:08:17.754] [DEBUG] default - Running on port 8080
+[2019-05-31T14:09:17.759] [DEBUG] default - Running on port 8080
+[2019-05-31T14:10:17.766] [DEBUG] default - Running on port 8080
+[2019-05-31T14:11:17.770] [DEBUG] default - Running on port 8080
+[2019-05-31T14:12:17.776] [DEBUG] default - Running on port 8080
+[2019-05-31T14:13:17.775] [DEBUG] default - Running on port 8080
+[2019-05-31T14:14:17.773] [DEBUG] default - Running on port 8080
+[2019-05-31T14:15:17.773] [DEBUG] default - Running on port 8080
+[2019-05-31T14:16:17.771] [DEBUG] default - Running on port 8080
+[2019-05-31T14:17:17.769] [DEBUG] default - Running on port 8080
+[2019-05-31T14:18:17.771] [DEBUG] default - Running on port 8080
+[2019-05-31T14:19:17.772] [DEBUG] default - Running on port 8080
+[2019-05-31T14:20:17.771] [DEBUG] default - Running on port 8080
+[2019-05-31T14:21:17.768] [DEBUG] default - Running on port 8080
+[2019-05-31T14:22:17.769] [DEBUG] default - Running on port 8080
+[2019-05-31T14:23:17.772] [DEBUG] default - Running on port 8080
+[2019-05-31T14:24:17.774] [DEBUG] default - Running on port 8080
+[2019-05-31T14:25:17.772] [DEBUG] default - Running on port 8080
+[2019-05-31T14:26:17.770] [DEBUG] default - Running on port 8080
+[2019-05-31T14:27:17.771] [DEBUG] default - Running on port 8080
+[2019-05-31T14:28:17.768] [DEBUG] default - Running on port 8080
+[2019-05-31T14:29:17.765] [DEBUG] default - Running on port 8080
+[2019-05-31T14:30:17.763] [DEBUG] default - Running on port 8080
+[2019-05-31T14:31:17.765] [DEBUG] default - Running on port 8080
+[2019-05-31T14:32:17.768] [DEBUG] default - Running on port 8080
+[2019-05-31T14:33:17.771] [DEBUG] default - Running on port 8080
+[2019-05-31T14:34:17.773] [DEBUG] default - Running on port 8080
+[2019-05-31T14:35:17.776] [DEBUG] default - Running on port 8080
+[2019-05-31T22:05:32.786] [DEBUG] default - Running on port 8080
+[2019-05-31T22:05:40.331] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:05:40.332] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":101,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park"}}
+[2019-05-31T22:05:40.340] [DEBUG] default - | SERVER change TCI state to IDLE STATE
+[2019-05-31T22:05:40.341] [DEBUG] default - | SERVER send request: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park","clientType":2}}
+[2019-05-31T22:05:40.342] [DEBUG] default - | SERVER change TCI state to USER ID DUPLICATE REQUESTED STATE
+[2019-05-31T22:05:40.360] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":171,"msgLen":0,"endpointId":3},"payload":{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park","clientType":2}}
+[2019-05-31T22:05:40.361] [DEBUG] default - | DATABASE change TCI state to IDLE STATE
+[2019-05-31T22:05:40.363] [DEBUG] default - | DATABASE Send response:{"header":{"msgType":172,"msgLen":0,"endpointId":3},"payload":{"resultCode":0}}
+[2019-05-31T22:05:40.363] [DEBUG] default - | DATABASE change TCI state to UNIQUE USER CONFIRMED STATE
+[2019-05-31T22:05:40.382] [DEBUG] default - | SERVER change TCI state to USER ID AVAILABLITY CONFIRMED STATE
+[2019-05-31T22:05:40.383] [DEBUG] default - | Server Send response: {"header":{"msgType":102,"msgLen":0,"endpointId":3},"payload":{"resultCode":0,"vc":"4267"}}
+[2019-05-31T22:05:40.410] [DEBUG] default - | SERVER stored temporary user info: in 300 sec > {"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park","clientType":2}
+[2019-05-31T22:06:32.785] [DEBUG] default - Running on port 8080
+[2019-05-31T22:06:59.444] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:06:59.445] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":103,"msgLen":0,"endpointId":3},"payload":{"vc":"4267","ac":"C3L782M7Y121U117"}}
+[2019-05-31T22:06:59.454] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":173,"msgLen":0,"endpointId":3},"payload":{"userLn":"Park","gender":"0","bdt":"657072000","userId":"dev.j.jobs1028@gmail.com","userFn":"Junhee","userPw":"test123@","clientType":2}}
+[2019-05-31T22:06:59.539] [DEBUG] default - | DATABASE stored user info{"bdt":"657072000","gender":"0","userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","userFn":"Junhee","userLn":"Park","clientType":2,"regf":0,"ml":0,"mti":0,"tti":0,"ass":0,"expd":0,"newUsn":"1"}
+[2019-05-31T22:06:59.540] [DEBUG] default - | DATABASE change TCI state to USN ALLOCATED STATE
+[2019-05-31T22:06:59.544] [DEBUG] default - | SERVER change TCI state to USN ALLOCATED STATE
+[2019-05-31T22:06:59.546] [DEBUG] default - | SERVER Send response: {"header":{"msgType":104,"msgLen":0,"endpointId":3},"payload":{"resultCode":0}}
+[2019-05-31T22:07:18.433] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:07:18.434] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":105,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@"}}
+[2019-05-31T22:07:18.436] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2019-05-31T22:07:18.441] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":4},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","clientType":2}}
+[2019-05-31T22:07:18.523] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2019-05-31T22:07:18.525] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":4},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2019-05-31T22:07:18.529] [DEBUG] default - | SERVER stored active user [["set","c:act:s:w:1:signf","1","EX",1800],["set","c:act:s:w:1:nsc","1","EX",1800],["set","c:act:s:w:1:ml","0","EX",1800]]
+[2019-05-31T22:07:18.530] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2019-05-31T22:07:29.130] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:07:29.131] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":117,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"a1b2c3d4e5f6","cmac":"b1b2c3d4e5f6"}}
+[2019-05-31T22:07:29.137] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":187,"msgLen":0,"endpointId":1},"payload":{"wmac":"a1b2c3d4e5f6","cmac":"b1b2c3d4e5f6","clientType":2}}
+[2019-05-31T22:07:29.141] [DEBUG] default - | DATABASE stored sensor info{"wmac":"a1b2c3d4e5f6","cmac":"b1b2c3d4e5f6","ssn":"1","actf":0,"mobf":0,"stat":255,"rdt":"1559308049","sdt":0,"edt":0,"drgcd":0,"regusn":1}
+[2019-05-31T22:07:29.142] [DEBUG] default - | DATABASE change USN state (USN INFORMED) -> (USN INFORMED)
+[2019-05-31T22:07:29.146] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-05-31T22:07:29.147] [DEBUG] default - | SERVER send response: {"header":{"msgType":118,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-05-31T22:07:32.784] [DEBUG] default - Running on port 8080
+[2019-05-31T22:07:40.588] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:07:40.589] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":125,"msgLen":0,"endpointId":1},"payload":{"nsc":1,"wmac":"a1b2c3d4e5f6","mobf":"0"}}
+[2019-05-31T22:07:40.597] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":195,"msgLen":0,"endpointId":1},"payload":{"wmac":"a1b2c3d4e5f6","mobf":"0","clientType":2}}
+[2019-05-31T22:07:40.601] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":196,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-05-31T22:07:40.603] [DEBUG] default - | SERVER change USN state (USN INFORMED) ->  (USN INFORMED)
+[2019-05-31T22:07:40.604] [DEBUG] default - | SERVER send response: {"header":{"msgType":126,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-05-31T22:08:04.933] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:08:04.934] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@"}}
+[2019-05-31T22:08:04.936] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2019-05-31T22:08:04.941] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","clientType":1}}
+[2019-05-31T22:08:05.023] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2019-05-31T22:08:05.024] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2019-05-31T22:08:05.027] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","1","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2019-05-31T22:08:05.028] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2019-05-31T22:08:21.837] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:08:21.838] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"a1b2c3d4e5f6"}}
+[2019-05-31T22:08:21.844] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"a1b2c3d4e5f6","clientType":2}}
+[2019-05-31T22:08:21.845] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2019-05-31T22:08:21.846] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2019-05-31T22:08:21.850] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2019-05-31T22:08:21.851] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2019-05-31T22:08:32.784] [DEBUG] default - Running on port 8080
+[2019-05-31T22:08:36.687] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:08:36.688] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-05-31T22:08:36.689] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2019-05-31T22:08:36.694] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-05-31T22:08:36.697] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2019-05-31T22:08:36.698] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-05-31T22:08:36.700] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2019-05-31T22:08:36.701] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"1","mti":1,"tti":30}}
+[2019-05-31T22:08:44.683] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:08:44.684] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":5,"msgLen":0,"endpointId":1},"payload":{}}
+[2019-05-31T22:08:44.686] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (HALF IDLE)
+[2019-05-31T22:08:44.692] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":205,"msgLen":0,"endpointId":"1"},"payload":{"entityType":"n"}}
+[2019-05-31T22:08:44.693] [DEBUG] default - | SERVER change SSN state (CID INFORMED) ->  (IDLE)
+[2019-05-31T22:08:44.694] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":206,"msgLen":0,"endpointId":"1"},"payload":{"resultCode":0}}
+[2019-05-31T22:08:44.697] [DEBUG] default - | SERVER change SSN state (HALF IDLE) ->  (IDLE)
+[2019-05-31T22:08:44.698] [DEBUG] default - | SERVER send response: {"header":{"msgType":6,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-05-31T22:08:48.908] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:08:48.909] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-05-31T22:08:48.910] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":1}}
+[2019-05-31T22:09:02.557] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:09:02.558] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"a1b2c3d4e5f6"}}
+[2019-05-31T22:09:02.564] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"a1b2c3d4e5f6","clientType":2}}
+[2019-05-31T22:09:02.565] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2019-05-31T22:09:02.566] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2019-05-31T22:09:02.568] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2019-05-31T22:09:02.569] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2019-05-31T22:09:04.980] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:09:04.981] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-05-31T22:09:04.983] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2019-05-31T22:09:04.989] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-05-31T22:09:04.991] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2019-05-31T22:09:04.992] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2019-05-31T22:09:04.995] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2019-05-31T22:09:04.996] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"2","mti":1,"tti":30,"mobf":"0"}}
+[2019-05-31T22:09:16.754] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:09:16.755] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":2},"payload":{"dataTupleLen":3,"airQualityDataTuple":[[1538291581,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}
+[2019-05-31T22:13:23.532] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:13:23.536] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":2},"payload":{"dataTupleLen":3,"airQualityDataTuples":[[1538291581,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}
+[2019-05-31T22:13:33.697] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:13:33.698] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":2},"payload":{"dataTupleLen":3,"airQualityDataTuples":[[1538291581,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}
+[2019-05-31T22:13:40.636] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:13:40.637] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"a1b2c3d4e5f6"}}
+[2019-05-31T22:13:40.654] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"a1b2c3d4e5f6","clientType":2}}
+[2019-05-31T22:13:40.656] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2019-05-31T22:13:40.657] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2019-05-31T22:13:40.663] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2019-05-31T22:13:40.664] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2019-05-31T22:13:43.797] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:13:43.798] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-05-31T22:13:43.802] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2019-05-31T22:13:43.808] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-05-31T22:13:43.810] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2019-05-31T22:13:43.811] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2019-05-31T22:13:43.816] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2019-05-31T22:13:43.816] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"3","mti":1,"tti":30,"mobf":"0"}}
+[2019-05-31T22:13:47.217] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:13:47.218] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":2},"payload":{"dataTupleLen":3,"airQualityDataTuples":[[1538291581,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}
+[2019-05-31T22:14:13.566] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:14:13.567] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":2},"payload":{"dataTupleLen":3,"airQualityDataTuples":[[1538291581,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}
+[2019-05-31T22:14:20.824] [DEBUG] default - Running on port 8080
+[2019-05-31T22:14:33.331] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:14:33.332] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":2},"payload":{"dataTupleLen":3,"airQualityDataTuples":[[1538291581,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}
+[2019-05-31T22:14:45.259] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:14:45.260] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":1},"payload":{"dataTupleLen":3,"airQualityDataTuples":[[1538291581,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}
+[2019-05-31T22:14:58.420] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:14:58.421] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":3},"payload":{"dataTupleLen":3,"airQualityDataTuples":[[1538291581,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}
+[2019-05-31T22:15:19.410] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:15:19.413] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":3},"payload":{"dataTupleLen":3,"airQualityDataTuples":[[1538291581,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}
+[2019-05-31T22:17:30.978] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:17:30.982] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":3},"payload":{"dataTupleLen":3,"airQualityDataListEncodings":{"airQualityDataTuples":[[1538291581,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}}
+[2019-05-31T22:17:43.342] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:17:43.343] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":1,"msgLen":0,"endpointId":1},"payload":{"wmac":"a1b2c3d4e5f6"}}
+[2019-05-31T22:17:43.362] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":201,"msgLen":0,"endpointId":1},"payload":{"wmac":"a1b2c3d4e5f6","clientType":2}}
+[2019-05-31T22:17:43.364] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":202,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2019-05-31T22:17:43.365] [DEBUG] default - | DATABASE change SSN state (IDLE) -> (SSN INFORMED)
+[2019-05-31T22:17:43.371] [DEBUG] default - | SERVER change SSN state (HALF SSN INFORMED) ->  (HALF CID INFORMED)
+[2019-05-31T22:17:43.372] [DEBUG] default - | SERVER send response: {"header":{"msgType":2,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"ssn":"1"}}
+[2019-05-31T22:17:46.053] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:17:46.054] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":3,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-05-31T22:17:46.057] [DEBUG] default - | SERVER change SSN state (SSN INFORMED) ->  (HALF CID INFORMED)
+[2019-05-31T22:17:46.062] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":203,"msgLen":0,"endpointId":1},"payload":{"lat":32.88247,"lng":-117.23484,"nat":"Q30","state":"Q99","city":"Q16552"}}
+[2019-05-31T22:17:46.065] [DEBUG] default - | DATABASE change SSN state (SSN INFORMED) -> (CID ALLOCATED)
+[2019-05-31T22:17:46.066] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":204,"msgLen":0,"endpointId":1},"payload":{"mobf":"0","resultCode":0}}
+[2019-05-31T22:17:46.071] [DEBUG] default - | SERVER change SSN state (HALF CID INFORMED) ->  (CID INFORMED)
+[2019-05-31T22:17:46.072] [DEBUG] default - | SERVER send response: {"header":{"msgType":4,"msgLen":0,"endpointId":1},"payload":{"resultCode":0,"cid":"4","mti":1,"tti":30,"mobf":"0"}}
+[2019-05-31T22:17:58.417] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:17:58.418] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":4},"payload":{"dataTupleLen":3,"airQualityDataListEncodings":{"airQualityDataTuples":[[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}}
+[2019-05-31T22:18:01.010] [DEBUG] default - | SERVER Send response: {"header":{"msgType":8,"msgLen":0,"endpointId":4},"payload":{"successfulRcptFlg":1,"continuityOfSuccessfulRcpt":1,"numOfSuccessfulRcpt":2,"listOfSuccessfulTs":[1538291582,1538291583],"retransReqFlg":1,"continuityOfRetransReq":1,"numOfRetransReq":null,"listOfUnsuccessfulTs":[1538291584,null]}}
+[2019-05-31T22:18:28.935] [DEBUG] default -     +--------------------------------------------------------------------------------.................
+[2019-05-31T22:18:28.936] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":7,"msgLen":0,"endpointId":4},"payload":{"dataTupleLen":3,"airQualityDataListEncodings":{"airQualityDataTuples":[[1538291582,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291583,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422],[1538291584,24,25,26,27,28,29,34,35,36,37,38,39,40,32.112223,-10.222422]]}}}
+[2019-05-31T22:18:31.122] [DEBUG] default - Running on port 8080
+[2019-05-31T22:18:31.125] [DEBUG] default - | SERVER Send response: {"header":{"msgType":8,"msgLen":0,"endpointId":4},"payload":{"successfulRcptFlg":1,"continuityOfSuccessfulRcpt":1,"numOfSuccessfulRcpt":3,"listOfSuccessfulTs":[1538291582,1538291584],"retransReqFlg":1,"continuityOfRetransReq":1,"numOfRetransReq":null,"listOfUnsuccessfulTs":[1538291585,null]}}
+[2019-05-31T22:18:51.107] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:18:51.108] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@"}}
+[2019-05-31T22:18:51.110] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2019-05-31T22:18:51.116] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","clientType":1}}
+[2019-05-31T22:18:51.197] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2019-05-31T22:18:51.198] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2019-05-31T22:18:51.203] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","2","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2019-05-31T22:18:51.204] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2019-05-31T22:18:57.873] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:18:57.874] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":37,"msgLen":0,"endpointId":1},"payload":{"nsc":"2"}}
+[2019-05-31T22:18:57.876] [DEBUG] default - | SERVER change USN state (USN INFORMED STATE) ->  (HALF IDLE IDLE)
+[2019-05-31T22:18:57.882] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":177,"msgLen":0,"endpointId":1},"payload":{"usn":1,"clientType":1}}
+[2019-05-31T22:18:57.884] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":178,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-05-31T22:18:57.884] [DEBUG] default - | SERVER change USN state (USN INFORMED) -> (IDLE)
+[2019-05-31T22:18:57.887] [DEBUG] default - | SERVER change USN state (HALF IDLE STATE) ->  (IDLE)
+[2019-05-31T22:18:57.888] [DEBUG] default - | SERVER send response: {"header":{"msgType":38,"msgLen":0,"endpointId":1},"payload":{"resultCode":0}}
+[2019-05-31T22:19:00.850] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:19:00.851] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":35,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@"}}
+[2019-05-31T22:19:00.852] [DEBUG] default - | SERVER change TCI state (IDLE) -> (HALF USN INFORMED STATE)
+[2019-05-31T22:19:00.857] [DEBUG] default - | DB Received request on /databaseapi: {"header":{"msgType":175,"msgLen":0,"endpointId":5},"payload":{"userId":"dev.j.jobs1028@gmail.com","userPw":"test123@","clientType":1}}
+[2019-05-31T22:19:00.940] [DEBUG] default - | DATABASE change USN state (IDLE) -> (USN INFORMED)
+[2019-05-31T22:19:00.941] [DEBUG] default - | DATABASE Send response: {"header":{"msgType":176,"msgLen":0,"endpointId":5},"payload":{"resultCode":0,"usn":"1","ml":"0"}}
+[2019-05-31T22:19:00.943] [DEBUG] default - | SERVER stored active user [["set","c:act:s:a:1:signf","0","EX",1800],["set","c:act:s:a:1:nsc","1","EX",1800],["set","c:act:s:a:1:ml","0","EX",1800]]
+[2019-05-31T22:19:00.944] [DEBUG] default - | SERVER change USN state (IDLE) -> (USN INFORMED)
+[2019-05-31T22:19:04.891] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:19:04.892] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":57,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
+[2019-05-31T22:19:04.894] [DEBUG] default - Server Send response: {"header":{"msgType":58,"msgLen":0,"endpointId":0},"payload":{"realtimeAirQualityDataList":[],"resultCode":0}}
+[2019-05-31T22:19:06.563] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:19:06.564] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":57,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
+[2019-05-31T22:19:06.566] [DEBUG] default - Server Send response: {"header":{"msgType":58,"msgLen":0,"endpointId":0},"payload":{"realtimeAirQualityDataList":[],"resultCode":0}}
+[2019-05-31T22:19:07.222] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:19:07.224] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":57,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
+[2019-05-31T22:19:07.226] [DEBUG] default - Server Send response: {"header":{"msgType":58,"msgLen":0,"endpointId":0},"payload":{"realtimeAirQualityDataList":[],"resultCode":0}}
+[2019-05-31T22:19:07.885] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:19:07.886] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":57,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
+[2019-05-31T22:19:07.888] [DEBUG] default - Server Send response: {"header":{"msgType":58,"msgLen":0,"endpointId":0},"payload":{"realtimeAirQualityDataList":[],"resultCode":0}}
+[2019-05-31T22:19:09.266] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:19:09.267] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":57,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
+[2019-05-31T22:19:09.268] [DEBUG] default - Server Send response: {"header":{"msgType":58,"msgLen":0,"endpointId":0},"payload":{"realtimeAirQualityDataList":[],"resultCode":0}}
+[2019-05-31T22:19:12.844] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:19:12.845] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":57,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
+[2019-05-31T22:19:12.847] [DEBUG] default - Server Send response: {"header":{"msgType":58,"msgLen":0,"endpointId":0},"payload":{"realtimeAirQualityDataList":[],"resultCode":0}}
+[2019-05-31T22:19:18.573] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:19:18.574] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":57,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
+[2019-05-31T22:19:18.575] [DEBUG] default - Server Send response: {"header":{"msgType":58,"msgLen":0,"endpointId":0},"payload":{"realtimeAirQualityDataList":[],"resultCode":0}}
+[2019-05-31T22:19:31.122] [DEBUG] default - Running on port 8080
+[2019-05-31T22:20:31.123] [DEBUG] default - Running on port 8080
+[2019-05-31T22:21:31.124] [DEBUG] default - Running on port 8080
+[2019-05-31T22:22:31.122] [DEBUG] default - Running on port 8080
+[2019-05-31T22:23:31.119] [DEBUG] default - Running on port 8080
+[2019-05-31T22:24:31.118] [DEBUG] default - Running on port 8080
+[2019-05-31T22:25:20.553] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:25:20.554] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":57,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
+[2019-05-31T22:25:20.555] [DEBUG] default - Server Send response: {"header":{"msgType":58,"msgLen":0,"endpointId":0},"payload":{"realtimeAirQualityDataList":[],"resultCode":0}}
+[2019-05-31T22:25:22.684] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:25:22.685] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":57,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
+[2019-05-31T22:25:22.686] [DEBUG] default - Server Send response: {"header":{"msgType":58,"msgLen":0,"endpointId":0},"payload":{"realtimeAirQualityDataList":[],"resultCode":0}}
+[2019-05-31T22:25:29.427] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:25:29.428] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":131,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
+[2019-05-31T22:25:29.430] [DEBUG] default - Server Send response: {"header":{"msgType":132,"msgLen":0,"endpointId":0},"payload":{"realtimeAirQualityDataList":[],"resultCode":0}}
+[2019-05-31T22:25:30.542] [DEBUG] default - +--------------------------------------------------------------------------------.................
+[2019-05-31T22:25:30.543] [DEBUG] default - | SERVER Received request on /serverapi: {"header":{"msgType":131,"msgLen":0,"endpointId":0},"payload":{"nsc":0,"provinceListEncodings":{"lat":"32.882425","lng":"-117.234667","commonNatTierTuple":{"nat":"Q30","commonStateTierTuple":[{"state":"Q99","commonCityTierTuple":["Q16552","Q65"]}]}},"keywordSearchListEncodings":{}}}
+[2019-05-31T22:25:30.545] [DEBUG] default - Server Send response: {"header":{"msgType":132,"msgLen":0,"endpointId":0},"payload":{"realtimeAirQualityDataList":[],"resultCode":0}}
+[2019-05-31T22:25:31.118] [DEBUG] default - Running on port 8080
+[2019-05-31T22:26:31.117] [DEBUG] default - Running on port 8080
+[2019-05-31T22:27:31.114] [DEBUG] default - Running on port 8080
+[2019-05-31T22:28:00.986] [DEBUG] default - | SERVER removed realtime data.
+[2019-05-31T22:28:31.102] [DEBUG] default - | SERVER removed realtime data.
+[2019-05-31T22:28:31.115] [DEBUG] default - Running on port 8080
+[2019-05-31T22:29:31.115] [DEBUG] default - Running on port 8080
+[2019-05-31T22:30:31.117] [DEBUG] default - Running on port 8080
+[2019-05-31T22:31:31.120] [DEBUG] default - Running on port 8080
+[2019-05-31T22:32:31.121] [DEBUG] default - Running on port 8080
+[2019-05-31T22:33:31.119] [DEBUG] default - Running on port 8080
+[2019-05-31T22:34:31.117] [DEBUG] default - Running on port 8080
+[2019-05-31T22:35:31.115] [DEBUG] default - Running on port 8080
+[2019-05-31T22:36:31.113] [DEBUG] default - Running on port 8080
+[2019-05-31T22:37:31.110] [DEBUG] default - Running on port 8080
+[2019-05-31T22:38:31.113] [DEBUG] default - Running on port 8080
+[2019-05-31T22:39:31.112] [DEBUG] default - Running on port 8080
+[2019-05-31T22:40:31.110] [DEBUG] default - Running on port 8080
+[2019-05-31T22:41:31.112] [DEBUG] default - Running on port 8080
+[2019-05-31T22:42:31.116] [DEBUG] default - Running on port 8080
+[2019-05-31T22:43:31.120] [DEBUG] default - Running on port 8080
+[2019-06-01T09:13:36.665] [DEBUG] default - Running on port 8080
+[2019-06-01T09:14:36.538] [DEBUG] default - Running on port 8080
+[2019-06-01T09:15:36.303] [DEBUG] default - Running on port 8080
+[2019-06-01T09:16:36.303] [DEBUG] default - Running on port 8080
+[2019-06-01T09:17:36.302] [DEBUG] default - Running on port 8080
+[2019-06-01T09:18:36.301] [DEBUG] default - Running on port 8080
+[2019-06-01T09:19:36.304] [DEBUG] default - Running on port 8080
+[2019-06-01T09:20:36.302] [DEBUG] default - Running on port 8080
+[2019-06-01T09:21:36.304] [DEBUG] default - Running on port 8080
+[2019-06-01T09:22:36.307] [DEBUG] default - Running on port 8080
+[2019-06-01T09:23:36.307] [DEBUG] default - Running on port 8080
+[2019-06-01T09:24:36.305] [DEBUG] default - Running on port 8080
+[2019-06-01T09:25:36.308] [DEBUG] default - Running on port 8080
+[2019-06-01T09:26:36.310] [DEBUG] default - Running on port 8080
+[2019-06-01T09:27:36.318] [DEBUG] default - Running on port 8080
+[2019-06-01T09:28:36.321] [DEBUG] default - Running on port 8080
+[2019-06-01T09:29:36.328] [DEBUG] default - Running on port 8080
+[2019-06-01T09:30:36.326] [DEBUG] default - Running on port 8080
+[2019-06-01T09:31:36.332] [DEBUG] default - Running on port 8080
+[2019-06-01T09:32:36.338] [DEBUG] default - Running on port 8080
+[2019-06-01T09:33:36.340] [DEBUG] default - Running on port 8080
+[2019-06-01T09:34:36.342] [DEBUG] default - Running on port 8080
+[2019-06-01T09:35:36.344] [DEBUG] default - Running on port 8080
+[2019-06-01T09:36:36.345] [DEBUG] default - Running on port 8080
+[2019-06-01T09:37:36.346] [DEBUG] default - Running on port 8080
+[2019-06-01T09:38:36.344] [DEBUG] default - Running on port 8080
+[2019-06-01T09:39:36.343] [DEBUG] default - Running on port 8080
+[2019-06-01T09:40:36.344] [DEBUG] default - Running on port 8080
+[2019-06-01T09:41:36.348] [DEBUG] default - Running on port 8080
+[2019-06-01T09:42:36.350] [DEBUG] default - Running on port 8080
+[2019-06-01T09:43:36.349] [DEBUG] default - Running on port 8080
+[2019-06-01T09:44:36.347] [DEBUG] default - Running on port 8080
+[2019-06-01T09:45:36.340] [DEBUG] default - Running on port 8080
+[2019-06-01T09:46:36.339] [DEBUG] default - Running on port 8080
+[2019-06-01T09:47:36.340] [DEBUG] default - Running on port 8080
+[2019-06-01T09:48:36.340] [DEBUG] default - Running on port 8080

@@ -30,6 +30,11 @@ const storeHistoricalDataModule = require('./historicalAirDataModule');
 
 const redis = require("redis");
 //Connect with Redis client
+console.log("connect");
+const redisConf = {
+    
+    host: 'root:wnsgml90@intuseer.co.kr',
+}
 const redisCli = redis.createClient();
 //Data tran
 router.post("/serverdatatran", function (req, res){
@@ -2183,7 +2188,7 @@ router.post("/serverapi", function (req, res) {
                                             if (result) {
                                                 payload.resultCode = g.SAP_MSG_RESCODE.RESCODE_SAP_SAS.RESCODE_SAP_SAS_OK;
                                                 protocol.packMsg(g.SAP_MSG_TYPE.SAP_SAS_RSP, payload);
-
+                                                console.log(payload);
                                                 state.setState(g.ENTITY_TYPE.SERVER, g.ENDPOINT_ID_TYPE.EI_TYPE_APP_USN, protocol.getEndpointId(), g.SERVER_USN_STATE_ID.SERVER_USN_USN_INFORMED_STATE, g.SERVER_TIMER.T863);
                                                 logger.debug("| SERVER change USN state (USN INFORMED) ->  (USN INFORMED)");
 
