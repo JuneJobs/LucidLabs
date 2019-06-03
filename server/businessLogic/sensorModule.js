@@ -141,7 +141,7 @@ class sensorModule {
         var successfulRcptFlg = 0;
         var retransReqFlg = 0;
         var continuityOfSuccessfulRcpt = 1;
-        var continuityOfRetransReq = 1;
+        var continuityOfRetransReq = 0;
         var numOfSuccessfulRcpt = 1;
         var numOfRetransReq = 0;
         var arrSuccessfulRcvdData = [];
