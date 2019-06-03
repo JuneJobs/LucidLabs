@@ -302,7 +302,7 @@ class LlProtocol {
                     return this._unpackSwpKasReqPayload();
 
                 default:
-                    return fasle;
+                    return false;
             }
         } else {
             return false;
