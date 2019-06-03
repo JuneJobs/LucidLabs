@@ -2305,7 +2305,7 @@ router.post("/serverapi", function (req, res) {
                                         break;
 
                                     case g.SDP_MSG_RESCODE.RESCODE_SDP_SAS.RESCODE_SDP_SAS_NOT_EXIST_WIFI_MAC_ADDRESS:
-                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SAS.RESCODE_SDP_SAS_NOT_EXIST_WIFI_MAC_ADDRESS;
+                                        payload.resultCode = g.SWP_MSG_RESCODE.RESCODE_SWP_SAS.RESCODE_SWP_SAS_NOT_EXIST_WIFI_MAC_ADDRESS;
                                         protocol.packMsg(g.SWP_MSG_TYPE.SWP_SAS_RSP, payload);
                                         
                                         logger.debug(`| SERVER send response: ${JSON.stringify(protocol.getPackedMsg())}`);
