@@ -3004,7 +3004,7 @@ router.post("/serverapi", function (req, res) {
          */
         case g.SSP_MSG_TYPE.SSP_DCD_NOT:
             // 1.~
-            return redisCli.get(`c:con:s:${protocol.getEndpointId()}:ssn`, (err, ssn) => {
+            return µµredisCli.get(`c:con:s:${protocol.getEndpointId()}:ssn`, (err, ssn) => {
                 /*
                  * Receive SSP: DCD-NOT
                  * 
