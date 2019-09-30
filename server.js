@@ -4,6 +4,7 @@
 const config = require('./server/config/default.json');
 const bodyParser = require("body-parser");
 const express = require("express");
+const cors = require('cors');
 //Import logger module
 const LlLogger = require("./server/lib/LlLogger");
 global.logger = new LlLogger(config.loggerLevel);
@@ -21,6 +22,11 @@ global.path = __dirname;
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use("/", router);
+let corsOptions = {
+    origin: 'http://localhost:3000', // 허락하고자 하는 요청 주소
+    credentials: true // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
+} 
+app.use(cors(corsOptions));
 
 require('./server/businessLogic/router');
 //require('./server/routes/Core');
