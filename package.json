@@ -28,5 +28,6 @@
     "nodemailer": "^4.6.8",
     "redis": "^2.8.0",
     "request": "^2.88.0"
-  }
+  },
+  "proxy": "http://localhost:8080/"
 }
