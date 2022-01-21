@@ -23,7 +23,7 @@
     "bcrypt": "^3.0.0",
     "cors": "^2.8.5",
     "express": "^4.16.3",
-    "log4js": "^3.0.4",
+    "log4js": "^6.4.0",
     "node-code-generator": "^1.0.3",
     "nodemailer": "^4.6.8",
     "redis": "^2.8.0",
